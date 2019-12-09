@@ -105,7 +105,9 @@ public interface GraphModel {
 	public NodeModel getNode(int index);
 	
 	public NodeModel[] getNode();
-	
+
+	public NodeModel getRandomNode();
+
 	public void addNode(NodeModel n);
 	
 	public void removeNode(NodeModel n);

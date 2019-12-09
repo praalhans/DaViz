@@ -339,6 +339,12 @@ public class DefaultGraphModel implements GraphModel {
 		return nodes.toArray(new NodeModel[nodes.size()]);
 	}
 	
+	@Override
+	public NodeModel getRandomNode() {
+		int index = (int)(Math.random() * getNodeCount()) + 0;
+		return nodes.get(index);
+	}
+	
 	public void addNode(NodeModel n) {
 		DefaultNodeModel dn = (DefaultNodeModel) n;
 		if (dn.getParent() != this)

@@ -457,6 +457,7 @@ class Controller {
 		simulationManager.afterSimulation(() -> {
 			Algorithms alg = (Algorithms) control.algorithmsBox.getSelectedItem();
 			Object[] init = control.initiatorBox.getValue();
+
 			if (networkModel.isEmpty()) {
 				JOptionPane.showMessageDialog(control, "The network is empty.", "Unable to start simulation", JOptionPane.ERROR_MESSAGE);
 				return;
@@ -486,13 +487,6 @@ class Controller {
 					ps[i].putClientProperty(Node.CLIENT_PROPERTY_NODEMODEL, nodes[i]);
 					network.addNode(ps[i]);
 				}
-				Node[] is = new Node[init.length];
-				for (int i = 0; i < init.length; i++) {
-					for (int j = 0; is[i] == null && j < nodes.length; j++) {
-						if (nodes[j] == init[i]) is[i] = ps[j];
-					}
-					if (is[i] == null) throw new Error();
-				}
 				EdgeModel[] edges = networkModel.getValidEdge();
 				Channel[] es = new Channel[edges.length];
 				for (int i = 0; i < edges.length; i++) {
@@ -516,7 +510,16 @@ class Controller {
 					}
 				}
 				sim.setNetwork(network);
-				sim.setInitiator(is[0]);
+				if (init != null) {
+					Node[] is = new Node[init.length];
+					for (int i = 0; i < init.length; i++) {
+						for (int j = 0; is[i] == null && j < nodes.length; j++) {
+							if (nodes[j] == init[i]) is[i] = ps[j];
+						}
+						if (is[i] == null) throw new Error();
+					}
+					sim.setInitiator(is[0]);
+				}
 				sim.load();
 				return sim;
 			});
