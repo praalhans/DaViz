@@ -98,7 +98,7 @@ public class JAssignmentField extends JPanel {
 		picker.setEnabled(enabled);
 		if (!enabled) {
 			customDocument.locked = false;
-			field.setText("");
+			clearValue();
 			customDocument.locked = true;
 		} else {
 			updateField();
