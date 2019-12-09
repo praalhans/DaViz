@@ -1,0 +1,39 @@
+module com.aexiz.daviz.sim.Tree where
+    
+    import com.aexiz.daviz.sim.Set
+    import com.aexiz.daviz.sim.Process
+    
+    data UP = Undefined
+            | Parent Channel
+    derive Eq UP
+    
+    data PS = PS { neigh :: Set Channel
+                 , state :: UP }
+    type MS = ()
+    type RS = ()
+    
+    -- State transition function
+    trans :: PS -> ProcessResult RS PS MS
+    -- Step 1.
+    trans (PS n Undefined) | (sizeS n) == 1 =
+        PSend s' (p, ()) where
+            p = nextS n
+            s' = PS emptyS (Parent p)
+    -- Step 2.
+    trans (PS n Undefined) | (sizeS n) > 1 =
+        PReceive f where
+            f (rch, ()) = PS (removeS n (reverseC rch)) Undefined
+    -- Step 3.
+    trans (PS n (Parent p)) | (sizeS n) == 0 =
+        PReceive f where
+            f (rch, ()) | reverseC rch == p = PS (addS n (reverseC rch)) (Parent p)
+                        | otherwise = error "Unexpected message sender (3)"
+    trans (PS n (Parent p)) | (sizeS n) == 1 =
+        PResult ()
+    -- Partial
+    trans _ = error "Underspecified"
+    
+    procDesc :: ProcessDescription KnownNetwork RS PS MS
+    procDesc = PD init trans where
+        init (n, p) = PS (outChannels n p) Undefined
+    
