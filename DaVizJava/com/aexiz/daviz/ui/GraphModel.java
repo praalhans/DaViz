@@ -1,5 +1,6 @@
 package com.aexiz.daviz.ui;
 
+import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.EventObject;
 
@@ -44,6 +45,18 @@ public interface GraphModel {
 		public boolean isOverlapping();
 		
 		public void remove();
+		
+		public void addIncomingNode(String node);
+		
+		public void removeIncomingNode(String node);
+		
+		public ArrayList<String> getIncomingNodes();
+		
+		public void addOutgoingNode(String node);
+		
+		public void removeOutgoingNode(String node);
+		
+		public ArrayList<String> getOutgoingNodes();
 		
 	}
 	
@@ -151,5 +164,4 @@ public interface GraphModel {
 	public void setReadOnly(boolean read);
 	
 	public boolean isReadOnly();
-	
 }

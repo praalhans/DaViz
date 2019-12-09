@@ -2,7 +2,9 @@ package com.aexiz.daviz.ui;
 
 import java.util.ArrayList;
 import java.util.EventObject;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -59,6 +61,8 @@ public class DefaultGraphModel implements GraphModel {
 		protected float x, y, dx, dy;
 		protected boolean pressed;
 		protected String label = "?";
+		protected ArrayList<String> incomingNodes = new ArrayList<>();
+		protected ArrayList<String> outgoingNodes = new ArrayList<>();
 		
 		DefaultNodeModel(float x, float y) {
 			this.x = x;
@@ -179,6 +183,35 @@ public class DefaultGraphModel implements GraphModel {
 			return getLabel();
 		}
 		
+		@Override
+		public void addIncomingNode(String node) {
+			incomingNodes.add(node);
+		}
+		
+		@Override
+		public void removeIncomingNode(String node) {
+			incomingNodes.remove(node);
+		}
+		
+		@Override
+		public ArrayList<String> getIncomingNodes() {
+			return incomingNodes;
+		}
+
+		@Override
+		public void addOutgoingNode(String node) {
+			outgoingNodes.add(node);	
+		}
+
+		@Override
+		public void removeOutgoingNode(String node) {
+			outgoingNodes.remove(node);
+		}
+
+		@Override
+		public ArrayList<String> getOutgoingNodes() {
+			return outgoingNodes;
+		}
 	}
 	
 	class DefaultEdgeModel implements EdgeModel {
@@ -325,6 +358,7 @@ public class DefaultGraphModel implements GraphModel {
 			throw new IllegalArgumentException();
 		if (!nodes.contains(n))
 			throw new IllegalArgumentException();
+		removeNodeFromAdjancet(dn);
 		nodes.remove(n);
 		fireStateChanged();
 	}
@@ -356,6 +390,9 @@ public class DefaultGraphModel implements GraphModel {
 		if (de.getParent() != this)
 			throw new IllegalArgumentException();
 		DefaultEdgeModel removeA = null, removeB = null;
+		
+		setNodesAsAdjacent(de.getFrom(), de.getTo(), de.isDirected());
+		/* Verifies if the new edge already exists */
 		if (e.isDirected()) {
 			for (DefaultEdgeModel f : edges) {
 				if (f.isDirected() && f.from == de.from && f.to == de.to)
@@ -365,6 +402,7 @@ public class DefaultGraphModel implements GraphModel {
 			}
 		} else {
 			for (DefaultEdgeModel f : edges) {
+				/* Replace a previously unidirectional edge with the new bidirectional edge */
 				if (f.isDirected() && (f.from == de.from && f.to == de.to || f.from == de.to && f.to == de.from)) {
 					if (removeA == null) removeA = f;
 					else removeB = f;
@@ -531,10 +569,40 @@ public class DefaultGraphModel implements GraphModel {
 	}
 
 	public boolean isAcyclic() {
-		// TODO algorithm for finding cycles
+		Map<String, Boolean> visited = createNodeVisitedMap();
+		for (NodeModel node : nodes) {
+			if (!visited.get(node.getLabel()) && isAcyclicHelper(node, "", visited)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private Map<String, Boolean> createNodeVisitedMap() {
+		Map<String, Boolean> visited = new HashMap<String, Boolean>();
+
+		for (NodeModel node : nodes) {
+			visited.put(node.getLabel(), false);
+		}
+
+		return visited;
+	}
+	
+	private boolean isAcyclicHelper(NodeModel node, String parent, Map<String, Boolean> visited) {
+		visited.put(node.getLabel(), true);
+		for (String outgoingNodeLabel : node.getOutgoingNodes()) {
+			if (!visited.get(outgoingNodeLabel)) {
+				DefaultNodeModel outgoingNode = findNodeByLabel(outgoingNodeLabel);
+				if (isAcyclicHelper(outgoingNode, node.getLabel(), visited)) {
+					return true;
+				}
+			} else if (outgoingNodeLabel != parent) {
+				return true;
+			}
+		}
 		return false;
 	}
-
+	
 	public boolean isEmpty() {
 		return nodes.size() == 0;
 	}
@@ -549,5 +617,25 @@ public class DefaultGraphModel implements GraphModel {
 	public boolean isReadOnly() {
 		return readOnly;
 	}
+
+	protected void setNodesAsAdjacent(NodeModel from, NodeModel to, boolean directed) {
+		NodeModel fromInNodes = findNodeByLabel(from.getLabel());
+		NodeModel toInNodes = findNodeByLabel(to.getLabel());
+		
+		fromInNodes.addOutgoingNode(to.getLabel());
+		toInNodes.addIncomingNode(from.getLabel());
+		
+		if (!directed) {
+			fromInNodes.addIncomingNode(to.getLabel());
+			toInNodes.addOutgoingNode(from.getLabel());
+		}
+	}
 	
+	protected void removeNodeFromAdjancet(NodeModel node) {
+		for (String label : node.getIncomingNodes()) {
+			NodeModel incomingNode = findNodeByLabel(label);
+			incomingNode.removeOutgoingNode(node.getLabel());
+			incomingNode.removeIncomingNode(node.getLabel());
+		}
+	}
 }
