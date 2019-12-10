@@ -25,3 +25,6 @@ hs_err_pid*
 # 
 .settings/
 bin/
+
+# Eclipse
+.classpath

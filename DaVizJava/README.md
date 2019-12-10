@@ -10,10 +10,16 @@ Please also see the accompanying technical report for an overview
 of this project. This file will only contain information regarding
 the build of a deployable software artifact.
 
+# Getting started
+
 This project is built using Eclipse. The project depends on the
 Frege project (DaVizFrege), and every time a change in the Frege
 sources occurs, this project needs to be refreshed to expose the
 compiled sources to the Swing project (DaViz).
+
+Before importing the project to Eclipse, copy the `.classpath.base` file and remove the `.base` extension.
+
+To add the Frege dependence, select the `Enable Frege Builder` action in the context menu of the project.
 
 It may be necessary to readd the DaVizFrege project to the classpath.
 Open the Properties (context menu and select Properties...) and navigate

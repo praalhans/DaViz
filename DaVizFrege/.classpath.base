@@ -6,6 +6,5 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/wesleygenizshann/.p2/pool/plugins/frege.ide_3.25.42/lib/fregec.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="/Users/wesleygenizshann/.p2/pool/plugins/frege.ide_3.25.42/lib/fregec.jar"/>
-	<classpathentry kind="lib" path="/Users/wesleygenizshann/Documents/projects/eclipse-workspace/DaVizFrege/bin"/>
+	<classpathentry kind="lib" path="/DaVizFrege/bin"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
