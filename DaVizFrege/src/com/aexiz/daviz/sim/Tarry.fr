@@ -3,45 +3,121 @@ module com.aexiz.daviz.sim.Tarry where
     import com.aexiz.daviz.sim.Set
     import com.aexiz.daviz.sim.Process
     
+    --
+    -- Tarry data spaces
+    --
+    
     -- (Implementation note: DUI is old name)
-    data DUI = Received Channel
-             | Replied Channel
-             | Undefined
+    data DUI = Received Channel -- Any non initiator processes that received a message and can forward it to another process
+             | Replied Channel  -- Any non initiator processes that received a message and cannot forward it to another process
+             | Undefined        -- Any non initiator processes at the beginning of the computation 
              | Initiator
     derive Eq DUI
     
-    -- Process state and message state spaces
+    -- Process state space
+    --	Holding the token - Yes or No
+    --	Process state
+    --	Adjacent channels (not visited yet) 
     type PS = (Bool, DUI, Set Channel)
-    type MS = () -- token
-    type RS = Bool -- decide or terminate
+
+    -- Message state space
+    -- 	Token
+    type MS = ()
+    
+    -- Result state space
+    --	Decide - Initiator process
+    --	Terminate - Other processes
+    type RS = Bool
+    
+    --
+    -- Tarry transitions
+    --
     
     -- State transition function (bulk send, reversed channel)
     trans :: PS -> ProcessResult RS PS MS
+    
     -- Step 1.
+    -- 	Scenario: I am any process, I have the token and I can forward it to another process
+    -- 	For any process that is in any state `p`
+    --		and is holding the token
+    --		and have 1 or more `n` adjacent channels not visited yet
+    -- 	Send the token `tok` to the channel `ch` 
+    -- 		and remove this channel from the initial `n` channels
+    --		and update the current process space token and channels
     trans (True, p, n) | sizeS n > 0 = PSend s' (ch, tok) where
         s' = (False, p, n')
         n' = removeS n ch
         ch = nextS n
         tok = ()
+        
     -- Step 2.
+    -- 	Scenario: I am not the initiator, I have the token and I cannot forward it to another process
+    --	For any process that is in a state `Received` from the channel `ch`
+    --		and is holding the token
+    --		and does not have any adjancent channels not visited yet
+    --	Return the token through same channel `ch`
+    --		and update the current process space token and state
     trans (True, Received ch, n) | sizeS n == 0 = PSend s' (ch, tok) where
         s' = (False, Replied ch, n)
         tok = ()
+        
     -- Step 3.
+    -- 	Scenario: I am the initiator, I have the token and I cannot forward it to another process
+    --	For a process that is in a state `Initiator`
+    --		and is holding the token
+    --		and does not have any adjancent channels not visited yet
+    --	Terminate the entire computation and decide
     trans (True, Initiator, n) | sizeS n == 0 = PResult True
-    -- Step 4.
+    
+    -- Step 4.a
+	-- 	Scenario: I am not the initiator, I returned the token and I am ready to decide
+    --	For any process that is in a state `Replied`
+    --		and is not holding the token
+    --		and does not have any adjancent channels not visited yet
+    --	Terminate
     trans (False, Replied _, n) | sizeS n == 0 = PResult False
+    
+    -- Step 4.b
+	-- 	Scenario: I am not the initiator and I have no neighbour processes at the beginning of the computation 
+    --	For any process that is in a state `Undefined`
+    --		and is not holding the token
+    --		and does not have any adjancent channels not visited yet
+    --	Terminate
     trans (False, Undefined, n) | sizeS n == 0 = PResult False
-    -- Step 5.
+    
+    -- Step 5.a	
+    -- 	Scenario: I am not the initiator and I have neighbour processes at the beginning of the computation 
+    --	Set the state to `Received` and set the process to hold the token
     trans (False, Undefined, n) = PReceive f where
         f (ch, tok) = (True, Received (reverseC ch), removeS n (reverseC ch))
+
+    -- Step 5.b	
+    -- 	Scenario: I am any process without the token and I can forward it to another process
+    --	Keep the current state and set the process to hold the token
     trans (False, p, n) = PReceive f where
         f (ch, tok) = (True, p, n)
-    -- Partial
+    
+    -- For any unknown transitions, thrown an exception
     trans _ = error "Underspecified"
     
+    --
+    -- Tarry computation initiation
+    --
+    
+    -- Initiate each process with a state of the network
     procDesc :: Process -> ProcessDescription KnownNetwork RS PS MS
+    
+    -- Given a network `n` containing tuples of (process, process),  
+    -- and a initiator `p`,
+    -- For each process `i`:
+    --	If `i` is the initiator, create a transition where `i`:
+    --		Is holding the token
+    --		Is in the `Initiator` state
+    --		Contains a set of all its adjacent process
+    --	Otherwise, create a transition where `i`:
+    --		Is not holding the token
+    --		Is in the `Undefined` state
+    --		Contains a set of all its adjacent process
     procDesc i = PD init trans where
         init (n, p) | p == i =    (True, Initiator, outChannels n p)
                     | otherwise = (False, Undefined, outChannels n p)
-    
