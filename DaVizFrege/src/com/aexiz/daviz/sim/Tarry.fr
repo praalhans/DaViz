@@ -25,8 +25,8 @@ module com.aexiz.daviz.sim.Tarry where
     type MS = ()
     
     -- Result state space
-    --	Terminated - Initiator process
-    --	Decided - Other processes
+    --	Decide - Initiator process
+    --	Terminate - Other processes
     type RS = Bool
     
     --
@@ -66,7 +66,7 @@ module com.aexiz.daviz.sim.Tarry where
     --	For a process that is in a state `Initiator`
     --		and is holding the token
     --		and does not have any adjancent channels not visited yet
-    --	Terminate the entire computation
+    --	Terminate the entire computation and decide
     trans (True, Initiator, n) | sizeS n == 0 = PResult True
     
     -- Step 4.a
@@ -74,7 +74,7 @@ module com.aexiz.daviz.sim.Tarry where
     --	For any process that is in a state `Replied`
     --		and is not holding the token
     --		and does not have any adjancent channels not visited yet
-    --	Terminate and decide
+    --	Terminate
     trans (False, Replied _, n) | sizeS n == 0 = PResult False
     
     -- Step 4.b
@@ -82,7 +82,7 @@ module com.aexiz.daviz.sim.Tarry where
     --	For any process that is in a state `Undefined`
     --		and is not holding the token
     --		and does not have any adjancent channels not visited yet
-    --	Terminate and decide
+    --	Terminate
     trans (False, Undefined, n) | sizeS n == 0 = PResult False
     
     -- Step 5.a	
@@ -97,7 +97,7 @@ module com.aexiz.daviz.sim.Tarry where
     trans (False, p, n) = PReceive f where
         f (ch, tok) = (True, p, n)
     
-    -- For any unknown transitions, return an exception
+    -- For any unknown transitions, thrown an exception
     trans _ = error "Underspecified"
     
     --
