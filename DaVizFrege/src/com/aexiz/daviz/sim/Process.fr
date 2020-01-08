@@ -15,10 +15,11 @@ module com.aexiz.daviz.sim.Process where
     type KnownNetwork = (Network, Process)
     
     -- A process results is a non-deterministic description
-    data ProcessResult tau sigma mu = PReceive (ChanMsg mu -> sigma) -- to must be process
-                                    | PInternal [sigma] -- must not be empty
-                                    | PSend sigma (ChanMsg mu) -- from must be process
-                                    | PResult tau -- last result
+    data ProcessResult tau sigma mu = 
+    	PReceive (ChanMsg mu -> sigma) 	-- to must be process
+        | PInternal [sigma] 			-- must not be empty
+        | PSend sigma (ChanMsg mu) 		-- from must be process - Process Space (Message Space) 
+        | PResult tau 					-- last result
     
     data ProcessDescription rho tau sigma mu = PD { init :: rho -> sigma
                                                   , step :: sigma -> ProcessResult tau sigma mu }
