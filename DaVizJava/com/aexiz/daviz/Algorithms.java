@@ -50,6 +50,7 @@ class Algorithms {
 				new Algorithms("Cidon", new Cidon()),
 				new Algorithms("Tree", new Tree()),
 				new Algorithms("Tree + Ack", new TreeAck()),
+				new Algorithms("Echo", new Echo()),
 		};
 	}
 	
