@@ -8,7 +8,7 @@ module com.aexiz.daviz.sim.Tarry where
     --
     
     -- (Implementation note: DUI is old name)
-    data DUI = Received Channel	-- Any non initiator processes that received a message and can forward it to another process
+    data DUI = Received Channel -- Any non initiator processes that received a message and can forward it to another process
              | Replied Channel  -- Any non initiator processes that received a message and cannot forward it to another process
              | Undefined        -- Any non initiator processes at the beginning of the computation 
              | Initiator
