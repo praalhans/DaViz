@@ -12,7 +12,7 @@ import com.aexiz.daviz.simulation.Simulation;
 import com.aexiz.daviz.simulation.Event.SendEvent;
 import com.aexiz.daviz.simulation.Viewpoint.Channel;
 import com.aexiz.daviz.simulation.Viewpoint.Node;
-import com.aexiz.daviz.simulation.alg.Cidon;
+import com.aexiz.daviz.simulation.algorithm.wave.Cidon;
 
 public class RandomProgram {
 	

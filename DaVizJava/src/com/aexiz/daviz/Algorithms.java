@@ -1,7 +1,7 @@
 package com.aexiz.daviz;
 
 import com.aexiz.daviz.simulation.Algorithm;
-import com.aexiz.daviz.simulation.alg.*;
+import com.aexiz.daviz.simulation.algorithm.wave.*;
 
 class Algorithms {
 	

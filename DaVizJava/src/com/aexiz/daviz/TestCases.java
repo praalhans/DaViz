@@ -4,7 +4,7 @@ import java.util.concurrent.Callable;
 
 import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.Viewpoint.*;
-import com.aexiz.daviz.simulation.alg.*;
+import com.aexiz.daviz.simulation.algorithm.wave.*;
 
 // Note that loading this class will also load all Haskell code
 class TestCases {

@@ -1,4 +1,4 @@
-package com.aexiz.daviz.simulation.alg;
+package com.aexiz.daviz.simulation.algorithm.wave;
 
 import com.aexiz.daviz.simulation.Algorithm;
 import com.aexiz.daviz.simulation.Assumption;
