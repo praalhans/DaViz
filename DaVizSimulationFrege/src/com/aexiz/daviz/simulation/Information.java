@@ -1,4 +1,4 @@
-package com.aexiz.daviz.glue;
+package com.aexiz.daviz.simulation;
 
 public abstract class Information {
 	

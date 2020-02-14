@@ -1,17 +1,18 @@
-package com.aexiz.daviz.glue.alg;
+package com.aexiz.daviz.simulation.alg;
 
 import java.util.List;
 
-import com.aexiz.daviz.glue.Algorithm;
-import com.aexiz.daviz.glue.Assumption;
-import com.aexiz.daviz.glue.Viewpoint.*;
-import com.aexiz.daviz.glue.GlueHelper;
-import com.aexiz.daviz.glue.Information;
-import com.aexiz.daviz.glue.Information.PropertyBuilder;
-import com.aexiz.daviz.glue.Information.PropertyVisitor;
-import com.aexiz.daviz.glue.Information.Result;
-import com.aexiz.daviz.sim.DFS.TRRUI;
-import static com.aexiz.daviz.sim.DFS.procDesc;
+import com.aexiz.daviz.simulation.Algorithm;
+import com.aexiz.daviz.simulation.Assumption;
+import com.aexiz.daviz.simulation.Viewpoint.*;
+import com.aexiz.daviz.simulation.GlueHelper;
+import com.aexiz.daviz.simulation.Information;
+import com.aexiz.daviz.simulation.Information.PropertyBuilder;
+import com.aexiz.daviz.simulation.Information.PropertyVisitor;
+import com.aexiz.daviz.simulation.Information.Result;
+import com.aexiz.daviz.sim.Visited.TRRUI;
+
+import static com.aexiz.daviz.sim.Visited.procDesc;
 
 import com.aexiz.daviz.sim.Process.TProcessDescription;
 import com.aexiz.daviz.sim.Set.TSet;
@@ -19,12 +20,12 @@ import com.aexiz.daviz.sim.Set.TSet;
 import frege.prelude.PreludeBase.TMaybe;
 import frege.prelude.PreludeBase.TMaybe.DJust;
 import frege.prelude.PreludeBase.TTuple2;
-import frege.prelude.PreludeBase.TTuple4;
+import frege.prelude.PreludeBase.TTuple3;
 import frege.run8.Thunk;
 
-public class DFS extends Algorithm {
+public class Visited extends Algorithm {
 	
-	public DFS() {
+	public Visited() {
 		assumption = new Assumption() {
 			{
 				centralized_user = true;
@@ -34,39 +35,52 @@ public class DFS extends Algorithm {
 	
 	protected Information.Message makeAndUnloadMessage(GlueHelper help, Object o) {
 		if (help == null || o == null) throw null;
-		class DFS_Message extends Information.Message {
+		class VisitedMessage extends Information.Message {
+			List<Node> visited;
 			public String toString() {
-				return "*token*";
+				return "*token* " + visited;
 			}
 			public boolean equals(Object obj) {
-				if (obj instanceof DFS_Message) return true;
+				if (obj instanceof VisitedMessage) {
+					VisitedMessage other = (VisitedMessage) obj;
+					return other.visited.equals(visited);
+				}
 				return false;
 			}
 			public void buildProperties(PropertyBuilder builder) {
 				builder.simpleProperty("", "Token");
+				builder.compoundProperty("Visited", new PropertyVisitor() {
+					public void buildProperties(PropertyBuilder builder) {
+						builder.simpleProperty("", visited.size() + " elements");
+						for (int i = 0, size = visited.size(); i < size; i++) {
+							builder.simpleProperty(String.valueOf(i) + ":", visited.get(i).getLabel());
+						}
+					}
+				});
 			}
 		}
-		Short t = (Short) o;
-		if (t != 0) throw new Error("Invalid Haskell unit");
-		return new DFS_Message();
+		@SuppressWarnings("unchecked")
+		TSet<Integer> t = (TSet<Integer>) o;
+		VisitedMessage result = new VisitedMessage();
+		result.visited = help.forVertexSet(t);
+		return result;
 	}
 	
 	protected Information.State makeAndUnloadState(GlueHelper help, Object o) {
 		if (help == null || o == null) throw null;
-		abstract class DFS_RRUI implements PropertyVisitor {
+		abstract class VisitedRRUI implements PropertyVisitor {
 		}
-		class DFS_State extends Information.State {
-			boolean hasToken;
-			DFS_RRUI rrui;
+		class VisitedState extends Information.State {
+			List<Node> hasToken;
+			VisitedRRUI rrui;
 			List<Channel> neighbors;
-			Channel incoming;
 			public String toString() {
-				return "(" + hasToken + "," + rrui + "," + neighbors + "," + incoming + ")";
+				return "(" + hasToken + "," + rrui + "," + neighbors + ")";
 			}
+			@Override
 			public void buildProperties(PropertyBuilder builder) {
-				builder.simpleProperty("Has token?", String.valueOf(hasToken));
+				builder.simpleProperty("Has token?", hasToken == null ? "false" : hasToken.toString());
 				builder.compoundProperty("State", rrui);
-				builder.simpleProperty("Reply to:", incoming == null ? "None" : incoming.to.getLabel());
 				builder.compoundProperty("Neighbors", new PropertyVisitor() {
 					public void buildProperties(PropertyBuilder builder) {
 						builder.simpleProperty("", neighbors.size() + " elements");
@@ -77,17 +91,18 @@ public class DFS extends Algorithm {
 				});
 			}
 		}
-		class DFS_Received extends DFS_RRUI {
+		class VisitedReceived extends VisitedRRUI {
 			private Channel c;
 			public String toString() {
 				return "Received<" + c + ">";
 			}
+			@Override
 			public void buildProperties(PropertyBuilder builder) {
 				builder.simpleProperty("", "Received");
 				builder.simpleProperty("From:", c.to.getLabel());
 			}
 		}
-		class DFS_Replied extends DFS_RRUI {
+		class VisitedReplied extends VisitedRRUI {
 			private Channel c;
 			public String toString() {
 				return "Replied<" + c + ">";
@@ -97,7 +112,7 @@ public class DFS extends Algorithm {
 				builder.simpleProperty("To:", c.to.getLabel());
 			}
 		}
-		class DFS_Undefined extends DFS_RRUI {
+		class VisitedUndefined extends VisitedRRUI {
 			public String toString() {
 				return "Undefined";
 			}
@@ -105,7 +120,7 @@ public class DFS extends Algorithm {
 				builder.simpleProperty("", "Undefined");
 			}
 		}
-		class DFS_Initiator extends DFS_RRUI {
+		class VisitedInitiator extends VisitedRRUI {
 			public String toString() {
 				return "Initiator";
 			}
@@ -114,40 +129,39 @@ public class DFS extends Algorithm {
 			}
 		}
 		@SuppressWarnings("unchecked")
-		TTuple4<Boolean, TRRUI, TSet<TTuple2<Integer, Integer>>, TMaybe<TTuple2<Integer, Integer>>> st =
-				(TTuple4<Boolean, TRRUI, TSet<TTuple2<Integer, Integer>>, TMaybe<TTuple2<Integer, Integer>>>) o;
-		DFS_State result = new DFS_State();
-		result.hasToken = st.mem1.call();
+		TTuple3<TMaybe<TSet<Integer>>, TRRUI, TSet<TTuple2<Integer, Integer>>> st =
+				(TTuple3<TMaybe<TSet<Integer>>, TRRUI, TSet<TTuple2<Integer, Integer>>>) o;
+		VisitedState result = new VisitedState();
+		DJust<TSet<Integer>> tok = st.mem1.call().asJust();
+		result.hasToken = tok == null ? null : help.forVertexSet(tok.mem1.call());
 		TRRUI rrui = st.mem2.call();
 		if (rrui.asReceived() != null) {
-			DFS_Received r = new DFS_Received();
+			VisitedReceived r = new VisitedReceived();
 			r.c = help.getChannelByTuple(rrui.asReceived().mem1.call());
 			result.rrui = r;
 		} else if (rrui.asReplied() != null) {
-			DFS_Replied r = new DFS_Replied();
+			VisitedReplied r = new VisitedReplied();
 			r.c = help.getChannelByTuple(rrui.asReplied().mem1.call());
 			result.rrui = r;
 		} else if (rrui.asUndefined() != null) {
-			result.rrui = new DFS_Undefined();
+			result.rrui = new VisitedUndefined();
 		} else if (rrui.asInitiator() != null) {
-			result.rrui = new DFS_Initiator();
+			result.rrui = new VisitedInitiator();
 		} else {
 			throw new Error("Invalid RRUI value");
 		}
 		result.neighbors = help.forEdgeSet(st.mem3.call());
-		DJust<TTuple2<Integer, Integer>> in = st.mem4.call().asJust();
-		result.incoming = in == null ? null : help.getChannelByTuple(in.mem1.call());
 		return result;
 	}
 	
 	protected Result makeAndUnloadResult(GlueHelper helper, Object o) {
-		class DFSTerminated extends Information.Result {
+		class VisitedTerminated extends Information.Result {
 			public String toString() { return "Terminated"; }
 			public void buildProperties(PropertyBuilder builder) {
 				builder.simpleProperty("", "Terminated");
 			}
 		}
-		class DFSDecided extends Information.Result {
+		class VisitedDecided extends Information.Result {
 			public String toString() { return "Decided"; }
 			public void buildProperties(PropertyBuilder builder) {
 				builder.simpleProperty("", "Decided");
@@ -155,9 +169,9 @@ public class DFS extends Algorithm {
 		}
 		boolean result = (Boolean) o;
 		if (result) {
-			return new DFSTerminated();
+			return new VisitedTerminated();
 		} else {
-			return new DFSDecided();
+			return new VisitedDecided();
 		}
 	}
 	

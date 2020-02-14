@@ -4,15 +4,15 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Random;
 
-import com.aexiz.daviz.glue.Algorithm;
-import com.aexiz.daviz.glue.Event;
-import com.aexiz.daviz.glue.Execution;
-import com.aexiz.daviz.glue.Network;
-import com.aexiz.daviz.glue.Simulation;
-import com.aexiz.daviz.glue.Event.SendEvent;
-import com.aexiz.daviz.glue.Viewpoint.Channel;
-import com.aexiz.daviz.glue.Viewpoint.Node;
-import com.aexiz.daviz.glue.alg.Cidon;
+import com.aexiz.daviz.simulation.Algorithm;
+import com.aexiz.daviz.simulation.Event;
+import com.aexiz.daviz.simulation.Execution;
+import com.aexiz.daviz.simulation.Network;
+import com.aexiz.daviz.simulation.Simulation;
+import com.aexiz.daviz.simulation.Event.SendEvent;
+import com.aexiz.daviz.simulation.Viewpoint.Channel;
+import com.aexiz.daviz.simulation.Viewpoint.Node;
+import com.aexiz.daviz.simulation.alg.Cidon;
 
 public class RandomProgram {
 	

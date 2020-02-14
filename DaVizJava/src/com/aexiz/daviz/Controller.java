@@ -32,11 +32,11 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import com.aexiz.daviz.glue.Algorithm;
-import com.aexiz.daviz.glue.Network;
-import com.aexiz.daviz.glue.Simulation;
-import com.aexiz.daviz.glue.Viewpoint.Node;
-import com.aexiz.daviz.glue.Viewpoint.Channel;
+import com.aexiz.daviz.simulation.Algorithm;
+import com.aexiz.daviz.simulation.Network;
+import com.aexiz.daviz.simulation.Simulation;
+import com.aexiz.daviz.simulation.Viewpoint.Node;
+import com.aexiz.daviz.simulation.Viewpoint.Channel;
 import com.aexiz.daviz.ui.DefaultExecutionModel;
 import com.aexiz.daviz.ui.DefaultGraphModel;
 import com.aexiz.daviz.ui.DefaultInfoModel;

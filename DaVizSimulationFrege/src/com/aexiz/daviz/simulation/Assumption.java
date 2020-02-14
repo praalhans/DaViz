@@ -1,8 +1,8 @@
-package com.aexiz.daviz.glue;
+package com.aexiz.daviz.simulation;
 
 import java.util.List;
 
-import com.aexiz.daviz.glue.Viewpoint.Node;
+import com.aexiz.daviz.simulation.Viewpoint.Node;
 
 public class Assumption {
 	

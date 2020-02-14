@@ -2,9 +2,9 @@ package com.aexiz.daviz;
 
 import java.util.concurrent.Callable;
 
-import com.aexiz.daviz.glue.*;
-import com.aexiz.daviz.glue.Viewpoint.*;
-import com.aexiz.daviz.glue.alg.*;
+import com.aexiz.daviz.simulation.*;
+import com.aexiz.daviz.simulation.Viewpoint.*;
+import com.aexiz.daviz.simulation.alg.*;
 
 // Note that loading this class will also load all Haskell code
 class TestCases {

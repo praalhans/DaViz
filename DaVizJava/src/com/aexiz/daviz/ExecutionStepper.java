@@ -1,7 +1,7 @@
 package com.aexiz.daviz;
 
 import java.util.ArrayList;
-import com.aexiz.daviz.glue.Execution;
+import com.aexiz.daviz.simulation.Execution;
 
 class ExecutionStepper {
 	int max_rounds;

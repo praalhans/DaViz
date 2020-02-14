@@ -1,10 +1,10 @@
-package com.aexiz.daviz.glue;
+package com.aexiz.daviz.simulation;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.aexiz.daviz.glue.Configuration.InitialConfiguration;
+import com.aexiz.daviz.simulation.Configuration.InitialConfiguration;
 import com.aexiz.daviz.sim.Event.TEvent;
 import com.aexiz.daviz.sim.Simulation.TSimulation;
 

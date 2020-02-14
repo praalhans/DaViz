@@ -1,9 +1,9 @@
-package com.aexiz.daviz.glue;
+package com.aexiz.daviz.simulation;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.aexiz.daviz.glue.Viewpoint.Node;
+import com.aexiz.daviz.simulation.Viewpoint.Node;
 import com.aexiz.daviz.sim.Event.TEvent;
 import com.aexiz.daviz.sim.Event.TEvent.DEInternal;
 import com.aexiz.daviz.sim.Event.TEvent.DEReceive;

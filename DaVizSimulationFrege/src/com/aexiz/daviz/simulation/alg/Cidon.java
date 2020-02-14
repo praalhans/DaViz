@@ -1,16 +1,16 @@
-package com.aexiz.daviz.glue.alg;
+package com.aexiz.daviz.simulation.alg;
 
 import java.util.List;
 
-import com.aexiz.daviz.glue.Algorithm;
-import com.aexiz.daviz.glue.Assumption;
-import com.aexiz.daviz.glue.Viewpoint.*;
-import com.aexiz.daviz.glue.GlueHelper;
-import com.aexiz.daviz.glue.Information;
-import com.aexiz.daviz.glue.Network;
-import com.aexiz.daviz.glue.Information.PropertyBuilder;
-import com.aexiz.daviz.glue.Information.PropertyVisitor;
-import com.aexiz.daviz.glue.Information.Result;
+import com.aexiz.daviz.simulation.Algorithm;
+import com.aexiz.daviz.simulation.Assumption;
+import com.aexiz.daviz.simulation.Viewpoint.*;
+import com.aexiz.daviz.simulation.GlueHelper;
+import com.aexiz.daviz.simulation.Information;
+import com.aexiz.daviz.simulation.Network;
+import com.aexiz.daviz.simulation.Information.PropertyBuilder;
+import com.aexiz.daviz.simulation.Information.PropertyVisitor;
+import com.aexiz.daviz.simulation.Information.Result;
 import com.aexiz.daviz.sim.Cidon.TMS;
 import com.aexiz.daviz.sim.Cidon.TPS;
 import com.aexiz.daviz.sim.Cidon.TRRUI;

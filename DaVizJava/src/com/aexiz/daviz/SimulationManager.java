@@ -7,18 +7,18 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import javax.swing.SwingUtilities;
 
-import com.aexiz.daviz.glue.Event;
-import com.aexiz.daviz.glue.Execution;
-import com.aexiz.daviz.glue.Network;
-import com.aexiz.daviz.glue.Simulation;
-import com.aexiz.daviz.glue.Configuration.StateVisitor;
-import com.aexiz.daviz.glue.Information.Message;
-import com.aexiz.daviz.glue.Information.PropertyBuilder;
-import com.aexiz.daviz.glue.Information.PropertyVisitor;
-import com.aexiz.daviz.glue.Information.Result;
-import com.aexiz.daviz.glue.Information.State;
-import com.aexiz.daviz.glue.Viewpoint.Channel;
-import com.aexiz.daviz.glue.Viewpoint.Node;
+import com.aexiz.daviz.simulation.Event;
+import com.aexiz.daviz.simulation.Execution;
+import com.aexiz.daviz.simulation.Network;
+import com.aexiz.daviz.simulation.Simulation;
+import com.aexiz.daviz.simulation.Configuration.StateVisitor;
+import com.aexiz.daviz.simulation.Information.Message;
+import com.aexiz.daviz.simulation.Information.PropertyBuilder;
+import com.aexiz.daviz.simulation.Information.PropertyVisitor;
+import com.aexiz.daviz.simulation.Information.Result;
+import com.aexiz.daviz.simulation.Information.State;
+import com.aexiz.daviz.simulation.Viewpoint.Channel;
+import com.aexiz.daviz.simulation.Viewpoint.Node;
 import com.aexiz.daviz.ui.ExecutionModel;
 import com.aexiz.daviz.ui.FutureEvent;
 import com.aexiz.daviz.ui.GraphModel;
@@ -42,28 +42,28 @@ class SimulationManager {
 	boolean linear = true;
 	
 	// Transient fields
-	transient Execution executionRoot; // from glue
-	transient ArrayList<Execution> executionPath; // from glue (via choice or predetermined)
+	transient Execution executionRoot; // from simulation
+	transient ArrayList<Execution> executionPath; // from simulation (via choice or predetermined)
 	
-	transient Node[] nodes; // from glue
-	transient State[] nodeInitialStates; // from glue (via execution root)
-	transient State[] nodeLastStates; // from glue (via selection)
-	transient Result[] nodeLastTermStatus; // from glue (via selection)
+	transient Node[] nodes; // from simulation
+	transient State[] nodeInitialStates; // from simulation (via execution root)
+	transient State[] nodeLastStates; // from simulation (via selection)
+	transient Result[] nodeLastTermStatus; // from simulation (via selection)
 	transient int[] nodeProcessIds; // from timeline GUI
 	transient NodeModel[] nodeModels; // from network GUI
 	
-	transient Channel[] channels; // from glue
+	transient Channel[] channels; // from simulation
 	transient EdgeModel[] channelEdgeModels; // from network GUI
-	transient ArrayList<Message>[] channelStates; // from glue (via selection)
+	transient ArrayList<Message>[] channelStates; // from simulation (via selection)
 	
-	transient Execution[] choiceExecutions; // from glue
+	transient Execution[] choiceExecutions; // from simulation
 	transient FutureEvent[] choiceEvents; // from GUI
 	
-	transient ArrayList<Event> events = new ArrayList<>(); // from glue
+	transient ArrayList<Event> events = new ArrayList<>(); // from simulation
 	transient ArrayList<EventModel> eventModels = new ArrayList<>(); // from timeline GUI
 	
 	transient ArrayList<Object> messageModels = new ArrayList<>(); // from timeline GUI, MessageModel and PendingMessageModel
-	transient ArrayList<Event> messageSendEvents = new ArrayList<>(); // from glue, corresponding send event
+	transient ArrayList<Event> messageSendEvents = new ArrayList<>(); // from simulation, corresponding send event
 	
 	SimulationManager(Controller controller) {
 		this.controller = controller;
