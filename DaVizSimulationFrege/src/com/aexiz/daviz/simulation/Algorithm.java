@@ -1,6 +1,6 @@
 package com.aexiz.daviz.simulation;
 
-import com.aexiz.daviz.sim.Process.TProcessDescription;
+import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 
 public abstract class Algorithm {
 	

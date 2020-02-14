@@ -10,11 +10,11 @@ import com.aexiz.daviz.simulation.Information;
 import com.aexiz.daviz.simulation.Information.PropertyBuilder;
 import com.aexiz.daviz.simulation.Information.PropertyVisitor;
 import com.aexiz.daviz.simulation.Information.Result;
-import com.aexiz.daviz.sim.DFS.TRRUI;
-import static com.aexiz.daviz.sim.DFS.procDesc;
+import com.aexiz.daviz.frege.simulation.alg.DFS.TRRUI;
+import static com.aexiz.daviz.frege.simulation.alg.DFS.procDesc;
 
-import com.aexiz.daviz.sim.Process.TProcessDescription;
-import com.aexiz.daviz.sim.Set.TSet;
+import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
+import com.aexiz.daviz.frege.simulation.Set.TSet;
 
 import frege.prelude.PreludeBase.TMaybe;
 import frege.prelude.PreludeBase.TMaybe.DJust;

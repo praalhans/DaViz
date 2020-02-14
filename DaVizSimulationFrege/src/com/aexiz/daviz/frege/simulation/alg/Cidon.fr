@@ -1,7 +1,7 @@
-module com.aexiz.daviz.sim.Cidon where
+module com.aexiz.daviz.frege.simulation.alg.Cidon where
     
-    import com.aexiz.daviz.sim.Set
-    import com.aexiz.daviz.sim.Process
+    import com.aexiz.daviz.frege.simulation.Set
+    import com.aexiz.daviz.frege.simulation.Process
     
     data RRUI = Received Channel
               | Replied Channel

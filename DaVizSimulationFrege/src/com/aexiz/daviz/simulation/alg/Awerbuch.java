@@ -10,12 +10,12 @@ import com.aexiz.daviz.simulation.Information;
 import com.aexiz.daviz.simulation.Information.PropertyBuilder;
 import com.aexiz.daviz.simulation.Information.PropertyVisitor;
 import com.aexiz.daviz.simulation.Information.Result;
-import com.aexiz.daviz.sim.Awerbuch.TMS;
-import com.aexiz.daviz.sim.Awerbuch.TPS;
-import com.aexiz.daviz.sim.Awerbuch.TRRRUII;
-import static com.aexiz.daviz.sim.Awerbuch.procDesc;
+import com.aexiz.daviz.frege.simulation.alg.Awerbuch.TMS;
+import com.aexiz.daviz.frege.simulation.alg.Awerbuch.TPS;
+import com.aexiz.daviz.frege.simulation.alg.Awerbuch.TRRRUII;
+import static com.aexiz.daviz.frege.simulation.alg.Awerbuch.procDesc;
 
-import com.aexiz.daviz.sim.Process.TProcessDescription;
+import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 
 import frege.prelude.PreludeBase.TMaybe.DJust;
 import frege.prelude.PreludeBase.TTuple2;

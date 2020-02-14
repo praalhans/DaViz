@@ -10,10 +10,10 @@ import com.aexiz.daviz.simulation.Information.PropertyVisitor;
 import com.aexiz.daviz.simulation.Information.Result;
 import com.aexiz.daviz.simulation.Information.State;
 import com.aexiz.daviz.simulation.Viewpoint.Channel;
-import com.aexiz.daviz.sim.Process.TProcessDescription;
-import com.aexiz.daviz.sim.Tree.TPS;
-import com.aexiz.daviz.sim.Tree.TUP;
-import static com.aexiz.daviz.sim.Tree.procDesc;
+import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
+import com.aexiz.daviz.frege.simulation.alg.Tree.TPS;
+import com.aexiz.daviz.frege.simulation.alg.Tree.TUP;
+import static com.aexiz.daviz.frege.simulation.alg.Tree.procDesc;
 
 import java.util.List;
 

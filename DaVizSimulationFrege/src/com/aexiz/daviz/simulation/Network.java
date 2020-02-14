@@ -2,8 +2,8 @@ package com.aexiz.daviz.simulation;
 
 import java.util.ArrayList;
 
-import com.aexiz.daviz.sim.Set;
-import com.aexiz.daviz.sim.Set.TSet;
+import com.aexiz.daviz.frege.simulation.Set;
+import com.aexiz.daviz.frege.simulation.Set.TSet;
 
 import frege.prelude.PreludeBase.TTuple2;
 import frege.run8.Lazy;

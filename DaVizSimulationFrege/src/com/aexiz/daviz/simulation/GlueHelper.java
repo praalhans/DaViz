@@ -2,9 +2,9 @@ package com.aexiz.daviz.simulation;
 
 import java.util.ArrayList;
 
-import com.aexiz.daviz.sim.Set.TSet;
-import static com.aexiz.daviz.sim.Set.glueTuple2IntNormalS;
-import static com.aexiz.daviz.sim.Set.glueIntNormalS;
+import com.aexiz.daviz.frege.simulation.Set.TSet;
+import static com.aexiz.daviz.frege.simulation.Set.glueTuple2IntNormalS;
+import static com.aexiz.daviz.frege.simulation.Set.glueIntNormalS;
 
 import frege.prelude.PreludeBase.TList;
 import frege.prelude.PreludeBase.TList.DCons;

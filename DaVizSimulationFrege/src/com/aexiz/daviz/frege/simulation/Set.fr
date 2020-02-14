@@ -1,4 +1,4 @@
-module com.aexiz.daviz.sim.Set where
+module com.aexiz.daviz.frege.simulation.Set where
     
     import Data.Foldable
     import Data.List

@@ -1,7 +1,7 @@
-module com.aexiz.daviz.sim.Process where
+module com.aexiz.daviz.frege.simulation.Process where
     
-    import com.aexiz.daviz.sim.Set
-    import com.aexiz.daviz.sim.Graph
+    import com.aexiz.daviz.frege.simulation.Set
+    import com.aexiz.daviz.frege.simulation.Graph
     
     type Process = Int
     type Network = Graph Process

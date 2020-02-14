@@ -3,9 +3,9 @@ package com.aexiz.daviz.simulation;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
-import com.aexiz.daviz.sim.Process.TProcessDescription;
-import com.aexiz.daviz.sim.Set.TSet;
-import com.aexiz.daviz.sim.Simulation.TConfiguration;
+import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
+import com.aexiz.daviz.frege.simulation.Set.TSet;
+import com.aexiz.daviz.frege.simulation.Simulation.TConfiguration;
 
 import frege.prelude.PreludeBase.TEither;
 import frege.prelude.PreludeBase.TEither.DLeft;
@@ -126,7 +126,7 @@ public class Configuration {
 			TSet<TTuple2<Integer, Integer>> network = simulation.getNetwork().hNetwork;
 			GlueHelper helper = new GlueHelper(simulation);
 			TProcessDescription<Object,Object,Object,Object> o = simulation.getAlgorithm().getProcessDescription(helper);
-			hConfiguration = com.aexiz.daviz.sim.Simulation.<Object,Object,Object>initialConfiguration(network, o.simsalabim());
+			hConfiguration = com.aexiz.daviz.frege.simulation.Simulation.<Object,Object,Object>initialConfiguration(network, o.simsalabim());
 		}
 		
 	}

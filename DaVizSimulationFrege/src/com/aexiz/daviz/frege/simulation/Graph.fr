@@ -1,6 +1,6 @@
-module com.aexiz.daviz.sim.Graph where
+module com.aexiz.daviz.frege.simulation.Graph where
 
-    import com.aexiz.daviz.sim.Set
+    import com.aexiz.daviz.frege.simulation.Set
     
     -- vertex must be Eq
     type Edge vertex = (vertex,vertex)

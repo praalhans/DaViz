@@ -10,11 +10,11 @@ import com.aexiz.daviz.simulation.Information.PropertyVisitor;
 import com.aexiz.daviz.simulation.Information.Result;
 import com.aexiz.daviz.simulation.Information.State;
 import com.aexiz.daviz.simulation.Viewpoint.Channel;
-import com.aexiz.daviz.sim.Process.TProcessDescription;
-import com.aexiz.daviz.sim.TreeAck.TPS;
-import com.aexiz.daviz.sim.TreeAck.TMS;
-import com.aexiz.daviz.sim.TreeAck.TUPDS;
-import static com.aexiz.daviz.sim.TreeAck.procDesc;
+import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
+import com.aexiz.daviz.frege.simulation.alg.TreeAck.TPS;
+import com.aexiz.daviz.frege.simulation.alg.TreeAck.TMS;
+import com.aexiz.daviz.frege.simulation.alg.TreeAck.TUPDS;
+import static com.aexiz.daviz.frege.simulation.alg.TreeAck.procDesc;
 
 import java.util.List;
 

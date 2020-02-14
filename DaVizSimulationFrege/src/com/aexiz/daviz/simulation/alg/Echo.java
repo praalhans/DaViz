@@ -10,11 +10,11 @@ import com.aexiz.daviz.simulation.Information.PropertyVisitor;
 import com.aexiz.daviz.simulation.Information.Result;
 import com.aexiz.daviz.simulation.Information.State;
 import com.aexiz.daviz.simulation.Viewpoint.Channel;
-import com.aexiz.daviz.sim.Process.TProcessDescription;
-import com.aexiz.daviz.sim.Echo.TPS;
-import com.aexiz.daviz.sim.Echo.TMS;
-import com.aexiz.daviz.sim.Echo.TRRUI;
-import static com.aexiz.daviz.sim.Echo.procDesc;
+import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
+import com.aexiz.daviz.frege.simulation.alg.Echo.TPS;
+import com.aexiz.daviz.frege.simulation.alg.Echo.TMS;
+import com.aexiz.daviz.frege.simulation.alg.Echo.TRRUI;
+import static com.aexiz.daviz.frege.simulation.alg.Echo.procDesc;
 
 import frege.run8.Thunk;
 

@@ -1,8 +1,8 @@
-module com.aexiz.daviz.sim.Simulation where
+module com.aexiz.daviz.frege.simulation.Simulation where
     
-    import com.aexiz.daviz.sim.Event
-    import com.aexiz.daviz.sim.Graph
-    import com.aexiz.daviz.sim.Process
+    import com.aexiz.daviz.frege.simulation.Event
+    import com.aexiz.daviz.frege.simulation.Graph
+    import com.aexiz.daviz.frege.simulation.Process
     
     data Configuration tau sigma mu = Config Network (Process -> Either sigma tau) (ChanState mu)
     

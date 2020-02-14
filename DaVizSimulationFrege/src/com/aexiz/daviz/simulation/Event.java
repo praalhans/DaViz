@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.aexiz.daviz.simulation.Viewpoint.Node;
-import com.aexiz.daviz.sim.Event.TEvent;
-import com.aexiz.daviz.sim.Event.TEvent.DEInternal;
-import com.aexiz.daviz.sim.Event.TEvent.DEReceive;
-import com.aexiz.daviz.sim.Event.TEvent.DEResult;
-import com.aexiz.daviz.sim.Event.TEvent.DESend;
+import com.aexiz.daviz.frege.simulation.Event.TEvent;
+import com.aexiz.daviz.frege.simulation.Event.TEvent.DEInternal;
+import com.aexiz.daviz.frege.simulation.Event.TEvent.DEReceive;
+import com.aexiz.daviz.frege.simulation.Event.TEvent.DEResult;
+import com.aexiz.daviz.frege.simulation.Event.TEvent.DESend;
 
 public abstract class Event extends Locus implements Cloneable {
 	

@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 import com.aexiz.daviz.simulation.Configuration.InitialConfiguration;
-import com.aexiz.daviz.sim.Event.TEvent;
-import com.aexiz.daviz.sim.Simulation.TSimulation;
+import com.aexiz.daviz.frege.simulation.Event.TEvent;
+import com.aexiz.daviz.frege.simulation.Simulation.TSimulation;
 
 import frege.prelude.PreludeBase.TList;
 import frege.prelude.PreludeBase.TList.DCons;
@@ -33,7 +33,7 @@ public class Execution {
 		if (simulation == null) throw new Error("Invalid simulation");
 		if (!(configuration instanceof InitialConfiguration)) throw new Error("Invalid initial configuration");
 		GlueHelper helper = new GlueHelper(simulation);
-		hSimulation = com.aexiz.daviz.sim.Simulation.simulation(
+		hSimulation = com.aexiz.daviz.frege.simulation.Simulation.simulation(
 				configuration.hConfiguration,
 				simulation.getAlgorithm().getProcessDescription(helper));
 		parent = null;
