@@ -11,10 +11,10 @@ import com.aexiz.daviz.simulation.Information.Result;
 import com.aexiz.daviz.simulation.Information.State;
 import com.aexiz.daviz.simulation.Viewpoint.Channel;
 import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
-import com.aexiz.daviz.frege.simulation.alg.Echo.TPS;
-import com.aexiz.daviz.frege.simulation.alg.Echo.TMS;
-import com.aexiz.daviz.frege.simulation.alg.Echo.TRRUI;
-import static com.aexiz.daviz.frege.simulation.alg.Echo.procDesc;
+import com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.TPS;
+import com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.TMS;
+import com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.TRRUI;
+import static com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.procDesc;
 
 import frege.run8.Thunk;
 

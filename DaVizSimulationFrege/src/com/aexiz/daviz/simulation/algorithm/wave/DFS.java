@@ -10,8 +10,8 @@ import com.aexiz.daviz.simulation.Information;
 import com.aexiz.daviz.simulation.Information.PropertyBuilder;
 import com.aexiz.daviz.simulation.Information.PropertyVisitor;
 import com.aexiz.daviz.simulation.Information.Result;
-import com.aexiz.daviz.frege.simulation.alg.DFS.TRRUI;
-import static com.aexiz.daviz.frege.simulation.alg.DFS.procDesc;
+import com.aexiz.daviz.frege.simulation.algorithm.wave.DFS.TRRUI;
+import static com.aexiz.daviz.frege.simulation.algorithm.wave.DFS.procDesc;
 
 import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.Set.TSet;

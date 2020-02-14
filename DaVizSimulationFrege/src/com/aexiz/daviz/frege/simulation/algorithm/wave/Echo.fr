@@ -1,4 +1,4 @@
-module com.aexiz.daviz.frege.simulation.alg.Echo where
+module com.aexiz.daviz.frege.simulation.algorithm.wave.Echo where
     
     import com.aexiz.daviz.frege.simulation.Set
     import com.aexiz.daviz.frege.simulation.Process

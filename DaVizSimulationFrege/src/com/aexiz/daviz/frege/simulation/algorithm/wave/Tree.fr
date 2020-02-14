@@ -1,4 +1,4 @@
-module com.aexiz.daviz.frege.simulation.alg.Tree where
+module com.aexiz.daviz.frege.simulation.algorithm.wave.Tree where
     
     import com.aexiz.daviz.frege.simulation.Set
     import com.aexiz.daviz.frege.simulation.Process

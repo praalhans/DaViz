@@ -11,10 +11,10 @@ import com.aexiz.daviz.simulation.Network;
 import com.aexiz.daviz.simulation.Information.PropertyBuilder;
 import com.aexiz.daviz.simulation.Information.PropertyVisitor;
 import com.aexiz.daviz.simulation.Information.Result;
-import com.aexiz.daviz.frege.simulation.alg.Cidon.TMS;
-import com.aexiz.daviz.frege.simulation.alg.Cidon.TPS;
-import com.aexiz.daviz.frege.simulation.alg.Cidon.TRRUI;
-import static com.aexiz.daviz.frege.simulation.alg.Cidon.procDesc;
+import com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.TMS;
+import com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.TPS;
+import com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.TRRUI;
+import static com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.procDesc;
 
 import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 

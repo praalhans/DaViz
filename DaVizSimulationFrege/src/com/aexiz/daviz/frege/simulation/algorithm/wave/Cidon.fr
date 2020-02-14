@@ -1,4 +1,4 @@
-module com.aexiz.daviz.frege.simulation.alg.Cidon where
+module com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon where
     
     import com.aexiz.daviz.frege.simulation.Set
     import com.aexiz.daviz.frege.simulation.Process

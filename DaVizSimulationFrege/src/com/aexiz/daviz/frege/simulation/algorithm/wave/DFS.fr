@@ -1,4 +1,4 @@
-module com.aexiz.daviz.frege.simulation.alg.DFS where
+module com.aexiz.daviz.frege.simulation.algorithm.wave.DFS where
     
     import com.aexiz.daviz.frege.simulation.Set
     import com.aexiz.daviz.frege.simulation.Process

@@ -12,8 +12,8 @@ import com.aexiz.daviz.simulation.Information.PropertyVisitor;
 import com.aexiz.daviz.simulation.Information.Result;
 import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.Set.TSet;
-import com.aexiz.daviz.frege.simulation.alg.Tarry.TDUI;
-import static com.aexiz.daviz.frege.simulation.alg.Tarry.procDesc;
+import com.aexiz.daviz.frege.simulation.algorithm.wave.Tarry.TDUI;
+import static com.aexiz.daviz.frege.simulation.algorithm.wave.Tarry.procDesc;
 
 import frege.prelude.PreludeBase.TTuple2;
 import frege.prelude.PreludeBase.TTuple3;

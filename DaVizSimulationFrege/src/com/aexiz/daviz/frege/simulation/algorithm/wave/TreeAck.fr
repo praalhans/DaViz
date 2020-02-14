@@ -1,4 +1,4 @@
-module com.aexiz.daviz.frege.simulation.alg.TreeAck where
+module com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck where
     
     import com.aexiz.daviz.frege.simulation.Set
     import com.aexiz.daviz.frege.simulation.Process

@@ -1,4 +1,4 @@
-module com.aexiz.daviz.frege.simulation.alg.Tarry where
+module com.aexiz.daviz.frege.simulation.algorithm.wave.Tarry where
     
     import com.aexiz.daviz.frege.simulation.Set
     import com.aexiz.daviz.frege.simulation.Process
