@@ -46,7 +46,7 @@ do
   java -Xss1m \
       -jar "${BASE_DIR}/${JAR_FREGE}"  \
       -d "${BASE_DIR}/${DIR_OUTPUT}" \
-      *.fr
+      ./*.fr
 
   cd "$BASE_DIR" || exit 1
 done
