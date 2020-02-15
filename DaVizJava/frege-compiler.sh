@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+# Can run on zsh as well
+
 DIR_FREGE="../DaVizSimulationFrege/src/com/aexiz/daviz/frege"
 DIR_FREGE_SIMULATION=$DIR_FREGE"/simulation"
 DIR_FREGE_SIMULATION_ALGORITHM=$DIR_FREGE_SIMULATION"/algorithm"
