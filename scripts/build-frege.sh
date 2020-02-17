@@ -11,8 +11,10 @@ DIR_OUTPUT="SimulationFrege/src/"
 JAR_FREGE="lib/frege3.25.84.jar"
 BASE_DIR=$PWD
 
+# Clean previous build
 find $DIR_FREGE -name "*.java" -type f -delete
 
+# Specify an compilation order based on dependencies
 FREGE_CORE_SOURCES_TO_COMPILE=(
   "${DIR_FREGE_SIMULATION}/Set.fr"
   "${DIR_FREGE_SIMULATION}/Graph.fr"
@@ -22,6 +24,7 @@ FREGE_CORE_SOURCES_TO_COMPILE=(
   "${DIR_FREGE_SIMULATION}/Simulation.fr"
 )
 
+# Algorithm directories to be compiled in any order
 FREGE_DIR_TO_COMPILE=(
   "${DIR_FREGE_SIMULATION_ALGORITHM}/wave"
 )
@@ -46,5 +49,5 @@ do
   cd "$BASE_DIR" || exit 1
 done
 
-
+# Clean up generated class files
 find $DIR_FREGE -name "*.class" -type f -delete
