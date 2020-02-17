@@ -1,13 +1,14 @@
 #!/usr/bin/env zsh
 # Can run on bash as well
 
-DIR_FREGE="../SimulationFrege/src/com/aexiz/daviz/frege"
+# This script expects to be executed from the root of the project
+DIR_FREGE="SimulationFrege/src/com/aexiz/daviz/frege"
 DIR_FREGE_SIMULATION=$DIR_FREGE"/simulation"
 DIR_FREGE_SIMULATION_ALGORITHM=$DIR_FREGE_SIMULATION"/algorithm"
 
-DIR_OUTPUT="../SimulationFrege/src/"
+DIR_OUTPUT="SimulationFrege/src/"
 
-JAR_FREGE="../SimulationFrege/lib/frege3.25.84.jar"
+JAR_FREGE="lib/frege3.25.84.jar"
 BASE_DIR=$PWD
 
 find $DIR_FREGE -name "*.java" -type f -delete
