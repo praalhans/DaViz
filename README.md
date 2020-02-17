@@ -43,6 +43,16 @@ Configurations to generating executable JARs are also provided. To run these con
 
 For additional configurations, refers to the [Package your application in a JAR](https://www.jetbrains.com/help/idea/packaging-a-module-into-a-jar-file.html) docs.
 
+### Haskell
+
+For learning Haskell, refer to:
+
+- [Haskell Tutorial by Derek Banas](https://www.youtube.com/watch?v=02_H3LjqMr8) - YouTube Video - Great introduction to Haskell.
+- [Learn You a Haskell by miran lipovača](http://learnyouahaskell.com/) - Free online or paid printable Book - Great coverage fo Haskell, from basics to advanced scenarios.
+- [Haskell Documentation](https://www.haskell.org/documentation/)
+- [The Haskell Cheatsheet by Justin Bailey](https://cheatsheet.codeslower.com/)
+- [Introduction to Functional Programming](https://courses.edx.org/courses/course-v1:DelftX+FP101x+3T2015/course/) - FreeEdx course to learn functional programming focused on Haskell.
+
 ## Modules
 
 This project is organized using the [Modules](https://www.jetbrains.com/help/idea/creating-and-managing-modules.html) structure from IntelliJ IDEA. Currently, there is 1 UI module (Swing) and 3 simulation modules (Core, Java and Frege). While there is just one UI module, it is possible to run DaViz as a native Java solution using the Java module or as a Java-Haskell solution using the Frege module. The Core module provides shared classes between the Java and Frege modules.
