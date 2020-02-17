@@ -23,7 +23,7 @@ The dependencies between modules are already configured and shared in the reposi
 
 Base build and application (run) configurations are already available in the project and can be simply executed to build or start the application. The following configurations are available:
 
-- Build Frege source: Generate intermediate Java files for frege implementation in the SimulationFrege module. Available for Zsh and PowerShell. 
+- Build Frege source: Generate intermediate Java files for frege implementation in the SimulationFrege module. Available for Zsh and PowerShell (**Not tested**). 
 - Run DaViz: Invoke the IDE build/run for the main executable class of the project.
 - Run DaViz and build Frege source: Run the two configurations above. 
 
