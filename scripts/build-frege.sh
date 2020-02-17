@@ -13,13 +13,6 @@ BASE_DIR=$PWD
 
 find $DIR_FREGE -name "*.java" -type f -delete
 
-# TODO Replace this quick fix for
-#  (A) a fully automated script (e.g receive DIR_FREGE directory and compile without defining orders)
-#  (B) Frege compiler plugin for IntelliJ (if not outdated)
-#  (C) Create a gulp script?
-# Note that the current solution only generates intermediate java files in the src
-# This is done to fix the "undefined references" displayed in the IDE (not needed to run the app though)
-# The class files will be generated later when the IDE builds
 FREGE_CORE_SOURCES_TO_COMPILE=(
   "${DIR_FREGE_SIMULATION}/Set.fr"
   "${DIR_FREGE_SIMULATION}/Graph.fr"
