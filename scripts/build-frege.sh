@@ -1,13 +1,13 @@
-#!/usr/bin/env bash
-# Can run on zsh as well
+#!/usr/bin/env zsh
+# Can run on bash as well
 
-DIR_FREGE="../DaVizSimulationFrege/src/com/aexiz/daviz/frege"
+DIR_FREGE="../SimulationFrege/src/com/aexiz/daviz/frege"
 DIR_FREGE_SIMULATION=$DIR_FREGE"/simulation"
 DIR_FREGE_SIMULATION_ALGORITHM=$DIR_FREGE_SIMULATION"/algorithm"
 
-DIR_OUTPUT="../DaVizSimulationFrege/src/"
+DIR_OUTPUT="../SimulationFrege/src/"
 
-JAR_FREGE="../DaVizSimulationFrege/lib/frege3.25.84.jar"
+JAR_FREGE="../SimulationFrege/lib/frege3.25.84.jar"
 BASE_DIR=$PWD
 
 find $DIR_FREGE -name "*.java" -type f -delete
@@ -15,6 +15,7 @@ find $DIR_FREGE -name "*.java" -type f -delete
 # TODO Replace this quick fix for
 #  (A) a fully automated script (e.g receive DIR_FREGE directory and compile without defining orders)
 #  (B) Frege compiler plugin for IntelliJ (if not outdated)
+#  (C) Create a gulp script?
 # Note that the current solution only generates intermediate java files in the src
 # This is done to fix the "undefined references" displayed in the IDE (not needed to run the app though)
 # The class files will be generated later when the IDE builds
