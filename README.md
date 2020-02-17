@@ -4,7 +4,7 @@ DaViz is a software tool written in the Haskell and Java programming languages f
 
 ## Getting Started
 
-The steps below explain how to setup and run DaViz. For a detailed description of the software, refer to the [docummentation](doc) directory.
+The steps below explain how to setup and run DaViz. For a detailed description of the software, refer to the [documentation](doc) directory.
 
 ### Prerequisites
 
