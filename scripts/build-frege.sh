@@ -4,9 +4,9 @@
 # This script expects to be executed from the root of the project
 DIR_FREGE="SimulationFrege/src/com/aexiz/daviz/frege"
 
-DIR_OUTPUT="${PWD}/SimulationFrege/src/"
+DIR_OUTPUT="SimulationFrege/src/"
 
-JAR_FREGE="${PWD}/lib/frege3.25.84.jar"
+JAR_FREGE="lib/frege3.25.84.jar"
 
 # Clean previous build
 find $DIR_FREGE -name '*.java' -type f -delete
@@ -26,7 +26,7 @@ do
 done
 
 # Compile all other files
-find $DIR_FREGE -type d -exec java -Xss1m -jar "$JAR_FREGE" -d "$DIR_OUTPUT" {} ';'
+find $DIR_FREGE -name '*.fr' -exec java -Xss1m -jar "$JAR_FREGE" -d "$DIR_OUTPUT" {} ';'
 
 # Clean up generated class files
 find $DIR_FREGE -name '*.class' -type f -delete
