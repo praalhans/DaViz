@@ -4,7 +4,7 @@
     <module name="DaViz" />
     <method v="2">
       <option name="Make" enabled="true" />
-      <option name="Sh.BeforeRunTask" RUN_CONFIG_NAME="PowerShell - Build Frege source" RUN_CONFIG_TYPE="ShConfigurationType" />
+      <option name="Sh.BeforeRunTask" RUN_CONFIG_NAME="Build Frege source (PowerShell)" RUN_CONFIG_TYPE="ShConfigurationType" />
     </method>
   </configuration>
 </component>
