@@ -3,51 +3,30 @@
 
 # This script expects to be executed from the root of the project
 DIR_FREGE="SimulationFrege/src/com/aexiz/daviz/frege"
-DIR_FREGE_SIMULATION=$DIR_FREGE"/simulation"
-DIR_FREGE_SIMULATION_ALGORITHM=$DIR_FREGE_SIMULATION"/algorithm"
 
-DIR_OUTPUT="SimulationFrege/src/"
+DIR_OUTPUT="${PWD}/SimulationFrege/src/"
 
-JAR_FREGE="lib/frege3.25.84.jar"
-BASE_DIR=$PWD
+JAR_FREGE="${PWD}/lib/frege3.25.84.jar"
 
 # Clean previous build
-find $DIR_FREGE -name "*.java" -type f -delete
+find $DIR_FREGE -name '*.java' -type f -delete
 
 # Specify an compilation order based on dependencies
 FREGE_CORE_SOURCES_TO_COMPILE=(
-  "${DIR_FREGE_SIMULATION}/Set.fr"
-  "${DIR_FREGE_SIMULATION}/Graph.fr"
-  "${DIR_FREGE_SIMULATION}/Process.fr"
-  "${DIR_FREGE_SIMULATION}/Visited.fr"
-  "${DIR_FREGE_SIMULATION}/Event.fr"
-  "${DIR_FREGE_SIMULATION}/Simulation.fr"
+  "${DIR_FREGE}/simulation/Set.fr"
+  "${DIR_FREGE}/simulation/Graph.fr"
+  "${DIR_FREGE}/simulation/Process.fr"
+  "${DIR_FREGE}/simulation/Event.fr"
 )
 
-# Algorithm directories to be compiled in any order
-FREGE_DIR_TO_COMPILE=(
-  "${DIR_FREGE_SIMULATION_ALGORITHM}/wave"
-)
-
+# Compile the files in the specified order
 for FILE_NAME in "${FREGE_CORE_SOURCES_TO_COMPILE[@]}"
 do
-	java -Xss1m \
-      -jar $JAR_FREGE  \
-      -d $DIR_OUTPUT \
-      "$FILE_NAME"
+	java -Xss1m -jar "$JAR_FREGE" -d "$DIR_OUTPUT" "$FILE_NAME"
 done
 
-for DIRECTORY in "${FREGE_DIR_TO_COMPILE[@]}"
-do
-  cd "$DIRECTORY" || exit 1
-
-  java -Xss1m \
-      -jar "${BASE_DIR}/${JAR_FREGE}"  \
-      -d "${BASE_DIR}/${DIR_OUTPUT}" \
-      ./*.fr
-
-  cd "$BASE_DIR" || exit 1
-done
+# Compile all other files
+find $DIR_FREGE -type d -exec java -Xss1m -jar "$JAR_FREGE" -d "$DIR_OUTPUT" {} ';'
 
 # Clean up generated class files
-find $DIR_FREGE -name "*.class" -type f -delete
+find $DIR_FREGE -name '*.class' -type f -delete
