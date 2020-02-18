@@ -27,12 +27,7 @@ done
 
 # TODO Verify how to simply ignore all matches that are in $FREGE_CORE_SOURCES_TO_COMPILE array
 # Compile all other files
-find $DIR_FREGE -name '*.fr' \
-                ! -name 'Set.fr' \
-                ! -name 'Graph.fr' \
-                ! -name 'Process.fr' \
-                ! -name 'Event.fr' \
-                -exec java -Xss1m -jar "$JAR_FREGE" -d "$DIR_OUTPUT" {} ';'
+java -Xss1m -jar "$JAR_FREGE" -d "$DIR_OUTPUT" "${DIR_FREGE}/"
 
 # Clean up generated class files
 find $DIR_FREGE -name '*.class' -type f -delete

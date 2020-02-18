@@ -29,7 +29,7 @@ Base build and application (run) configurations are already available in the pro
 
 These configurations were verified to work for Mac OS and Linux distributions. They were **not tested** yet on Windows.
 
-Currently, Frege source is build by running the [frege-build](scripts/build-frege.sh) script. The core files that contains dependencies are defined in `FREGE_CORE_SOURCES_TO_COMPILE` in the correct compilation order. The remaining files are obtained using the `find` command. These files are compiled using the Frege JAR located in the `lib` directory and generate java and class files in the `src` directory, to remove the unknown references errors displayed in the IDE. Once all files are compiled, the class files are removed. If new Frege files are created, they need to be added in the script.
+Currently, Frege source is build by running the [frege-build](scripts/build-frege.sh) script. The core files that contains dependencies are defined in `FREGE_CORE_SOURCES_TO_COMPILE` in the correct compilation order. After this, a second compilation is performed in all Frege sources. These files are compiled using the Frege JAR located in the `lib` directory and generate java and class files in the `src` directory, to remove the unknown references errors displayed in the IDE. Once all files are compiled, the class files are removed. If new Frege files are created, they need to be added in the script.
 
 Although this workflow overhead is minimal since the project is small, we know that this solution is not optimal, thus better alternatives are welcome. Considered alternatives to this process could be:
 
