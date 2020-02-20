@@ -1,13 +1,10 @@
 package com.aexiz.daviz.simulation;
 
 public class Simulation {
-
-    // Properties
     private Algorithm algorithm;
     private Assumption assumption;
     private Network network;
 
-    // Transient fields
     private transient Execution execution;
 
     public Simulation() {
