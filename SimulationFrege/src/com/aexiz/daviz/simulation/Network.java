@@ -1,31 +1,28 @@
 package com.aexiz.daviz.simulation;
 
-import java.util.ArrayList;
-import java.util.UUID;
-
 import com.aexiz.daviz.frege.simulation.Set;
 import com.aexiz.daviz.frege.simulation.Set.TSet;
-
 import frege.prelude.PreludeBase.TTuple2;
 import frege.run8.Lazy;
 import frege.run8.Thunk;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.UUID;
+
 public class Network {
 
+    // Simulation ownership
+    transient Simulation simulation;
+    // Haskell dependence
+    transient TSet<TTuple2<Integer, Integer>> hNetwork;
     private ArrayList<Viewpoint.Node> processes = new ArrayList<>();
     private ArrayList<Viewpoint.Channel> channels = new ArrayList<>();
     private String uuid;
 
-    // Simulation ownership
-    transient Simulation simulation;
-
-    // Haskell dependence
-    transient TSet<TTuple2<Integer, Integer>> hNetwork;
-
-	public Network() {
-		uuid = UUID.randomUUID().toString();
-	}
+    public Network() {
+        uuid = UUID.randomUUID().toString();
+    }
 
     public Viewpoint.Node addNode(@NotNull Viewpoint.Node process) {
         if (process.belongsToAnyNetwork() && !process.belongsToNetwork(uuid)) {
@@ -51,8 +48,8 @@ public class Network {
         }
     }
 
-    public boolean hasNode(Viewpoint.Node process){
-	    return process.belongsToNetwork(uuid);
+    public boolean hasNode(Viewpoint.Node process) {
+        return process.belongsToNetwork(uuid);
     }
 
     public boolean hasChannel(Viewpoint.Node from, Viewpoint.Node to) {
@@ -120,7 +117,7 @@ public class Network {
             // 2.2. Construct one element
             Lazy<Integer> from = Thunk.lazy(c.from.hId);
             Lazy<Integer> to = Thunk.lazy(c.to.hId);
-            TTuple2<Integer, Integer> ch = TTuple2.<Integer, Integer>mk(from, to);
+            TTuple2<Integer, Integer> ch = TTuple2.mk(from, to);
             // 2.3. Add one element to set
             hNetwork = Set.addS(hNetwork, ch);
         }

@@ -11,11 +11,11 @@ public abstract class Viewpoint extends Locus {
         this.networkID = networkID;
     }
 
-    public boolean belongsToAnyNetwork(){
+    public boolean belongsToAnyNetwork() {
         return this.networkID != null;
     }
 
-    public boolean belongsToNetwork(String networkID){
+    public boolean belongsToNetwork(String networkID) {
         return belongsToAnyNetwork() && this.networkID.equals(networkID);
     }
 
@@ -30,7 +30,8 @@ public abstract class Viewpoint extends Locus {
         private float weight = Float.NaN;
 
         public Channel(Node from, Node to) {
-            if (from == null || to == null) throw new IllegalArgumentException("Channel cannot be created with null @Node");
+            if (from == null || to == null)
+                throw new IllegalArgumentException("Channel cannot be created with null @Node");
             this.from = from;
             this.to = to;
         }
@@ -39,16 +40,16 @@ public abstract class Viewpoint extends Locus {
             this.weight = Float.NaN;
         }
 
-        public void setWeight(float weight) {
-            this.weight = weight;
-        }
-
         public boolean hasWeight() {
             return weight == weight;
         }
 
         public float getWeight() {
             return weight;
+        }
+
+        public void setWeight(float weight) {
+            this.weight = weight;
         }
 
         public boolean equals(Object obj) {
@@ -82,14 +83,11 @@ public abstract class Viewpoint extends Locus {
         public static final String CLIENT_PROPERTY_POSITION_X = "node_pos_x";
         public static final String CLIENT_PROPERTY_POSITION_Y = "node_pos_y";
         public static final String CLIENT_PROPERTY_NODEMODEL = "nodemodel";
-
-        private String label;
-
         // Haskell dependencies
         transient int hId;
-
         // Temporary fields
         transient boolean marked;
+        private String label;
 
         public Node() {
         }
@@ -98,12 +96,12 @@ public abstract class Viewpoint extends Locus {
             setLabel(label);
         }
 
-        public void setLabel(String label) {
-            this.label = label;
-        }
-
         public String getLabel() {
             return this.label == null ? "" : this.label;
+        }
+
+        public void setLabel(String label) {
+            this.label = label;
         }
 
         @Override
