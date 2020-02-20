@@ -75,7 +75,6 @@ public abstract class Viewpoint extends Locus {
 
     }
 
-
     // This class should actually be "process", but because Java already has a
     // built-in class called Process, we can not name it so. Next time: prefix
     // model classes with a letter, like they do in Swing.
