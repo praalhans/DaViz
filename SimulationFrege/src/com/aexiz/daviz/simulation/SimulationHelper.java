@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import static com.aexiz.daviz.frege.simulation.Set.glueIntNormalS;
 import static com.aexiz.daviz.frege.simulation.Set.glueTuple2IntNormalS;
 
-public class GlueHelper {
+public class SimulationHelper {
 
     private Simulation simulation;
 
-    GlueHelper(Simulation sim) {
+    SimulationHelper(Simulation sim) {
         simulation = sim;
     }
 

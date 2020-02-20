@@ -37,7 +37,7 @@ public class Configuration {
         if (hConfiguration == null) throw new Error("Invalid Haskell configuration");
         // Assume network remains unchanged
         Algorithm alg = simulation.getAlgorithm();
-        GlueHelper helper = new GlueHelper(simulation);
+        SimulationHelper helper = new SimulationHelper(simulation);
         // 1. Read out state of each process
         processes = simulation.getNetwork().getNodes();
         processAlive = new boolean[processes.length];
@@ -123,7 +123,7 @@ public class Configuration {
 
         void load() {
             TSet<TTuple2<Integer, Integer>> network = simulation.getNetwork().hNetwork;
-            GlueHelper helper = new GlueHelper(simulation);
+            SimulationHelper helper = new SimulationHelper(simulation);
             TProcessDescription<Object, Object, Object, Object> o = simulation.getAlgorithm().getProcessDescription(helper);
             hConfiguration = com.aexiz.daviz.frege.simulation.Simulation.initialConfiguration(network, o.simsalabim());
         }

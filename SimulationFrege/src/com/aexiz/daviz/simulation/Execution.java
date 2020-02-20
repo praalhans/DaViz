@@ -31,7 +31,7 @@ public class Execution {
     void loadFirst() {
         if (simulation == null) throw new Error("Invalid simulation");
         if (!(configuration instanceof InitialConfiguration)) throw new Error("Invalid initial configuration");
-        GlueHelper helper = new GlueHelper(simulation);
+        SimulationHelper helper = new SimulationHelper(simulation);
         hSimulation = com.aexiz.daviz.frege.simulation.Simulation.simulation(
                 configuration.hConfiguration,
                 simulation.getAlgorithm().getProcessDescription(helper));

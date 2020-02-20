@@ -6,7 +6,7 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.TRRUI;
 import com.aexiz.daviz.simulation.Algorithm;
 import com.aexiz.daviz.simulation.Assumption;
-import com.aexiz.daviz.simulation.GlueHelper;
+import com.aexiz.daviz.simulation.SimulationHelper;
 import com.aexiz.daviz.simulation.Information;
 import com.aexiz.daviz.simulation.Information.*;
 import com.aexiz.daviz.simulation.Viewpoint.Channel;
@@ -26,7 +26,7 @@ public class Echo extends Algorithm {
         };
     }
 
-    protected Message makeAndUnloadMessage(GlueHelper helper, Object o) {
+    protected Message makeAndUnloadMessage(SimulationHelper helper, Object o) {
         class EchoMessage extends Information.Message {
             public String toString() {
                 return "*broadcast*";
@@ -45,7 +45,7 @@ public class Echo extends Algorithm {
         throw new Error("Invalid message");
     }
 
-    protected State makeAndUnloadState(GlueHelper helper, Object o) {
+    protected State makeAndUnloadState(SimulationHelper helper, Object o) {
         abstract class EchoRRUI implements PropertyVisitor {
         }
         class EchoState extends Information.State {
@@ -140,7 +140,7 @@ public class Echo extends Algorithm {
         return result;
     }
 
-    protected Result makeAndUnloadResult(GlueHelper helper, Object o) {
+    protected Result makeAndUnloadResult(SimulationHelper helper, Object o) {
         class TreeAckDecided extends Information.Result {
             public String toString() {
                 return "Decided";
@@ -164,7 +164,7 @@ public class Echo extends Algorithm {
         else return new TreeAckTerminated();
     }
 
-    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(GlueHelper helper) {
+    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(SimulationHelper helper) {
         return procDesc(Thunk.lazy(helper.getIdByNode(assumption.getInitiator()))).simsalabim();
     }
 

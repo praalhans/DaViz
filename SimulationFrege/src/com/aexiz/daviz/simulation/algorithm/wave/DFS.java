@@ -5,7 +5,7 @@ import com.aexiz.daviz.frege.simulation.Set.TSet;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.DFS.TRRUI;
 import com.aexiz.daviz.simulation.Algorithm;
 import com.aexiz.daviz.simulation.Assumption;
-import com.aexiz.daviz.simulation.GlueHelper;
+import com.aexiz.daviz.simulation.SimulationHelper;
 import com.aexiz.daviz.simulation.Information;
 import com.aexiz.daviz.simulation.Information.PropertyBuilder;
 import com.aexiz.daviz.simulation.Information.PropertyVisitor;
@@ -31,7 +31,7 @@ public class DFS extends Algorithm {
         };
     }
 
-    protected Information.Message makeAndUnloadMessage(GlueHelper help, Object o) {
+    protected Information.Message makeAndUnloadMessage(SimulationHelper help, Object o) {
         if (help == null || o == null) throw null;
         class DFS_Message extends Information.Message {
             public String toString() {
@@ -51,7 +51,7 @@ public class DFS extends Algorithm {
         return new DFS_Message();
     }
 
-    protected Information.State makeAndUnloadState(GlueHelper help, Object o) {
+    protected Information.State makeAndUnloadState(SimulationHelper help, Object o) {
         if (help == null || o == null) throw null;
         abstract class DFS_RRUI implements PropertyVisitor {
         }
@@ -148,7 +148,7 @@ public class DFS extends Algorithm {
         return result;
     }
 
-    protected Result makeAndUnloadResult(GlueHelper helper, Object o) {
+    protected Result makeAndUnloadResult(SimulationHelper helper, Object o) {
         class DFSTerminated extends Information.Result {
             public String toString() {
                 return "Terminated";
@@ -175,7 +175,7 @@ public class DFS extends Algorithm {
         }
     }
 
-    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(GlueHelper helper) {
+    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(SimulationHelper helper) {
         return procDesc(Thunk.lazy(helper.getIdByNode(assumption.getInitiator()))).simsalabim();
     }
 

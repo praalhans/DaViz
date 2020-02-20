@@ -202,7 +202,7 @@ public abstract class Event extends Locus implements Cloneable {
         void unload() {
             super.unload();
             hEvent = super.hEvent.asEResult();
-            GlueHelper helper = new GlueHelper(simulation);
+            SimulationHelper helper = new SimulationHelper(simulation);
             result = simulation.getAlgorithm().makeAndUnloadResult(helper, hEvent.mem$val.call());
         }
 
@@ -248,7 +248,7 @@ public abstract class Event extends Locus implements Cloneable {
         void unload() {
             super.unload();
             hEvent = super.hEvent.asEReceive();
-            GlueHelper helper = new GlueHelper(simulation);
+            SimulationHelper helper = new SimulationHelper(simulation);
             message = simulation.getAlgorithm().makeAndUnloadMessage(helper, hEvent.mem$msg.call());
             nextState = simulation.getAlgorithm().makeAndUnloadState(helper, hEvent.mem$next.call());
             sender = simulation.getNetwork().getNodeById(hEvent.mem$send.call());
@@ -323,7 +323,7 @@ public abstract class Event extends Locus implements Cloneable {
         void unload() {
             super.unload();
             hEvent = super.hEvent.asESend();
-            GlueHelper helper = new GlueHelper(simulation);
+            SimulationHelper helper = new SimulationHelper(simulation);
             message = simulation.getAlgorithm().makeAndUnloadMessage(helper, hEvent.mem$msg.call());
             nextState = simulation.getAlgorithm().makeAndUnloadState(helper, hEvent.mem$next.call());
             receiver = simulation.getNetwork().getNodeById(hEvent.mem$recv.call());
@@ -395,7 +395,7 @@ public abstract class Event extends Locus implements Cloneable {
         void unload() {
             super.unload();
             hEvent = super.hEvent.asEInternal();
-            GlueHelper helper = new GlueHelper(simulation);
+            SimulationHelper helper = new SimulationHelper(simulation);
             nextState = simulation.getAlgorithm().makeAndUnloadState(helper, hEvent.mem$next.call());
         }
 

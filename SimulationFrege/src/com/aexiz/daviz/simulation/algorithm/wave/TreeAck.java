@@ -6,7 +6,7 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.TUPDS;
 import com.aexiz.daviz.simulation.Algorithm;
 import com.aexiz.daviz.simulation.Assumption;
-import com.aexiz.daviz.simulation.GlueHelper;
+import com.aexiz.daviz.simulation.SimulationHelper;
 import com.aexiz.daviz.simulation.Information;
 import com.aexiz.daviz.simulation.Information.*;
 import com.aexiz.daviz.simulation.Viewpoint.Channel;
@@ -26,7 +26,7 @@ public class TreeAck extends Algorithm {
         };
     }
 
-    protected Message makeAndUnloadMessage(GlueHelper helper, Object o) {
+    protected Message makeAndUnloadMessage(SimulationHelper helper, Object o) {
         abstract class TreeAckMessage extends Information.Message {
         }
         class TreeAckInfoMessage extends TreeAckMessage {
@@ -61,7 +61,7 @@ public class TreeAck extends Algorithm {
         throw new Error("Invalid message");
     }
 
-    protected State makeAndUnloadState(GlueHelper helper, Object o) {
+    protected State makeAndUnloadState(SimulationHelper helper, Object o) {
         abstract class TreeAckUPDS implements PropertyVisitor {
         }
         class TreeAckState extends Information.State {
@@ -159,7 +159,7 @@ public class TreeAck extends Algorithm {
         return result;
     }
 
-    protected Result makeAndUnloadResult(GlueHelper helper, Object o) {
+    protected Result makeAndUnloadResult(SimulationHelper helper, Object o) {
         class TreeAckDecided extends Information.Result {
             public String toString() {
                 return "Decided";
@@ -183,7 +183,7 @@ public class TreeAck extends Algorithm {
         else return new TreeAckTerminated();
     }
 
-    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(GlueHelper helper) {
+    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(SimulationHelper helper) {
         return procDesc.call().simsalabim();
     }
 

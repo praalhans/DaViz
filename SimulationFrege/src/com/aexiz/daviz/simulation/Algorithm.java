@@ -2,7 +2,7 @@ package com.aexiz.daviz.simulation;
 
 import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 
-public abstract class Algorithm {
+public abstract class Algorithm extends AbstractAlgorithm {
 
     protected Assumption assumption;
 
@@ -16,15 +16,15 @@ public abstract class Algorithm {
         return null;
     }
 
-    protected abstract Information.Message makeAndUnloadMessage(GlueHelper helper, Object o);
+    protected abstract Information.Message makeAndUnloadMessage(SimulationHelper helper, Object o);
 
     // Unloading information from simulation
 
-    protected abstract Information.State makeAndUnloadState(GlueHelper helper, Object o);
+    protected abstract Information.State makeAndUnloadState(SimulationHelper helper, Object o);
 
-    protected abstract Information.Result makeAndUnloadResult(GlueHelper helper, Object o);
+    protected abstract Information.Result makeAndUnloadResult(SimulationHelper helper, Object o);
 
-    protected abstract TProcessDescription<Object, Object, Object, Object> getProcessDescription(GlueHelper helper);
+    protected abstract TProcessDescription<Object, Object, Object, Object> getProcessDescription(SimulationHelper helper);
 
     // Loading information into simulation
 

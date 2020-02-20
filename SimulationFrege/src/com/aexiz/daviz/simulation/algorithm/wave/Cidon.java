@@ -37,7 +37,7 @@ public class Cidon extends Algorithm {
         return MAX_ROUNDS;
     }
 
-    protected Information.Message makeAndUnloadMessage(GlueHelper help, Object o) {
+    protected Information.Message makeAndUnloadMessage(SimulationHelper help, Object o) {
         if (help == null || o == null) throw null;
         abstract class CidonMessage extends Information.Message {
         }
@@ -75,7 +75,7 @@ public class Cidon extends Algorithm {
         } else throw new Error("Unknown message");
     }
 
-    protected Information.State makeAndUnloadState(GlueHelper help, Object o) {
+    protected Information.State makeAndUnloadState(SimulationHelper help, Object o) {
         if (help == null || o == null) throw null;
         abstract class CidonRRUI implements PropertyVisitor {
         }
@@ -182,7 +182,7 @@ public class Cidon extends Algorithm {
         return result;
     }
 
-    protected Result makeAndUnloadResult(GlueHelper helper, Object o) {
+    protected Result makeAndUnloadResult(SimulationHelper helper, Object o) {
         class CidonTerminated extends Information.Result {
             public String toString() {
                 return "Terminated";
@@ -209,7 +209,7 @@ public class Cidon extends Algorithm {
         }
     }
 
-    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(GlueHelper helper) {
+    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(SimulationHelper helper) {
         return procDesc(Thunk.lazy(helper.getIdByNode(assumption.getInitiator()))).simsalabim();
     }
 
