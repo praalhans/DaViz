@@ -32,6 +32,14 @@ public class Assumption {
         initiator = node;
     }
 
+    public List<Node> getInitiators() {
+        return initiators;
+    }
+
+    public void setInitiators(List<Node> initiators) {
+        this.initiators = initiators;
+    }
+
     public boolean isDirectedGraph() {
         return directedGraph;
     }
