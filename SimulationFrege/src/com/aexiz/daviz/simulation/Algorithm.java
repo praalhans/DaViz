@@ -3,13 +3,6 @@ package com.aexiz.daviz.simulation;
 import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 
 public abstract class Algorithm extends AbstractAlgorithm {
-
-    protected Assumption assumption;
-
-    public Assumption getAssumption() {
-        return assumption;
-    }
-
     // General property before simulation
 
     public Integer getMaxRounds(Network network){
