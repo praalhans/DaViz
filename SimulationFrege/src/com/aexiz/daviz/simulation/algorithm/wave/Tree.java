@@ -19,7 +19,7 @@ public class Tree extends Algorithm {
     public Tree() {
         assumption = new Assumption() {
             {
-                acylcicGraph = true;
+                acyclicGraph = true;
                 decentralized_computed = true;
             }
         };

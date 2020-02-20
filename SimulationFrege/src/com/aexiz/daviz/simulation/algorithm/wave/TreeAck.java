@@ -20,7 +20,7 @@ public class TreeAck extends Algorithm {
     public TreeAck() {
         assumption = new Assumption() {
             {
-                acylcicGraph = true;
+                acyclicGraph = true;
                 decentralized_computed = true;
             }
         };

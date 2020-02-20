@@ -9,7 +9,7 @@ public class Assumption {
     // Configured by subclass
     protected boolean infiniteGraph;
     protected boolean directedGraph;
-    protected boolean acylcicGraph;
+    protected boolean acyclicGraph;
     protected boolean dynamicGraph;
 
     protected boolean fifo_channels; // True if first-in-first-out channels
@@ -37,7 +37,7 @@ public class Assumption {
     }
 
     public boolean isAcyclicGraph() {
-        return acylcicGraph;
+        return acyclicGraph;
     }
 
     public boolean isCentralized() {
