@@ -73,7 +73,7 @@ public class RandomProgram {
 				return c[random.nextInt(c.length)];
 			}
 		};
-		st.max_rounds = sim.getAlgorithm().getMaxRounds().maxRounds(sim.getNetwork());
+		st.max_rounds = sim.getAlgorithm().getMaxRounds(sim.getNetwork());
 		// Run simulation until termination
 		while (st.hasNext()) {
 			st.step(st.getNext());

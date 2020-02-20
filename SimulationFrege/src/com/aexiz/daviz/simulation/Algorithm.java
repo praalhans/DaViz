@@ -12,7 +12,7 @@ public abstract class Algorithm extends AbstractAlgorithm {
 
     // General property before simulation
 
-    public MaxRounds getMaxRounds() {
+    public Integer getMaxRounds(Network network){
         return null;
     }
 
@@ -27,9 +27,4 @@ public abstract class Algorithm extends AbstractAlgorithm {
     protected abstract TProcessDescription<Object, Object, Object, Object> getProcessDescription(SimulationHelper helper);
 
     // Loading information into simulation
-
-    public interface MaxRounds {
-        int maxRounds(Network network);
-    }
-
 }

@@ -19,12 +19,6 @@ import static com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.procDesc;
 
 public class Cidon extends Algorithm {
 
-    private static MaxRounds MAX_ROUNDS = new MaxRounds() {
-        public int maxRounds(Network network) {
-            return (network.getNodes().length + network.getChannels().length) * 15;
-        }
-    };
-
     public Cidon() {
         assumption = new Assumption() {
             {
@@ -33,8 +27,9 @@ public class Cidon extends Algorithm {
         };
     }
 
-    public MaxRounds getMaxRounds() {
-        return MAX_ROUNDS;
+    @Override
+    public Integer getMaxRounds(Network network) {
+        return (network.getNodes().length + network.getChannels().length) * 15;
     }
 
     protected Information.Message makeAndUnloadMessage(SimulationHelper help, Object o) {
