@@ -19,15 +19,15 @@ public class Network {
     // Haskell dependence
     transient TSet<TTuple2<Integer, Integer>> hNetwork;
 
-    private ArrayList<Viewpoint.Node> processes = new ArrayList<>();
-    private ArrayList<Viewpoint.Channel> channels = new ArrayList<>();
+    private ArrayList<Node> processes = new ArrayList<>();
+    private ArrayList<Channel> channels = new ArrayList<>();
     private String uuid;
 
     public Network() {
         uuid = UUID.randomUUID().toString();
     }
 
-    public Viewpoint.Node addNode(@NotNull Viewpoint.Node process) {
+    public Node addNode(@NotNull Node process) {
         if (process.belongsToAnyNetwork() && !process.belongsToNetwork(uuid)) {
             throw new Error("Process already owned by other network");
         }
@@ -37,7 +37,7 @@ public class Network {
         return process;
     }
 
-    public Viewpoint.Channel addChannel(@NotNull Viewpoint.Channel channel) {
+    public Channel addChannel(@NotNull Channel channel) {
         if (channel.belongsToAnyNetwork() && !channel.belongsToNetwork(uuid)) {
             throw new Error("Channel already owned by other network");
         }
@@ -51,57 +51,57 @@ public class Network {
         }
     }
 
-    public boolean hasNode(Viewpoint.Node process) {
+    public boolean hasNode(Node process) {
         return process.belongsToNetwork(uuid);
     }
 
-    public boolean hasChannel(Viewpoint.Node from, Viewpoint.Node to) {
-        for (Viewpoint.Channel c : channels) {
+    public boolean hasChannel(Node from, Node to) {
+        for (Channel c : channels) {
             if (c.from == from && c.to == to) return true;
         }
         return false;
     }
 
-    public Viewpoint.Node[] getNodes() {
-        return processes.toArray(new Viewpoint.Node[processes.size()]);
+    public Node[] getNodes() {
+        return processes.toArray(new Node[processes.size()]);
     }
 
-    public Viewpoint.Channel[] getChannels() {
-        return channels.toArray(new Viewpoint.Channel[channels.size()]);
+    public Channel[] getChannels() {
+        return channels.toArray(new Channel[channels.size()]);
     }
 
     public void makeUndirected() {
         // Symmetric closure, loop over copy to prevent CME
-        for (Viewpoint.Channel c : getChannels()) {
-            addChannel(new Viewpoint.Channel(c.to, c.from));
+        for (Channel c : getChannels()) {
+            addChannel(new Channel(c.to, c.from));
         }
     }
 
     public boolean isWeighted() {
-        for (Viewpoint.Channel c : channels) {
+        for (Channel c : channels) {
             if (!c.hasWeight()) return false;
         }
         return true;
     }
 
     public boolean isStronglyConnected() {
-        for (Viewpoint.Node n : processes) {
+        for (Node n : processes) {
             n.marked = false;
         }
         if (processes.size() > 0) {
-            Viewpoint.Node start = processes.get(0);
+            Node start = processes.get(0);
             floodFill(start);
         }
-        for (Viewpoint.Node n : processes) {
+        for (Node n : processes) {
             if (!n.marked) return false;
         }
         return true;
     }
 
-    private void floodFill(Viewpoint.Node node) {
+    private void floodFill(Node node) {
         if (node.marked) return;
         node.marked = true;
-        for (Viewpoint.Channel c : channels) {
+        for (Channel c : channels) {
             if (c.from == node)
                 floodFill(c.to);
         }
@@ -110,13 +110,13 @@ public class Network {
     void load() {
         // 1. Construct unique Integers for processes
         int last = 1;
-        for (Viewpoint.Node p : processes) {
+        for (Node p : processes) {
             p.hId = last++;
         }
         // 2. Construct set of edge tuples
         // 2.1. Empty set
         hNetwork = Set.<TTuple2<Integer, Integer>>emptyS().call();
-        for (Viewpoint.Channel c : channels) {
+        for (Channel c : channels) {
             // 2.2. Construct one element
             Lazy<Integer> from = Thunk.lazy(c.from.hId);
             Lazy<Integer> to = Thunk.lazy(c.to.hId);
@@ -126,8 +126,8 @@ public class Network {
         }
     }
 
-    Viewpoint.Node getNodeById(int hId) {
-        for (Viewpoint.Node p : processes) {
+    Node getNodeById(int hId) {
+        for (Node p : processes) {
             if (p.hId == hId)
                 return p;
         }

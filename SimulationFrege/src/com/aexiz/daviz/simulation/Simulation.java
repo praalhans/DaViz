@@ -41,7 +41,7 @@ public class Simulation {
         network.simulation = this;
     }
 
-    public void setInitiator(Viewpoint.Node process) {
+    public void setInitiator(Node process) {
         if (assumption == null) throw new Error("No algorithm");
         if (!assumption.centralized_user) throw new Error("Algorithm is not centralized by user-input");
         if (network == null) throw new Error("Network is not set");

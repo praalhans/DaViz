@@ -17,34 +17,34 @@ public class SimulationHelper {
         simulation = sim;
     }
 
-    public int getIdByNode(Viewpoint.Node node) {
+    public int getIdByNode(Node node) {
         return node.hId;
     }
 
-    public Viewpoint.Node getNodeById(int id) {
-        for (Viewpoint.Node p : simulation.getNetwork().getNodes()) {
+    public Node getNodeById(int id) {
+        for (Node p : simulation.getNetwork().getNodes()) {
             if (p.hId == id)
                 return p;
         }
         throw new Error("Network and Haskell out-of-sync");
     }
 
-    public Viewpoint.Channel getChannelByIds(int from, int to) {
-        for (Viewpoint.Channel c : simulation.getNetwork().getChannels()) {
+    public Channel getChannelByIds(int from, int to) {
+        for (Channel c : simulation.getNetwork().getChannels()) {
             if (c.from.hId == from && c.to.hId == to)
                 return c;
         }
         throw new Error("Network and Haskell out-of-sync");
     }
 
-    public Viewpoint.Channel getChannelByTuple(TTuple2<Integer, Integer> tuple) {
+    public Channel getChannelByTuple(TTuple2<Integer, Integer> tuple) {
         int from = tuple.mem1.call().intValue();
         int to = tuple.mem2.call().intValue();
         return getChannelByIds(from, to);
     }
 
-    public ArrayList<Viewpoint.Channel> forEdgeSet(TSet<TTuple2<Integer, Integer>> set) {
-        ArrayList<Viewpoint.Channel> result = new OrderedSetList<>();
+    public ArrayList<Channel> forEdgeSet(TSet<TTuple2<Integer, Integer>> set) {
+        ArrayList<Channel> result = new OrderedSetList<>();
         TList<TTuple2<Integer, Integer>> l = Set.glueTuple2IntNormalS(set);
         while (l.asCons() != null) {
             DCons<TTuple2<Integer, Integer>> c = l.asCons();
@@ -55,8 +55,8 @@ public class SimulationHelper {
         return result;
     }
 
-    public ArrayList<Viewpoint.Node> forVertexSet(TSet<Integer> set) {
-        ArrayList<Viewpoint.Node> result = new OrderedSetList<>();
+    public ArrayList<Node> forVertexSet(TSet<Integer> set) {
+        ArrayList<Node> result = new OrderedSetList<>();
         TList<Integer> l = Set.glueIntNormalS(set);
         while (l.asCons() != null) {
             DCons<Integer> c = l.asCons();

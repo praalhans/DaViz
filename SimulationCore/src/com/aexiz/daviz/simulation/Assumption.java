@@ -1,7 +1,5 @@
 package com.aexiz.daviz.simulation;
 
-import com.aexiz.daviz.simulation.Viewpoint.Node;
-
 import java.util.List;
 
 public class Assumption {

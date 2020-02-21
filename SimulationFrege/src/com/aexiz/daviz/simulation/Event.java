@@ -5,7 +5,6 @@ import com.aexiz.daviz.frege.simulation.Event.TEvent.DEInternal;
 import com.aexiz.daviz.frege.simulation.Event.TEvent.DEReceive;
 import com.aexiz.daviz.frege.simulation.Event.TEvent.DEResult;
 import com.aexiz.daviz.frege.simulation.Event.TEvent.DESend;
-import com.aexiz.daviz.simulation.Viewpoint.Node;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +20,7 @@ public abstract class Event extends Locus implements Cloneable {
     transient int hId;
 
     // Computed properties
-    transient Viewpoint.Node happensAt;
+    transient Node happensAt;
 
     // Computed properties, unique to instance (not cloned)
     transient Event matchingEvent;
@@ -142,7 +141,7 @@ public abstract class Event extends Locus implements Cloneable {
         return true;
     }
 
-    public Viewpoint.Node getHappensAt() {
+    public Node getHappensAt() {
         return happensAt;
     }
 
@@ -174,7 +173,7 @@ public abstract class Event extends Locus implements Cloneable {
         return false;
     }
 
-    public Viewpoint.Node getSender() {
+    public Node getSender() {
         throw new Error();
     }
 
@@ -182,7 +181,7 @@ public abstract class Event extends Locus implements Cloneable {
         return false;
     }
 
-    public Viewpoint.Node getReceiver() {
+    public Node getReceiver() {
         throw new Error();
     }
 
@@ -240,7 +239,7 @@ public abstract class Event extends Locus implements Cloneable {
         // Computed properties
         transient Information.Message message;
         transient Information.State nextState;
-        transient Viewpoint.Node sender;
+        transient Node sender;
 
         ReceiveEvent() {
         }
@@ -288,7 +287,7 @@ public abstract class Event extends Locus implements Cloneable {
             return true;
         }
 
-        public Viewpoint.Node getSender() {
+        public Node getSender() {
             return sender;
         }
 
@@ -315,7 +314,7 @@ public abstract class Event extends Locus implements Cloneable {
         // Computed properties
         transient Information.Message message;
         transient Information.State nextState;
-        transient Viewpoint.Node receiver;
+        transient Node receiver;
 
         SendEvent() {
         }
@@ -363,7 +362,7 @@ public abstract class Event extends Locus implements Cloneable {
             return true;
         }
 
-        public Viewpoint.Node getReceiver() {
+        public Node getReceiver() {
             return receiver;
         }
 

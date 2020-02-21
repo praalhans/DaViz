@@ -2,8 +2,8 @@ package com.aexiz.daviz;
 
 import com.aexiz.daviz.simulation.Network;
 import com.aexiz.daviz.simulation.Simulation;
-import com.aexiz.daviz.simulation.Viewpoint.Channel;
-import com.aexiz.daviz.simulation.Viewpoint.Node;
+import com.aexiz.daviz.simulation.Channel;
+import com.aexiz.daviz.simulation.Node;
 import com.aexiz.daviz.ui.*;
 import com.aexiz.daviz.ui.ExecutionModel.CoarseTimeEventListener;
 import com.aexiz.daviz.ui.ExecutionModel.EventModel;

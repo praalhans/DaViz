@@ -9,7 +9,7 @@ import com.aexiz.daviz.simulation.Assumption;
 import com.aexiz.daviz.simulation.SimulationHelper;
 import com.aexiz.daviz.simulation.Information;
 import com.aexiz.daviz.simulation.Information.*;
-import com.aexiz.daviz.simulation.Viewpoint.Channel;
+import com.aexiz.daviz.simulation.Channel;
 import frege.run8.Thunk;
 
 import java.util.List;

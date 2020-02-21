@@ -2,8 +2,8 @@ package com.aexiz.daviz;
 
 import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.Event.SendEvent;
-import com.aexiz.daviz.simulation.Viewpoint.Channel;
-import com.aexiz.daviz.simulation.Viewpoint.Node;
+import com.aexiz.daviz.simulation.Channel;
+import com.aexiz.daviz.simulation.Node;
 import com.aexiz.daviz.simulation.algorithm.wave.Cidon;
 
 import java.io.ByteArrayOutputStream;

@@ -22,11 +22,11 @@ public class Configuration {
     transient TConfiguration<Object, Object, Object> hConfiguration;
 
     // Computed properties
-    transient Viewpoint.Node[] processes;
+    transient Node[] processes;
     transient boolean[] processAlive;
     transient Information.State[] processState;
 
-    transient Viewpoint.Channel[] channels;
+    transient Channel[] channels;
     transient ArrayList<Information.Message>[] channelState;
 
     Configuration() {
@@ -116,7 +116,7 @@ public class Configuration {
     }
 
     public interface StateVisitor {
-        void setState(Viewpoint.Node process, Information.State state);
+        void setState(Node process, Information.State state);
     }
 
     public static class InitialConfiguration extends Configuration {
