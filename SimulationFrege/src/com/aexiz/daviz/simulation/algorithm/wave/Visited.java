@@ -6,13 +6,9 @@ import com.aexiz.daviz.frege.simulation.Visited.TRRUI;
 import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.Assumption;
 import com.aexiz.daviz.simulation.FregeHelper;
-import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
-import com.aexiz.daviz.simulation.algorithm.information.PropertyVisitor;
-import com.aexiz.daviz.simulation.algorithm.information.ResultInformation;
+import com.aexiz.daviz.simulation.algorithm.information.*;
 import com.aexiz.daviz.simulation.Channel;
 import com.aexiz.daviz.simulation.Node;
-import com.aexiz.daviz.simulation.algorithm.information.MessageInformation;
-import com.aexiz.daviz.simulation.algorithm.information.StateInformation;
 import frege.prelude.PreludeBase.TMaybe;
 import frege.prelude.PreludeBase.TMaybe.DJust;
 import frege.prelude.PreludeBase.TTuple2;
@@ -166,24 +162,12 @@ public class Visited extends DefaultAlgorithm {
     }
 
     protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
-        class VisitedTerminated implements ResultInformation {
-            public String toString() {
-                return "Terminated";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Terminated");
-            }
+        class VisitedTerminated extends TerminationInformation {
         }
-        class VisitedDecided implements ResultInformation {
-            public String toString() {
-                return "Decided";
-            }
 
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Decided");
-            }
+        class VisitedDecided extends DecidedInformation {
         }
+
         boolean result = (Boolean) o;
         if (result) {
             return new VisitedTerminated();

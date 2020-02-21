@@ -5,12 +5,7 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.TMS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.TRRUI;
 import com.aexiz.daviz.simulation.*;
-import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
-import com.aexiz.daviz.simulation.algorithm.information.PropertyVisitor;
-import com.aexiz.daviz.simulation.algorithm.information.ResultInformation;
-import com.aexiz.daviz.simulation.Channel;
-import com.aexiz.daviz.simulation.algorithm.information.MessageInformation;
-import com.aexiz.daviz.simulation.algorithm.information.StateInformation;
+import com.aexiz.daviz.simulation.algorithm.information.*;
 import frege.prelude.PreludeBase.TMaybe.DJust;
 import frege.prelude.PreludeBase.TTuple2;
 import frege.run8.Thunk;
@@ -180,24 +175,12 @@ public class Cidon extends DefaultAlgorithm {
     }
 
     protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
-        class CidonTerminated implements ResultInformation {
-            public String toString() {
-                return "Terminated";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Terminated");
-            }
+        class CidonTerminated extends TerminationInformation {
         }
-        class CidonDecided implements ResultInformation {
-            public String toString() {
-                return "Decided";
-            }
 
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Decided");
-            }
+        class CidonDecided extends DecidedInformation {
         }
+
         boolean result = (Boolean) o;
         if (result) {
             return new CidonTerminated();

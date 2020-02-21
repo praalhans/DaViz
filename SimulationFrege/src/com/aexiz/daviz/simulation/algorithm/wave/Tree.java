@@ -3,10 +3,10 @@ package com.aexiz.daviz.simulation.algorithm.wave;
 import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Tree.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Tree.TUP;
-import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.Assumption;
-import com.aexiz.daviz.simulation.FregeHelper;
 import com.aexiz.daviz.simulation.Channel;
+import com.aexiz.daviz.simulation.DefaultAlgorithm;
+import com.aexiz.daviz.simulation.FregeHelper;
 import com.aexiz.daviz.simulation.algorithm.information.*;
 
 import java.util.List;
@@ -102,15 +102,9 @@ public class Tree extends DefaultAlgorithm {
     }
 
     protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
-        class TreeResult implements ResultInformation {
-            public String toString() {
-                return "Decided";
-            }
-
-            public void buildProperties(PropertyBuilder visitor) {
-                visitor.simpleProperty("", "Decided");
-            }
+        class TreeResult extends DecidedInformation {
         }
+
         Short t = (Short) o;
         if (t != 0) throw new Error("Invalid Haskell unit");
         return new TreeResult();

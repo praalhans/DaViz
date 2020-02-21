@@ -3,15 +3,11 @@ package com.aexiz.daviz.simulation.algorithm.wave;
 import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.Set.TSet;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Tarry.TDUI;
-import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.Assumption;
-import com.aexiz.daviz.simulation.FregeHelper;
-import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
-import com.aexiz.daviz.simulation.algorithm.information.PropertyVisitor;
-import com.aexiz.daviz.simulation.algorithm.information.ResultInformation;
 import com.aexiz.daviz.simulation.Channel;
-import com.aexiz.daviz.simulation.algorithm.information.MessageInformation;
-import com.aexiz.daviz.simulation.algorithm.information.StateInformation;
+import com.aexiz.daviz.simulation.DefaultAlgorithm;
+import com.aexiz.daviz.simulation.FregeHelper;
+import com.aexiz.daviz.simulation.algorithm.information.*;
 import frege.prelude.PreludeBase.TTuple2;
 import frege.prelude.PreludeBase.TTuple3;
 import frege.run8.Thunk;
@@ -144,24 +140,13 @@ public class Tarry extends DefaultAlgorithm {
     }
 
     protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
-        class TarryTerminated implements ResultInformation {
-            public String toString() {
-                return "Terminated";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Terminated");
-            }
+        class TarryTerminated extends TerminationInformation {
         }
-        class TarryDecided implements ResultInformation {
-            public String toString() {
-                return "Decided";
-            }
 
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Decided");
-            }
+        class TarryDecided extends DecidedInformation {
         }
+
+
         boolean result = (Boolean) o;
         if (result) {
             return new TarryTerminated();

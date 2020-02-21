@@ -4,10 +4,10 @@ import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.TMS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.TUPDS;
-import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.Assumption;
-import com.aexiz.daviz.simulation.FregeHelper;
 import com.aexiz.daviz.simulation.Channel;
+import com.aexiz.daviz.simulation.DefaultAlgorithm;
+import com.aexiz.daviz.simulation.FregeHelper;
 import com.aexiz.daviz.simulation.algorithm.information.*;
 
 import java.util.List;
@@ -159,24 +159,12 @@ public class TreeAck extends DefaultAlgorithm {
     }
 
     protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
-        class TreeAckDecided implements ResultInformation {
-            public String toString() {
-                return "Decided";
-            }
-
-            public void buildProperties(PropertyBuilder visitor) {
-                visitor.simpleProperty("", "Decided");
-            }
+        class TreeAckTerminated extends TerminationInformation {
         }
-        class TreeAckTerminated implements ResultInformation {
-            public String toString() {
-                return "Terminated";
-            }
 
-            public void buildProperties(PropertyBuilder visitor) {
-                visitor.simpleProperty("", "Terminated");
-            }
+        class TreeAckDecided extends DecidedInformation {
         }
+
         boolean t = (Boolean) o;
         if (t) return new TreeAckDecided();
         else return new TreeAckTerminated();

@@ -4,15 +4,11 @@ import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Awerbuch.TMS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Awerbuch.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Awerbuch.TRRRUII;
-import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.Assumption;
-import com.aexiz.daviz.simulation.FregeHelper;
-import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
-import com.aexiz.daviz.simulation.algorithm.information.PropertyVisitor;
-import com.aexiz.daviz.simulation.algorithm.information.ResultInformation;
 import com.aexiz.daviz.simulation.Channel;
-import com.aexiz.daviz.simulation.algorithm.information.MessageInformation;
-import com.aexiz.daviz.simulation.algorithm.information.StateInformation;
+import com.aexiz.daviz.simulation.DefaultAlgorithm;
+import com.aexiz.daviz.simulation.FregeHelper;
+import com.aexiz.daviz.simulation.algorithm.information.*;
 import frege.prelude.PreludeBase.TMaybe.DJust;
 import frege.prelude.PreludeBase.TTuple2;
 import frege.run8.Thunk;
@@ -252,24 +248,12 @@ public class Awerbuch extends DefaultAlgorithm {
     }
 
     protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
-        class AwerbuchTerminated implements ResultInformation {
-            public String toString() {
-                return "Terminated";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Terminated");
-            }
+        class AwerbuchTerminated extends TerminationInformation {
         }
-        class AwerbuchDecided implements ResultInformation {
-            public String toString() {
-                return "Decided";
-            }
 
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Decided");
-            }
+        class AwerbuchDecided extends DecidedInformation {
         }
+
         boolean result = (Boolean) o;
         if (result) {
             return new AwerbuchTerminated();

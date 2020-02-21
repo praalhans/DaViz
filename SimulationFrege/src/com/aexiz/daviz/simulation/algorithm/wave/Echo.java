@@ -4,10 +4,10 @@ import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.TMS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.TRRUI;
-import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.Assumption;
-import com.aexiz.daviz.simulation.FregeHelper;
 import com.aexiz.daviz.simulation.Channel;
+import com.aexiz.daviz.simulation.DefaultAlgorithm;
+import com.aexiz.daviz.simulation.FregeHelper;
 import com.aexiz.daviz.simulation.algorithm.information.*;
 import frege.run8.Thunk;
 
@@ -140,27 +140,15 @@ public class Echo extends DefaultAlgorithm {
     }
 
     protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
-        class TreeAckDecided implements ResultInformation {
-            public String toString() {
-                return "Decided";
-            }
-
-            public void buildProperties(PropertyBuilder visitor) {
-                visitor.simpleProperty("", "Decided");
-            }
+        class EchoTerminated extends TerminationInformation {
         }
-        class TreeAckTerminated implements ResultInformation {
-            public String toString() {
-                return "Terminated";
-            }
 
-            public void buildProperties(PropertyBuilder visitor) {
-                visitor.simpleProperty("", "Terminated");
-            }
+        class EchoDecided extends DecidedInformation {
         }
+
         boolean t = (Boolean) o;
-        if (t) return new TreeAckDecided();
-        else return new TreeAckTerminated();
+        if (t) return new EchoDecided();
+        else return new EchoTerminated();
     }
 
     protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {
