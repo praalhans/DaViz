@@ -5,7 +5,7 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.Tree.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Tree.TUP;
 import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.Assumption;
-import com.aexiz.daviz.simulation.SimulationHelper;
+import com.aexiz.daviz.simulation.FregeHelper;
 import com.aexiz.daviz.simulation.Information;
 import com.aexiz.daviz.simulation.Information.*;
 import com.aexiz.daviz.simulation.Channel;
@@ -25,7 +25,7 @@ public class Tree extends DefaultAlgorithm {
         };
     }
 
-    protected Message makeAndUnloadMessage(SimulationHelper helper, Object o) {
+    protected Message makeAndUnloadMessage(FregeHelper helper, Object o) {
         class TreeMessage extends Information.Message {
             public String toString() {
                 return "*info*";
@@ -44,7 +44,7 @@ public class Tree extends DefaultAlgorithm {
         return new TreeMessage();
     }
 
-    protected State makeAndUnloadState(SimulationHelper helper, Object o) {
+    protected State makeAndUnloadState(FregeHelper helper, Object o) {
         abstract class TreeUP implements PropertyVisitor {
         }
         class TreeState extends Information.State {
@@ -102,7 +102,7 @@ public class Tree extends DefaultAlgorithm {
         return result;
     }
 
-    protected Result makeAndUnloadResult(SimulationHelper helper, Object o) {
+    protected Result makeAndUnloadResult(FregeHelper helper, Object o) {
         class TreeResult extends Information.Result {
             public String toString() {
                 return "Decided";
@@ -117,7 +117,7 @@ public class Tree extends DefaultAlgorithm {
         return new TreeResult();
     }
 
-    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(SimulationHelper helper) {
+    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {
         return procDesc.call().simsalabim();
     }
 

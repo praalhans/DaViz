@@ -23,7 +23,7 @@ public class DefaultConfiguration extends AbstractConfiguration implements Confi
         if (hConfiguration == null) throw new Error("Invalid Haskell configuration");
         // Assume network remains unchanged
         Algorithm alg = simulation.getAlgorithm();
-        SimulationHelper helper = new SimulationHelper(simulation);
+        FregeHelper helper = new FregeHelper(simulation);
         // 1. Read out state of each process
         processes = simulation.getNetwork().getNodes();
         processAlive = new boolean[processes.length];

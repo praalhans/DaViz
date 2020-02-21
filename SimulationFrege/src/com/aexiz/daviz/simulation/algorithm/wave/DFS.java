@@ -5,7 +5,7 @@ import com.aexiz.daviz.frege.simulation.Set.TSet;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.DFS.TRRUI;
 import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.Assumption;
-import com.aexiz.daviz.simulation.SimulationHelper;
+import com.aexiz.daviz.simulation.FregeHelper;
 import com.aexiz.daviz.simulation.Information;
 import com.aexiz.daviz.simulation.Information.PropertyBuilder;
 import com.aexiz.daviz.simulation.Information.PropertyVisitor;
@@ -31,7 +31,7 @@ public class DFS extends DefaultAlgorithm {
         };
     }
 
-    protected Information.Message makeAndUnloadMessage(SimulationHelper help, Object o) {
+    protected Information.Message makeAndUnloadMessage(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
         class DFS_Message extends Information.Message {
             public String toString() {
@@ -51,7 +51,7 @@ public class DFS extends DefaultAlgorithm {
         return new DFS_Message();
     }
 
-    protected Information.State makeAndUnloadState(SimulationHelper help, Object o) {
+    protected Information.State makeAndUnloadState(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
         abstract class DFS_RRUI implements PropertyVisitor {
         }
@@ -148,7 +148,7 @@ public class DFS extends DefaultAlgorithm {
         return result;
     }
 
-    protected Result makeAndUnloadResult(SimulationHelper helper, Object o) {
+    protected Result makeAndUnloadResult(FregeHelper helper, Object o) {
         class DFSTerminated extends Information.Result {
             public String toString() {
                 return "Terminated";
@@ -175,7 +175,7 @@ public class DFS extends DefaultAlgorithm {
         }
     }
 
-    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(SimulationHelper helper) {
+    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {
         return procDesc(Thunk.lazy(helper.getIdByNode(assumption.getInitiator()))).simsalabim();
     }
 

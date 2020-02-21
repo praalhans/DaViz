@@ -8,7 +8,7 @@ public class InitialConfiguration extends DefaultConfiguration implements Config
     @Override
     public void load() {
         Set.TSet<PreludeBase.TTuple2<Integer, Integer>> network = ((DefaultNetwork) simulation.getNetwork()).hNetwork;
-        SimulationHelper helper = new SimulationHelper(simulation);
+        FregeHelper helper = new FregeHelper(simulation);
         Process.TProcessDescription<Object, Object, Object, Object> o = ((DefaultAlgorithm) simulation.getAlgorithm()).getProcessDescription(helper);
         hConfiguration = com.aexiz.daviz.frege.simulation.Simulation.initialConfiguration(network, o.simsalabim());
     }

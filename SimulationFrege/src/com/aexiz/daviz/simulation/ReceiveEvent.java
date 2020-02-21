@@ -21,7 +21,7 @@ public class ReceiveEvent extends DefaultEvent implements tReceiveEvent {
     protected void unload() {
         super.unload();
         hEvent = super.hEvent.asEReceive();
-        SimulationHelper helper = new SimulationHelper(simulation);
+        FregeHelper helper = new FregeHelper(simulation);
         message = ((DefaultAlgorithm)simulation.getAlgorithm()).makeAndUnloadMessage(helper, hEvent.mem$msg.call());
         nextState = ((DefaultAlgorithm)simulation.getAlgorithm()).makeAndUnloadState(helper, hEvent.mem$next.call());
         sender = simulation.getNetwork().getNodeById(hEvent.mem$send.call());

@@ -19,7 +19,7 @@ public class ResultEvent extends DefaultEvent implements tResultEvent {
     protected void unload() {
         super.unload();
         hEvent = super.hEvent.asEResult();
-        SimulationHelper helper = new SimulationHelper(simulation);
+        FregeHelper helper = new FregeHelper(simulation);
         result = ((DefaultAlgorithm)simulation.getAlgorithm()).makeAndUnloadResult(helper, hEvent.mem$val.call());
     }
 

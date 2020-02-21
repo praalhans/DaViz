@@ -19,7 +19,7 @@ public class InternalEvent extends DefaultEvent implements tInternalEvent {
     protected void unload() {
         super.unload();
         hEvent = super.hEvent.asEInternal();
-        SimulationHelper helper = new SimulationHelper(simulation);
+        FregeHelper helper = new FregeHelper(simulation);
         nextState = ((DefaultAlgorithm)simulation.getAlgorithm()).makeAndUnloadState(helper, hEvent.mem$next.call());
     }
 

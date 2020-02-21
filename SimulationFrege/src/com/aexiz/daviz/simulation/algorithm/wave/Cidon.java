@@ -32,7 +32,7 @@ public class Cidon extends DefaultAlgorithm {
         return (network.getNodes().length + network.getChannels().length) * 15;
     }
 
-    protected Information.Message makeAndUnloadMessage(SimulationHelper help, Object o) {
+    protected Information.Message makeAndUnloadMessage(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
         abstract class CidonMessage extends Information.Message {
         }
@@ -70,7 +70,7 @@ public class Cidon extends DefaultAlgorithm {
         } else throw new Error("Unknown message");
     }
 
-    protected Information.State makeAndUnloadState(SimulationHelper help, Object o) {
+    protected Information.State makeAndUnloadState(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
         abstract class CidonRRUI implements PropertyVisitor {
         }
@@ -177,7 +177,7 @@ public class Cidon extends DefaultAlgorithm {
         return result;
     }
 
-    protected Result makeAndUnloadResult(SimulationHelper helper, Object o) {
+    protected Result makeAndUnloadResult(FregeHelper helper, Object o) {
         class CidonTerminated extends Information.Result {
             public String toString() {
                 return "Terminated";
@@ -204,7 +204,7 @@ public class Cidon extends DefaultAlgorithm {
         }
     }
 
-    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(SimulationHelper helper) {
+    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {
         return procDesc(Thunk.lazy(helper.getIdByNode(assumption.getInitiator()))).simsalabim();
     }
 

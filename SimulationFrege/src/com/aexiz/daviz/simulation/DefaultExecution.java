@@ -21,7 +21,7 @@ public class DefaultExecution extends AbstractExecution implements Execution {
     public void loadFirst() {
         if (simulation == null) throw new Error("Invalid simulation");
         if (!(configuration instanceof InitialConfiguration)) throw new Error("Invalid initial configuration");
-        SimulationHelper helper = new SimulationHelper(simulation);
+        FregeHelper helper = new FregeHelper(simulation);
         hSimulation = Simulation.simulation(
                 ((DefaultConfiguration) configuration).hConfiguration,
                 ((DefaultAlgorithm) simulation.getAlgorithm()).getProcessDescription(helper));

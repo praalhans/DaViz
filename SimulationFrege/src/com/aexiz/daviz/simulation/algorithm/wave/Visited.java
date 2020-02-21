@@ -5,7 +5,7 @@ import com.aexiz.daviz.frege.simulation.Set.TSet;
 import com.aexiz.daviz.frege.simulation.Visited.TRRUI;
 import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.Assumption;
-import com.aexiz.daviz.simulation.SimulationHelper;
+import com.aexiz.daviz.simulation.FregeHelper;
 import com.aexiz.daviz.simulation.Information;
 import com.aexiz.daviz.simulation.Information.PropertyBuilder;
 import com.aexiz.daviz.simulation.Information.PropertyVisitor;
@@ -32,7 +32,7 @@ public class Visited extends DefaultAlgorithm {
         };
     }
 
-    protected Information.Message makeAndUnloadMessage(SimulationHelper help, Object o) {
+    protected Information.Message makeAndUnloadMessage(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
         class VisitedMessage extends Information.Message {
             List<Node> visited;
@@ -68,7 +68,7 @@ public class Visited extends DefaultAlgorithm {
         return result;
     }
 
-    protected Information.State makeAndUnloadState(SimulationHelper help, Object o) {
+    protected Information.State makeAndUnloadState(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
         abstract class VisitedRRUI implements PropertyVisitor {
         }
@@ -164,7 +164,7 @@ public class Visited extends DefaultAlgorithm {
         return result;
     }
 
-    protected Result makeAndUnloadResult(SimulationHelper helper, Object o) {
+    protected Result makeAndUnloadResult(FregeHelper helper, Object o) {
         class VisitedTerminated extends Information.Result {
             public String toString() {
                 return "Terminated";
@@ -191,7 +191,7 @@ public class Visited extends DefaultAlgorithm {
         }
     }
 
-    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(SimulationHelper helper) {
+    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {
         return procDesc(Thunk.lazy(helper.getIdByNode(assumption.getInitiator()))).simsalabim();
     }
 

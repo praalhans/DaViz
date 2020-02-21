@@ -9,11 +9,11 @@ import frege.prelude.PreludeBase.TTuple2;
 
 import java.util.ArrayList;
 
-public class SimulationHelper {
+public class FregeHelper {
 
     private Simulation simulation;
 
-    SimulationHelper(Simulation sim) {
+    FregeHelper(Simulation sim) {
         simulation = sim;
     }
 

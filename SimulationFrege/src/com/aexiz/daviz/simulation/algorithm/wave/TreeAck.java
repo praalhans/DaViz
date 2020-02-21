@@ -6,7 +6,7 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.TUPDS;
 import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.Assumption;
-import com.aexiz.daviz.simulation.SimulationHelper;
+import com.aexiz.daviz.simulation.FregeHelper;
 import com.aexiz.daviz.simulation.Information;
 import com.aexiz.daviz.simulation.Information.*;
 import com.aexiz.daviz.simulation.Channel;
@@ -26,7 +26,7 @@ public class TreeAck extends DefaultAlgorithm {
         };
     }
 
-    protected Message makeAndUnloadMessage(SimulationHelper helper, Object o) {
+    protected Message makeAndUnloadMessage(FregeHelper helper, Object o) {
         abstract class TreeAckMessage extends Information.Message {
         }
         class TreeAckInfoMessage extends TreeAckMessage {
@@ -61,7 +61,7 @@ public class TreeAck extends DefaultAlgorithm {
         throw new Error("Invalid message");
     }
 
-    protected State makeAndUnloadState(SimulationHelper helper, Object o) {
+    protected State makeAndUnloadState(FregeHelper helper, Object o) {
         abstract class TreeAckUPDS implements PropertyVisitor {
         }
         class TreeAckState extends Information.State {
@@ -159,7 +159,7 @@ public class TreeAck extends DefaultAlgorithm {
         return result;
     }
 
-    protected Result makeAndUnloadResult(SimulationHelper helper, Object o) {
+    protected Result makeAndUnloadResult(FregeHelper helper, Object o) {
         class TreeAckDecided extends Information.Result {
             public String toString() {
                 return "Decided";
@@ -183,7 +183,7 @@ public class TreeAck extends DefaultAlgorithm {
         else return new TreeAckTerminated();
     }
 
-    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(SimulationHelper helper) {
+    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {
         return procDesc.call().simsalabim();
     }
 
