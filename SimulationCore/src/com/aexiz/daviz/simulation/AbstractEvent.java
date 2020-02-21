@@ -1,5 +1,10 @@
 package com.aexiz.daviz.simulation;
 
+import com.aexiz.daviz.simulation.event.tInternalEvent;
+import com.aexiz.daviz.simulation.event.tReceiveEvent;
+import com.aexiz.daviz.simulation.event.tResultEvent;
+import com.aexiz.daviz.simulation.event.tSendEvent;
+
 public abstract class AbstractEvent extends Locus implements Cloneable, Event {
     protected Simulation simulation;
     protected Execution execution;
@@ -15,6 +20,15 @@ public abstract class AbstractEvent extends Locus implements Cloneable, Event {
      * Computed properties, unique to instance (not cloned)
      */
     protected transient Event previousEvent;
+
+    public AbstractEvent() {
+        if (!(this instanceof tSendEvent ||
+                this instanceof tReceiveEvent ||
+                this instanceof tInternalEvent ||
+                this instanceof tResultEvent)) {
+            throw new Error("Invalid event type. Event classes must implement one specific event interface");
+        }
+    }
 
     protected void isInvariant() {
         if (simulation == null) throw new Error("Invalid simulation");

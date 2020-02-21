@@ -14,6 +14,7 @@ public class SendEvent extends DefaultEvent implements tSendEvent {
     transient Node receiver;
 
     SendEvent() {
+        super();
     }
 
     @Override

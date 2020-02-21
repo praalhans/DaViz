@@ -15,6 +15,7 @@ public abstract class DefaultEvent extends AbstractEvent implements Cloneable, E
     protected transient int hId;
 
     DefaultEvent() {
+        super();
     }
 
     static void matchAndLinkEvents(@NotNull List<DefaultEvent> events) {
