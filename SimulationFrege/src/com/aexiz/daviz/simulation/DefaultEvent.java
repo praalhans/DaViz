@@ -86,7 +86,7 @@ public abstract class DefaultEvent extends AbstractEvent implements Cloneable, E
         }
     }
 
-    void unload() {
+    protected void unload() {
         isInvariant();
         hId = TEvent.proc(hEvent);
         happensAt = simulation.getNetwork().getNodeById(hId);

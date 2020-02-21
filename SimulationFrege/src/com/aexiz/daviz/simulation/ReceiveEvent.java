@@ -17,7 +17,7 @@ public class ReceiveEvent extends DefaultEvent implements tReceiveEvent {
     }
 
     @Override
-    void unload() {
+    protected void unload() {
         super.unload();
         hEvent = super.hEvent.asEReceive();
         SimulationHelper helper = new SimulationHelper(simulation);

@@ -15,7 +15,7 @@ public class InternalEvent extends DefaultEvent implements tInternalEvent {
     }
 
     @Override
-    void unload() {
+    protected void unload() {
         super.unload();
         hEvent = super.hEvent.asEInternal();
         SimulationHelper helper = new SimulationHelper(simulation);

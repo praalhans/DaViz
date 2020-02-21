@@ -15,7 +15,7 @@ public class ResultEvent extends DefaultEvent implements tResultEvent {
     }
 
     @Override
-    void unload() {
+    protected void unload() {
         super.unload();
         hEvent = super.hEvent.asEResult();
         SimulationHelper helper = new SimulationHelper(simulation);

@@ -17,12 +17,12 @@ public class SendEvent extends DefaultEvent implements tSendEvent {
     }
 
     @Override
-    void unload() {
+    protected void unload() {
         super.unload();
         hEvent = super.hEvent.asESend();
         SimulationHelper helper = new SimulationHelper(simulation);
-        message = ((DefaultAlgorithm)simulation.getAlgorithm()).makeAndUnloadMessage(helper, hEvent.mem$msg.call());
-        nextState = ((DefaultAlgorithm)simulation.getAlgorithm()).makeAndUnloadState(helper, hEvent.mem$next.call());
+        message = ((DefaultAlgorithm) simulation.getAlgorithm()).makeAndUnloadMessage(helper, hEvent.mem$msg.call());
+        nextState = ((DefaultAlgorithm) simulation.getAlgorithm()).makeAndUnloadState(helper, hEvent.mem$next.call());
         receiver = simulation.getNetwork().getNodeById(hEvent.mem$recv.call());
     }
 
