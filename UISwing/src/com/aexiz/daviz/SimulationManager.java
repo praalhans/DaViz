@@ -156,6 +156,19 @@ class SimulationManager {
         fresh = true;
     }
 
+    private void clearChannels() {
+        for (int i = 0; i < channels.length; i++) {
+            channelStates[i].clear();
+        }
+    }
+
+    private void clearNodes() {
+        for (int i = 0; i < nodes.length; i++) {
+            nodeLastStates[i] = nodeInitialStates[i];
+            nodeLastTermStatus[i] = null;
+        }
+    }
+
     // Executes within worker thread
     private void clearEvents() throws Exception {
         // Clear transient fields
@@ -165,13 +178,8 @@ class SimulationManager {
         messageSendEvents = new ArrayList<>();
 
         // Called after loadNetwork
-        for (int i = 0; i < channels.length; i++) {
-            channelStates[i].clear();
-        }
-        for (int i = 0; i < nodes.length; i++) {
-            nodeLastStates[i] = nodeInitialStates[i];
-            nodeLastTermStatus[i] = null;
-        }
+        clearChannels();
+        clearNodes();
 
         SwingUtilities.invokeAndWait(() -> {
             controller.selectionModel.clearSelection();
@@ -182,13 +190,8 @@ class SimulationManager {
     // Executes within worker thread
     private void clearEventsAfter(int time) throws Exception {
         // Called after loadNetwork
-        for (int i = 0; i < channels.length; i++) {
-            channelStates[i].clear();
-        }
-        for (int i = 0; i < nodes.length; i++) {
-            nodeLastStates[i] = nodeInitialStates[i];
-            nodeLastTermStatus[i] = null;
-        }
+        clearChannels();
+        clearNodes();
         SwingUtilities.invokeAndWait(() -> {
             // Selectively delete events
             for (int i = 0, size = events.size(); i < size; i++) {
