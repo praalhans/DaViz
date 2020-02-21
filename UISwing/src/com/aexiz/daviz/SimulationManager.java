@@ -102,7 +102,7 @@ class SimulationManager {
     /**
      * from simulation
      */
-    transient ArrayList<DefaultEvent> events = new ArrayList<>();
+    transient ArrayList<Event> events = new ArrayList<>();
 
     /**
      * from timeline GUI
@@ -117,7 +117,7 @@ class SimulationManager {
     /**
      * from simulation, corresponding send event
      */
-    transient ArrayList<DefaultEvent> messageSendEvents = new ArrayList<>();
+    transient ArrayList<Event> messageSendEvents = new ArrayList<>();
 
     private Thread worker;
     private LinkedBlockingQueue<Callable<Void>> queue = new LinkedBlockingQueue<>();
@@ -297,7 +297,7 @@ class SimulationManager {
                 }
                 // Find events based on time
                 for (EventModel event : last) {
-                    DefaultEvent foundE = null;
+                    Event foundE = null;
                     for (int i = 0, size = events.size(); i < size; i++) {
                         if (eventModels.get(i) == event) {
                             foundE = events.get(i);
@@ -342,7 +342,7 @@ class SimulationManager {
                         to = msg.getTo();
                     } else throw new Error();
 
-                    DefaultEvent send = null;
+                    Event send = null;
                     for (int i = 0, size = messageModels.size(); i < size; i++) {
                         if (messageModels.get(i) == tr) {
                             send = messageSendEvents.get(i);
@@ -383,7 +383,7 @@ class SimulationManager {
                     choiceExecutions = succs;
                     choiceEvents = new FutureEvent[succs.length];
                     for (int i = 0; i < succs.length; i++) {
-                        DefaultEvent e = (DefaultEvent) succs[i].getLastLinkedEvent();
+                        Event e = succs[i].getLastLinkedEvent();
                         EventType type = getEventType(e);
                         String other = null;
                         if (e.hasReceiver()) other = e.getReceiver().getLabel();
@@ -490,7 +490,7 @@ class SimulationManager {
         controller.infoModel.addProperty(p);
     }
 
-    private DefaultEvent findEventByModel(EventModel model) {
+    private Event findEventByModel(EventModel model) {
         for (int i = 0, size = events.size(); i < size; i++) {
             if (eventModels.get(i) == model)
                 return events.get(i);
@@ -502,7 +502,7 @@ class SimulationManager {
     void changeEventSelection(EventModel ev) {
         if (!loadedNetwork) throw new Error();
 
-        DefaultEvent event = findEventByModel(ev);
+        Event event = findEventByModel(ev);
         PropertyModel p;
         p = controller.infoModel.createProperty("Process:", event.getHappensAt().getLabel(), InfoModel.SIMPLE_TYPE);
         controller.infoModel.addProperty(p);
@@ -542,7 +542,7 @@ class SimulationManager {
     void changeMessageSelection(Object sel) {
         if (!loadedNetwork) throw new Error();
 
-        DefaultEvent send = null;
+        Event send = null;
         for (int i = 0, size = messageModels.size(); i < size; i++) {
             if (messageModels.get(i) == sel) {
                 send = messageSendEvents.get(i);
@@ -598,7 +598,7 @@ class SimulationManager {
         }
     }
 
-    private EventType getEventType(DefaultEvent e) {
+    private EventType getEventType(Event e) {
         EventType type;
         if (e instanceof tSendEvent) {
             type = ExecutionModel.SEND_TYPE;
@@ -613,7 +613,7 @@ class SimulationManager {
     }
 
     // Executes within AWT dispatch thread
-    private void addEventToTimeline(DefaultEvent e) {
+    private void addEventToTimeline(Event e) {
         // Convert event to event model
         Node node = e.getHappensAt();
         int proc = -1;
@@ -786,7 +786,7 @@ class SimulationManager {
                 super.step(next);
                 if (!replay) {
                     SwingUtilities.invokeAndWait(() -> {
-                        addEventToTimeline((DefaultEvent) next.getLastLinkedEvent());
+                        addEventToTimeline(next.getLastLinkedEvent());
                     });
                 }
             }

@@ -86,7 +86,7 @@ public class RandomProgram {
         }
     }
 
-    public void setAlgorithm(DefaultAlgorithm alg) {
+    public void setAlgorithm(Algorithm alg) {
         sim.setAlgorithm(alg);
     }
 
@@ -147,8 +147,8 @@ public class RandomProgram {
         }
         // Compute number of messages
         int messages = 0;
-        DefaultEvent[] events = (DefaultEvent[]) st.current.getLinkedEvents();
-        for (DefaultEvent e : events) {
+        Event[] events = st.current.getLinkedEvents();
+        for (Event e : events) {
             if (e instanceof tSendEvent)
                 messages++;
         }
