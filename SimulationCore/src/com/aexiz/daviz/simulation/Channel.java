@@ -32,6 +32,7 @@ public class Channel extends Viewpoint {
         this.weight = weight;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof com.aexiz.daviz.simulation.Channel) {
             return equals((com.aexiz.daviz.simulation.Channel) obj);
@@ -44,6 +45,7 @@ public class Channel extends Viewpoint {
         return other.from.equals(from) && other.to.equals(to);
     }
 
+    @Override
     public int hashCode() {
         return 31 * from.hashCode() + to.hashCode();
     }

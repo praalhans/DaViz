@@ -25,8 +25,10 @@ public abstract class Information {
         public Message() {
         }
 
+        @Override
         public abstract String toString();
 
+        @Override
         public abstract boolean equals(Object obj);
     }
 
@@ -34,6 +36,7 @@ public abstract class Information {
         public State() {
         }
 
+        @Override
         public abstract String toString();
     }
 
@@ -41,6 +44,7 @@ public abstract class Information {
         public Result() {
         }
 
+        @Override
         public abstract String toString();
     }
 
