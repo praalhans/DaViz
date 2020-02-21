@@ -309,8 +309,8 @@ class SimulationManager {
                                 if (previous != null && previous.hasNextState()) {
                                     nodeLastStates[i] = previous.getNextState();
                                 }
-                                if (foundE instanceof DefaultEvent.ResultEvent) {
-                                    nodeLastTermStatus[i] = ((DefaultEvent.ResultEvent) foundE).getResult();
+                                if (foundE instanceof ResultEvent) {
+                                    nodeLastTermStatus[i] = ((ResultEvent) foundE).getResult();
                                 } else throw new Error();
                             }
                             foundN = nodes[i];
@@ -593,13 +593,13 @@ class SimulationManager {
 
     private EventType getEventType(DefaultEvent e) {
         EventType type;
-        if (e instanceof DefaultEvent.SendEvent) {
+        if (e instanceof SendEvent) {
             type = ExecutionModel.SEND_TYPE;
-        } else if (e instanceof DefaultEvent.ReceiveEvent) {
+        } else if (e instanceof ReceiveEvent) {
             type = ExecutionModel.RECEIVE_TYPE;
-        } else if (e instanceof DefaultEvent.InternalEvent) {
+        } else if (e instanceof InternalEvent) {
             type = ExecutionModel.INTERNAL_TYPE;
-        } else if (e instanceof DefaultEvent.ResultEvent) {
+        } else if (e instanceof ResultEvent) {
             type = ExecutionModel.TERMINATE_TYPE;
         } else throw new Error();
         return type;
@@ -620,7 +620,7 @@ class SimulationManager {
         events.add(e);
         eventModels.add(model);
         // If receive event, find matching send event, add message
-        if (e instanceof DefaultEvent.ReceiveEvent) {
+        if (e instanceof ReceiveEvent) {
             Event other = e.getMatchingEvent();
             EventModel otherModel = null;
             for (int i = 0, size = events.size(); otherModel == null && i < size; i++) {
@@ -647,10 +647,10 @@ class SimulationManager {
             controller.timelineModel.addMessage(msg);
         }
         // If send event, and no matching receive event, add pending message
-        if (e instanceof DefaultEvent.SendEvent) {
+        if (e instanceof SendEvent) {
             Event other = e.getMatchingEvent();
             if (other == null) {
-                Node receiver = ((DefaultEvent.SendEvent) e).getReceiver();
+                Node receiver = ((SendEvent) e).getReceiver();
                 int process = -1;
                 for (int i = 0; i < nodes.length; i++) {
                     if (nodes[i] == receiver) {

@@ -1,7 +1,7 @@
 package com.aexiz.daviz;
 
 import com.aexiz.daviz.simulation.*;
-import com.aexiz.daviz.simulation.DefaultEvent.SendEvent;
+import com.aexiz.daviz.simulation.SendEvent;
 import com.aexiz.daviz.simulation.algorithm.wave.Cidon;
 
 import java.io.ByteArrayOutputStream;
