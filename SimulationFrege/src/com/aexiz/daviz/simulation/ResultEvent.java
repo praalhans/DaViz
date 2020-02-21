@@ -20,9 +20,9 @@ public class ResultEvent extends DefaultEvent {
         result = ((DefaultAlgorithm)simulation.getAlgorithm()).makeAndUnloadResult(helper, hEvent.mem$val.call());
     }
 
-    protected com.aexiz.daviz.simulation.ResultEvent clone(DefaultEvent to) {
+    protected ResultEvent clone(DefaultEvent to) {
         super.clone(to);
-        com.aexiz.daviz.simulation.ResultEvent tor = (com.aexiz.daviz.simulation.ResultEvent) to;
+        ResultEvent tor = (ResultEvent) to;
         tor.hEvent = this.hEvent;
         tor.result = this.result;
         return tor;
@@ -36,8 +36,8 @@ public class ResultEvent extends DefaultEvent {
         return result;
     }
 
-    public com.aexiz.daviz.simulation.ResultEvent clone() {
-        return clone(new com.aexiz.daviz.simulation.ResultEvent());
+    public ResultEvent clone() {
+        return clone(new ResultEvent());
     }
 
     public String toString() {

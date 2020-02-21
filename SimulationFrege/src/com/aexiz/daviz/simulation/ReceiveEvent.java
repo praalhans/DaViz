@@ -24,9 +24,9 @@ public class ReceiveEvent extends DefaultEvent {
         sender = simulation.getNetwork().getNodeById(hEvent.mem$send.call());
     }
 
-    protected com.aexiz.daviz.simulation.ReceiveEvent clone(DefaultEvent to) {
+    protected ReceiveEvent clone(DefaultEvent to) {
         super.clone(to);
-        com.aexiz.daviz.simulation.ReceiveEvent tor = (com.aexiz.daviz.simulation.ReceiveEvent) to;
+        ReceiveEvent tor = (ReceiveEvent) to;
         tor.hEvent = this.hEvent;
         tor.message = this.message;
         tor.nextState = this.nextState;
@@ -34,8 +34,8 @@ public class ReceiveEvent extends DefaultEvent {
         return tor;
     }
 
-    public com.aexiz.daviz.simulation.ReceiveEvent clone() {
-        return clone(new com.aexiz.daviz.simulation.ReceiveEvent());
+    public ReceiveEvent clone() {
+        return clone(new ReceiveEvent());
     }
 
     public boolean hasMessage() {

@@ -24,9 +24,9 @@ public class SendEvent extends DefaultEvent {
         receiver = simulation.getNetwork().getNodeById(hEvent.mem$recv.call());
     }
 
-    protected com.aexiz.daviz.simulation.SendEvent clone(DefaultEvent to) {
+    protected SendEvent clone(DefaultEvent to) {
         super.clone(to);
-        com.aexiz.daviz.simulation.SendEvent tor = (com.aexiz.daviz.simulation.SendEvent) to;
+        SendEvent tor = (SendEvent) to;
         tor.hEvent = this.hEvent;
         tor.message = this.message;
         tor.nextState = this.nextState;
@@ -34,8 +34,8 @@ public class SendEvent extends DefaultEvent {
         return tor;
     }
 
-    public com.aexiz.daviz.simulation.SendEvent clone() {
-        return clone(new com.aexiz.daviz.simulation.SendEvent());
+    public SendEvent clone() {
+        return clone(new SendEvent());
     }
 
     public boolean hasMessage() {

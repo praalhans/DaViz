@@ -20,16 +20,16 @@ public class InternalEvent extends DefaultEvent {
         nextState = ((DefaultAlgorithm)simulation.getAlgorithm()).makeAndUnloadState(helper, hEvent.mem$next.call());
     }
 
-    protected com.aexiz.daviz.simulation.InternalEvent clone(DefaultEvent to) {
+    protected InternalEvent clone(DefaultEvent to) {
         super.clone(to);
-        com.aexiz.daviz.simulation.InternalEvent tor = (com.aexiz.daviz.simulation.InternalEvent) to;
+        InternalEvent tor = (InternalEvent) to;
         tor.hEvent = this.hEvent;
         tor.nextState = this.nextState;
         return tor;
     }
 
-    public com.aexiz.daviz.simulation.InternalEvent clone() {
-        return clone(new com.aexiz.daviz.simulation.InternalEvent());
+    public InternalEvent clone() {
+        return clone(new InternalEvent());
     }
 
     public boolean hasNextState() {
