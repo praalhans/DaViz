@@ -1,8 +1,9 @@
 package com.aexiz.daviz.simulation;
 
 import com.aexiz.daviz.frege.simulation.Event;
+import com.aexiz.daviz.simulation.event.tSendEvent;
 
-public class SendEvent extends DefaultEvent {
+public class SendEvent extends DefaultEvent implements tSendEvent {
 
     // Haskell dependencies
     transient Event.TEvent.DESend<Object, Object, Object> hEvent;

@@ -1,8 +1,8 @@
 package com.aexiz.daviz;
 
 import com.aexiz.daviz.simulation.*;
-import com.aexiz.daviz.simulation.SendEvent;
 import com.aexiz.daviz.simulation.algorithm.wave.Cidon;
+import com.aexiz.daviz.simulation.event.tSendEvent;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -149,7 +149,7 @@ public class RandomProgram {
         int messages = 0;
         DefaultEvent[] events = (DefaultEvent[]) st.current.getLinkedEvents();
         for (DefaultEvent e : events) {
-            if (e instanceof SendEvent)
+            if (e instanceof tSendEvent)
                 messages++;
         }
         int edges = sim.getNetwork().getChannels().length / 2;

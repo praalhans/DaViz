@@ -1,8 +1,9 @@
 package com.aexiz.daviz.simulation;
 
 import com.aexiz.daviz.frege.simulation.Event;
+import com.aexiz.daviz.simulation.event.tResultEvent;
 
-public class ResultEvent extends DefaultEvent {
+public class ResultEvent extends DefaultEvent implements tResultEvent {
 
     // Haksell dependencies
     transient Event.TEvent.DEResult<Object, Object, Object> hEvent;

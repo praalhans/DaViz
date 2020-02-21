@@ -1,8 +1,9 @@
 package com.aexiz.daviz.simulation;
 
 import com.aexiz.daviz.frege.simulation.Event;
+import com.aexiz.daviz.simulation.event.tReceiveEvent;
 
-public class ReceiveEvent extends DefaultEvent {
+public class ReceiveEvent extends DefaultEvent implements tReceiveEvent {
 
     // Haskell dependencies
     transient Event.TEvent.DEReceive<Object, Object, Object> hEvent;

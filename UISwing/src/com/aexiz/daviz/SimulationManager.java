@@ -2,6 +2,10 @@ package com.aexiz.daviz;
 
 import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.Information.*;
+import com.aexiz.daviz.simulation.event.tInternalEvent;
+import com.aexiz.daviz.simulation.event.tReceiveEvent;
+import com.aexiz.daviz.simulation.event.tResultEvent;
+import com.aexiz.daviz.simulation.event.tSendEvent;
 import com.aexiz.daviz.ui.ExecutionModel;
 import com.aexiz.daviz.ui.ExecutionModel.EventModel;
 import com.aexiz.daviz.ui.ExecutionModel.EventType;
@@ -309,8 +313,8 @@ class SimulationManager {
                                 if (previous != null && previous.hasNextState()) {
                                     nodeLastStates[i] = previous.getNextState();
                                 }
-                                if (foundE instanceof ResultEvent) {
-                                    nodeLastTermStatus[i] = ((ResultEvent) foundE).getResult();
+                                if (foundE instanceof tResultEvent) {
+                                    nodeLastTermStatus[i] = foundE.getResult();
                                 } else throw new Error();
                             }
                             foundN = nodes[i];
@@ -593,13 +597,13 @@ class SimulationManager {
 
     private EventType getEventType(DefaultEvent e) {
         EventType type;
-        if (e instanceof SendEvent) {
+        if (e instanceof tSendEvent) {
             type = ExecutionModel.SEND_TYPE;
-        } else if (e instanceof ReceiveEvent) {
+        } else if (e instanceof tReceiveEvent) {
             type = ExecutionModel.RECEIVE_TYPE;
-        } else if (e instanceof InternalEvent) {
+        } else if (e instanceof tInternalEvent) {
             type = ExecutionModel.INTERNAL_TYPE;
-        } else if (e instanceof ResultEvent) {
+        } else if (e instanceof tResultEvent) {
             type = ExecutionModel.TERMINATE_TYPE;
         } else throw new Error();
         return type;
@@ -620,7 +624,7 @@ class SimulationManager {
         events.add(e);
         eventModels.add(model);
         // If receive event, find matching send event, add message
-        if (e instanceof ReceiveEvent) {
+        if (e instanceof tReceiveEvent) {
             Event other = e.getMatchingEvent();
             EventModel otherModel = null;
             for (int i = 0, size = events.size(); otherModel == null && i < size; i++) {
@@ -647,10 +651,10 @@ class SimulationManager {
             controller.timelineModel.addMessage(msg);
         }
         // If send event, and no matching receive event, add pending message
-        if (e instanceof SendEvent) {
+        if (e instanceof tSendEvent) {
             Event other = e.getMatchingEvent();
             if (other == null) {
-                Node receiver = ((SendEvent) e).getReceiver();
+                Node receiver = e.getReceiver();
                 int process = -1;
                 for (int i = 0; i < nodes.length; i++) {
                     if (nodes[i] == receiver) {
