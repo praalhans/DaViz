@@ -13,6 +13,7 @@ public class SendEvent extends DefaultEvent {
     transient Node receiver;
 
     SendEvent() {
+        super(TYPE_SEND);
     }
 
     @Override

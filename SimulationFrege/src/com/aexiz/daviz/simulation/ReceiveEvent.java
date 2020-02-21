@@ -13,6 +13,7 @@ public class ReceiveEvent extends DefaultEvent {
     transient Node sender;
 
     ReceiveEvent() {
+        super(TYPE_RECEIVE);
     }
 
     @Override

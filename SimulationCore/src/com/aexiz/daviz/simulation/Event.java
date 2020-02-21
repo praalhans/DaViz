@@ -1,6 +1,11 @@
 package com.aexiz.daviz.simulation;
 
 public interface Event {
+    int TYPE_INTERNAL = 1;
+    int TYPE_RECEIVE = 2;
+    int TYPE_RESULT = 3;
+    int TYPE_SEND = 4;
+
     Simulation getSimulation();
 
     void setSimulation(Simulation simulation);
@@ -40,5 +45,9 @@ public interface Event {
     Information.Message getMessage();
 
     Information.Result getResult();
+
+    int getType();
+
+    boolean isFromType(int type);
 
 }

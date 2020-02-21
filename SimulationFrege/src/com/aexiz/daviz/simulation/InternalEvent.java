@@ -11,6 +11,7 @@ public class InternalEvent extends DefaultEvent {
     transient Information.State nextState;
 
     InternalEvent() {
+        super(TYPE_INTERNAL);
     }
 
     @Override

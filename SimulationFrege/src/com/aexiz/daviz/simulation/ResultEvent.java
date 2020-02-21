@@ -11,6 +11,7 @@ public class ResultEvent extends DefaultEvent {
     transient Information.Result result;
 
     ResultEvent() {
+        super(TYPE_RESULT);
     }
 
     @Override
