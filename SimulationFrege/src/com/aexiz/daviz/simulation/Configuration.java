@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class Configuration {
 
     // Properties
-    Simulation simulation;
+    DefaultSimulation simulation;
 
     // Haskell dependencies
     transient TConfiguration<Object, Object, Object> hConfiguration;
@@ -122,7 +122,7 @@ public class Configuration {
     public static class InitialConfiguration extends Configuration {
 
         void load() {
-            TSet<TTuple2<Integer, Integer>> network = simulation.getNetwork().hNetwork;
+            TSet<TTuple2<Integer, Integer>> network = ((DefaultNetwork)simulation.getNetwork()).hNetwork;
             SimulationHelper helper = new SimulationHelper(simulation);
             TProcessDescription<Object, Object, Object, Object> o = simulation.getAlgorithm().getProcessDescription(helper);
             hConfiguration = com.aexiz.daviz.frege.simulation.Simulation.initialConfiguration(network, o.simsalabim());

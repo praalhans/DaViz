@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class RandomProgram {
 
-    private Simulation sim = new Simulation();
+    private DefaultSimulation sim = new DefaultSimulation();
     private Random random = new Random();
 
     public static void main(String[] args) throws Exception {
@@ -92,14 +92,14 @@ public class RandomProgram {
         sim.setAlgorithm(alg);
     }
 
-    public void setNetwork(Network network) {
+    public void setNetwork(DefaultNetwork network) {
         sim.setNetwork(network);
     }
 
     public void generateNetwork(int minSize, int maxSize, float edgesRatio) {
-        Network result;
+        DefaultNetwork result;
         while (true) {
-            result = new Network();
+            result = new DefaultNetwork();
             int size = minSize + (minSize < maxSize ? random.nextInt(maxSize - minSize) : 0);
             Node[] nodes = new Node[size];
             for (int i = 0; i < size; i++) {

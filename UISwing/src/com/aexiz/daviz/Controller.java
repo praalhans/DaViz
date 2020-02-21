@@ -1,9 +1,6 @@
 package com.aexiz.daviz;
 
-import com.aexiz.daviz.simulation.Network;
-import com.aexiz.daviz.simulation.Simulation;
-import com.aexiz.daviz.simulation.Channel;
-import com.aexiz.daviz.simulation.Node;
+import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.ui.*;
 import com.aexiz.daviz.ui.ExecutionModel.CoarseTimeEventListener;
 import com.aexiz.daviz.ui.ExecutionModel.EventModel;
@@ -470,10 +467,10 @@ class Controller {
             }
             simulationManager.loadSimulation(() -> {
                 // Create a simulation
-                Simulation sim = new Simulation();
+                DefaultSimulation sim = new DefaultSimulation();
                 sim.setAlgorithm(alg.alg);
                 // Load network vertices, edges and initiator
-                Network network = new Network();
+                Network network = new DefaultNetwork();
                 NodeModel[] nodes = networkModel.getNode();
                 Node[] ps = new Node[nodes.length];
                 for (int i = 0; i < nodes.length; i++) {

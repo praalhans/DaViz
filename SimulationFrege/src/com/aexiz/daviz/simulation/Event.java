@@ -12,7 +12,7 @@ import java.util.List;
 public abstract class Event extends Locus implements Cloneable {
 
     // Property
-    Simulation simulation;
+    DefaultSimulation simulation;
     Execution execution;
 
     // Haskell dependency
@@ -90,7 +90,7 @@ public abstract class Event extends Locus implements Cloneable {
         return result;
     }
 
-    public Simulation getSimulation() {
+    public DefaultSimulation getSimulation() {
         invariant();
         return simulation;
     }

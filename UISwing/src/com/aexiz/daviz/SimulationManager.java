@@ -1,13 +1,8 @@
 package com.aexiz.daviz;
 
+import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.Configuration.StateVisitor;
-import com.aexiz.daviz.simulation.Event;
-import com.aexiz.daviz.simulation.Execution;
 import com.aexiz.daviz.simulation.Information.*;
-import com.aexiz.daviz.simulation.Network;
-import com.aexiz.daviz.simulation.Simulation;
-import com.aexiz.daviz.simulation.Channel;
-import com.aexiz.daviz.simulation.Node;
 import com.aexiz.daviz.ui.ExecutionModel;
 import com.aexiz.daviz.ui.ExecutionModel.EventModel;
 import com.aexiz.daviz.ui.ExecutionModel.EventType;
@@ -831,14 +826,14 @@ class SimulationManager {
     }
 
     // Executes within AWT dispatch thread
-    void loadSimulation(Callable<Simulation> method) {
+    void loadSimulation(Callable<DefaultSimulation> method) {
         performJob(() -> {
             clear();
             fresh = false;
             SwingUtilities.invokeAndWait(() -> {
                 controller.refreshActions();
             });
-            Simulation sim = method.call();
+            DefaultSimulation sim = method.call();
             loadNetwork(sim.getNetwork());
             loadExecution(sim.getExecution(), null);
             SwingUtilities.invokeAndWait(() -> {

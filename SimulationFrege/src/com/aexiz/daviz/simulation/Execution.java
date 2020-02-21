@@ -14,7 +14,7 @@ import java.util.List;
 public class Execution {
 
     // Properties
-    Simulation simulation;
+    DefaultSimulation simulation;
 
     /**
      * may be null for root

@@ -1,16 +1,16 @@
 package com.aexiz.daviz.simulation;
 
-public class Simulation {
+public class DefaultSimulation implements Simulation {
     private Algorithm algorithm;
     private Assumption assumption;
     private Network network;
 
     private transient Execution execution;
 
-    public Simulation() {
+    public DefaultSimulation() {
     }
 
-    public Simulation(Algorithm alg) {
+    public DefaultSimulation(Algorithm alg) {
         setAlgorithm(alg);
     }
 
@@ -36,9 +36,9 @@ public class Simulation {
     }
 
     public void setNetwork(Network net) {
-        if (net.simulation != null) throw new Error("Network owned by other simulation");
+        if (net.belongsToSimulation()) throw new Error("Network owned by other simulation");
         network = net;
-        network.simulation = this;
+        network.setSimulation(this);
     }
 
     public void setInitiator(Node process) {
@@ -49,6 +49,7 @@ public class Simulation {
         assumption.initiator = process;
     }
 
+    @Override
     public void load() {
         network.load();
         Configuration.InitialConfiguration ic = new Configuration.InitialConfiguration();

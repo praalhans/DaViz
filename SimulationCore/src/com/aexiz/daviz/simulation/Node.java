@@ -11,7 +11,7 @@ public class Node extends Viewpoint {
     public static final String CLIENT_PROPERTY_NODEMODEL = "nodemodel";
 
     /**
-     * Haskell dependencies
+     * Process ID, incremental int inferred from Haskell, but useful as a shared info anyway
      */
     transient int hId;
 
