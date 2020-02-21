@@ -1,7 +1,6 @@
 package com.aexiz.daviz;
 
 import com.aexiz.daviz.simulation.*;
-import com.aexiz.daviz.simulation.DefaultConfiguration.StateVisitor;
 import com.aexiz.daviz.simulation.Information.*;
 import com.aexiz.daviz.ui.ExecutionModel;
 import com.aexiz.daviz.ui.ExecutionModel.EventModel;
@@ -377,7 +376,7 @@ class SimulationManager {
                     choiceExecutions = succs;
                     choiceEvents = new FutureEvent[succs.length];
                     for (int i = 0; i < succs.length; i++) {
-                        DefaultEvent e = succs[i].getLastEvent();
+                        DefaultEvent e = (DefaultEvent) succs[i].getLastLinkedEvent();
                         EventType type = getEventType(e);
                         String other = null;
                         if (e.hasReceiver()) other = e.getReceiver().getLabel();
@@ -743,7 +742,7 @@ class SimulationManager {
     // Executes within worker thread
     private void loadInitialState(Execution ex) {
         executionRoot = ex;
-        class LoadInitialState implements StateVisitor {
+        class LoadInitialState implements Configuration.StateVisitor {
             public void setState(Node process, State state) {
                 for (int i = 0; i < nodes.length; i++) {
                     if (nodes[i] == process) {
@@ -780,7 +779,7 @@ class SimulationManager {
                 super.step(next);
                 if (!replay) {
                     SwingUtilities.invokeAndWait(() -> {
-                        addEventToTimeline(next.getLastEvent());
+                        addEventToTimeline((DefaultEvent) next.getLastLinkedEvent());
                     });
                 }
             }

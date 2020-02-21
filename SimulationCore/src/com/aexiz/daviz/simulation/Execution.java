@@ -25,11 +25,13 @@ public interface Execution {
 
     List<Execution> getExecutionPath();
 
-    Event getLastEvent();
+    Event getLastLinkedEvent();
 
     void setLastEvent(Event lastEvent);
 
     Configuration getConfiguration();
+
+    void setConfiguration(Configuration configuration);
 
     void loadFirst();
 

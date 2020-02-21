@@ -3,14 +3,12 @@ package com.aexiz.daviz.simulation;
 import com.aexiz.daviz.frege.simulation.Event.TEvent;
 import com.aexiz.daviz.frege.simulation.Simulation;
 import com.aexiz.daviz.frege.simulation.Simulation.TSimulation;
-import com.aexiz.daviz.simulation.DefaultConfiguration.InitialConfiguration;
 import frege.prelude.PreludeBase.TList;
 import frege.prelude.PreludeBase.TList.DCons;
 import frege.prelude.PreludeBase.TTuple2;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class DefaultExecution extends AbstractExecution implements Execution {
 
@@ -25,7 +23,7 @@ public class DefaultExecution extends AbstractExecution implements Execution {
         if (!(configuration instanceof InitialConfiguration)) throw new Error("Invalid initial configuration");
         SimulationHelper helper = new SimulationHelper(simulation);
         hSimulation = Simulation.simulation(
-                configuration.hConfiguration,
+                ((DefaultConfiguration) configuration).hConfiguration,
                 ((DefaultAlgorithm) simulation.getAlgorithm()).getProcessDescription(helper));
         parent = null;
         lastEvent = null;
@@ -40,17 +38,19 @@ public class DefaultExecution extends AbstractExecution implements Execution {
         if (hSimulation == null) throw new Error("No Haskell simulation");
     }
 
-    private void unloadConfiguration() {
+    @Override
+    protected void unloadConfiguration() {
         isInvariant();
         if (configuration != null) return;
         // 1. Set configuration, translated back from Haskell
         configuration = new DefaultConfiguration();
-        configuration.simulation = simulation;
-        configuration.hConfiguration = hSimulation.mem$config.call();
-        configuration.unload();
+        configuration.setSimulation(simulation);
+        ((DefaultConfiguration) configuration).hConfiguration = hSimulation.mem$config.call();
+        ((DefaultConfiguration) configuration).unload();
     }
 
-    private void unloadSuccessors() {
+    @Override
+    protected void unloadSuccessors() {
         isInvariant();
         if (successors != null) return;
         successors = new ArrayList<>();
@@ -72,51 +72,19 @@ public class DefaultExecution extends AbstractExecution implements Execution {
         }
     }
 
-    // Traversal methods
-
-
     @Override
     public Event[] getLinkedEvents() {
         ArrayList<DefaultEvent> events = new ArrayList<>();
         // Traverse and collect
-        Execution elem = this;
+        DefaultExecution elem = this;
         while (elem.hasEvents()) {
-            events.add(elem.getLastEvent());
-            elem = elem.getParent();
+            events.add((DefaultEvent) elem.lastEvent);
+            elem = (DefaultExecution) elem.parent;
         }
-        // Reverse
+
         Collections.reverse(events);
-        // Match and link
         DefaultEvent.matchAndLinkEvents(events);
-        return events.toArray(new DefaultEvent[0]);
-    }
-
-    @Override
-    public List<Execution> getExecutionPath() {
-        ArrayList<Execution> result = new ArrayList<>();
-        // Traverse and collect
-        Execution elem = this;
-        while (elem != null) {
-            result.add(elem);
-            elem = elem.getParent();
-        }
-        // Reverse
-        Collections.reverse(result);
-        return result;
-    }
-
-    @Override
-    public Event getLastEvent() {
-        Event[] linkedEvents = getLinkedEvents();
-        return linkedEvents[linkedEvents.length - 1];
-    }
-
-    // Property methods
-
-    @Override
-    public Configuration getConfiguration() {
-        unloadConfiguration();
-        return configuration;
+        return events.toArray(new Event[0]);
     }
 
 }

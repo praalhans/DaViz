@@ -2,8 +2,6 @@ package com.aexiz.daviz;
 
 import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.DefaultEvent.SendEvent;
-import com.aexiz.daviz.simulation.Channel;
-import com.aexiz.daviz.simulation.Node;
 import com.aexiz.daviz.simulation.algorithm.wave.Cidon;
 
 import java.io.ByteArrayOutputStream;
@@ -149,7 +147,7 @@ public class RandomProgram {
         }
         // Compute number of messages
         int messages = 0;
-        DefaultEvent[] events = st.current.getLinkedEvents();
+        DefaultEvent[] events = (DefaultEvent[]) st.current.getLinkedEvents();
         for (DefaultEvent e : events) {
             if (e instanceof SendEvent)
                 messages++;

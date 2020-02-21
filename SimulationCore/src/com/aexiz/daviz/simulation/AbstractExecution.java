@@ -1,5 +1,7 @@
 package com.aexiz.daviz.simulation;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractExecution implements Execution {
@@ -55,8 +57,9 @@ public abstract class AbstractExecution implements Execution {
     }
 
     @Override
-    public Event getLastEvent() {
-        return lastEvent;
+    public Event getLastLinkedEvent() {
+        Event[] linkedEvents = getLinkedEvents();
+        return linkedEvents[linkedEvents.length - 1];
     }
 
     @Override
@@ -99,5 +102,32 @@ public abstract class AbstractExecution implements Execution {
         return result;
     }
 
+    @Override
+    public Configuration getConfiguration() {
+        unloadConfiguration();
+        return configuration;
+    }
+
+    @Override
+    public void setConfiguration(Configuration configuration) {
+        this.configuration = configuration;
+    }
+
+    @Override
+    public List<Execution> getExecutionPath() {
+        ArrayList<Execution> result = new ArrayList<>();
+        // Traverse and collect
+        Execution elem = this;
+        while (elem != null) {
+            result.add(elem);
+            elem = elem.getParent();
+        }
+        // Reverse
+        Collections.reverse(result);
+        return result;
+    }
+
     protected abstract void unloadSuccessors();
+
+    protected abstract void unloadConfiguration();
 }

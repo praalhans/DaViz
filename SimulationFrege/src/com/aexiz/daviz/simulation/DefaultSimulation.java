@@ -14,12 +14,12 @@ public class DefaultSimulation extends AbstractSimulation implements Simulation 
     @Override
     public void load() {
         network.load();
-        DefaultConfiguration.InitialConfiguration ic = new DefaultConfiguration.InitialConfiguration();
+        InitialConfiguration ic = new InitialConfiguration();
         ic.simulation = this;
         ic.load();
         execution = new DefaultExecution();
         execution.setSimulation(this);
-        execution.configuration = ic;
+        execution.setConfiguration(ic);
         execution.loadFirst();
     }
 
