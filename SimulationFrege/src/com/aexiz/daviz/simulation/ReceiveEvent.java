@@ -14,7 +14,6 @@ public class ReceiveEvent extends DefaultEvent implements tReceiveEvent {
     transient Node sender;
 
     ReceiveEvent() {
-        super(TYPE_RECEIVE);
     }
 
     @Override

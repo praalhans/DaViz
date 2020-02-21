@@ -14,8 +14,7 @@ public abstract class DefaultEvent extends AbstractEvent implements Cloneable, E
     transient TEvent<Object, Object, Object> hEvent;
     transient int hId;
 
-    DefaultEvent(int type) {
-        super(type);
+    DefaultEvent() {
     }
 
     static void matchAndLinkEvents(@NotNull List<DefaultEvent> events) {

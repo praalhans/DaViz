@@ -1,12 +1,8 @@
 package com.aexiz.daviz.simulation;
 
-import java.util.Objects;
-
 public abstract class AbstractEvent extends Locus implements Cloneable, Event {
     protected Simulation simulation;
     protected Execution execution;
-
-    private final int type;
 
     protected transient Node happensAt;
 
@@ -23,10 +19,6 @@ public abstract class AbstractEvent extends Locus implements Cloneable, Event {
     protected void isInvariant() {
         if (simulation == null) throw new Error("Invalid simulation");
         if (execution == null) throw new Error("Invalid execution");
-    }
-
-    public AbstractEvent(int type){
-        this.type = type;
     }
 
     @Override
@@ -133,16 +125,6 @@ public abstract class AbstractEvent extends Locus implements Cloneable, Event {
 
     @Override
     public abstract Event clone();
-
-    @Override
-    public boolean isFromType(int type) {
-        return this.type == type;
-    }
-
-    @Override
-    public int getType() {
-        return type;
-    }
 
     protected AbstractEvent clone(AbstractEvent to) {
         to.simulation = this.simulation;
