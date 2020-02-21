@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Assets/Assets.iml" filepath="$PROJECT_DIR$/Assets/Assets.iml" />
       <module fileurl="file://$PROJECT_DIR$/DaViz.iml" filepath="$PROJECT_DIR$/DaViz.iml" />
       <module fileurl="file://$PROJECT_DIR$/SimulationCore/SimulationCore.iml" filepath="$PROJECT_DIR$/SimulationCore/SimulationCore.iml" />
       <module fileurl="file://$PROJECT_DIR$/SimulationFrege/SimulationFrege.iml" filepath="$PROJECT_DIR$/SimulationFrege/SimulationFrege.iml" />

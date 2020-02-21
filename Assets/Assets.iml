@@ -7,7 +7,5 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="SimulationFrege" exported="" />
-    <orderEntry type="module" module-name="Assets" exported="" />
   </component>
 </module>
