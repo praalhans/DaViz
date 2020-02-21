@@ -15,8 +15,16 @@ public class Execution {
 
     // Properties
     Simulation simulation;
-    Execution parent; // may be null for root
-    Event lastEvent; // may be null for root
+
+    /**
+     * may be null for root
+     */
+    Execution parent;
+
+    /**
+     * may be null for root
+     */
+    Event lastEvent;
 
     // Transient fields
     transient Configuration configuration;

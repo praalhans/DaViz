@@ -5,22 +5,51 @@ import com.aexiz.daviz.simulation.Viewpoint.Node;
 import java.util.List;
 
 public class Assumption {
-
     // Configured by subclass
     protected boolean infiniteGraph;
     protected boolean directedGraph;
     protected boolean acyclicGraph;
     protected boolean dynamicGraph;
 
-    protected boolean fifo_channels; // True if first-in-first-out channels
-    protected boolean ooo_channels; // True if out-of-order channels
+    /**
+     * True if first-in-first-out channels
+     */
+    protected boolean fifo_channels;
 
-    protected boolean centralized_user; // User-input required
-    protected boolean decentralized_user; // User-input required
-    protected boolean decentralized_computed; // No user-input, algorithm decides initiators
-    protected boolean centralized_computed; // No user-input, algorithm decides initiator
-    Node initiator; // Given by user or undefined
-    List<Node> initiators; // Given by user or undefined
+    /**
+     * True if out-of-order channels
+     */
+    protected boolean ooo_channels;
+
+    /**
+     * User-input required
+     */
+    protected boolean centralized_user;
+
+    /**
+     * User-input required
+     */
+    protected boolean decentralized_user;
+
+    /**
+     * No user-input, algorithm decides initiators
+     */
+    protected boolean decentralized_computed;
+
+    /**
+     * No user-input, algorithm decides initiator
+     */
+    protected boolean centralized_computed;
+
+    /**
+     * Given by user or undefined
+     */
+    Node initiator;
+
+    /**
+     * Given by user or undefined
+     */
+    List<Node> initiators;
 
     public Node getInitiator() {
         if (initiator == null) throw new Error("Initiator is not set");

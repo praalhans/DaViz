@@ -20,7 +20,6 @@ public abstract class Viewpoint extends Locus {
     }
 
     public static class Channel extends Viewpoint {
-
         public static final String CLIENT_PROPERTY_EDGEMODEL = "edgemodel";
         public static final String CLIENT_PROPERTY_FIRST_DIRECTED = "first_directed";
 
@@ -75,16 +74,21 @@ public abstract class Viewpoint extends Locus {
 
     }
 
-    // This class should actually be "process", but because Java already has a
-    // built-in class called Process, we can not name it so. Next time: prefix
-    // model classes with a letter, like they do in Swing.
+    /**
+     * This class should actually be "process", but because Java already has a built-in class called Process,
+     * we can not name it so.
+     * Next time: prefix model classes with a letter, like they do in Swing.
+     */
     public static class Node extends Viewpoint {
         public static final String CLIENT_PROPERTY_POSITION_X = "node_pos_x";
         public static final String CLIENT_PROPERTY_POSITION_Y = "node_pos_y";
         public static final String CLIENT_PROPERTY_NODEMODEL = "nodemodel";
-        // Haskell dependencies
+
+        /**
+         * Haskell dependencies
+         */
         transient int hId;
-        // Temporary fields
+
         transient boolean marked;
         private String label;
 

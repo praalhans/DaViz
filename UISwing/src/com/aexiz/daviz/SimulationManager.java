@@ -36,29 +36,91 @@ class SimulationManager {
     boolean loadedNetwork = false;
     boolean linear = true;
 
-    // Transient fields
-    transient Execution executionRoot; // from simulation
-    transient ArrayList<Execution> executionPath; // from simulation (via choice or predetermined)
+    /**
+     * From simulation
+     */
+    transient Execution executionRoot;
 
-    transient Node[] nodes; // from simulation
-    transient State[] nodeInitialStates; // from simulation (via execution root)
-    transient State[] nodeLastStates; // from simulation (via selection)
-    transient Result[] nodeLastTermStatus; // from simulation (via selection)
-    transient int[] nodeProcessIds; // from timeline GUI
-    transient NodeModel[] nodeModels; // from network GUI
+    /**
+     * From simulation (via choice or predetermined)
+     */
+    transient ArrayList<Execution> executionPath;
 
-    transient Channel[] channels; // from simulation
-    transient EdgeModel[] channelEdgeModels; // from network GUI
-    transient ArrayList<Message>[] channelStates; // from simulation (via selection)
+    /**
+     * from simulation
+     */
+    transient Node[] nodes;
 
-    transient Execution[] choiceExecutions; // from simulation
-    transient FutureEvent[] choiceEvents; // from GUI
+    /**
+     * from simulation (via execution root)
+     */
+    transient State[] nodeInitialStates;
 
-    transient ArrayList<Event> events = new ArrayList<>(); // from simulation
-    transient ArrayList<EventModel> eventModels = new ArrayList<>(); // from timeline GUI
+    /**
+     * from simulation (via selection)
+     */
+    transient State[] nodeLastStates;
 
-    transient ArrayList<Object> messageModels = new ArrayList<>(); // from timeline GUI, MessageModel and PendingMessageModel
-    transient ArrayList<Event> messageSendEvents = new ArrayList<>(); // from simulation, corresponding send event
+    /**
+     * from simulation (via selection)
+     */
+    transient Result[] nodeLastTermStatus;
+
+    /**
+     * from timeline GUI
+     */
+    transient int[] nodeProcessIds;
+
+    /**
+     * from network GUI
+     */
+    transient NodeModel[] nodeModels;
+
+    /**
+     * from simulation
+     */
+    transient Channel[] channels;
+
+    /**
+     * from network GUI
+     */
+    transient EdgeModel[] channelEdgeModels;
+
+    /**
+     * from simulation (via selection)
+     */
+    transient ArrayList<Message>[] channelStates;
+
+    /**
+     * from simulation
+     */
+    transient Execution[] choiceExecutions;
+
+    /**
+     * from GUI
+     */
+    transient FutureEvent[] choiceEvents;
+
+    /**
+     * from simulation
+     */
+    transient ArrayList<Event> events = new ArrayList<>();
+
+    /**
+     * from timeline GUI
+     */
+    transient ArrayList<EventModel> eventModels = new ArrayList<>();
+
+    /**
+     * from timeline GUI, MessageModel and PendingMessageModel
+     */
+    transient ArrayList<Object> messageModels = new ArrayList<>();
+
+    /**
+     * from simulation, corresponding send event
+     */
+    transient ArrayList<Event> messageSendEvents = new ArrayList<>();
+
     private Thread worker;
     private LinkedBlockingQueue<Callable<Void>> queue = new LinkedBlockingQueue<>();
 

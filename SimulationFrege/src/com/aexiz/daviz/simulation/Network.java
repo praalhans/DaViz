@@ -12,10 +12,13 @@ import java.util.UUID;
 
 public class Network {
 
-    // Simulation ownership
+    /**
+     * Simulation ownership
+     */
     transient Simulation simulation;
     // Haskell dependence
     transient TSet<TTuple2<Integer, Integer>> hNetwork;
+
     private ArrayList<Viewpoint.Node> processes = new ArrayList<>();
     private ArrayList<Viewpoint.Channel> channels = new ArrayList<>();
     private String uuid;
