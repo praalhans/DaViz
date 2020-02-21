@@ -21,7 +21,7 @@ public abstract class AbstractNetwork implements Network {
         if (process.belongsToAnyNetwork() && !process.belongsToNetwork(uuid)) {
             throw new Error("Process already owned by other network");
         }
-        process.setNetworkID(uuid);
+        process.setNetworkUUID(uuid);
         if (processes.contains(process)) return process;
         processes.add(process);
         return process;
@@ -32,7 +32,7 @@ public abstract class AbstractNetwork implements Network {
         if (channel.belongsToAnyNetwork() && !channel.belongsToNetwork(uuid)) {
             throw new Error("Channel already owned by other network");
         }
-        channel.setNetworkID(uuid);
+        channel.setNetworkUUID(uuid);
         if (channels.contains(channel)) return channel;
         channels.add(channel);
         return channel;

@@ -1,21 +1,21 @@
 package com.aexiz.daviz.simulation;
 
 public abstract class Viewpoint extends Locus {
-    protected String networkID;
+    protected String networkUUID;
 
-    public String getNetworkID() {
-        return networkID;
+    public String getNetworkUUID() {
+        return networkUUID;
     }
 
-    public void setNetworkID(String networkID) {
-        this.networkID = networkID;
+    public void setNetworkUUID(String networkID) {
+        this.networkUUID = networkID;
     }
 
     public boolean belongsToAnyNetwork() {
-        return this.networkID != null;
+        return this.networkUUID != null;
     }
 
     public boolean belongsToNetwork(String networkID) {
-        return belongsToAnyNetwork() && this.networkID.equals(networkID);
+        return belongsToAnyNetwork() && this.networkUUID.equals(networkID);
     }
 }
