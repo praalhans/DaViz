@@ -5,10 +5,12 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.TMS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.TRRUI;
 import com.aexiz.daviz.simulation.*;
-import com.aexiz.daviz.simulation.Information.PropertyBuilder;
-import com.aexiz.daviz.simulation.Information.PropertyVisitor;
-import com.aexiz.daviz.simulation.Information.Result;
+import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
+import com.aexiz.daviz.simulation.algorithm.information.PropertyVisitor;
+import com.aexiz.daviz.simulation.algorithm.information.ResultInformation;
 import com.aexiz.daviz.simulation.Channel;
+import com.aexiz.daviz.simulation.algorithm.information.MessageInformation;
+import com.aexiz.daviz.simulation.algorithm.information.StateInformation;
 import frege.prelude.PreludeBase.TMaybe.DJust;
 import frege.prelude.PreludeBase.TTuple2;
 import frege.run8.Thunk;
@@ -32,9 +34,9 @@ public class Cidon extends DefaultAlgorithm {
         return (network.getNodes().length + network.getChannels().length) * 15;
     }
 
-    protected Information.Message makeAndUnloadMessage(FregeHelper help, Object o) {
+    protected MessageInformation makeAndUnloadMessage(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
-        abstract class CidonMessage extends Information.Message {
+        abstract class CidonMessage implements MessageInformation {
         }
         class CidonToken extends CidonMessage {
             public String toString() {
@@ -70,11 +72,11 @@ public class Cidon extends DefaultAlgorithm {
         } else throw new Error("Unknown message");
     }
 
-    protected Information.State makeAndUnloadState(FregeHelper help, Object o) {
+    protected StateInformation makeAndUnloadState(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
         abstract class CidonRRUI implements PropertyVisitor {
         }
-        class CidonState extends Information.State {
+        class CidonState implements StateInformation {
             boolean hasToken;
             CidonRRUI rrui;
             Channel intention;
@@ -177,8 +179,8 @@ public class Cidon extends DefaultAlgorithm {
         return result;
     }
 
-    protected Result makeAndUnloadResult(FregeHelper helper, Object o) {
-        class CidonTerminated extends Information.Result {
+    protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
+        class CidonTerminated implements ResultInformation {
             public String toString() {
                 return "Terminated";
             }
@@ -187,7 +189,7 @@ public class Cidon extends DefaultAlgorithm {
                 builder.simpleProperty("", "Terminated");
             }
         }
-        class CidonDecided extends Information.Result {
+        class CidonDecided implements ResultInformation {
             public String toString() {
                 return "Decided";
             }

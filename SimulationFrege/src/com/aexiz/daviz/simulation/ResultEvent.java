@@ -1,6 +1,7 @@
 package com.aexiz.daviz.simulation;
 
 import com.aexiz.daviz.frege.simulation.Event;
+import com.aexiz.daviz.simulation.algorithm.information.ResultInformation;
 import com.aexiz.daviz.simulation.event.tResultEvent;
 
 public class ResultEvent extends DefaultEvent implements tResultEvent {
@@ -9,7 +10,7 @@ public class ResultEvent extends DefaultEvent implements tResultEvent {
     transient Event.TEvent.DEResult<Object, Object, Object> hEvent;
 
     // Computed properties
-    transient Information.Result result;
+    transient ResultInformation result;
 
     ResultEvent() {
         super();
@@ -38,7 +39,7 @@ public class ResultEvent extends DefaultEvent implements tResultEvent {
     }
 
     @Override
-    public Information.Result getResult() {
+    public ResultInformation getResult() {
         return result;
     }
 

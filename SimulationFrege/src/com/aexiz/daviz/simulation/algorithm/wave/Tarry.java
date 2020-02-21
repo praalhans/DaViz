@@ -6,11 +6,12 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.Tarry.TDUI;
 import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.Assumption;
 import com.aexiz.daviz.simulation.FregeHelper;
-import com.aexiz.daviz.simulation.Information;
-import com.aexiz.daviz.simulation.Information.PropertyBuilder;
-import com.aexiz.daviz.simulation.Information.PropertyVisitor;
-import com.aexiz.daviz.simulation.Information.Result;
+import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
+import com.aexiz.daviz.simulation.algorithm.information.PropertyVisitor;
+import com.aexiz.daviz.simulation.algorithm.information.ResultInformation;
 import com.aexiz.daviz.simulation.Channel;
+import com.aexiz.daviz.simulation.algorithm.information.MessageInformation;
+import com.aexiz.daviz.simulation.algorithm.information.StateInformation;
 import frege.prelude.PreludeBase.TTuple2;
 import frege.prelude.PreludeBase.TTuple3;
 import frege.run8.Thunk;
@@ -29,9 +30,9 @@ public class Tarry extends DefaultAlgorithm {
         };
     }
 
-    protected Information.Message makeAndUnloadMessage(FregeHelper help, Object o) {
+    protected MessageInformation makeAndUnloadMessage(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
-        class TarryMessage extends Information.Message {
+        class TarryMessage implements MessageInformation {
             public String toString() {
                 return "*token*";
             }
@@ -49,11 +50,11 @@ public class Tarry extends DefaultAlgorithm {
         return new TarryMessage();
     }
 
-    protected Information.State makeAndUnloadState(FregeHelper help, Object o) {
+    protected StateInformation makeAndUnloadState(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
         abstract class TarryDUI implements PropertyVisitor {
         }
-        class TarryState extends Information.State {
+        class TarryState implements StateInformation {
             boolean hasToken;
             TarryDUI dui;
             List<Channel> neighbors;
@@ -142,8 +143,8 @@ public class Tarry extends DefaultAlgorithm {
         return result;
     }
 
-    protected Result makeAndUnloadResult(FregeHelper helper, Object o) {
-        class TarryTerminated extends Information.Result {
+    protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
+        class TarryTerminated implements ResultInformation {
             public String toString() {
                 return "Terminated";
             }
@@ -152,7 +153,7 @@ public class Tarry extends DefaultAlgorithm {
                 builder.simpleProperty("", "Terminated");
             }
         }
-        class TarryDecided extends Information.Result {
+        class TarryDecided implements ResultInformation {
             public String toString() {
                 return "Decided";
             }

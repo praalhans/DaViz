@@ -1,6 +1,7 @@
 package com.aexiz.daviz.simulation;
 
 import com.aexiz.daviz.frege.simulation.Event;
+import com.aexiz.daviz.simulation.algorithm.information.StateInformation;
 import com.aexiz.daviz.simulation.event.tInternalEvent;
 
 public class InternalEvent extends DefaultEvent implements tInternalEvent {
@@ -9,7 +10,7 @@ public class InternalEvent extends DefaultEvent implements tInternalEvent {
     transient Event.TEvent.DEInternal<Object, Object, Object> hEvent;
 
     // Computed properties
-    transient Information.State nextState;
+    transient StateInformation nextState;
 
     InternalEvent() {
         super();
@@ -42,7 +43,7 @@ public class InternalEvent extends DefaultEvent implements tInternalEvent {
     }
 
     @Override
-    public Information.State getNextState() {
+    public StateInformation getNextState() {
         return nextState;
     }
 

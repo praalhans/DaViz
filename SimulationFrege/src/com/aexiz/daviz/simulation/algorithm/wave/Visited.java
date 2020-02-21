@@ -6,12 +6,13 @@ import com.aexiz.daviz.frege.simulation.Visited.TRRUI;
 import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.Assumption;
 import com.aexiz.daviz.simulation.FregeHelper;
-import com.aexiz.daviz.simulation.Information;
-import com.aexiz.daviz.simulation.Information.PropertyBuilder;
-import com.aexiz.daviz.simulation.Information.PropertyVisitor;
-import com.aexiz.daviz.simulation.Information.Result;
+import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
+import com.aexiz.daviz.simulation.algorithm.information.PropertyVisitor;
+import com.aexiz.daviz.simulation.algorithm.information.ResultInformation;
 import com.aexiz.daviz.simulation.Channel;
 import com.aexiz.daviz.simulation.Node;
+import com.aexiz.daviz.simulation.algorithm.information.MessageInformation;
+import com.aexiz.daviz.simulation.algorithm.information.StateInformation;
 import frege.prelude.PreludeBase.TMaybe;
 import frege.prelude.PreludeBase.TMaybe.DJust;
 import frege.prelude.PreludeBase.TTuple2;
@@ -32,9 +33,9 @@ public class Visited extends DefaultAlgorithm {
         };
     }
 
-    protected Information.Message makeAndUnloadMessage(FregeHelper help, Object o) {
+    protected MessageInformation makeAndUnloadMessage(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
-        class VisitedMessage extends Information.Message {
+        class VisitedMessage implements MessageInformation {
             List<Node> visited;
 
             public String toString() {
@@ -68,11 +69,11 @@ public class Visited extends DefaultAlgorithm {
         return result;
     }
 
-    protected Information.State makeAndUnloadState(FregeHelper help, Object o) {
+    protected StateInformation makeAndUnloadState(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
         abstract class VisitedRRUI implements PropertyVisitor {
         }
-        class VisitedState extends Information.State {
+        class VisitedState implements StateInformation {
             List<Node> hasToken;
             VisitedRRUI rrui;
             List<Channel> neighbors;
@@ -164,8 +165,8 @@ public class Visited extends DefaultAlgorithm {
         return result;
     }
 
-    protected Result makeAndUnloadResult(FregeHelper helper, Object o) {
-        class VisitedTerminated extends Information.Result {
+    protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
+        class VisitedTerminated implements ResultInformation {
             public String toString() {
                 return "Terminated";
             }
@@ -174,7 +175,7 @@ public class Visited extends DefaultAlgorithm {
                 builder.simpleProperty("", "Terminated");
             }
         }
-        class VisitedDecided extends Information.Result {
+        class VisitedDecided implements ResultInformation {
             public String toString() {
                 return "Decided";
             }

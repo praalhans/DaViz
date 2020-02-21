@@ -1,6 +1,8 @@
 package com.aexiz.daviz.simulation;
 
 import com.aexiz.daviz.frege.simulation.Event;
+import com.aexiz.daviz.simulation.algorithm.information.MessageInformation;
+import com.aexiz.daviz.simulation.algorithm.information.StateInformation;
 import com.aexiz.daviz.simulation.event.tSendEvent;
 
 public class SendEvent extends DefaultEvent implements tSendEvent {
@@ -9,8 +11,8 @@ public class SendEvent extends DefaultEvent implements tSendEvent {
     transient Event.TEvent.DESend<Object, Object, Object> hEvent;
 
     // Computed properties
-    transient Information.Message message;
-    transient Information.State nextState;
+    transient MessageInformation message;
+    transient StateInformation nextState;
     transient Node receiver;
 
     SendEvent() {
@@ -49,7 +51,7 @@ public class SendEvent extends DefaultEvent implements tSendEvent {
     }
 
     @Override
-    public Information.Message getMessage() {
+    public MessageInformation getMessage() {
         return message;
     }
 
@@ -59,7 +61,7 @@ public class SendEvent extends DefaultEvent implements tSendEvent {
     }
 
     @Override
-    public Information.State getNextState() {
+    public StateInformation getNextState() {
         return nextState;
     }
 

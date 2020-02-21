@@ -7,9 +7,8 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.TRRUI;
 import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.Assumption;
 import com.aexiz.daviz.simulation.FregeHelper;
-import com.aexiz.daviz.simulation.Information;
-import com.aexiz.daviz.simulation.Information.*;
 import com.aexiz.daviz.simulation.Channel;
+import com.aexiz.daviz.simulation.algorithm.information.*;
 import frege.run8.Thunk;
 
 import java.util.List;
@@ -26,8 +25,8 @@ public class Echo extends DefaultAlgorithm {
         };
     }
 
-    protected Message makeAndUnloadMessage(FregeHelper helper, Object o) {
-        class EchoMessage extends Information.Message {
+    protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
+        class EchoMessage implements MessageInformation {
             public String toString() {
                 return "*broadcast*";
             }
@@ -45,10 +44,10 @@ public class Echo extends DefaultAlgorithm {
         throw new Error("Invalid message");
     }
 
-    protected State makeAndUnloadState(FregeHelper helper, Object o) {
+    protected StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
         abstract class EchoRRUI implements PropertyVisitor {
         }
-        class EchoState extends Information.State {
+        class EchoState implements StateInformation {
             List<Channel> neighbors;
             List<Channel> children;
             EchoRRUI state;
@@ -140,8 +139,8 @@ public class Echo extends DefaultAlgorithm {
         return result;
     }
 
-    protected Result makeAndUnloadResult(FregeHelper helper, Object o) {
-        class TreeAckDecided extends Information.Result {
+    protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
+        class TreeAckDecided implements ResultInformation {
             public String toString() {
                 return "Decided";
             }
@@ -150,7 +149,7 @@ public class Echo extends DefaultAlgorithm {
                 visitor.simpleProperty("", "Decided");
             }
         }
-        class TreeAckTerminated extends Information.Result {
+        class TreeAckTerminated implements ResultInformation {
             public String toString() {
                 return "Terminated";
             }

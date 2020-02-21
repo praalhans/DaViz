@@ -1,5 +1,8 @@
 package com.aexiz.daviz.simulation;
 
+import com.aexiz.daviz.simulation.algorithm.information.MessageInformation;
+import com.aexiz.daviz.simulation.algorithm.information.StateInformation;
+
 import java.io.PrintStream;
 import java.util.ArrayList;
 
@@ -8,10 +11,10 @@ public abstract class AbstractConfiguration implements Configuration {
 
     protected transient Node[] processes;
     protected transient boolean[] processAlive;
-    protected transient Information.State[] processState;
+    protected transient StateInformation[] processState;
 
     protected transient Channel[] channels;
-    protected transient ArrayList<Information.Message>[] channelState;
+    protected transient ArrayList<MessageInformation>[] channelState;
 
     @Override
     public Simulation getSimulation() {
@@ -39,7 +42,7 @@ public abstract class AbstractConfiguration implements Configuration {
             out.print("Channel ");
             out.print(channels[i]);
             out.print(": ");
-            for (Information.Message m : channelState[i]) {
+            for (MessageInformation m : channelState[i]) {
                 out.print(m);
             }
             out.println();

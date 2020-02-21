@@ -7,9 +7,8 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.TUPDS;
 import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.Assumption;
 import com.aexiz.daviz.simulation.FregeHelper;
-import com.aexiz.daviz.simulation.Information;
-import com.aexiz.daviz.simulation.Information.*;
 import com.aexiz.daviz.simulation.Channel;
+import com.aexiz.daviz.simulation.algorithm.information.*;
 
 import java.util.List;
 
@@ -26,8 +25,8 @@ public class TreeAck extends DefaultAlgorithm {
         };
     }
 
-    protected Message makeAndUnloadMessage(FregeHelper helper, Object o) {
-        abstract class TreeAckMessage extends Information.Message {
+    protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
+        abstract class TreeAckMessage implements MessageInformation {
         }
         class TreeAckInfoMessage extends TreeAckMessage {
             public String toString() {
@@ -61,10 +60,10 @@ public class TreeAck extends DefaultAlgorithm {
         throw new Error("Invalid message");
     }
 
-    protected State makeAndUnloadState(FregeHelper helper, Object o) {
+    protected StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
         abstract class TreeAckUPDS implements PropertyVisitor {
         }
-        class TreeAckState extends Information.State {
+        class TreeAckState implements StateInformation {
             List<Channel> neighbors;
             List<Channel> children;
             TreeAckUPDS state;
@@ -159,8 +158,8 @@ public class TreeAck extends DefaultAlgorithm {
         return result;
     }
 
-    protected Result makeAndUnloadResult(FregeHelper helper, Object o) {
-        class TreeAckDecided extends Information.Result {
+    protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
+        class TreeAckDecided implements ResultInformation {
             public String toString() {
                 return "Decided";
             }
@@ -169,7 +168,7 @@ public class TreeAck extends DefaultAlgorithm {
                 visitor.simpleProperty("", "Decided");
             }
         }
-        class TreeAckTerminated extends Information.Result {
+        class TreeAckTerminated implements ResultInformation {
             public String toString() {
                 return "Terminated";
             }

@@ -6,11 +6,12 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.DFS.TRRUI;
 import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.Assumption;
 import com.aexiz.daviz.simulation.FregeHelper;
-import com.aexiz.daviz.simulation.Information;
-import com.aexiz.daviz.simulation.Information.PropertyBuilder;
-import com.aexiz.daviz.simulation.Information.PropertyVisitor;
-import com.aexiz.daviz.simulation.Information.Result;
+import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
+import com.aexiz.daviz.simulation.algorithm.information.PropertyVisitor;
+import com.aexiz.daviz.simulation.algorithm.information.ResultInformation;
 import com.aexiz.daviz.simulation.Channel;
+import com.aexiz.daviz.simulation.algorithm.information.MessageInformation;
+import com.aexiz.daviz.simulation.algorithm.information.StateInformation;
 import frege.prelude.PreludeBase.TMaybe;
 import frege.prelude.PreludeBase.TMaybe.DJust;
 import frege.prelude.PreludeBase.TTuple2;
@@ -31,9 +32,9 @@ public class DFS extends DefaultAlgorithm {
         };
     }
 
-    protected Information.Message makeAndUnloadMessage(FregeHelper help, Object o) {
+    protected MessageInformation makeAndUnloadMessage(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
-        class DFS_Message extends Information.Message {
+        class DFS_Message implements MessageInformation {
             public String toString() {
                 return "*token*";
             }
@@ -51,11 +52,11 @@ public class DFS extends DefaultAlgorithm {
         return new DFS_Message();
     }
 
-    protected Information.State makeAndUnloadState(FregeHelper help, Object o) {
+    protected StateInformation makeAndUnloadState(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
         abstract class DFS_RRUI implements PropertyVisitor {
         }
-        class DFS_State extends Information.State {
+        class DFS_State implements StateInformation {
             boolean hasToken;
             DFS_RRUI rrui;
             List<Channel> neighbors;
@@ -148,8 +149,8 @@ public class DFS extends DefaultAlgorithm {
         return result;
     }
 
-    protected Result makeAndUnloadResult(FregeHelper helper, Object o) {
-        class DFSTerminated extends Information.Result {
+    protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
+        class DFSTerminated implements ResultInformation {
             public String toString() {
                 return "Terminated";
             }
@@ -158,7 +159,7 @@ public class DFS extends DefaultAlgorithm {
                 builder.simpleProperty("", "Terminated");
             }
         }
-        class DFSDecided extends Information.Result {
+        class DFSDecided implements ResultInformation {
             public String toString() {
                 return "Decided";
             }

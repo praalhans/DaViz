@@ -6,9 +6,8 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.Tree.TUP;
 import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.Assumption;
 import com.aexiz.daviz.simulation.FregeHelper;
-import com.aexiz.daviz.simulation.Information;
-import com.aexiz.daviz.simulation.Information.*;
 import com.aexiz.daviz.simulation.Channel;
+import com.aexiz.daviz.simulation.algorithm.information.*;
 
 import java.util.List;
 
@@ -25,8 +24,8 @@ public class Tree extends DefaultAlgorithm {
         };
     }
 
-    protected Message makeAndUnloadMessage(FregeHelper helper, Object o) {
-        class TreeMessage extends Information.Message {
+    protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
+        class TreeMessage implements MessageInformation {
             public String toString() {
                 return "*info*";
             }
@@ -44,10 +43,10 @@ public class Tree extends DefaultAlgorithm {
         return new TreeMessage();
     }
 
-    protected State makeAndUnloadState(FregeHelper helper, Object o) {
+    protected StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
         abstract class TreeUP implements PropertyVisitor {
         }
-        class TreeState extends Information.State {
+        class TreeState implements StateInformation {
             List<Channel> neigh;
             TreeUP state;
 
@@ -102,8 +101,8 @@ public class Tree extends DefaultAlgorithm {
         return result;
     }
 
-    protected Result makeAndUnloadResult(FregeHelper helper, Object o) {
-        class TreeResult extends Information.Result {
+    protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
+        class TreeResult implements ResultInformation {
             public String toString() {
                 return "Decided";
             }

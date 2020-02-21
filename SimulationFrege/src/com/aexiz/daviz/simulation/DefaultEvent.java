@@ -1,6 +1,7 @@
 package com.aexiz.daviz.simulation;
 
 import com.aexiz.daviz.frege.simulation.Event.TEvent;
+import com.aexiz.daviz.simulation.algorithm.information.MessageInformation;
 import com.aexiz.daviz.simulation.event.tReceiveEvent;
 import com.aexiz.daviz.simulation.event.tSendEvent;
 import org.jetbrains.annotations.Contract;
@@ -29,13 +30,13 @@ public abstract class DefaultEvent extends AbstractEvent implements Cloneable, E
             DefaultEvent event = events.get(i);
             if (event instanceof tReceiveEvent) {
                 ReceiveEvent receive = (ReceiveEvent) event;
-                Information.Message rMsg = receive.getMessage();
+                MessageInformation rMsg = receive.getMessage();
                 boolean matched = false;
                 for (int j = 0; j < i; j++) {
                     DefaultEvent other = events.get(j);
                     if (other instanceof tSendEvent) {
                         SendEvent sender = (SendEvent) other;
-                        Information.Message sMsg = sender.getMessage();
+                        MessageInformation sMsg = sender.getMessage();
                         if (sender.getReceiver() != receive.getHappensAt()) continue;
                         if (receive.getSender() != sender.getHappensAt()) continue;
                         if (sender.hasMatchingEvent()) continue;

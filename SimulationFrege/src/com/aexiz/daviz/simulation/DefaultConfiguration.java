@@ -1,6 +1,8 @@
 package com.aexiz.daviz.simulation;
 
 import com.aexiz.daviz.frege.simulation.Simulation.TConfiguration;
+import com.aexiz.daviz.simulation.algorithm.information.MessageInformation;
+import com.aexiz.daviz.simulation.algorithm.information.StateInformation;
 import frege.prelude.PreludeBase.TEither;
 import frege.prelude.PreludeBase.TEither.DLeft;
 import frege.prelude.PreludeBase.TList;
@@ -27,7 +29,7 @@ public class DefaultConfiguration extends AbstractConfiguration implements Confi
         // 1. Read out state of each process
         processes = simulation.getNetwork().getNodes();
         processAlive = new boolean[processes.length];
-        processState = new Information.State[processes.length];
+        processState = new StateInformation[processes.length];
         for (int i = 0; i < processes.length; i++) {
             TEither<Object, Object> m = hConfiguration.mem2.call().apply(Thunk.lazy(processes[i].hId)).call();
             DLeft<Object, Object> j = m.asLeft();
@@ -42,10 +44,10 @@ public class DefaultConfiguration extends AbstractConfiguration implements Confi
         // 2. Read out channel state
         channels = simulation.getNetwork().getChannels();
         @SuppressWarnings("unchecked")
-        ArrayList<Information.Message>[] o = (ArrayList<Information.Message>[]) new ArrayList<?>[channels.length];
+        ArrayList<MessageInformation>[] o = (ArrayList<MessageInformation>[]) new ArrayList<?>[channels.length];
         channelState = o;
         for (int i = 0; i < channels.length; i++) {
-            channelState[i] = new ArrayList<Information.Message>();
+            channelState[i] = new ArrayList<MessageInformation>();
         }
         TList<TTuple2<TTuple2<Integer, Integer>, Object>> l = hConfiguration.mem3.call();
         while (l.asCons() != null) {

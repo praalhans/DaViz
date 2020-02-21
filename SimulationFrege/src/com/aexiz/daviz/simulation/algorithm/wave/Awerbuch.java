@@ -7,11 +7,12 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.Awerbuch.TRRRUII;
 import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.Assumption;
 import com.aexiz.daviz.simulation.FregeHelper;
-import com.aexiz.daviz.simulation.Information;
-import com.aexiz.daviz.simulation.Information.PropertyBuilder;
-import com.aexiz.daviz.simulation.Information.PropertyVisitor;
-import com.aexiz.daviz.simulation.Information.Result;
+import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
+import com.aexiz.daviz.simulation.algorithm.information.PropertyVisitor;
+import com.aexiz.daviz.simulation.algorithm.information.ResultInformation;
 import com.aexiz.daviz.simulation.Channel;
+import com.aexiz.daviz.simulation.algorithm.information.MessageInformation;
+import com.aexiz.daviz.simulation.algorithm.information.StateInformation;
 import frege.prelude.PreludeBase.TMaybe.DJust;
 import frege.prelude.PreludeBase.TTuple2;
 import frege.run8.Thunk;
@@ -30,9 +31,9 @@ public class Awerbuch extends DefaultAlgorithm {
         };
     }
 
-    protected Information.Message makeAndUnloadMessage(FregeHelper help, Object o) {
+    protected MessageInformation makeAndUnloadMessage(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
-        abstract class AwerbuchMessage extends Information.Message {
+        abstract class AwerbuchMessage implements MessageInformation {
         }
         class AwerbuchToken extends AwerbuchMessage {
             public String toString() {
@@ -83,11 +84,11 @@ public class Awerbuch extends DefaultAlgorithm {
         } else throw new Error("Unknown message");
     }
 
-    protected Information.State makeAndUnloadState(FregeHelper help, Object o) {
+    protected StateInformation makeAndUnloadState(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
         abstract class AwerbuchRRRUII implements PropertyVisitor {
         }
-        class AwerbuchState extends Information.State {
+        class AwerbuchState implements StateInformation {
             boolean hasToken;
             AwerbuchRRRUII rrruii;
             List<Channel> inform;
@@ -250,8 +251,8 @@ public class Awerbuch extends DefaultAlgorithm {
         return result;
     }
 
-    protected Result makeAndUnloadResult(FregeHelper helper, Object o) {
-        class AwerbuchTerminated extends Information.Result {
+    protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
+        class AwerbuchTerminated implements ResultInformation {
             public String toString() {
                 return "Terminated";
             }
@@ -260,7 +261,7 @@ public class Awerbuch extends DefaultAlgorithm {
                 builder.simpleProperty("", "Terminated");
             }
         }
-        class AwerbuchDecided extends Information.Result {
+        class AwerbuchDecided implements ResultInformation {
             public String toString() {
                 return "Decided";
             }

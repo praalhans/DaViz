@@ -1,5 +1,9 @@
 package com.aexiz.daviz.simulation;
 
+import com.aexiz.daviz.simulation.algorithm.information.MessageInformation;
+import com.aexiz.daviz.simulation.algorithm.information.ResultInformation;
+import com.aexiz.daviz.simulation.algorithm.information.StateInformation;
+
 public interface Event {
     Simulation getSimulation();
 
@@ -35,10 +39,10 @@ public interface Event {
 
     Node getReceiver();
 
-    Information.State getNextState();
+    StateInformation getNextState();
 
-    Information.Message getMessage();
+    MessageInformation getMessage();
 
-    Information.Result getResult();
+    ResultInformation getResult();
 
 }

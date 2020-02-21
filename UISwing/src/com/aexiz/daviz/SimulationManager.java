@@ -1,7 +1,7 @@
 package com.aexiz.daviz;
 
 import com.aexiz.daviz.simulation.*;
-import com.aexiz.daviz.simulation.Information.*;
+import com.aexiz.daviz.simulation.algorithm.information.*;
 import com.aexiz.daviz.simulation.event.tInternalEvent;
 import com.aexiz.daviz.simulation.event.tReceiveEvent;
 import com.aexiz.daviz.simulation.event.tResultEvent;
@@ -52,17 +52,17 @@ class SimulationManager {
     /**
      * from simulation (via execution root)
      */
-    transient State[] nodeInitialStates;
+    transient StateInformation[] nodeInitialStates;
 
     /**
      * from simulation (via selection)
      */
-    transient State[] nodeLastStates;
+    transient StateInformation[] nodeLastStates;
 
     /**
      * from simulation (via selection)
      */
-    transient Result[] nodeLastTermStatus;
+    transient ResultInformation[] nodeLastTermStatus;
 
     /**
      * from timeline GUI
@@ -87,7 +87,7 @@ class SimulationManager {
     /**
      * from simulation (via selection)
      */
-    transient ArrayList<Message>[] channelStates;
+    transient ArrayList<MessageInformation>[] channelStates;
 
     /**
      * from simulation
@@ -363,7 +363,7 @@ class SimulationManager {
                     if (fromN == null) throw new Error();
                     if (toN == null) throw new Error();
 
-                    Message message = send.getMessage();
+                    MessageInformation message = send.getMessage();
                     for (int i = 0; i < channels.length; i++) {
                         if (channels[i].from == fromN && channels[i].to == toN) {
                             channelStates[i].add(message);
@@ -434,8 +434,8 @@ class SimulationManager {
     void changeNodeSelection(NodeModel node) {
         if (!loadedNetwork) return;
 
-        State last = null;
-        Result status = null;
+        StateInformation last = null;
+        ResultInformation status = null;
         for (int i = 0; i < nodes.length; i++) {
             if (nodeModels[i] == node) {
                 last = nodeLastStates[i];
@@ -461,11 +461,11 @@ class SimulationManager {
     void changeEdgeSelection(EdgeModel edge) {
         if (!loadedNetwork) return;
 
-        ArrayList<Message> transit = new ArrayList<Message>();
+        ArrayList<MessageInformation> transit = new ArrayList<MessageInformation>();
         ArrayList<Channel> channel = new ArrayList<Channel>();
         for (int i = 0; i < channels.length; i++) {
             if (channelEdgeModels[i] == edge) {
-                for (Message m : channelStates[i]) {
+                for (MessageInformation m : channelStates[i]) {
                     transit.add(m);
                     channel.add(channels[i]);
                 }
@@ -568,7 +568,7 @@ class SimulationManager {
         controller.infoModel.addProperty(p);
     }
 
-    private void loadState(PropertyModel p, State state) {
+    private void loadState(PropertyModel p, StateInformation state) {
         InfoPropertyBuilder ipb = new InfoPropertyBuilder();
         ipb.property = p;
         try {
@@ -578,7 +578,7 @@ class SimulationManager {
         }
     }
 
-    private void loadMessage(PropertyModel p, Message message) {
+    private void loadMessage(PropertyModel p, MessageInformation message) {
         InfoPropertyBuilder ipb = new InfoPropertyBuilder();
         ipb.property = p;
         try {
@@ -588,7 +588,7 @@ class SimulationManager {
         }
     }
 
-    private void loadResult(PropertyModel p, Result result) {
+    private void loadResult(PropertyModel p, ResultInformation result) {
         InfoPropertyBuilder ipb = new InfoPropertyBuilder();
         ipb.property = p;
         try {
@@ -684,9 +684,9 @@ class SimulationManager {
             nodes = net.getNodes();
             nodeProcessIds = new int[nodes.length];
             nodeModels = new NodeModel[nodes.length];
-            nodeInitialStates = new State[nodes.length];
-            nodeLastStates = new State[nodes.length];
-            nodeLastTermStatus = new Result[nodes.length];
+            nodeInitialStates = new StateInformation[nodes.length];
+            nodeLastStates = new StateInformation[nodes.length];
+            nodeLastTermStatus = new ResultInformation[nodes.length];
             for (int i = 0; i < nodes.length; i++) {
                 nodeProcessIds[i] = controller.timelineModel.addProcess(nodes[i].getLabel());
                 float x = i, y = i; // default positions
@@ -705,10 +705,10 @@ class SimulationManager {
             channels = net.getChannels();
             channelEdgeModels = new EdgeModel[channels.length];
             @SuppressWarnings("unchecked")
-            ArrayList<Message>[] ics = (ArrayList<Message>[]) new ArrayList<?>[channels.length];
+            ArrayList<MessageInformation>[] ics = (ArrayList<MessageInformation>[]) new ArrayList<?>[channels.length];
             channelStates = ics;
             for (int i = 0; i < channels.length; i++) {
-                channelStates[i] = new ArrayList<Message>();
+                channelStates[i] = new ArrayList<MessageInformation>();
             }
             for (int i = 0; i < channels.length; i++) {
                 GraphModel.NodeModel from = null, to = null;
@@ -750,7 +750,7 @@ class SimulationManager {
     private void loadInitialState(Execution ex) {
         executionRoot = ex;
         class LoadInitialState implements Configuration.StateVisitor {
-            public void setState(Node process, State state) {
+            public void setState(Node process, StateInformation state) {
                 for (int i = 0; i < nodes.length; i++) {
                     if (nodes[i] == process) {
                         nodeInitialStates[i] = state;

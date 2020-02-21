@@ -1,5 +1,8 @@
 package com.aexiz.daviz.simulation;
 
+import com.aexiz.daviz.simulation.algorithm.information.MessageInformation;
+import com.aexiz.daviz.simulation.algorithm.information.ResultInformation;
+import com.aexiz.daviz.simulation.algorithm.information.StateInformation;
 import com.aexiz.daviz.simulation.event.tInternalEvent;
 import com.aexiz.daviz.simulation.event.tReceiveEvent;
 import com.aexiz.daviz.simulation.event.tResultEvent;
@@ -93,7 +96,7 @@ public abstract class AbstractEvent extends Locus implements Cloneable, Event {
     }
 
     @Override
-    public Information.State getNextState() {
+    public StateInformation getNextState() {
         throw new Error();
     }
 
@@ -103,7 +106,7 @@ public abstract class AbstractEvent extends Locus implements Cloneable, Event {
     }
 
     @Override
-    public Information.Message getMessage() {
+    public MessageInformation getMessage() {
         throw new Error();
     }
 
@@ -113,7 +116,7 @@ public abstract class AbstractEvent extends Locus implements Cloneable, Event {
     }
 
     @Override
-    public Information.Result getResult() {
+    public ResultInformation getResult() {
         throw new Error();
     }
 
