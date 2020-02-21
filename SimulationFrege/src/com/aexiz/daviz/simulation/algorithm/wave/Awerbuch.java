@@ -29,47 +29,24 @@ public class Awerbuch extends DefaultAlgorithm {
 
     protected MessageInformation makeAndUnloadMessage(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
-        abstract class AwerbuchMessage implements MessageInformation {
-        }
-        class AwerbuchToken extends AwerbuchMessage {
-            public String toString() {
-                return "*token*";
-            }
-
+        class AwerbuchToken extends TokenInformation {
             public boolean equals(Object obj) {
                 return obj instanceof AwerbuchToken;
             }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Token");
-            }
         }
-        class AwerbuchInfo extends AwerbuchMessage {
-            public String toString() {
-                return "*info*";
-            }
 
+        class AwerbuchInfo extends InfoInformation {
             public boolean equals(Object obj) {
                 return obj instanceof AwerbuchInfo;
             }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Info");
-            }
         }
-        class AwerbuchAck extends AwerbuchMessage {
-            public String toString() {
-                return "*ack*";
-            }
 
+        class AwerbuchAck extends AckInformation {
             public boolean equals(Object obj) {
                 return obj instanceof AwerbuchAck;
             }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Ack");
-            }
         }
+        
         Short t = (Short) o;
         if (t == TMS.Token) {
             return new AwerbuchToken();

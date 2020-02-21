@@ -3,12 +3,8 @@ package com.aexiz.daviz.simulation.algorithm.wave;
 import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.Set.TSet;
 import com.aexiz.daviz.frege.simulation.Visited.TRRUI;
-import com.aexiz.daviz.simulation.DefaultAlgorithm;
-import com.aexiz.daviz.simulation.Assumption;
-import com.aexiz.daviz.simulation.FregeHelper;
+import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.information.*;
-import com.aexiz.daviz.simulation.Channel;
-import com.aexiz.daviz.simulation.Node;
 import frege.prelude.PreludeBase.TMaybe;
 import frege.prelude.PreludeBase.TMaybe.DJust;
 import frege.prelude.PreludeBase.TTuple2;
@@ -31,37 +27,14 @@ public class Visited extends DefaultAlgorithm {
 
     protected MessageInformation makeAndUnloadMessage(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
-        class VisitedMessage implements MessageInformation {
-            List<Node> visited;
 
-            public String toString() {
-                return "*token* " + visited;
-            }
-
-            public boolean equals(Object obj) {
-                if (obj instanceof VisitedMessage) {
-                    VisitedMessage other = (VisitedMessage) obj;
-                    return other.visited.equals(visited);
-                }
-                return false;
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Token");
-                builder.compoundProperty("Visited", new PropertyVisitor() {
-                    public void buildProperties(PropertyBuilder builder) {
-                        builder.simpleProperty("", visited.size() + " elements");
-                        for (int i = 0, size = visited.size(); i < size; i++) {
-                            builder.simpleProperty(i + ":", visited.get(i).getLabel());
-                        }
-                    }
-                });
-            }
+        class VisitedMessage extends VisitedTokenInformation {
         }
+
         @SuppressWarnings("unchecked")
         TSet<Integer> t = (TSet<Integer>) o;
         VisitedMessage result = new VisitedMessage();
-        result.visited = help.forVertexSet(t);
+        result.setVisited(help.forVertexSet(t));
         return result;
     }
 

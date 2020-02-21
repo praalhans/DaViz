@@ -30,19 +30,13 @@ public class DFS extends DefaultAlgorithm {
 
     protected MessageInformation makeAndUnloadMessage(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
-        class DFS_Message implements MessageInformation {
-            public String toString() {
-                return "*token*";
-            }
 
+        class DFS_Message extends TokenInformation {
             public boolean equals(Object obj) {
                 return obj instanceof DFS_Message;
             }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Token");
-            }
         }
+
         Short t = (Short) o;
         if (t != 0) throw new Error("Invalid Haskell unit");
         return new DFS_Message();

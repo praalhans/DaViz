@@ -25,22 +25,15 @@ public class Tree extends DefaultAlgorithm {
     }
 
     protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
-        class TreeMessage implements MessageInformation {
-            public String toString() {
-                return "*info*";
-            }
-
+        class TreeInfo extends InfoInformation {
             public boolean equals(Object obj) {
-                return obj instanceof TreeMessage;
-            }
-
-            public void buildProperties(PropertyBuilder visitor) {
-                visitor.simpleProperty("", "Info");
+                return obj instanceof TreeInfo;
             }
         }
+
         Short t = (Short) o;
         if (t != 0) throw new Error("Invalid Haskell unit");
-        return new TreeMessage();
+        return new TreeInfo();
     }
 
     protected StateInformation makeAndUnloadState(FregeHelper helper, Object o) {

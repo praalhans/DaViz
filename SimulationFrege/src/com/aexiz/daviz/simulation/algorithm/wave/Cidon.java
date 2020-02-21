@@ -31,34 +31,19 @@ public class Cidon extends DefaultAlgorithm {
 
     protected MessageInformation makeAndUnloadMessage(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
-        abstract class CidonMessage implements MessageInformation {
-        }
-        class CidonToken extends CidonMessage {
-            public String toString() {
-                return "*token*";
-            }
 
+        class CidonToken extends TokenInformation {
             public boolean equals(Object obj) {
                 return obj instanceof CidonToken;
             }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Token");
-            }
         }
-        class CidonInfo extends CidonMessage {
-            public String toString() {
-                return "*info*";
-            }
 
+        class CidonInfo extends InfoInformation {
             public boolean equals(Object obj) {
                 return obj instanceof CidonInfo;
             }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Info");
-            }
         }
+
         Short t = (Short) o;
         if (t == TMS.Token) {
             return new CidonToken();

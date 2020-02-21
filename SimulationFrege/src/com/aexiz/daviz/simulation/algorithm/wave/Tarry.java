@@ -28,19 +28,13 @@ public class Tarry extends DefaultAlgorithm {
 
     protected MessageInformation makeAndUnloadMessage(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
-        class TarryMessage implements MessageInformation {
-            public String toString() {
-                return "*token*";
-            }
 
+        class TarryMessage extends TokenInformation {
             public boolean equals(Object obj) {
                 return obj instanceof TarryMessage;
             }
-
-            public void buildProperties(PropertyBuilder visitor) {
-                visitor.simpleProperty("", "Token");
-            }
         }
+
         Short t = (Short) o;
         if (t != 0) throw new Error("Invalid Haskell unit");
         return new TarryMessage();

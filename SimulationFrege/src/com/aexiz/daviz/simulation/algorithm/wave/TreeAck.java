@@ -26,34 +26,19 @@ public class TreeAck extends DefaultAlgorithm {
     }
 
     protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
-        abstract class TreeAckMessage implements MessageInformation {
-        }
-        class TreeAckInfoMessage extends TreeAckMessage {
-            public String toString() {
-                return "*info*";
-            }
 
+        class TreeAckInfoMessage extends InfoInformation {
             public boolean equals(Object obj) {
                 return obj instanceof TreeAckInfoMessage;
             }
-
-            public void buildProperties(PropertyBuilder visitor) {
-                visitor.simpleProperty("", "Info");
-            }
         }
-        class TreeAckAckMessage extends TreeAckMessage {
-            public String toString() {
-                return "*ack*";
-            }
 
+        class TreeAckAckMessage extends AckInformation {
             public boolean equals(Object obj) {
                 return obj instanceof TreeAckAckMessage;
             }
-
-            public void buildProperties(PropertyBuilder visitor) {
-                visitor.simpleProperty("", "Ack");
-            }
         }
+
         Short t = (Short) o;
         if (t == TMS.Info) return new TreeAckInfoMessage();
         if (t == TMS.Ack) return new TreeAckAckMessage();

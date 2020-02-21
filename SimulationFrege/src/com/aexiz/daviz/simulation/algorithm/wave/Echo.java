@@ -26,21 +26,15 @@ public class Echo extends DefaultAlgorithm {
     }
 
     protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
-        class EchoMessage implements MessageInformation {
-            public String toString() {
-                return "*broadcast*";
-            }
+        class EchoInformation extends BroadcastInformation {
 
             public boolean equals(Object obj) {
-                return obj instanceof EchoMessage;
-            }
-
-            public void buildProperties(PropertyBuilder visitor) {
-                visitor.simpleProperty("", "Broadcast");
+                return obj instanceof EchoInformation;
             }
         }
+
         Short t = (Short) o;
-        if (t == TMS.Broadcast) return new EchoMessage();
+        if (t == TMS.Broadcast) return new EchoInformation();
         throw new Error("Invalid message");
     }
 
