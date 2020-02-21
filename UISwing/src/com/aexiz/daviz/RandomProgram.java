@@ -1,7 +1,7 @@
 package com.aexiz.daviz;
 
 import com.aexiz.daviz.simulation.*;
-import com.aexiz.daviz.simulation.Event.SendEvent;
+import com.aexiz.daviz.simulation.DefaultEvent.SendEvent;
 import com.aexiz.daviz.simulation.Channel;
 import com.aexiz.daviz.simulation.Node;
 import com.aexiz.daviz.simulation.algorithm.wave.Cidon;
@@ -137,8 +137,8 @@ public class RandomProgram {
     public void simulate(PrintStream out) throws Exception {
         sim.load();
         ExecutionStepper st = new ExecutionStepper(sim.getExecution()) {
-            DefaultExecution getNext() {
-                DefaultExecution[] c = current.getSuccessors();
+            Execution getNext() {
+                Execution[] c = current.getSuccessors();
                 return c[random.nextInt(c.length)];
             }
         };
@@ -149,8 +149,8 @@ public class RandomProgram {
         }
         // Compute number of messages
         int messages = 0;
-        Event[] events = st.current.getLinkedEvents();
-        for (Event e : events) {
+        DefaultEvent[] events = st.current.getLinkedEvents();
+        for (DefaultEvent e : events) {
             if (e instanceof SendEvent)
                 messages++;
         }

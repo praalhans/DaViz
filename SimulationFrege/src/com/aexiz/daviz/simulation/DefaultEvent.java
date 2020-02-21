@@ -9,11 +9,11 @@ import com.aexiz.daviz.frege.simulation.Event.TEvent.DESend;
 import java.util.HashMap;
 import java.util.List;
 
-public abstract class Event extends Locus implements Cloneable {
+public abstract class DefaultEvent extends Locus implements Cloneable, Event {
 
     // Property
     Simulation simulation;
-    DefaultExecution execution;
+    Execution execution;
 
     // Haskell dependency
     transient TEvent<Object, Object, Object> hEvent;
@@ -23,29 +23,29 @@ public abstract class Event extends Locus implements Cloneable {
     transient Node happensAt;
 
     // Computed properties, unique to instance (not cloned)
-    transient Event matchingEvent;
-    transient Event previousEvent;
+    transient DefaultEvent matchingEvent;
+    transient DefaultEvent previousEvent;
 
-    Event() {
+    DefaultEvent() {
     }
 
-    static void matchAndLinkEvents(List<Event> events) {
+    static void matchAndLinkEvents(List<DefaultEvent> events) {
         // First we clear the state of all events
-        for (Event old : events) {
+        for (DefaultEvent old : events) {
             old.matchingEvent = null;
             old.previousEvent = null;
         }
         // Match send and receive events
         for (int i = 0, size = events.size(); i < size; i++) {
-            Event event = events.get(i);
-            if (event instanceof Event.ReceiveEvent) {
-                Event.ReceiveEvent receive = (Event.ReceiveEvent) event;
+            DefaultEvent event = events.get(i);
+            if (event instanceof DefaultEvent.ReceiveEvent) {
+                DefaultEvent.ReceiveEvent receive = (DefaultEvent.ReceiveEvent) event;
                 Information.Message rMsg = receive.getMessage();
                 boolean matched = false;
                 for (int j = 0; j < i; j++) {
-                    Event other = events.get(j);
-                    if (other instanceof Event.SendEvent) {
-                        Event.SendEvent sender = (Event.SendEvent) other;
+                    DefaultEvent other = events.get(j);
+                    if (other instanceof DefaultEvent.SendEvent) {
+                        DefaultEvent.SendEvent sender = (DefaultEvent.SendEvent) other;
                         Information.Message sMsg = sender.getMessage();
                         if (sender.getReceiver() != receive.getHappensAt()) continue;
                         if (receive.getSender() != sender.getHappensAt()) continue;
@@ -62,16 +62,16 @@ public abstract class Event extends Locus implements Cloneable {
             }
         }
         // Build a linked list of events and their predecessor within the same process
-        HashMap<Node, Event> map = new HashMap<>();
-        for (Event event : events) {
+        HashMap<Node, DefaultEvent> map = new HashMap<>();
+        for (DefaultEvent event : events) {
             Node happens = event.getHappensAt();
             event.previousEvent = map.get(happens);
             map.put(happens, event);
         }
     }
 
-    static Event makeAndUnload(TEvent<Object, Object, Object> e, DefaultExecution ex) {
-        Event result;
+    static DefaultEvent makeAndUnload(TEvent<Object, Object, Object> e, DefaultExecution ex) {
+        DefaultEvent result;
         if (e.asEReceive() != null) {
             result = new ReceiveEvent();
         } else if (e.asEInternal() != null) {
@@ -95,7 +95,7 @@ public abstract class Event extends Locus implements Cloneable {
         return simulation;
     }
 
-    public DefaultExecution getExecution() {
+    public Execution getExecution() {
         invariant();
         return execution;
     }
@@ -104,7 +104,7 @@ public abstract class Event extends Locus implements Cloneable {
         return false;
     }
 
-    public Event getMatchingEvent() {
+    public DefaultEvent getMatchingEvent() {
         throw new Error("Only defined for Send or Receive");
     }
 
@@ -120,9 +120,9 @@ public abstract class Event extends Locus implements Cloneable {
         happensAt = simulation.getNetwork().getNodeById(hId);
     }
 
-    public abstract Event clone();
+    public abstract DefaultEvent clone();
 
-    protected Event clone(Event to) {
+    protected DefaultEvent clone(DefaultEvent to) {
         to.simulation = this.simulation;
         to.execution = this.execution;
         to.hEvent = this.hEvent;
@@ -131,7 +131,7 @@ public abstract class Event extends Locus implements Cloneable {
         return to;
     }
 
-    public Event getPreviousEvent() {
+    public DefaultEvent getPreviousEvent() {
         return previousEvent;
     }
 
@@ -187,7 +187,7 @@ public abstract class Event extends Locus implements Cloneable {
 
     // Subclasses
 
-    public static class ResultEvent extends Event {
+    public static class ResultEvent extends DefaultEvent {
 
         // Haksell dependencies
         transient DEResult<Object, Object, Object> hEvent;
@@ -205,7 +205,7 @@ public abstract class Event extends Locus implements Cloneable {
             result = ((DefaultAlgorithm)simulation.getAlgorithm()).makeAndUnloadResult(helper, hEvent.mem$val.call());
         }
 
-        protected ResultEvent clone(Event to) {
+        protected ResultEvent clone(DefaultEvent to) {
             super.clone(to);
             ResultEvent tor = (ResultEvent) to;
             tor.hEvent = this.hEvent;
@@ -231,7 +231,7 @@ public abstract class Event extends Locus implements Cloneable {
 
     }
 
-    public static class ReceiveEvent extends Event {
+    public static class ReceiveEvent extends DefaultEvent {
 
         // Haskell dependencies
         transient DEReceive<Object, Object, Object> hEvent;
@@ -253,7 +253,7 @@ public abstract class Event extends Locus implements Cloneable {
             sender = simulation.getNetwork().getNodeById(hEvent.mem$send.call());
         }
 
-        protected ReceiveEvent clone(Event to) {
+        protected ReceiveEvent clone(DefaultEvent to) {
             super.clone(to);
             ReceiveEvent tor = (ReceiveEvent) to;
             tor.hEvent = this.hEvent;
@@ -306,7 +306,7 @@ public abstract class Event extends Locus implements Cloneable {
 
     }
 
-    public static class SendEvent extends Event {
+    public static class SendEvent extends DefaultEvent {
 
         // Haskell dependencies
         transient DESend<Object, Object, Object> hEvent;
@@ -328,7 +328,7 @@ public abstract class Event extends Locus implements Cloneable {
             receiver = simulation.getNetwork().getNodeById(hEvent.mem$recv.call());
         }
 
-        protected SendEvent clone(Event to) {
+        protected SendEvent clone(DefaultEvent to) {
             super.clone(to);
             SendEvent tor = (SendEvent) to;
             tor.hEvent = this.hEvent;
@@ -380,7 +380,7 @@ public abstract class Event extends Locus implements Cloneable {
 
     }
 
-    public static class InternalEvent extends Event {
+    public static class InternalEvent extends DefaultEvent {
 
         // Haskell dependencies
         transient DEInternal<Object, Object, Object> hEvent;
@@ -398,7 +398,7 @@ public abstract class Event extends Locus implements Cloneable {
             nextState = ((DefaultAlgorithm)simulation.getAlgorithm()).makeAndUnloadState(helper, hEvent.mem$next.call());
         }
 
-        protected InternalEvent clone(Event to) {
+        protected InternalEvent clone(DefaultEvent to) {
             super.clone(to);
             InternalEvent tor = (InternalEvent) to;
             tor.hEvent = this.hEvent;

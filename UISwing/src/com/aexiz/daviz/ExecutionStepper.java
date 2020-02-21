@@ -1,16 +1,16 @@
 package com.aexiz.daviz;
 
-import com.aexiz.daviz.simulation.DefaultExecution;
+import com.aexiz.daviz.simulation.Execution;
 
 import java.util.ArrayList;
 
 class ExecutionStepper {
     int max_rounds;
-    ArrayList<DefaultExecution> path;
-    DefaultExecution current;
+    ArrayList<Execution> path;
+    Execution current;
     boolean replay = false;
 
-    ExecutionStepper(DefaultExecution ex) {
+    ExecutionStepper(Execution ex) {
         path = new ArrayList<>();
         path.add(current = ex);
     }
@@ -23,14 +23,14 @@ class ExecutionStepper {
         return path.size() >= max_rounds;
     }
 
-    DefaultExecution getNext() {
+    Execution getNext() {
         return current.getNext();
     }
 
-    void step(DefaultExecution next) throws Exception {
+    void step(Execution next) throws Exception {
         if (max_rounds <= 0) throw new Error("Invalid step bound");
         boolean found = false;
-        for (DefaultExecution succ : current.getSuccessors()) {
+        for (Execution succ : current.getSuccessors()) {
             if (succ == next) {
                 found = true;
                 break;

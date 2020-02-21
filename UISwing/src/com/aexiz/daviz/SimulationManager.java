@@ -1,7 +1,7 @@
 package com.aexiz.daviz;
 
 import com.aexiz.daviz.simulation.*;
-import com.aexiz.daviz.simulation.Configuration.StateVisitor;
+import com.aexiz.daviz.simulation.DefaultConfiguration.StateVisitor;
 import com.aexiz.daviz.simulation.Information.*;
 import com.aexiz.daviz.ui.ExecutionModel;
 import com.aexiz.daviz.ui.ExecutionModel.EventModel;
@@ -34,12 +34,12 @@ class SimulationManager {
     /**
      * From simulation
      */
-    transient DefaultExecution executionRoot;
+    transient Execution executionRoot;
 
     /**
      * From simulation (via choice or predetermined)
      */
-    transient ArrayList<DefaultExecution> executionPath;
+    transient ArrayList<Execution> executionPath;
 
     /**
      * from simulation
@@ -89,7 +89,7 @@ class SimulationManager {
     /**
      * from simulation
      */
-    transient DefaultExecution[] choiceExecutions;
+    transient Execution[] choiceExecutions;
 
     /**
      * from GUI
@@ -99,7 +99,7 @@ class SimulationManager {
     /**
      * from simulation
      */
-    transient ArrayList<Event> events = new ArrayList<>();
+    transient ArrayList<DefaultEvent> events = new ArrayList<>();
 
     /**
      * from timeline GUI
@@ -114,7 +114,7 @@ class SimulationManager {
     /**
      * from simulation, corresponding send event
      */
-    transient ArrayList<Event> messageSendEvents = new ArrayList<>();
+    transient ArrayList<DefaultEvent> messageSendEvents = new ArrayList<>();
 
     private Thread worker;
     private LinkedBlockingQueue<Callable<Void>> queue = new LinkedBlockingQueue<>();
@@ -245,7 +245,7 @@ class SimulationManager {
         if (!loadedNetwork) return;
         if (!linear) return;
 
-        DefaultExecution succ = null;
+        Execution succ = null;
         for (int i = 0; i < choiceEvents.length; i++) {
             if (choiceEvents[i] == fe) {
                 succ = choiceExecutions[i];
@@ -253,11 +253,11 @@ class SimulationManager {
         }
         if (succ == null) throw new Error();
         // Check if successor is different
-        for (DefaultExecution ex : executionPath) {
+        for (Execution ex : executionPath) {
             if (ex == succ) return;
         }
         // Otherwise reload execution
-        DefaultExecution fsucc = succ;
+        Execution fsucc = succ;
         float maxOldTime = controller.timelineModel.getMaxLastTime();
         controller.timelineModel.setTemporaryMaxTime(maxOldTime);
         float oldTime = controller.timelineModel.getCurrentTimeWithoutDelta();
@@ -291,7 +291,7 @@ class SimulationManager {
                 }
                 // Find events based on time
                 for (EventModel event : last) {
-                    Event foundE = null;
+                    DefaultEvent foundE = null;
                     for (int i = 0, size = events.size(); i < size; i++) {
                         if (eventModels.get(i) == event) {
                             foundE = events.get(i);
@@ -306,12 +306,12 @@ class SimulationManager {
                             if (foundE.hasNextState()) {
                                 nodeLastStates[i] = foundE.getNextState();
                             } else {
-                                Event previous = foundE.getPreviousEvent();
+                                DefaultEvent previous = foundE.getPreviousEvent();
                                 if (previous != null && previous.hasNextState()) {
                                     nodeLastStates[i] = previous.getNextState();
                                 }
-                                if (foundE instanceof Event.ResultEvent) {
-                                    nodeLastTermStatus[i] = ((Event.ResultEvent) foundE).getResult();
+                                if (foundE instanceof DefaultEvent.ResultEvent) {
+                                    nodeLastTermStatus[i] = ((DefaultEvent.ResultEvent) foundE).getResult();
                                 } else throw new Error();
                             }
                             foundN = nodes[i];
@@ -336,7 +336,7 @@ class SimulationManager {
                         to = msg.getTo();
                     } else throw new Error();
 
-                    Event send = null;
+                    DefaultEvent send = null;
                     for (int i = 0, size = messageModels.size(); i < size; i++) {
                         if (messageModels.get(i) == tr) {
                             send = messageSendEvents.get(i);
@@ -372,12 +372,12 @@ class SimulationManager {
                 controller.choiceModel.clear();
 
                 if (time < size) {
-                    DefaultExecution ex = executionPath.get(time);
-                    DefaultExecution[] succs = ex.getSuccessors();
+                    Execution ex = executionPath.get(time);
+                    Execution[] succs = ex.getSuccessors();
                     choiceExecutions = succs;
                     choiceEvents = new FutureEvent[succs.length];
                     for (int i = 0; i < succs.length; i++) {
-                        Event e = succs[i].getLastEvent();
+                        DefaultEvent e = succs[i].getLastEvent();
                         EventType type = getEventType(e);
                         String other = null;
                         if (e.hasReceiver()) other = e.getReceiver().getLabel();
@@ -388,7 +388,7 @@ class SimulationManager {
                     }
                     boolean found = false;
                     if (time + 1 < size) {
-                        DefaultExecution sel = executionPath.get(time + 1);
+                        Execution sel = executionPath.get(time + 1);
                         for (int i = 0; i < succs.length; i++) {
                             if (succs[i] == sel) {
                                 controller.listSelectionModel.setSelectionInterval(i, i);
@@ -484,7 +484,7 @@ class SimulationManager {
         controller.infoModel.addProperty(p);
     }
 
-    private Event findEventByModel(EventModel model) {
+    private DefaultEvent findEventByModel(EventModel model) {
         for (int i = 0, size = events.size(); i < size; i++) {
             if (eventModels.get(i) == model)
                 return events.get(i);
@@ -496,7 +496,7 @@ class SimulationManager {
     void changeEventSelection(EventModel ev) {
         if (!loadedNetwork) throw new Error();
 
-        Event event = findEventByModel(ev);
+        DefaultEvent event = findEventByModel(ev);
         PropertyModel p;
         p = controller.infoModel.createProperty("Process:", event.getHappensAt().getLabel(), InfoModel.SIMPLE_TYPE);
         controller.infoModel.addProperty(p);
@@ -536,7 +536,7 @@ class SimulationManager {
     void changeMessageSelection(Object sel) {
         if (!loadedNetwork) throw new Error();
 
-        Event send = null;
+        DefaultEvent send = null;
         for (int i = 0, size = messageModels.size(); i < size; i++) {
             if (messageModels.get(i) == sel) {
                 send = messageSendEvents.get(i);
@@ -592,22 +592,22 @@ class SimulationManager {
         }
     }
 
-    private EventType getEventType(Event e) {
+    private EventType getEventType(DefaultEvent e) {
         EventType type;
-        if (e instanceof Event.SendEvent) {
+        if (e instanceof DefaultEvent.SendEvent) {
             type = ExecutionModel.SEND_TYPE;
-        } else if (e instanceof Event.ReceiveEvent) {
+        } else if (e instanceof DefaultEvent.ReceiveEvent) {
             type = ExecutionModel.RECEIVE_TYPE;
-        } else if (e instanceof Event.InternalEvent) {
+        } else if (e instanceof DefaultEvent.InternalEvent) {
             type = ExecutionModel.INTERNAL_TYPE;
-        } else if (e instanceof Event.ResultEvent) {
+        } else if (e instanceof DefaultEvent.ResultEvent) {
             type = ExecutionModel.TERMINATE_TYPE;
         } else throw new Error();
         return type;
     }
 
     // Executes within AWT dispatch thread
-    private void addEventToTimeline(Event e) {
+    private void addEventToTimeline(DefaultEvent e) {
         // Convert event to event model
         Node node = e.getHappensAt();
         int proc = -1;
@@ -621,8 +621,8 @@ class SimulationManager {
         events.add(e);
         eventModels.add(model);
         // If receive event, find matching send event, add message
-        if (e instanceof Event.ReceiveEvent) {
-            Event other = e.getMatchingEvent();
+        if (e instanceof DefaultEvent.ReceiveEvent) {
+            DefaultEvent other = e.getMatchingEvent();
             EventModel otherModel = null;
             for (int i = 0, size = events.size(); otherModel == null && i < size; i++) {
                 if (events.get(i) == other) otherModel = eventModels.get(i);
@@ -648,10 +648,10 @@ class SimulationManager {
             controller.timelineModel.addMessage(msg);
         }
         // If send event, and no matching receive event, add pending message
-        if (e instanceof Event.SendEvent) {
-            Event other = e.getMatchingEvent();
+        if (e instanceof DefaultEvent.SendEvent) {
+            DefaultEvent other = e.getMatchingEvent();
             if (other == null) {
-                Node receiver = ((Event.SendEvent) e).getReceiver();
+                Node receiver = ((DefaultEvent.SendEvent) e).getReceiver();
                 int process = -1;
                 for (int i = 0; i < nodes.length; i++) {
                     if (nodes[i] == receiver) {
@@ -741,7 +741,7 @@ class SimulationManager {
     }
 
     // Executes within worker thread
-    private void loadInitialState(DefaultExecution ex) {
+    private void loadInitialState(Execution ex) {
         executionRoot = ex;
         class LoadInitialState implements StateVisitor {
             public void setState(Node process, State state) {
@@ -763,7 +763,7 @@ class SimulationManager {
     }
 
     // Executes within worker thread
-    private void loadExecution(DefaultExecution ex, List<DefaultExecution> path) throws Exception {
+    private void loadExecution(Execution ex, List<Execution> path) throws Exception {
         // Check validity
         if (path != null && path.size() > 0 && path.get(0) != ex) throw new Error("Invalid execution root");
         // Clear path
@@ -776,7 +776,7 @@ class SimulationManager {
             clearEventsAfter(path.size() - 2);
         }
         ExecutionStepper st = new ExecutionStepper(ex) {
-            void step(DefaultExecution next) throws Exception {
+            void step(Execution next) throws Exception {
                 super.step(next);
                 if (!replay) {
                     SwingUtilities.invokeAndWait(() -> {

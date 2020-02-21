@@ -2,7 +2,6 @@ package com.aexiz.daviz.simulation;
 
 import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.Set.TSet;
-import com.aexiz.daviz.simulation.Simulation;
 import com.aexiz.daviz.frege.simulation.Simulation.TConfiguration;
 import frege.prelude.PreludeBase.TEither;
 import frege.prelude.PreludeBase.TEither.DLeft;
@@ -14,7 +13,7 @@ import frege.run8.Thunk;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
-public class Configuration {
+public class DefaultConfiguration implements Configuration {
 
     // Properties
     Simulation simulation;
@@ -30,7 +29,7 @@ public class Configuration {
     transient Channel[] channels;
     transient ArrayList<Information.Message>[] channelState;
 
-    Configuration() {
+    DefaultConfiguration() {
     }
 
     void unload() {
@@ -120,7 +119,7 @@ public class Configuration {
         void setState(Node process, Information.State state);
     }
 
-    public static class InitialConfiguration extends Configuration {
+    public static class InitialConfiguration extends DefaultConfiguration {
 
         void load() {
             TSet<TTuple2<Integer, Integer>> network = ((DefaultNetwork) simulation.getNetwork()).hNetwork;
