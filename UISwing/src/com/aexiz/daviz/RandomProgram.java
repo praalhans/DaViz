@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class RandomProgram {
 
-    private DefaultSimulation sim = new DefaultSimulation();
+    private Simulation sim = new DefaultSimulation();
     private Random random = new Random();
 
     public static void main(String[] args) throws Exception {
@@ -137,8 +137,8 @@ public class RandomProgram {
     public void simulate(PrintStream out) throws Exception {
         sim.load();
         ExecutionStepper st = new ExecutionStepper(sim.getExecution()) {
-            Execution getNext() {
-                Execution[] c = current.getSuccessors();
+            DefaultExecution getNext() {
+                DefaultExecution[] c = current.getSuccessors();
                 return c[random.nextInt(c.length)];
             }
         };

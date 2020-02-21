@@ -12,4 +12,9 @@ public abstract class AbstractAlgorithm implements Algorithm {
     public Integer getMaxRounds(Network network){
         return null;
     }
+
+    @Override
+    public boolean hasAssumption() {
+        return assumption != null;
+    }
 }

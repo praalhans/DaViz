@@ -63,6 +63,7 @@ public abstract class AbstractNetwork implements Network {
         return channels.toArray(new Channel[0]);
     }
 
+    @Override
     public void makeUndirected() {
         // Symmetric closure, loop over copy to prevent CME
         for (Channel c : getChannels()) {

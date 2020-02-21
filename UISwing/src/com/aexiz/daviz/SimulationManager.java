@@ -34,12 +34,12 @@ class SimulationManager {
     /**
      * From simulation
      */
-    transient Execution executionRoot;
+    transient DefaultExecution executionRoot;
 
     /**
      * From simulation (via choice or predetermined)
      */
-    transient ArrayList<Execution> executionPath;
+    transient ArrayList<DefaultExecution> executionPath;
 
     /**
      * from simulation
@@ -89,7 +89,7 @@ class SimulationManager {
     /**
      * from simulation
      */
-    transient Execution[] choiceExecutions;
+    transient DefaultExecution[] choiceExecutions;
 
     /**
      * from GUI
@@ -245,7 +245,7 @@ class SimulationManager {
         if (!loadedNetwork) return;
         if (!linear) return;
 
-        Execution succ = null;
+        DefaultExecution succ = null;
         for (int i = 0; i < choiceEvents.length; i++) {
             if (choiceEvents[i] == fe) {
                 succ = choiceExecutions[i];
@@ -253,11 +253,11 @@ class SimulationManager {
         }
         if (succ == null) throw new Error();
         // Check if successor is different
-        for (Execution ex : executionPath) {
+        for (DefaultExecution ex : executionPath) {
             if (ex == succ) return;
         }
         // Otherwise reload execution
-        Execution fsucc = succ;
+        DefaultExecution fsucc = succ;
         float maxOldTime = controller.timelineModel.getMaxLastTime();
         controller.timelineModel.setTemporaryMaxTime(maxOldTime);
         float oldTime = controller.timelineModel.getCurrentTimeWithoutDelta();
@@ -372,8 +372,8 @@ class SimulationManager {
                 controller.choiceModel.clear();
 
                 if (time < size) {
-                    Execution ex = executionPath.get(time);
-                    Execution[] succs = ex.getSuccessors();
+                    DefaultExecution ex = executionPath.get(time);
+                    DefaultExecution[] succs = ex.getSuccessors();
                     choiceExecutions = succs;
                     choiceEvents = new FutureEvent[succs.length];
                     for (int i = 0; i < succs.length; i++) {
@@ -388,7 +388,7 @@ class SimulationManager {
                     }
                     boolean found = false;
                     if (time + 1 < size) {
-                        Execution sel = executionPath.get(time + 1);
+                        DefaultExecution sel = executionPath.get(time + 1);
                         for (int i = 0; i < succs.length; i++) {
                             if (succs[i] == sel) {
                                 controller.listSelectionModel.setSelectionInterval(i, i);
@@ -741,7 +741,7 @@ class SimulationManager {
     }
 
     // Executes within worker thread
-    private void loadInitialState(Execution ex) {
+    private void loadInitialState(DefaultExecution ex) {
         executionRoot = ex;
         class LoadInitialState implements StateVisitor {
             public void setState(Node process, State state) {
@@ -763,7 +763,7 @@ class SimulationManager {
     }
 
     // Executes within worker thread
-    private void loadExecution(Execution ex, List<Execution> path) throws Exception {
+    private void loadExecution(DefaultExecution ex, List<DefaultExecution> path) throws Exception {
         // Check validity
         if (path != null && path.size() > 0 && path.get(0) != ex) throw new Error("Invalid execution root");
         // Clear path
@@ -776,7 +776,7 @@ class SimulationManager {
             clearEventsAfter(path.size() - 2);
         }
         ExecutionStepper st = new ExecutionStepper(ex) {
-            void step(Execution next) throws Exception {
+            void step(DefaultExecution next) throws Exception {
                 super.step(next);
                 if (!replay) {
                     SwingUtilities.invokeAndWait(() -> {
@@ -826,14 +826,14 @@ class SimulationManager {
     }
 
     // Executes within AWT dispatch thread
-    void loadSimulation(Callable<DefaultSimulation> method) {
+    void loadSimulation(Callable<Simulation> method) {
         performJob(() -> {
             clear();
             fresh = false;
             SwingUtilities.invokeAndWait(() -> {
                 controller.refreshActions();
             });
-            DefaultSimulation sim = method.call();
+            Simulation sim = method.call();
             loadNetwork(sim.getNetwork());
             loadExecution(sim.getExecution(), null);
             SwingUtilities.invokeAndWait(() -> {

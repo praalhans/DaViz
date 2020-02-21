@@ -11,9 +11,9 @@ import java.util.ArrayList;
 
 public class SimulationHelper {
 
-    private DefaultSimulation simulation;
+    private Simulation simulation;
 
-    SimulationHelper(DefaultSimulation sim) {
+    SimulationHelper(Simulation sim) {
         simulation = sim;
     }
 

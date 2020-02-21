@@ -2,6 +2,7 @@ package com.aexiz.daviz.simulation;
 
 import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.Set.TSet;
+import com.aexiz.daviz.simulation.Simulation;
 import com.aexiz.daviz.frege.simulation.Simulation.TConfiguration;
 import frege.prelude.PreludeBase.TEither;
 import frege.prelude.PreludeBase.TEither.DLeft;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public class Configuration {
 
     // Properties
-    DefaultSimulation simulation;
+    Simulation simulation;
 
     // Haskell dependencies
     transient TConfiguration<Object, Object, Object> hConfiguration;

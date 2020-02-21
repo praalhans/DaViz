@@ -1,9 +1,6 @@
 package com.aexiz.daviz;
 
-import com.aexiz.daviz.simulation.DefaultNetwork;
-import com.aexiz.daviz.simulation.DefaultSimulation;
-import com.aexiz.daviz.simulation.Channel;
-import com.aexiz.daviz.simulation.Node;
+import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.wave.*;
 
 import java.util.concurrent.Callable;
@@ -13,9 +10,9 @@ class TestCases {
 
     String name;
     String page;
-    Callable<DefaultSimulation> method;
+    Callable<Simulation> method;
 
-    TestCases(String page, String name, Callable<DefaultSimulation> method) {
+    TestCases(String page, String name, Callable<Simulation> method) {
         this.page = page;
         this.name = name;
         this.method = method;
@@ -34,11 +31,11 @@ class TestCases {
         };
     }
 
-    static DefaultSimulation page20book() {
+    static Simulation page20book() {
         // Example 4.1
-        DefaultSimulation sim = new DefaultSimulation();
+        Simulation sim = new DefaultSimulation();
         sim.setAlgorithm(new Tarry());
-        DefaultNetwork net = new DefaultNetwork();
+        Network net = new DefaultNetwork();
 
         Node p = net.addNode(new Node("p"));
         p.putClientProperty(Node.CLIENT_PROPERTY_POSITION_X, 0.0f);
@@ -70,11 +67,11 @@ class TestCases {
         return sim;
     }
 
-    static DefaultSimulation page21book_dfs() {
+    static Simulation page21book_dfs() {
         // Example 4.2
-        DefaultSimulation sim = new DefaultSimulation();
+        Simulation sim = new DefaultSimulation();
         sim.setAlgorithm(new DFS());
-        DefaultNetwork net = new DefaultNetwork();
+        Network net = new DefaultNetwork();
 
         Node p = net.addNode(new Node("p"));
         p.putClientProperty(Node.CLIENT_PROPERTY_POSITION_X, 0.0f);
@@ -106,11 +103,11 @@ class TestCases {
         return sim;
     }
 
-    static DefaultSimulation page21book_visited() {
+    static Simulation page21book_visited() {
         // Example 4.2
-        DefaultSimulation sim = new DefaultSimulation();
+        Simulation sim = new DefaultSimulation();
         sim.setAlgorithm(new Visited());
-        DefaultNetwork net = new DefaultNetwork();
+        Network net = new DefaultNetwork();
 
         Node p = net.addNode(new Node("p"));
         p.putClientProperty(Node.CLIENT_PROPERTY_POSITION_X, 0.0f);
@@ -142,11 +139,11 @@ class TestCases {
         return sim;
     }
 
-    static DefaultSimulation page22book_awerbuch() {
+    static Simulation page22book_awerbuch() {
         // Example 4.1
-        DefaultSimulation sim = new DefaultSimulation();
+        Simulation sim = new DefaultSimulation();
         sim.setAlgorithm(new Awerbuch());
-        DefaultNetwork net = new DefaultNetwork();
+        Network net = new DefaultNetwork();
 
         Node p = net.addNode(new Node("p"));
         p.putClientProperty(Node.CLIENT_PROPERTY_POSITION_X, 0.0f);
@@ -178,11 +175,11 @@ class TestCases {
         return sim;
     }
 
-    static DefaultSimulation page22book_cidon() {
+    static Simulation page22book_cidon() {
         // Example 4.3
-        DefaultSimulation sim = new DefaultSimulation();
+        Simulation sim = new DefaultSimulation();
         sim.setAlgorithm(new Cidon());
-        DefaultNetwork net = new DefaultNetwork();
+        Network net = new DefaultNetwork();
 
         Node p = net.addNode(new Node("p"));
         p.putClientProperty(Node.CLIENT_PROPERTY_POSITION_X, 0.0f);
@@ -214,11 +211,11 @@ class TestCases {
         return sim;
     }
 
-    static DefaultSimulation page23book_tree() {
+    static Simulation page23book_tree() {
         // Example 4.4
-        DefaultSimulation sim = new DefaultSimulation();
+        Simulation sim = new DefaultSimulation();
         sim.setAlgorithm(new Tree());
-        DefaultNetwork net = new DefaultNetwork();
+        Network net = new DefaultNetwork();
 
         Node p = net.addNode(new Node("p"));
         p.putClientProperty(Node.CLIENT_PROPERTY_POSITION_X, 0.0f);
@@ -251,11 +248,11 @@ class TestCases {
         return sim;
     }
 
-    static DefaultSimulation page23book_tree_ack() {
+    static Simulation page23book_tree_ack() {
         // Example 4.4
-        DefaultSimulation sim = new DefaultSimulation();
+        Simulation sim = new DefaultSimulation();
         sim.setAlgorithm(new TreeAck());
-        DefaultNetwork net = new DefaultNetwork();
+        Network net = new DefaultNetwork();
 
         Node p = net.addNode(new Node("p"));
         p.putClientProperty(Node.CLIENT_PROPERTY_POSITION_X, 0.0f);
@@ -288,11 +285,11 @@ class TestCases {
         return sim;
     }
 
-    static DefaultSimulation page24book_echo() {
+    static Simulation page24book_echo() {
         // Example 4.5
-        DefaultSimulation sim = new DefaultSimulation();
+        Simulation sim = new DefaultSimulation();
         sim.setAlgorithm(new Echo());
-        DefaultNetwork net = new DefaultNetwork();
+        Network net = new DefaultNetwork();
 
         Node p = net.addNode(new Node("p"));
         p.putClientProperty(Node.CLIENT_PROPERTY_POSITION_X, 0.0f);

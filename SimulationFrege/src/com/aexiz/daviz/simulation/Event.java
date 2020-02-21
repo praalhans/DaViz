@@ -12,8 +12,8 @@ import java.util.List;
 public abstract class Event extends Locus implements Cloneable {
 
     // Property
-    DefaultSimulation simulation;
-    Execution execution;
+    Simulation simulation;
+    DefaultExecution execution;
 
     // Haskell dependency
     transient TEvent<Object, Object, Object> hEvent;
@@ -70,7 +70,7 @@ public abstract class Event extends Locus implements Cloneable {
         }
     }
 
-    static Event makeAndUnload(TEvent<Object, Object, Object> e, Execution ex) {
+    static Event makeAndUnload(TEvent<Object, Object, Object> e, DefaultExecution ex) {
         Event result;
         if (e.asEReceive() != null) {
             result = new ReceiveEvent();
@@ -90,12 +90,12 @@ public abstract class Event extends Locus implements Cloneable {
         return result;
     }
 
-    public DefaultSimulation getSimulation() {
+    public Simulation getSimulation() {
         invariant();
         return simulation;
     }
 
-    public Execution getExecution() {
+    public DefaultExecution getExecution() {
         invariant();
         return execution;
     }

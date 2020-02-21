@@ -467,7 +467,7 @@ class Controller {
             }
             simulationManager.loadSimulation(() -> {
                 // Create a simulation
-                DefaultSimulation sim = new DefaultSimulation();
+                Simulation sim = new DefaultSimulation();
                 sim.setAlgorithm(alg.alg);
                 // Load network vertices, edges and initiator
                 Network network = new DefaultNetwork();

@@ -11,15 +11,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Execution {
+public class DefaultExecution implements Execution{
 
     // Properties
-    DefaultSimulation simulation;
+    Simulation simulation;
 
     /**
      * may be null for root
      */
-    Execution parent;
+    DefaultExecution parent;
 
     /**
      * may be null for root
@@ -28,12 +28,12 @@ public class Execution {
 
     // Transient fields
     transient Configuration configuration;
-    transient List<Execution> successors;
+    transient List<DefaultExecution> successors;
 
     // Haskell dependencies
     transient TSimulation<Object, Object, Object> hSimulation;
 
-    Execution() {
+    DefaultExecution() {
     }
 
     void loadFirst() {
@@ -75,7 +75,7 @@ public class Execution {
         while (succ.asCons() != null) {
             DCons<TTuple2<TEvent<Object, Object, Object>, TSimulation<Object, Object, Object>>> head = succ.asCons();
             TTuple2<TEvent<Object, Object, Object>, TSimulation<Object, Object, Object>> tup = head.mem1.call();
-            Execution result = new Execution();
+            DefaultExecution result = new DefaultExecution();
             result.parent = this;
             result.simulation = simulation;
             result.hSimulation = tup.mem2.call();
@@ -94,7 +94,7 @@ public class Execution {
         return parent != null;
     }
 
-    public Execution getParent() {
+    public DefaultExecution getParent() {
         invariant();
         return parent;
     }
@@ -109,18 +109,18 @@ public class Execution {
         return successors.size();
     }
 
-    public Execution getNext() {
+    public DefaultExecution getNext() {
         // Always choose first successor
         return getNext(0);
     }
 
-    public Execution getNext(int index) {
+    public DefaultExecution getNext(int index) {
         unloadSuccessors();
         return successors.get(index);
     }
 
-    public Execution[] getSuccessors() {
-        Execution[] result = new Execution[getNextCount()];
+    public DefaultExecution[] getSuccessors() {
+        DefaultExecution[] result = new DefaultExecution[getNextCount()];
         for (int i = 0; i < result.length; i++) {
             result[i] = getNext(i);
         }
@@ -134,7 +134,7 @@ public class Execution {
     public Event[] getLinkedEvents() {
         ArrayList<Event> events = new ArrayList<Event>();
         // Traverse and collect
-        Execution elem = this;
+        DefaultExecution elem = this;
         while (elem.parent != null) {
             events.add(elem.lastEvent);
             elem = elem.parent;
@@ -146,10 +146,10 @@ public class Execution {
         return events.toArray(new Event[events.size()]);
     }
 
-    public List<Execution> getExecutionPath() {
-        ArrayList<Execution> result = new ArrayList<>();
+    public List<DefaultExecution> getExecutionPath() {
+        ArrayList<DefaultExecution> result = new ArrayList<>();
         // Traverse and collect
-        Execution elem = this;
+        DefaultExecution elem = this;
         while (elem != null) {
             result.add(elem);
             elem = elem.parent;

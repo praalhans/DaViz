@@ -4,4 +4,6 @@ public interface Algorithm {
     Assumption getAssumption();
 
     Integer getMaxRounds(Network network);
+
+    boolean hasAssumption();
 }

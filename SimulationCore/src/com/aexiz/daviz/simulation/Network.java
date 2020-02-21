@@ -28,4 +28,6 @@ public interface Network {
     void load();
 
     Node getNodeById(int hid);
+
+    void makeUndirected();
 }
