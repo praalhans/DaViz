@@ -11,8 +11,8 @@ import java.util.List;
 
 public abstract class DefaultEvent extends AbstractEvent implements Cloneable, Event {
     // Haskell dependency
-    transient TEvent<Object, Object, Object> hEvent;
-    transient int hId;
+    protected transient TEvent<Object, Object, Object> hEvent;
+    protected transient int hId;
 
     DefaultEvent() {
     }
