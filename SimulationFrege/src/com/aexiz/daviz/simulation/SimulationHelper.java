@@ -1,14 +1,12 @@
 package com.aexiz.daviz.simulation;
 
+import com.aexiz.daviz.frege.simulation.Set;
 import com.aexiz.daviz.frege.simulation.Set.TSet;
 import frege.prelude.PreludeBase.TList;
 import frege.prelude.PreludeBase.TList.DCons;
 import frege.prelude.PreludeBase.TTuple2;
 
 import java.util.ArrayList;
-
-import static com.aexiz.daviz.frege.simulation.Set.glueIntNormalS;
-import static com.aexiz.daviz.frege.simulation.Set.glueTuple2IntNormalS;
 
 public class SimulationHelper {
 
@@ -45,8 +43,8 @@ public class SimulationHelper {
     }
 
     public ArrayList<Viewpoint.Channel> forEdgeSet(TSet<TTuple2<Integer, Integer>> set) {
-        ArrayList<Viewpoint.Channel> result = new OrderedSetList<Viewpoint.Channel>();
-        TList<TTuple2<Integer, Integer>> l = glueTuple2IntNormalS(set);
+        ArrayList<Viewpoint.Channel> result = new OrderedSetList<>();
+        TList<TTuple2<Integer, Integer>> l = Set.glueTuple2IntNormalS(set);
         while (l.asCons() != null) {
             DCons<TTuple2<Integer, Integer>> c = l.asCons();
             TTuple2<Integer, Integer> t = c.mem1.call();
@@ -57,8 +55,8 @@ public class SimulationHelper {
     }
 
     public ArrayList<Viewpoint.Node> forVertexSet(TSet<Integer> set) {
-        ArrayList<Viewpoint.Node> result = new OrderedSetList<Viewpoint.Node>();
-        TList<Integer> l = glueIntNormalS(set);
+        ArrayList<Viewpoint.Node> result = new OrderedSetList<>();
+        TList<Integer> l = Set.glueIntNormalS(set);
         while (l.asCons() != null) {
             DCons<Integer> c = l.asCons();
             result.add(getNodeById(c.mem1.call()));
