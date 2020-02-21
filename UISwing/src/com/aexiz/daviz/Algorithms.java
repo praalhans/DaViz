@@ -6,9 +6,9 @@ import com.aexiz.daviz.simulation.algorithm.wave.*;
 class Algorithms {
 
     String name;
-    Object alg;
+    Algorithm alg;
 
-    Algorithms(String name, Object alg) {
+    Algorithms(String name, Algorithm alg) {
         this.name = name;
         this.alg = alg;
     }
@@ -35,23 +35,23 @@ class Algorithms {
     }
 
     public boolean isDirectedGraph() {
-        return ((Algorithm) alg).getAssumption().isDirectedGraph();
+        return alg.getAssumption().isDirectedGraph();
     }
 
     public boolean isAcyclicGraph() {
-        return ((Algorithm) alg).getAssumption().isAcyclicGraph();
+        return alg.getAssumption().isAcyclicGraph();
     }
 
     public boolean isCentralized() {
-        return ((Algorithm) alg).getAssumption().isCentralized();
+        return alg.getAssumption().isCentralized();
     }
 
     public boolean isDecentralized() {
-        return ((Algorithm) alg).getAssumption().isDecentralized();
+        return alg.getAssumption().isDecentralized();
     }
 
     public boolean isInitiatorUser() {
-        return ((Algorithm) alg).getAssumption().isInitiatorUser();
+        return alg.getAssumption().isInitiatorUser();
     }
 
 }

@@ -1,6 +1,5 @@
 package com.aexiz.daviz;
 
-import com.aexiz.daviz.simulation.Algorithm;
 import com.aexiz.daviz.simulation.Network;
 import com.aexiz.daviz.simulation.Simulation;
 import com.aexiz.daviz.simulation.Viewpoint.Channel;
@@ -472,7 +471,7 @@ class Controller {
             simulationManager.loadSimulation(() -> {
                 // Create a simulation
                 Simulation sim = new Simulation();
-                sim.setAlgorithm((Algorithm) alg.alg);
+                sim.setAlgorithm(alg.alg);
                 // Load network vertices, edges and initiator
                 Network network = new Network();
                 NodeModel[] nodes = networkModel.getNode();
