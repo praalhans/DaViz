@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.concurrent.Callable;
+import java.util.Objects;
 
 public class ControlFrame extends JFrame {
 
@@ -31,7 +31,7 @@ public class ControlFrame extends JFrame {
     TestCases[] testCases;
     JMenuItem[] testCaseButtons;
     ControlFrame() {
-        ArrayList<Image> icons = new ArrayList<Image>();
+        ArrayList<Image> icons = new ArrayList<>();
         icons.add(new ImageIcon(ImageRoot.class.getResource("d16/multitool.png")).getImage());
         icons.add(new ImageIcon(ImageRoot.class.getResource("d32/multitool.png")).getImage());
         setIconImages(icons);
@@ -61,15 +61,13 @@ public class ControlFrame extends JFrame {
         algorithmsBox = new JComboBox<>();
         algorithmsBox.setOpaque(false);
         algorithmsBox.setBorder(null);
-        algorithmsBox.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Object selection = algorithmsBox.getSelectedItem();
-                Algorithms alg = (Algorithms) selection;
-                assumptionAcyclic.setEnabled(alg.isAcyclicGraph());
-                assumptionCentralized.setEnabled(alg.isCentralized());
-                assumptionDecentralized.setEnabled(alg.isDecentralized());
-                initiatorBox.setEnabled(alg.isInitiatorUser());
-            }
+        algorithmsBox.addActionListener(e -> {
+            Object selection = algorithmsBox.getSelectedItem();
+            Algorithms alg = (Algorithms) selection;
+            assumptionAcyclic.setEnabled(alg.isAcyclicGraph());
+            assumptionCentralized.setEnabled(alg.isCentralized());
+            assumptionDecentralized.setEnabled(alg.isDecentralized());
+            initiatorBox.setEnabled(alg.isInitiatorUser());
         });
         gbc.anchor = GridBagConstraints.LINE_START;
         gbc.gridx = 1;
@@ -145,25 +143,19 @@ public class ControlFrame extends JFrame {
     }
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                    new ControlFrame();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                new ControlFrame();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
 
     void updateTitle() {
         String title = "DaViz - ";
-        if (controller.filename != null) {
-            title += controller.filename;
-        } else {
-            title += "Untitled";
-        }
+        title += Objects.requireNonNullElse(controller.filename, "Untitled");
         if (controller.isDirty()) {
             title += "*";
         }
@@ -188,17 +180,15 @@ public class ControlFrame extends JFrame {
 				return null;
 			}
 		});*/
-        controller.simulationManager.performJob(new Callable<Void>() {
-            public Void call() throws Exception {
-                // Loading the Algorithms also pulls in the Haskell compiled classes
-                Algorithms[] algorithms = Algorithms.getAlgorithms();
-                SwingUtilities.invokeAndWait(() -> {
-                    for (Algorithms alg : algorithms) {
-                        algorithmsBox.addItem(alg);
-                    }
-                });
-                return null;
-            }
+        controller.simulationManager.performJob(() -> {
+            // Loading the Algorithms also pulls in the Haskell compiled classes
+            Algorithms[] algorithms = Algorithms.getAlgorithms();
+            SwingUtilities.invokeAndWait(() -> {
+                for (Algorithms alg : algorithms) {
+                    algorithmsBox.addItem(alg);
+                }
+            });
+            return null;
         });
 
     }
@@ -398,16 +388,14 @@ public class ControlFrame extends JFrame {
     class Handler implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-            controller.simulationManager.performJob(new Callable<Void>() {
-                public Void call() throws Exception {
-                    for (int i = 0; i < testCases.length; i++) {
-                        if (e.getSource() == testCaseButtons[i]) {
-                            controller.simulationManager.loadSimulation(testCases[i].method);
-                            break;
-                        }
+            controller.simulationManager.performJob(() -> {
+                for (int i = 0; i < testCases.length; i++) {
+                    if (e.getSource() == testCaseButtons[i]) {
+                        controller.simulationManager.loadSimulation(testCases[i].method);
+                        break;
                     }
-                    return null;
                 }
+                return null;
             });
         }
 
