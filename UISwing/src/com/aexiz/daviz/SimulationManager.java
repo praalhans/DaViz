@@ -305,7 +305,7 @@ class SimulationManager {
                             if (foundE.hasNextState()) {
                                 nodeLastStates[i] = foundE.getNextState();
                             } else {
-                                DefaultEvent previous = foundE.getPreviousEvent();
+                                Event previous = foundE.getPreviousEvent();
                                 if (previous != null && previous.hasNextState()) {
                                     nodeLastStates[i] = previous.getNextState();
                                 }
@@ -621,7 +621,7 @@ class SimulationManager {
         eventModels.add(model);
         // If receive event, find matching send event, add message
         if (e instanceof DefaultEvent.ReceiveEvent) {
-            DefaultEvent other = e.getMatchingEvent();
+            Event other = e.getMatchingEvent();
             EventModel otherModel = null;
             for (int i = 0, size = events.size(); otherModel == null && i < size; i++) {
                 if (events.get(i) == other) otherModel = eventModels.get(i);
@@ -648,7 +648,7 @@ class SimulationManager {
         }
         // If send event, and no matching receive event, add pending message
         if (e instanceof DefaultEvent.SendEvent) {
-            DefaultEvent other = e.getMatchingEvent();
+            Event other = e.getMatchingEvent();
             if (other == null) {
                 Node receiver = ((DefaultEvent.SendEvent) e).getReceiver();
                 int process = -1;

@@ -5,31 +5,21 @@ import com.aexiz.daviz.frege.simulation.Event.TEvent.DEInternal;
 import com.aexiz.daviz.frege.simulation.Event.TEvent.DEReceive;
 import com.aexiz.daviz.frege.simulation.Event.TEvent.DEResult;
 import com.aexiz.daviz.frege.simulation.Event.TEvent.DESend;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
 
-public abstract class DefaultEvent extends Locus implements Cloneable, Event {
-
-    // Property
-    Simulation simulation;
-    Execution execution;
-
+public abstract class DefaultEvent extends AbstractEvent implements Cloneable, Event {
     // Haskell dependency
     transient TEvent<Object, Object, Object> hEvent;
     transient int hId;
 
-    // Computed properties
-    transient Node happensAt;
-
-    // Computed properties, unique to instance (not cloned)
-    transient DefaultEvent matchingEvent;
-    transient DefaultEvent previousEvent;
-
     DefaultEvent() {
     }
 
-    static void matchAndLinkEvents(List<DefaultEvent> events) {
+    static void matchAndLinkEvents(@NotNull List<DefaultEvent> events) {
         // First we clear the state of all events
         for (DefaultEvent old : events) {
             old.matchingEvent = null;
@@ -70,122 +60,55 @@ public abstract class DefaultEvent extends Locus implements Cloneable, Event {
         }
     }
 
-    static DefaultEvent makeAndUnload(TEvent<Object, Object, Object> e, DefaultExecution ex) {
-        DefaultEvent result;
-        if (e.asEReceive() != null) {
-            result = new ReceiveEvent();
-        } else if (e.asEInternal() != null) {
-            result = new InternalEvent();
-        } else if (e.asESend() != null) {
-            result = new SendEvent();
-        } else if (e.asEResult() != null) {
-            result = new ResultEvent();
-        } else {
-            throw new Error("Unknown Haskell event");
-        }
-        result.simulation = ex.simulation;
-        result.execution = ex;
-        result.hEvent = e;
+    @NotNull
+    static Event makeAndUnload(TEvent<Object, Object, Object> event, @NotNull DefaultExecution execution) {
+        DefaultEvent result = (DefaultEvent) mapFregeToJavaEvent(event);
+
+        result.simulation = execution.simulation;
+        result.execution = execution;
+        result.hEvent = event;
         result.unload();
+
         return result;
     }
 
-    public Simulation getSimulation() {
-        invariant();
-        return simulation;
-    }
-
-    public Execution getExecution() {
-        invariant();
-        return execution;
-    }
-
-    public boolean hasMatchingEvent() {
-        return false;
-    }
-
-    public DefaultEvent getMatchingEvent() {
-        throw new Error("Only defined for Send or Receive");
-    }
-
-    void invariant() {
-        if (simulation == null) throw new Error("Invalid simulation");
-        if (execution == null) throw new Error("Invalid execution");
-        if (hEvent == null) throw new Error("Invalid Haskell event");
+    @NotNull
+    @Contract("_ -> new")
+    private static Event mapFregeToJavaEvent(@NotNull TEvent<Object, Object, Object> event) {
+        if (event.asEReceive() != null) {
+            return new ReceiveEvent();
+        } else if (event.asEInternal() != null) {
+            return new InternalEvent();
+        } else if (event.asESend() != null) {
+            return new SendEvent();
+        } else if (event.asEResult() != null) {
+            return new ResultEvent();
+        } else {
+            throw new Error("Unknown Haskell event");
+        }
     }
 
     void unload() {
-        invariant();
+        isInvariant();
         hId = TEvent.proc(hEvent);
         happensAt = simulation.getNetwork().getNodeById(hId);
     }
 
+    @Override
+    protected void isInvariant() {
+        super.isInvariant();
+        if (hEvent == null) throw new Error("Invalid Haskell event");
+    }
+
+    @Override
     public abstract DefaultEvent clone();
 
-    protected DefaultEvent clone(DefaultEvent to) {
-        to.simulation = this.simulation;
-        to.execution = this.execution;
-        to.hEvent = this.hEvent;
-        to.hId = this.hId;
-        to.happensAt = this.happensAt;
+    @Override
+    protected Event clone(Event to) {
+        ((DefaultEvent)to).hEvent = this.hEvent;
+        ((DefaultEvent)to).hId = this.hId;
         return to;
     }
-
-    public DefaultEvent getPreviousEvent() {
-        return previousEvent;
-    }
-
-    // Computed properties
-
-    public boolean hasHappensAt() {
-        return true;
-    }
-
-    public Node getHappensAt() {
-        return happensAt;
-    }
-
-    public boolean hasNextState() {
-        return false;
-    }
-
-    public Information.State getNextState() {
-        throw new Error();
-    }
-
-    public boolean hasMessage() {
-        return false;
-    }
-
-    public Information.Message getMessage() {
-        throw new Error();
-    }
-
-    public boolean hasResult() {
-        return false;
-    }
-
-    public Information.Result getResult() {
-        throw new Error();
-    }
-
-    public boolean hasSender() {
-        return false;
-    }
-
-    public Node getSender() {
-        throw new Error();
-    }
-
-    public boolean hasReceiver() {
-        return false;
-    }
-
-    public Node getReceiver() {
-        throw new Error();
-    }
-
-    // Subclasses
 
     public static class ResultEvent extends DefaultEvent {
 
