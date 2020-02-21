@@ -141,12 +141,7 @@ public class Visited extends DefaultAlgorithm {
         class VisitedDecided extends DecidedInformation {
         }
 
-        boolean result = (Boolean) o;
-        if (result) {
-            return new VisitedTerminated();
-        } else {
-            return new VisitedDecided();
-        }
+        return (Boolean) o ? new VisitedTerminated() : new VisitedDecided();
     }
 
     protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {

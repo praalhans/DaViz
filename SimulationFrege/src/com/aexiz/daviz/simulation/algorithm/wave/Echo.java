@@ -33,8 +33,7 @@ public class Echo extends DefaultAlgorithm {
             }
         }
 
-        Short t = (Short) o;
-        if (t == TMS.Broadcast) return new EchoInformation();
+        if ((Short) o == TMS.Broadcast) return new EchoInformation();
         throw new Error("Invalid message");
     }
 
@@ -140,9 +139,7 @@ public class Echo extends DefaultAlgorithm {
         class EchoDecided extends DecidedInformation {
         }
 
-        boolean t = (Boolean) o;
-        if (t) return new EchoDecided();
-        else return new EchoTerminated();
+        return (Boolean) o ? new EchoDecided() : new EchoTerminated();
     }
 
     protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {

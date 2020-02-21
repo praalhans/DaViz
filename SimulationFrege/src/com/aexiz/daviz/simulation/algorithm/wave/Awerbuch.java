@@ -46,15 +46,13 @@ public class Awerbuch extends DefaultAlgorithm {
                 return obj instanceof AwerbuchAck;
             }
         }
-        
-        Short t = (Short) o;
-        if (t == TMS.Token) {
-            return new AwerbuchToken();
-        } else if (t == TMS.Inf) {
-            return new AwerbuchInfo();
-        } else if (t == TMS.Ack) {
-            return new AwerbuchAck();
-        } else throw new Error("Unknown message");
+
+        short t = (Short) o;
+
+        if (t == TMS.Token) return new AwerbuchToken();
+        if (t == TMS.Inf) return new AwerbuchInfo();
+        if (t == TMS.Ack) return new AwerbuchAck();
+        throw new Error("Unknown message");
     }
 
     protected StateInformation makeAndUnloadState(FregeHelper help, Object o) {
@@ -231,12 +229,7 @@ public class Awerbuch extends DefaultAlgorithm {
         class AwerbuchDecided extends DecidedInformation {
         }
 
-        boolean result = (Boolean) o;
-        if (result) {
-            return new AwerbuchTerminated();
-        } else {
-            return new AwerbuchDecided();
-        }
+        return (Boolean) o ? new AwerbuchTerminated() : new AwerbuchDecided();
     }
 
     protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {

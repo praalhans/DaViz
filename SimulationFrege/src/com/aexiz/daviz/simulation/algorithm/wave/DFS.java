@@ -37,9 +37,8 @@ public class DFS extends DefaultAlgorithm {
             }
         }
 
-        Short t = (Short) o;
-        if (t != 0) throw new Error("Invalid Haskell unit");
-        return new DFS_Message();
+        if ((Short) o == 0) return new DFS_Message();
+        throw new Error("Invalid Haskell unit");
     }
 
     protected StateInformation makeAndUnloadState(FregeHelper help, Object o) {
@@ -146,13 +145,7 @@ public class DFS extends DefaultAlgorithm {
         class DFSDecided extends DecidedInformation {
         }
 
-
-        boolean result = (Boolean) o;
-        if (result) {
-            return new DFSTerminated();
-        } else {
-            return new DFSDecided();
-        }
+        return (Boolean) o ? new DFSTerminated() : new DFSDecided();
     }
 
     protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {

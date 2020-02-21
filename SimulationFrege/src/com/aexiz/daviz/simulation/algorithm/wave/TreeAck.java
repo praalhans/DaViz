@@ -150,9 +150,7 @@ public class TreeAck extends DefaultAlgorithm {
         class TreeAckDecided extends DecidedInformation {
         }
 
-        boolean t = (Boolean) o;
-        if (t) return new TreeAckDecided();
-        else return new TreeAckTerminated();
+        return (Boolean) o ? new TreeAckDecided() : new TreeAckTerminated();
     }
 
     protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {

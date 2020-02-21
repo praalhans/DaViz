@@ -35,9 +35,8 @@ public class Tarry extends DefaultAlgorithm {
             }
         }
 
-        Short t = (Short) o;
-        if (t != 0) throw new Error("Invalid Haskell unit");
-        return new TarryMessage();
+        if ((Short) o == 0) return new TarryMessage();
+        throw new Error("Invalid Haskell unit");
     }
 
     protected StateInformation makeAndUnloadState(FregeHelper help, Object o) {
@@ -140,13 +139,7 @@ public class Tarry extends DefaultAlgorithm {
         class TarryDecided extends DecidedInformation {
         }
 
-
-        boolean result = (Boolean) o;
-        if (result) {
-            return new TarryTerminated();
-        } else {
-            return new TarryDecided();
-        }
+        return (Boolean) o ? new TarryTerminated() : new TarryDecided();
     }
 
     protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {

@@ -44,12 +44,11 @@ public class Cidon extends DefaultAlgorithm {
             }
         }
 
-        Short t = (Short) o;
-        if (t == TMS.Token) {
-            return new CidonToken();
-        } else if (t == TMS.Inf) {
-            return new CidonInfo();
-        } else throw new Error("Unknown message");
+        short t = (Short) o;
+
+        if (t == TMS.Token) return new CidonToken();
+        if (t == TMS.Inf) return new CidonInfo();
+        throw new Error("Unknown message");
     }
 
     protected StateInformation makeAndUnloadState(FregeHelper help, Object o) {
@@ -166,12 +165,7 @@ public class Cidon extends DefaultAlgorithm {
         class CidonDecided extends DecidedInformation {
         }
 
-        boolean result = (Boolean) o;
-        if (result) {
-            return new CidonTerminated();
-        } else {
-            return new CidonDecided();
-        }
+        return (Boolean) o ? new CidonTerminated() : new CidonDecided();
     }
 
     protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {

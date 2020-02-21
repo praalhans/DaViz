@@ -98,9 +98,8 @@ public class Tree extends DefaultAlgorithm {
         class TreeResult extends DecidedInformation {
         }
 
-        Short t = (Short) o;
-        if (t != 0) throw new Error("Invalid Haskell unit");
-        return new TreeResult();
+        if ((Short) o == 0) return new TreeResult();
+        throw new Error("Invalid Haskell unit");
     }
 
     protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {
