@@ -10,8 +10,7 @@ public abstract class AbstractNetwork implements Network {
     protected ArrayList<Channel> channels = new ArrayList<>();
 
     protected String uuid;
-
-    transient Simulation simulation;
+    protected String simulationUUID;
 
     public AbstractNetwork() {
         uuid = UUID.randomUUID().toString();
@@ -111,18 +110,18 @@ public abstract class AbstractNetwork implements Network {
     }
 
     @Override
-    public Simulation getSimulation() {
-        return simulation;
+    public void setSimulationUUID(String simulationUUID) {
+        this.simulationUUID = simulationUUID;
     }
 
     @Override
-    public void setSimulation(Simulation simulation) {
-        this.simulation = simulation;
+    public boolean belongsToSimulation(String simulationUUID) {
+        return this.simulationUUID.equals(simulationUUID);
     }
 
     @Override
     public boolean belongsToSimulation() {
-        return simulation != null;
+        return simulationUUID != null;
     }
 
     private void floodFill(@NotNull Node node) {

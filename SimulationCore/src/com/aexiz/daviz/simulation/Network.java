@@ -19,17 +19,11 @@ public interface Network {
 
     boolean isStronglyConnected();
 
-    // TODO Consider using the simulation UUID only
-    //  Verify:
-    //  - Do we need the Simulation for anything other than `belongsToSimulation`?
-    //  Benefits:
-    //  - Avoid cyclic parameters between Network and Simulation
-    //  - Simplify code legibility/maintenance
-    Simulation getSimulation();
-
-    void setSimulation(Simulation simulation);
+    void setSimulationUUID(String simulationUUID);
 
     boolean belongsToSimulation();
+
+    boolean belongsToSimulation(String simulationUUID);
 
     void load();
 

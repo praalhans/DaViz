@@ -1,13 +1,18 @@
 package com.aexiz.daviz.simulation;
 
+import java.util.UUID;
+
 public class DefaultSimulation implements Simulation {
     private Algorithm algorithm;
     private Assumption assumption;
     private Network network;
 
+    protected String uuid;
+
     private transient Execution execution;
 
     public DefaultSimulation() {
+        uuid = UUID.randomUUID().toString();
     }
 
     public DefaultSimulation(Algorithm alg) {
@@ -36,9 +41,9 @@ public class DefaultSimulation implements Simulation {
     }
 
     public void setNetwork(Network net) {
-        if (net.belongsToSimulation()) throw new Error("Network owned by other simulation");
+        if (net.belongsToSimulation() && !net.belongsToSimulation(uuid)) throw new Error("Network owned by other simulation");
         network = net;
-        network.setSimulation(this);
+        network.setSimulationUUID(uuid);
     }
 
     public void setInitiator(Node process) {
