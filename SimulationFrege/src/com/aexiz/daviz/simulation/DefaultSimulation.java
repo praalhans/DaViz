@@ -15,7 +15,7 @@ public class DefaultSimulation implements Simulation {
         uuid = UUID.randomUUID().toString();
     }
 
-    public DefaultSimulation(Algorithm alg) {
+    public DefaultSimulation(DefaultAlgorithm alg) {
         setAlgorithm(alg);
     }
 

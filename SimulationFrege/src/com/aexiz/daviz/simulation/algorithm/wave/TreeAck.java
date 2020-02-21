@@ -4,7 +4,7 @@ import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.TMS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.TUPDS;
-import com.aexiz.daviz.simulation.Algorithm;
+import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.Assumption;
 import com.aexiz.daviz.simulation.SimulationHelper;
 import com.aexiz.daviz.simulation.Information;
@@ -15,7 +15,7 @@ import java.util.List;
 
 import static com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.procDesc;
 
-public class TreeAck extends Algorithm {
+public class TreeAck extends DefaultAlgorithm {
 
     public TreeAck() {
         assumption = new Assumption() {

@@ -202,7 +202,7 @@ public abstract class Event extends Locus implements Cloneable {
             super.unload();
             hEvent = super.hEvent.asEResult();
             SimulationHelper helper = new SimulationHelper(simulation);
-            result = simulation.getAlgorithm().makeAndUnloadResult(helper, hEvent.mem$val.call());
+            result = ((DefaultAlgorithm)simulation.getAlgorithm()).makeAndUnloadResult(helper, hEvent.mem$val.call());
         }
 
         protected ResultEvent clone(Event to) {
@@ -248,8 +248,8 @@ public abstract class Event extends Locus implements Cloneable {
             super.unload();
             hEvent = super.hEvent.asEReceive();
             SimulationHelper helper = new SimulationHelper(simulation);
-            message = simulation.getAlgorithm().makeAndUnloadMessage(helper, hEvent.mem$msg.call());
-            nextState = simulation.getAlgorithm().makeAndUnloadState(helper, hEvent.mem$next.call());
+            message = ((DefaultAlgorithm)simulation.getAlgorithm()).makeAndUnloadMessage(helper, hEvent.mem$msg.call());
+            nextState = ((DefaultAlgorithm)simulation.getAlgorithm()).makeAndUnloadState(helper, hEvent.mem$next.call());
             sender = simulation.getNetwork().getNodeById(hEvent.mem$send.call());
         }
 
@@ -323,8 +323,8 @@ public abstract class Event extends Locus implements Cloneable {
             super.unload();
             hEvent = super.hEvent.asESend();
             SimulationHelper helper = new SimulationHelper(simulation);
-            message = simulation.getAlgorithm().makeAndUnloadMessage(helper, hEvent.mem$msg.call());
-            nextState = simulation.getAlgorithm().makeAndUnloadState(helper, hEvent.mem$next.call());
+            message = ((DefaultAlgorithm)simulation.getAlgorithm()).makeAndUnloadMessage(helper, hEvent.mem$msg.call());
+            nextState = ((DefaultAlgorithm)simulation.getAlgorithm()).makeAndUnloadState(helper, hEvent.mem$next.call());
             receiver = simulation.getNetwork().getNodeById(hEvent.mem$recv.call());
         }
 
@@ -395,7 +395,7 @@ public abstract class Event extends Locus implements Cloneable {
             super.unload();
             hEvent = super.hEvent.asEInternal();
             SimulationHelper helper = new SimulationHelper(simulation);
-            nextState = simulation.getAlgorithm().makeAndUnloadState(helper, hEvent.mem$next.call());
+            nextState = ((DefaultAlgorithm)simulation.getAlgorithm()).makeAndUnloadState(helper, hEvent.mem$next.call());
         }
 
         protected InternalEvent clone(Event to) {

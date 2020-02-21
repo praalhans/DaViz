@@ -50,7 +50,7 @@ public class Configuration {
                 processState[i] = null; // TODO unload result space
             } else {
                 processAlive[i] = true;
-                processState[i] = alg.makeAndUnloadState(helper, j.mem1.call());
+                processState[i] = ((DefaultAlgorithm) alg).makeAndUnloadState(helper, j.mem1.call());
             }
         }
         // 2. Read out channel state
@@ -71,7 +71,7 @@ public class Configuration {
             boolean found = false;
             for (int i = 0; i < channels.length; i++) {
                 if (channels[i].from.hId == f && channels[i].to.hId == t) {
-                    channelState[i].add(alg.makeAndUnloadMessage(helper, msg));
+                    channelState[i].add(((DefaultAlgorithm) alg).makeAndUnloadMessage(helper, msg));
                     found = true;
                     break;
                 }
@@ -122,9 +122,9 @@ public class Configuration {
     public static class InitialConfiguration extends Configuration {
 
         void load() {
-            TSet<TTuple2<Integer, Integer>> network = ((DefaultNetwork)simulation.getNetwork()).hNetwork;
+            TSet<TTuple2<Integer, Integer>> network = ((DefaultNetwork) simulation.getNetwork()).hNetwork;
             SimulationHelper helper = new SimulationHelper(simulation);
-            TProcessDescription<Object, Object, Object, Object> o = simulation.getAlgorithm().getProcessDescription(helper);
+            TProcessDescription<Object, Object, Object, Object> o = ((DefaultAlgorithm) simulation.getAlgorithm()).getProcessDescription(helper);
             hConfiguration = com.aexiz.daviz.frege.simulation.Simulation.initialConfiguration(network, o.simsalabim());
         }
 

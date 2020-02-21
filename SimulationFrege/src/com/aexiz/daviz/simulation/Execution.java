@@ -42,7 +42,7 @@ public class Execution {
         SimulationHelper helper = new SimulationHelper(simulation);
         hSimulation = com.aexiz.daviz.frege.simulation.Simulation.simulation(
                 configuration.hConfiguration,
-                simulation.getAlgorithm().getProcessDescription(helper));
+                ((DefaultAlgorithm) simulation.getAlgorithm()).getProcessDescription(helper));
         parent = null;
         lastEvent = null;
         // Reload configuration from Haskell

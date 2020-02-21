@@ -17,7 +17,7 @@ import java.util.List;
 
 import static com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.procDesc;
 
-public class Cidon extends Algorithm {
+public class Cidon extends DefaultAlgorithm {
 
     public Cidon() {
         assumption = new Assumption() {

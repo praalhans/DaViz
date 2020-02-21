@@ -4,7 +4,7 @@ import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Awerbuch.TMS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Awerbuch.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Awerbuch.TRRRUII;
-import com.aexiz.daviz.simulation.Algorithm;
+import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.Assumption;
 import com.aexiz.daviz.simulation.SimulationHelper;
 import com.aexiz.daviz.simulation.Information;
@@ -20,7 +20,7 @@ import java.util.List;
 
 import static com.aexiz.daviz.frege.simulation.algorithm.wave.Awerbuch.procDesc;
 
-public class Awerbuch extends Algorithm {
+public class Awerbuch extends DefaultAlgorithm {
 
     public Awerbuch() {
         assumption = new Assumption() {

@@ -88,7 +88,7 @@ public class RandomProgram {
         }
     }
 
-    public void setAlgorithm(Algorithm alg) {
+    public void setAlgorithm(DefaultAlgorithm alg) {
         sim.setAlgorithm(alg);
     }
 

@@ -3,7 +3,7 @@ package com.aexiz.daviz.simulation.algorithm.wave;
 import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Tree.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Tree.TUP;
-import com.aexiz.daviz.simulation.Algorithm;
+import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.Assumption;
 import com.aexiz.daviz.simulation.SimulationHelper;
 import com.aexiz.daviz.simulation.Information;
@@ -14,7 +14,7 @@ import java.util.List;
 
 import static com.aexiz.daviz.frege.simulation.algorithm.wave.Tree.procDesc;
 
-public class Tree extends Algorithm {
+public class Tree extends DefaultAlgorithm {
 
     public Tree() {
         assumption = new Assumption() {
