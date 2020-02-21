@@ -126,10 +126,10 @@ public abstract class AbstractEvent extends Locus implements Cloneable, Event {
     @Override
     public abstract Event clone();
 
-    protected Event clone(Event to) {
-        to.setSimulation(this.simulation);
-        to.setExecution(this.execution);
-        to.setHappensAt(this.happensAt);
+    protected AbstractEvent clone(AbstractEvent to) {
+        to.simulation = this.simulation;
+        to.execution = this.execution;
+        to.happensAt = this.happensAt;
         return to;
     }
 }
