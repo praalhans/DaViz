@@ -38,7 +38,6 @@ public class DefaultExecution extends AbstractExecution implements Execution {
         if (hSimulation == null) throw new Error("No Haskell simulation");
     }
 
-    @Override
     protected void unloadConfiguration() {
         isInvariant();
         if (configuration != null) return;
@@ -49,7 +48,6 @@ public class DefaultExecution extends AbstractExecution implements Execution {
         ((DefaultConfiguration) configuration).unload();
     }
 
-    @Override
     protected void unloadSuccessors() {
         isInvariant();
         if (successors != null) return;
@@ -85,6 +83,30 @@ public class DefaultExecution extends AbstractExecution implements Execution {
         Collections.reverse(events);
         DefaultEvent.matchAndLinkEvents(events);
         return events.toArray(new Event[0]);
+    }
+
+    @Override
+    public Configuration getConfiguration() {
+        unloadConfiguration();
+        return configuration;
+    }
+
+    @Override
+    public Execution getNext(int index) {
+        unloadSuccessors();
+        return successors.get(index);
+    }
+
+    @Override
+    public boolean hasNext() {
+        unloadSuccessors();
+        return successors.size() != 0;
+    }
+
+    @Override
+    public int getNextCount() {
+        unloadSuccessors();
+        return successors.size();
     }
 
 }

@@ -69,13 +69,11 @@ public abstract class AbstractExecution implements Execution {
 
     @Override
     public boolean hasNext() {
-        unloadSuccessors();
         return successors.size() != 0;
     }
 
     @Override
     public int getNextCount() {
-        unloadSuccessors();
         return successors.size();
     }
 
@@ -89,7 +87,6 @@ public abstract class AbstractExecution implements Execution {
 
     @Override
     public Execution getNext(int index) {
-        unloadSuccessors();
         return successors.get(index);
     }
 
@@ -104,7 +101,6 @@ public abstract class AbstractExecution implements Execution {
 
     @Override
     public Configuration getConfiguration() {
-        unloadConfiguration();
         return configuration;
     }
 
@@ -126,8 +122,4 @@ public abstract class AbstractExecution implements Execution {
         Collections.reverse(result);
         return result;
     }
-
-    protected abstract void unloadSuccessors();
-
-    protected abstract void unloadConfiguration();
 }
