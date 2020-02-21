@@ -15,6 +15,7 @@ public class SendEvent extends DefaultEvent {
     SendEvent() {
     }
 
+    @Override
     void unload() {
         super.unload();
         hEvent = super.hEvent.asESend();
@@ -24,6 +25,7 @@ public class SendEvent extends DefaultEvent {
         receiver = simulation.getNetwork().getNodeById(hEvent.mem$recv.call());
     }
 
+    @Override
     protected SendEvent clone(DefaultEvent to) {
         super.clone(to);
         SendEvent tor = (SendEvent) to;
@@ -34,42 +36,52 @@ public class SendEvent extends DefaultEvent {
         return tor;
     }
 
+    @Override
     public SendEvent clone() {
         return clone(new SendEvent());
     }
 
+    @Override
     public boolean hasMessage() {
         return true;
     }
 
+    @Override
     public Information.Message getMessage() {
         return message;
     }
 
+    @Override
     public boolean hasNextState() {
         return true;
     }
 
+    @Override
     public Information.State getNextState() {
         return nextState;
     }
 
+    @Override
     public boolean hasReceiver() {
         return true;
     }
 
+    @Override
     public Node getReceiver() {
         return receiver;
     }
 
+    @Override
     public boolean hasMatchingEvent() {
         return matchingEvent != null;
     }
 
+    @Override
     public ReceiveEvent getMatchingEvent() {
         return (ReceiveEvent) matchingEvent;
     }
 
+    @Override
     public String toString() {
         return "Process " + happensAt.getLabel() + " sends " + message + " to " + receiver;
     }

@@ -15,6 +15,7 @@ public class ReceiveEvent extends DefaultEvent {
     ReceiveEvent() {
     }
 
+    @Override
     void unload() {
         super.unload();
         hEvent = super.hEvent.asEReceive();
@@ -24,6 +25,7 @@ public class ReceiveEvent extends DefaultEvent {
         sender = simulation.getNetwork().getNodeById(hEvent.mem$send.call());
     }
 
+    @Override
     protected ReceiveEvent clone(DefaultEvent to) {
         super.clone(to);
         ReceiveEvent tor = (ReceiveEvent) to;
@@ -38,39 +40,48 @@ public class ReceiveEvent extends DefaultEvent {
         return clone(new ReceiveEvent());
     }
 
+    @Override
     public boolean hasMessage() {
         return true;
     }
 
+    @Override
     public Information.Message getMessage() {
         return message;
     }
 
+    @Override
     public boolean hasNextState() {
         return true;
     }
 
+    @Override
     public Information.State getNextState() {
         return nextState;
     }
 
+    @Override
     public boolean hasSender() {
         return true;
     }
 
+    @Override
     public Node getSender() {
         return sender;
     }
 
+    @Override
     public boolean hasMatchingEvent() {
         return true;
     }
 
+    @Override
     public SendEvent getMatchingEvent() {
         if (matchingEvent == null) throw new Error("Unmatched receive event");
         return (SendEvent) matchingEvent;
     }
 
+    @Override
     public String toString() {
         return "Process " + happensAt.getLabel() + " receives " + message + " from " + sender;
     }

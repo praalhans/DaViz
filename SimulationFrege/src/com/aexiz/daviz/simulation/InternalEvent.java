@@ -13,6 +13,7 @@ public class InternalEvent extends DefaultEvent {
     InternalEvent() {
     }
 
+    @Override
     void unload() {
         super.unload();
         hEvent = super.hEvent.asEInternal();
@@ -20,6 +21,7 @@ public class InternalEvent extends DefaultEvent {
         nextState = ((DefaultAlgorithm)simulation.getAlgorithm()).makeAndUnloadState(helper, hEvent.mem$next.call());
     }
 
+    @Override
     protected InternalEvent clone(DefaultEvent to) {
         super.clone(to);
         InternalEvent tor = (InternalEvent) to;
@@ -32,14 +34,17 @@ public class InternalEvent extends DefaultEvent {
         return clone(new InternalEvent());
     }
 
+    @Override
     public boolean hasNextState() {
         return true;
     }
 
+    @Override
     public Information.State getNextState() {
         return nextState;
     }
 
+    @Override
     public String toString() {
         return "Process " + happensAt.getLabel() + " takes an internal action";
     }
