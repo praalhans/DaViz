@@ -1,10 +1,18 @@
 package com.aexiz.daviz.simulation.algorithm.information.state;
 
 import com.aexiz.daviz.simulation.Channel;
-import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
 
-public class ReceivedState extends AbstractChannelState {
+import java.util.Map;
+
+public class ReceivedState extends AbstractViewpointState {
     public ReceivedState(Channel channel) {
-        super(channel, "Received", false, true, true);
+        super(
+                channel,
+                "Received",
+                Map.of(
+                        "", "Replied",
+                        "From", channel.to.getLabel()
+                )
+        );
     }
 }

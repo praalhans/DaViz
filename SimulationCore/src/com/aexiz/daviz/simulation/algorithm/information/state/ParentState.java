@@ -2,8 +2,13 @@ package com.aexiz.daviz.simulation.algorithm.information.state;
 
 import com.aexiz.daviz.simulation.Node;
 
-public class ParentState extends AbstractNodeState {
+import java.util.Map;
+
+public class ParentState extends AbstractViewpointState {
     public ParentState(Node node) {
-        super(node, "Parent");
+        super(
+                node,
+                "parent",
+                Map.of("parent:", node.getLabel()));
     }
 }

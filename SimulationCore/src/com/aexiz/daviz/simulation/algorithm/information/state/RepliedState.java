@@ -2,8 +2,17 @@ package com.aexiz.daviz.simulation.algorithm.information.state;
 
 import com.aexiz.daviz.simulation.Channel;
 
-public class RepliedState extends AbstractChannelState {
+import java.util.Map;
+
+public class RepliedState extends AbstractViewpointState {
     public RepliedState(Channel channel) {
-        super(channel, "Replied", true, false);
+        super(
+                channel,
+                "Replied",
+                Map.of(
+                        "", "Replied",
+                        "To", channel.to.getLabel()
+                )
+        );
     }
 }
