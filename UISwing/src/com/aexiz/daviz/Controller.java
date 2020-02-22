@@ -1,6 +1,7 @@
 package com.aexiz.daviz;
 
 import com.aexiz.daviz.simulation.*;
+import com.aexiz.daviz.simulation.algorithm.Simulation;
 import com.aexiz.daviz.ui.*;
 import com.aexiz.daviz.ui.ExecutionModel.CoarseTimeEventListener;
 import com.aexiz.daviz.ui.ExecutionModel.EventModel;

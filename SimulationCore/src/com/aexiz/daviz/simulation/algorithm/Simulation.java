@@ -1,6 +1,8 @@
-package com.aexiz.daviz.simulation;
+package com.aexiz.daviz.simulation.algorithm;
 
-import com.aexiz.daviz.simulation.algorithm.Algorithm;
+import com.aexiz.daviz.simulation.Execution;
+import com.aexiz.daviz.simulation.Network;
+import com.aexiz.daviz.simulation.Node;
 
 public interface Simulation {
     void load();

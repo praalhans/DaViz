@@ -1,4 +1,6 @@
-package com.aexiz.daviz.simulation;
+package com.aexiz.daviz.simulation.algorithm;
+
+import com.aexiz.daviz.simulation.Node;
 
 import java.util.List;
 
@@ -88,4 +90,7 @@ public class Assumption {
         return centralized_user || decentralized_user;
     }
 
+    public boolean isCentralized_user() {
+        return centralized_user;
+    }
 }

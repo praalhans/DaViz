@@ -1,6 +1,8 @@
 package com.aexiz.daviz.simulation;
 
 import com.aexiz.daviz.simulation.algorithm.Algorithm;
+import com.aexiz.daviz.simulation.algorithm.Assumption;
+import com.aexiz.daviz.simulation.algorithm.Simulation;
 
 import java.util.UUID;
 
@@ -58,10 +60,10 @@ public abstract class AbstractSimulation implements Simulation {
     @Override
     public void setInitiator(Node process) {
         if (assumption == null) throw new Error("No algorithm");
-        if (!assumption.centralized_user) throw new Error("Algorithm is not centralized by user-input");
+        if (!assumption.isCentralized_user()) throw new Error("Algorithm is not centralized by user-input");
         if (network == null) throw new Error("Network is not set");
         if (!network.hasNode(process)) throw new Error("Process not owned by simulation");
-        assumption.initiator = process;
+        assumption.setInitiator(process);
     }
 
     @Override

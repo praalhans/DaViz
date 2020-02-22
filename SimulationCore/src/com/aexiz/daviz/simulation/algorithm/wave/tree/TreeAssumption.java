@@ -1,6 +1,6 @@
 package com.aexiz.daviz.simulation.algorithm.wave.tree;
 
-import com.aexiz.daviz.simulation.Assumption;
+import com.aexiz.daviz.simulation.algorithm.Assumption;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 

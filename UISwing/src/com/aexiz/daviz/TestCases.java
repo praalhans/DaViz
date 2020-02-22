@@ -1,6 +1,7 @@
 package com.aexiz.daviz;
 
 import com.aexiz.daviz.simulation.*;
+import com.aexiz.daviz.simulation.algorithm.Simulation;
 import com.aexiz.daviz.simulation.algorithm.wave.*;
 
 import java.util.concurrent.Callable;
