@@ -14,9 +14,6 @@ public class CidonState extends AbstractAlgorithmState {
     List<Channel> forward;
     List<Channel> info;
 
-    public CidonState() {
-    }
-
     @Override
     public String toString() {
         return "(" + hasToken + "," + state + "," + intention +

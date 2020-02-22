@@ -10,13 +10,6 @@ import java.util.Map;
 public abstract class AbstractAlgorithmState implements StateInformation {
     protected Map<String, Object> properties;
 
-    public AbstractAlgorithmState(Map<String, Object> properties) {
-        this.properties = properties;
-    }
-
-    public AbstractAlgorithmState() {
-    }
-
     static protected Map<String, String> makeNodesProperty(List<Channel> channels) {
         Map<String, String> map = new HashMap<>();
         map.put("", channels.size() + " elements");
