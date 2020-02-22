@@ -5,6 +5,7 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.Tree.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Tree.TUP;
 import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.information.*;
+import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeAssumption;
 import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeDecided;
 import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeInfo;
 
@@ -15,12 +16,7 @@ import static com.aexiz.daviz.frege.simulation.algorithm.wave.Tree.procDesc;
 public class Tree extends AbstractFregeBasicAlgorithm {
 
     public Tree() {
-        assumption = new Assumption() {
-            {
-                acyclicGraph = true;
-                decentralized_computed = true;
-            }
-        };
+        assumption = TreeAssumption.makeAssumption();
     }
 
     @Override

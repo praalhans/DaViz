@@ -8,6 +8,7 @@ import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.information.*;
 import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeAckAck;
 import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeAckInfo;
+import com.aexiz.daviz.simulation.algorithm.wave.treeack.TreeAckAssumption;
 import com.aexiz.daviz.simulation.algorithm.wave.treeack.TreeAckDecided;
 import com.aexiz.daviz.simulation.algorithm.wave.treeack.TreeAckTerminated;
 
@@ -18,12 +19,7 @@ import static com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.procDesc;
 public class TreeAck extends AbstractFregeBasicAlgorithm {
 
     public TreeAck() {
-        assumption = new Assumption() {
-            {
-                acyclicGraph = true;
-                decentralized_computed = true;
-            }
-        };
+        assumption = TreeAckAssumption.makeAssumption();
     }
 
     @Override

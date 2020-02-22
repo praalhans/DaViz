@@ -1,4 +1,4 @@
 package com.aexiz.daviz.simulation;
 
-public interface BasicAlgorithm {
+public interface BasicAlgorithm extends Algorithm {
 }

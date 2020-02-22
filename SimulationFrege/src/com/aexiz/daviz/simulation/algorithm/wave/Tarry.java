@@ -5,6 +5,7 @@ import com.aexiz.daviz.frege.simulation.Set.TSet;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Tarry.TDUI;
 import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.information.*;
+import com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryAssumption;
 import com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryDecided;
 import com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryTerminated;
 import com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryToken;
@@ -19,11 +20,7 @@ import static com.aexiz.daviz.frege.simulation.algorithm.wave.Tarry.procDesc;
 public class Tarry extends AbstractFregeBasicAlgorithm {
 
     public Tarry() {
-        assumption = new Assumption() {
-            {
-                centralized_user = true;
-            }
-        };
+        assumption = TarryAssumption.makeAssumption();
     }
 
     @Override

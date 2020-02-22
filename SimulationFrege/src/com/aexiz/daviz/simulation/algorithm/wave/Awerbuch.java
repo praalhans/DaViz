@@ -4,7 +4,10 @@ import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Awerbuch.TMS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Awerbuch.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Awerbuch.TRRRUII;
-import com.aexiz.daviz.simulation.*;
+import com.aexiz.daviz.simulation.AbstractFregeBasicAlgorithm;
+import com.aexiz.daviz.simulation.Channel;
+import com.aexiz.daviz.simulation.FregeAlgorithm;
+import com.aexiz.daviz.simulation.FregeHelper;
 import com.aexiz.daviz.simulation.algorithm.information.*;
 import com.aexiz.daviz.simulation.algorithm.wave.awerbuch.*;
 import frege.prelude.PreludeBase.TMaybe.DJust;
@@ -18,11 +21,7 @@ import static com.aexiz.daviz.frege.simulation.algorithm.wave.Awerbuch.procDesc;
 public class Awerbuch extends AbstractFregeBasicAlgorithm {
 
     public Awerbuch() {
-        assumption = new Assumption() {
-            {
-                centralized_user = true;
-            }
-        };
+        assumption = AwerbuchAssumption.makeAssumption();
     }
 
     @Override

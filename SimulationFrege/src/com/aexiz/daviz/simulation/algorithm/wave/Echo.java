@@ -6,6 +6,7 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.TRRUI;
 import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.information.*;
+import com.aexiz.daviz.simulation.algorithm.wave.echo.EchoAssumption;
 import com.aexiz.daviz.simulation.algorithm.wave.echo.EchoBroadcast;
 import com.aexiz.daviz.simulation.algorithm.wave.echo.EchoDecided;
 import com.aexiz.daviz.simulation.algorithm.wave.echo.EchoTerminated;
@@ -18,11 +19,7 @@ import static com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.procDesc;
 public class Echo extends AbstractFregeBasicAlgorithm {
 
     public Echo() {
-        assumption = new Assumption() {
-            {
-                centralized_user = true;
-            }
-        };
+        assumption = EchoAssumption.makeAssumption();
     }
 
     @Override

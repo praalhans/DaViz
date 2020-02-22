@@ -5,6 +5,7 @@ import com.aexiz.daviz.frege.simulation.Set.TSet;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.DFS.TRRUI;
 import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.information.*;
+import com.aexiz.daviz.simulation.algorithm.wave.dfs.DFSAssumption;
 import com.aexiz.daviz.simulation.algorithm.wave.dfs.DFSDecided;
 import com.aexiz.daviz.simulation.algorithm.wave.dfs.DFSTerminated;
 import com.aexiz.daviz.simulation.algorithm.wave.dfs.DFSToken;
@@ -21,11 +22,7 @@ import static com.aexiz.daviz.frege.simulation.algorithm.wave.DFS.procDesc;
 public class DFS extends AbstractFregeBasicAlgorithm {
 
     public DFS() {
-        assumption = new Assumption() {
-            {
-                centralized_user = true;
-            }
-        };
+        assumption = DFSAssumption.makeAssumption();
     }
 
     @Override

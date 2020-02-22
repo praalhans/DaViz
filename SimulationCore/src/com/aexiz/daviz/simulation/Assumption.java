@@ -39,6 +39,7 @@ public class Assumption {
      */
     protected boolean centralized_computed;
 
+    // TODO Verify why assumption needs to know who is the initiator node
     /**
      * Given by user or undefined
      */

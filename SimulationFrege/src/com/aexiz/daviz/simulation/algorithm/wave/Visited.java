@@ -5,6 +5,7 @@ import com.aexiz.daviz.frege.simulation.Set.TSet;
 import com.aexiz.daviz.frege.simulation.Visited.TRRUI;
 import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.information.*;
+import com.aexiz.daviz.simulation.algorithm.wave.visited.VisitedAssumption;
 import com.aexiz.daviz.simulation.algorithm.wave.visited.VisitedDecided;
 import com.aexiz.daviz.simulation.algorithm.wave.visited.VisitedTerminated;
 import com.aexiz.daviz.simulation.algorithm.wave.visited.VisitedToken;
@@ -21,11 +22,7 @@ import static com.aexiz.daviz.frege.simulation.Visited.procDesc;
 public class Visited extends AbstractFregeBasicAlgorithm {
 
     public Visited() {
-        assumption = new Assumption() {
-            {
-                centralized_user = true;
-            }
-        };
+        assumption = VisitedAssumption.makeAssumption();
     }
 
     @Override

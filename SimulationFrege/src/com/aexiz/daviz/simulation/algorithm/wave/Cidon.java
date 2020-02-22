@@ -6,10 +6,7 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.TRRUI;
 import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.information.*;
-import com.aexiz.daviz.simulation.algorithm.wave.cidon.CidonDecided;
-import com.aexiz.daviz.simulation.algorithm.wave.cidon.CidonInfo;
-import com.aexiz.daviz.simulation.algorithm.wave.cidon.CidonTerminated;
-import com.aexiz.daviz.simulation.algorithm.wave.cidon.CidonToken;
+import com.aexiz.daviz.simulation.algorithm.wave.cidon.*;
 import frege.prelude.PreludeBase.TMaybe.DJust;
 import frege.prelude.PreludeBase.TTuple2;
 import frege.run8.Thunk;
@@ -21,11 +18,7 @@ import static com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.procDesc;
 public class Cidon extends AbstractFregeBasicAlgorithm {
 
     public Cidon() {
-        assumption = new Assumption() {
-            {
-                centralized_user = true;
-            }
-        };
+        assumption = CidonAssumption.makeAssumption();
     }
 
     @Override
