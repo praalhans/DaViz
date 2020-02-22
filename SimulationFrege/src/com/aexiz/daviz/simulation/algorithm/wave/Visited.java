@@ -28,18 +28,18 @@ public class Visited extends DefaultAlgorithm {
         };
     }
 
-    protected MessageInformation makeAndUnloadMessage(FregeHelper help, Object o) {
-        if (help == null || o == null) throw null;
+    protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
+        validateParameters(helper, o);
 
         @SuppressWarnings("unchecked")
         TSet<Integer> t = (TSet<Integer>) o;
         VisitedToken result = new VisitedToken();
-        result.setVisited(help.forVertexSet(t));
+        result.setVisited(helper.forVertexSet(t));
         return result;
     }
 
-    protected StateInformation makeAndUnloadState(FregeHelper help, Object o) {
-        if (help == null || o == null) throw null;
+    protected StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
+        validateParameters(helper, o);
         abstract class VisitedRRUI implements PropertyVisitor {
         }
         class VisitedState implements StateInformation {
@@ -113,15 +113,15 @@ public class Visited extends DefaultAlgorithm {
                 (TTuple3<TMaybe<TSet<Integer>>, TRRUI, TSet<TTuple2<Integer, Integer>>>) o;
         VisitedState result = new VisitedState();
         DJust<TSet<Integer>> tok = st.mem1.call().asJust();
-        result.hasToken = tok == null ? null : help.forVertexSet(tok.mem1.call());
+        result.hasToken = tok == null ? null : helper.forVertexSet(tok.mem1.call());
         TRRUI rrui = st.mem2.call();
         if (rrui.asReceived() != null) {
             VisitedReceived r = new VisitedReceived();
-            r.c = help.getChannelByTuple(rrui.asReceived().mem1.call());
+            r.c = helper.getChannelByTuple(rrui.asReceived().mem1.call());
             result.rrui = r;
         } else if (rrui.asReplied() != null) {
             VisitedReplied r = new VisitedReplied();
-            r.c = help.getChannelByTuple(rrui.asReplied().mem1.call());
+            r.c = helper.getChannelByTuple(rrui.asReplied().mem1.call());
             result.rrui = r;
         } else if (rrui.asUndefined() != null) {
             result.rrui = new VisitedUndefined();
@@ -130,11 +130,12 @@ public class Visited extends DefaultAlgorithm {
         } else {
             throw new Error("Invalid RRUI value");
         }
-        result.neighbors = help.forEdgeSet(st.mem3.call());
+        result.neighbors = helper.forEdgeSet(st.mem3.call());
         return result;
     }
 
     protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
+        validateParameters(helper, o);
         return (Boolean) o ? new VisitedTerminated() : new VisitedDecided();
     }
 

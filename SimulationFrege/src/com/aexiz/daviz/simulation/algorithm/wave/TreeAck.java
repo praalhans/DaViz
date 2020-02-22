@@ -30,6 +30,7 @@ public class TreeAck extends DefaultAlgorithm {
     }
 
     protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
+        validateParameters(helper, o);
         Short t = (Short) o;
         if (t == TMS.Info) return new TreeAckInfo();
         if (t == TMS.Ack) return new TreeAckAck();
@@ -37,6 +38,7 @@ public class TreeAck extends DefaultAlgorithm {
     }
 
     protected StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
+        validateParameters(helper, o);
         abstract class TreeAckUPDS implements PropertyVisitor {
         }
         class TreeAckState implements StateInformation {
@@ -135,6 +137,7 @@ public class TreeAck extends DefaultAlgorithm {
     }
 
     protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
+        validateParameters(helper, o);
         return (Boolean) o ? new TreeAckDecided() : new TreeAckTerminated();
     }
 

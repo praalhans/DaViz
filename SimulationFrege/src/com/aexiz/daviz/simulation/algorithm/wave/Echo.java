@@ -29,11 +29,13 @@ public class Echo extends DefaultAlgorithm {
     }
 
     protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
+        validateParameters(helper, o);
         if ((Short) o == TMS.Broadcast) return new EchoBroadcast();
         throw new Error("Invalid message");
     }
 
     protected StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
+        validateParameters(helper, o);
         abstract class EchoRRUI implements PropertyVisitor {
         }
         class EchoState implements StateInformation {
@@ -129,6 +131,7 @@ public class Echo extends DefaultAlgorithm {
     }
 
     protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
+        validateParameters(helper, o);
         return (Boolean) o ? new EchoDecided() : new EchoTerminated();
     }
 

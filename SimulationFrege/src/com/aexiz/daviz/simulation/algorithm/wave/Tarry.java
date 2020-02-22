@@ -29,15 +29,15 @@ public class Tarry extends DefaultAlgorithm {
         };
     }
 
-    protected MessageInformation makeAndUnloadMessage(FregeHelper help, Object o) {
-        if (help == null || o == null) throw null;
+    protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
+        validateParameters(helper, o);
 
         if ((Short) o == 0) return new TarryToken();
         throw new Error("Invalid Haskell unit");
     }
 
-    protected StateInformation makeAndUnloadState(FregeHelper help, Object o) {
-        if (help == null || o == null) throw null;
+    protected StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
+        validateParameters(helper, o);
         abstract class TarryDUI implements PropertyVisitor {
         }
         class TarryState implements StateInformation {
@@ -112,11 +112,11 @@ public class Tarry extends DefaultAlgorithm {
         TDUI dui = st.mem2.call();
         if (dui.asReceived() != null) {
             TarryReceived r = new TarryReceived();
-            r.c = help.getChannelByTuple(dui.asReceived().mem1.call());
+            r.c = helper.getChannelByTuple(dui.asReceived().mem1.call());
             result.dui = r;
         } else if (dui.asReplied() != null) {
             TarryReplied r = new TarryReplied();
-            r.c = help.getChannelByTuple(dui.asReplied().mem1.call());
+            r.c = helper.getChannelByTuple(dui.asReplied().mem1.call());
             result.dui = r;
         } else if (dui.asUndefined() != null) {
             result.dui = new TarryUndefined();
@@ -125,11 +125,12 @@ public class Tarry extends DefaultAlgorithm {
         } else {
             throw new Error("Invalid DUI value");
         }
-        result.neighbors = help.forEdgeSet(st.mem3.call());
+        result.neighbors = helper.forEdgeSet(st.mem3.call());
         return result;
     }
 
     protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
+        validateParameters(helper, o);
         return (Boolean) o ? new TarryTerminated() : new TarryDecided();
     }
 

@@ -33,8 +33,8 @@ public class Cidon extends DefaultAlgorithm {
         return (network.getNodes().length + network.getChannels().length) * 15;
     }
 
-    protected MessageInformation makeAndUnloadMessage(FregeHelper help, Object o) {
-        if (help == null || o == null) throw null;
+    protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
+        validateParameters(helper, o);
 
         short t = (Short) o;
 
@@ -43,8 +43,8 @@ public class Cidon extends DefaultAlgorithm {
         throw new Error("Unknown message");
     }
 
-    protected StateInformation makeAndUnloadState(FregeHelper help, Object o) {
-        if (help == null || o == null) throw null;
+    protected StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
+        validateParameters(helper, o);
         abstract class CidonRRUI implements PropertyVisitor {
         }
         class CidonState implements StateInformation {
@@ -129,11 +129,11 @@ public class Cidon extends DefaultAlgorithm {
         TRRUI rrui = st.mem$state.call();
         if (rrui.asReceived() != null) {
             CidonReceived r = new CidonReceived();
-            r.c = help.getChannelByTuple(rrui.asReceived().mem1.call());
+            r.c = helper.getChannelByTuple(rrui.asReceived().mem1.call());
             result.rrui = r;
         } else if (rrui.asReplied() != null) {
             CidonReplied r = new CidonReplied();
-            r.c = help.getChannelByTuple(rrui.asReplied().mem1.call());
+            r.c = helper.getChannelByTuple(rrui.asReplied().mem1.call());
             result.rrui = r;
         } else if (rrui.asUndefined() != null) {
             result.rrui = new CidonUndefined();
@@ -144,13 +144,14 @@ public class Cidon extends DefaultAlgorithm {
         }
         DJust<TTuple2<Integer, Integer>> in;
         in = st.mem$intention.call().asJust();
-        result.intention = in == null ? null : help.getChannelByTuple(in.mem1.call());
-        result.forward = help.forEdgeSet(st.mem$forward.call());
-        result.info = help.forEdgeSet(st.mem$info.call());
+        result.intention = in == null ? null : helper.getChannelByTuple(in.mem1.call());
+        result.forward = helper.forEdgeSet(st.mem$forward.call());
+        result.info = helper.forEdgeSet(st.mem$info.call());
         return result;
     }
 
     protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
+        validateParameters(helper, o);
         return (Boolean) o ? new CidonTerminated() : new CidonDecided();
     }
 

@@ -27,11 +27,13 @@ public class Tree extends DefaultAlgorithm {
     }
 
     protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
+        validateParameters(helper, o);
         if ((Short) o == 0) return new TreeInfo();
         throw new Error("Invalid Haskell unit");
     }
 
     protected StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
+        validateParameters(helper, o);
         abstract class TreeUP implements PropertyVisitor {
         }
         class TreeState implements StateInformation {
@@ -90,6 +92,7 @@ public class Tree extends DefaultAlgorithm {
     }
 
     protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
+        validateParameters(helper, o);
         if ((Short) o == 0) return new TreeDecided();
         throw new Error("Invalid Haskell unit");
     }

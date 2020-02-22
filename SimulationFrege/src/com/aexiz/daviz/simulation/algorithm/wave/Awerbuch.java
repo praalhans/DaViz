@@ -28,8 +28,8 @@ public class Awerbuch extends DefaultAlgorithm {
         };
     }
 
-    protected MessageInformation makeAndUnloadMessage(FregeHelper help, Object o) {
-        if (help == null || o == null) throw null;
+    protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
+        validateParameters(helper, o);
 
         short t = (Short) o;
 
@@ -39,8 +39,8 @@ public class Awerbuch extends DefaultAlgorithm {
         throw new Error("Unknown message");
     }
 
-    protected StateInformation makeAndUnloadState(FregeHelper help, Object o) {
-        if (help == null || o == null) throw null;
+    protected StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
+        validateParameters(helper, o);
         abstract class AwerbuchRRRUII implements PropertyVisitor {
         }
         class AwerbuchState implements StateInformation {
@@ -173,15 +173,15 @@ public class Awerbuch extends DefaultAlgorithm {
         TRRRUII rrruii = st.mem$state.call();
         if (rrruii.asReceivedSeen() != null) {
             AwerbuchReceivedSeen r = new AwerbuchReceivedSeen();
-            r.c = help.getChannelByTuple(rrruii.asReceivedSeen().mem1.call());
+            r.c = helper.getChannelByTuple(rrruii.asReceivedSeen().mem1.call());
             result.rrruii = r;
         } else if (rrruii.asReceivedUnseen() != null) {
             AwerbuchReceivedUnseen r = new AwerbuchReceivedUnseen();
-            r.c = help.getChannelByTuple(rrruii.asReceivedUnseen().mem1.call());
+            r.c = helper.getChannelByTuple(rrruii.asReceivedUnseen().mem1.call());
             result.rrruii = r;
         } else if (rrruii.asReplied() != null) {
             AwerbuchReplied r = new AwerbuchReplied();
-            r.c = help.getChannelByTuple(rrruii.asReplied().mem1.call());
+            r.c = helper.getChannelByTuple(rrruii.asReplied().mem1.call());
             result.rrruii = r;
         } else if (rrruii.asUndefined() != null) {
             result.rrruii = new AwerbuchUndefined();
@@ -193,20 +193,21 @@ public class Awerbuch extends DefaultAlgorithm {
             throw new Error("Invalid RRRUII value");
         }
         DJust<TTuple2<Integer, Integer>> in;
-        result.inform = help.forEdgeSet(st.mem$inform.call());
-        result.acked = help.forEdgeSet(st.mem$acked.call());
+        result.inform = helper.forEdgeSet(st.mem$inform.call());
+        result.acked = helper.forEdgeSet(st.mem$acked.call());
         in = st.mem$intended.call().asJust();
-        result.intended = in == null ? null : help.getChannelByTuple(in.mem1.call());
-        result.forward = help.forEdgeSet(st.mem$forward.call());
-        result.info = help.forEdgeSet(st.mem$info.call());
+        result.intended = in == null ? null : helper.getChannelByTuple(in.mem1.call());
+        result.forward = helper.forEdgeSet(st.mem$forward.call());
+        result.info = helper.forEdgeSet(st.mem$info.call());
         in = st.mem$last.call().asJust();
-        result.last = in == null ? null : help.getChannelByTuple(in.mem1.call());
+        result.last = in == null ? null : helper.getChannelByTuple(in.mem1.call());
         in = st.mem$toAck.call().asJust();
-        result.toAck = in == null ? null : help.getChannelByTuple(in.mem1.call());
+        result.toAck = in == null ? null : helper.getChannelByTuple(in.mem1.call());
         return result;
     }
 
     protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
+        validateParameters(helper, o);
         return (Boolean) o ? new AwerbuchTerminated() : new AwerbuchDecided();
     }
 

@@ -31,15 +31,15 @@ public class DFS extends DefaultAlgorithm {
         };
     }
 
-    protected MessageInformation makeAndUnloadMessage(FregeHelper help, Object o) {
-        if (help == null || o == null) throw null;
+    protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
+        validateParameters(helper, o);
 
         if ((Short) o == 0) return new DFSToken();
         throw new Error("Invalid Haskell unit");
     }
 
-    protected StateInformation makeAndUnloadState(FregeHelper help, Object o) {
-        if (help == null || o == null) throw null;
+    protected StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
+        validateParameters(helper, o);
         abstract class DFS_RRUI implements PropertyVisitor {
         }
         class DFS_State implements StateInformation {
@@ -116,11 +116,11 @@ public class DFS extends DefaultAlgorithm {
         TRRUI rrui = st.mem2.call();
         if (rrui.asReceived() != null) {
             DFS_Received r = new DFS_Received();
-            r.c = help.getChannelByTuple(rrui.asReceived().mem1.call());
+            r.c = helper.getChannelByTuple(rrui.asReceived().mem1.call());
             result.rrui = r;
         } else if (rrui.asReplied() != null) {
             DFS_Replied r = new DFS_Replied();
-            r.c = help.getChannelByTuple(rrui.asReplied().mem1.call());
+            r.c = helper.getChannelByTuple(rrui.asReplied().mem1.call());
             result.rrui = r;
         } else if (rrui.asUndefined() != null) {
             result.rrui = new DFS_Undefined();
@@ -129,9 +129,9 @@ public class DFS extends DefaultAlgorithm {
         } else {
             throw new Error("Invalid RRUI value");
         }
-        result.neighbors = help.forEdgeSet(st.mem3.call());
+        result.neighbors = helper.forEdgeSet(st.mem3.call());
         DJust<TTuple2<Integer, Integer>> in = st.mem4.call().asJust();
-        result.incoming = in == null ? null : help.getChannelByTuple(in.mem1.call());
+        result.incoming = in == null ? null : helper.getChannelByTuple(in.mem1.call());
         return result;
     }
 
