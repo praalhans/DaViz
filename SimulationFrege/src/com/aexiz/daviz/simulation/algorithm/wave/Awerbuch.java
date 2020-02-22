@@ -102,26 +102,6 @@ public class Awerbuch extends AbstractFregeBasicAlgorithm {
                 builder.simpleProperty("Ack:", toAck == null ? "None" : toAck.to.getLabel());
             }
         }
-        class AwerbuchInitiatorSeen extends AwerbuchRRRUII {
-            public String toString() {
-                return "InitiatorSeen";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Initiator");
-                builder.simpleProperty("Seen token?", "true");
-            }
-        }
-        class AwerbuchInitiatorUnseen extends AwerbuchRRRUII {
-            public String toString() {
-                return "InitiatorUnseen";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Initiator");
-                builder.simpleProperty("Seen token?", "false");
-            }
-        }
         TPS st = (TPS) o;
         AwerbuchState result = new AwerbuchState();
         result.hasToken = st.mem$hasToken.call();
@@ -138,9 +118,9 @@ public class Awerbuch extends AbstractFregeBasicAlgorithm {
         } else if (rrruii.asUndefined() != null) {
             result.rrruii = new AwerbuchUndefined();
         } else if (rrruii.asInitiatorSeen() != null) {
-            result.rrruii = new AwerbuchInitiatorSeen();
+            result.rrruii = new AwerbuchInitiatorSeen(true);
         } else if (rrruii.asInitiatorUnseen() != null) {
-            result.rrruii = new AwerbuchInitiatorUnseen();
+            result.rrruii = new AwerbuchInitiatorSeen(false);
         } else {
             throw new Error("Invalid RRRUII value");
         }
