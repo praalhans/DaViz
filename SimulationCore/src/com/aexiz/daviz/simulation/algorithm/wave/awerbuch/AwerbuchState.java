@@ -61,7 +61,8 @@ public class AwerbuchState extends AbstractAlgorithmState {
         this.toAck = toAck;
     }
 
-    public void makeProperty() {
+    @Override
+    public void makeProperties() {
         properties = Map.of(
                 "Has token?", String.valueOf(hasToken),
                 "State", state,
@@ -73,43 +74,4 @@ public class AwerbuchState extends AbstractAlgorithmState {
                 "Ack:", toAck == null ? "None" : toAck.to.getLabel()
         );
     }
-
-//    public void buildProperties(PropertyBuilder builder) {
-//        builder.compoundProperty(;
-//        builder.compoundProperty(, new PropertyVisitor() {
-//            public void buildProperties(PropertyBuilder builder) {
-//                builder.simpleProperty("", inform.size() + " elements");
-//                for (int i = 0, size = inform.size(); i < size; i++) {
-//                    builder.simpleProperty(i + ":", inform.get(i).to.getLabel());
-//                }
-//            }
-//        });
-//        builder.compoundProperty("Waiting for", new PropertyVisitor() {
-//            public void buildProperties(PropertyBuilder builder) {
-//                builder.simpleProperty("", acked.size() + " elements");
-//                for (int i = 0, size = acked.size(); i < size; i++) {
-//                    builder.simpleProperty(i + ":", acked.get(i).to.getLabel());
-//                }
-//            }
-//        });
-//        builder.simpleProperty("Token to:", intended == null ? "None" : intended.to.getLabel());
-//        builder.compoundProperty("Candidates", new PropertyVisitor() {
-//            public void buildProperties(PropertyBuilder builder) {
-//                builder.simpleProperty("", forward.size() + " elements");
-//                for (int i = 0, size = forward.size(); i < size; i++) {
-//                    builder.simpleProperty(i + ":", forward.get(i).to.getLabel());
-//                }
-//            }
-//        });
-//        builder.compoundProperty("Neighbors", new PropertyVisitor() {
-//            public void buildProperties(PropertyBuilder builder) {
-//                builder.simpleProperty("", info.size() + " elements");
-//                for (int i = 0, size = info.size(); i < size; i++) {
-//                    builder.simpleProperty(i + ":", info.get(i).to.getLabel());
-//                }
-//            }
-//        });
-//        builder.simpleProperty("Reply to:", last == null ? "None" : last.to.getLabel());
-//        builder.simpleProperty("Ack:", toAck == null ? "None" : toAck.to.getLabel());
-//    }
 }

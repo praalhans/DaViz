@@ -29,6 +29,7 @@ public class TarryState extends AbstractAlgorithmState {
         this.neighbors = neighbors;
     }
 
+    @Override
     public void makeProperties() {
         properties = Map.of(
                 "Has token?", String.valueOf(hasToken),

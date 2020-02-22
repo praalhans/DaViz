@@ -28,6 +28,8 @@ public abstract class AbstractAlgorithmState implements StateInformation {
         buildPropertiesHelper(builder, properties);
     }
 
+    abstract public void makeProperties();
+
     @SuppressWarnings("unchecked")
     private void buildPropertiesHelper(PropertyBuilder builder, Map<String, Object> properties) {
         properties.forEach(

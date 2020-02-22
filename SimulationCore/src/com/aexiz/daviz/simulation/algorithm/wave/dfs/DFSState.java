@@ -34,6 +34,7 @@ public class DFSState extends AbstractAlgorithmState {
         this.incoming = incoming;
     }
 
+    @Override
     public void makeProperties() {
         properties = Map.of(
                 "Has token? ", String.valueOf(hasToken),

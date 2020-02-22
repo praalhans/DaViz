@@ -59,7 +59,7 @@ public class Awerbuch extends AbstractFregeBasicAlgorithm {
         in = st.mem$toAck.call().asJust();
         result.setToAck(in == null ? null : helper.getChannelByTuple(in.mem1.call()));
 
-        result.makeProperty();
+        result.makeProperties();
 
         return result;
     }

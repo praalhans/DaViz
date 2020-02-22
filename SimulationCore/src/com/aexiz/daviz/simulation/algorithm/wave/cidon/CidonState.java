@@ -40,6 +40,7 @@ public class CidonState extends AbstractAlgorithmState {
         this.info = info;
     }
 
+    @Override
     public void makeProperties() {
         properties = Map.of(
                 "Has token?", String.valueOf(hasToken),

@@ -29,6 +29,7 @@ public class TreeAckState extends AbstractAlgorithmState {
         this.state = state;
     }
 
+    @Override
     public void makeProperties() {
         properties = Map.of(
                 "State", state,

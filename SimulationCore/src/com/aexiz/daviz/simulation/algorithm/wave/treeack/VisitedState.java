@@ -29,6 +29,7 @@ public class VisitedState extends AbstractAlgorithmState {
         this.neighbors = neighbors;
     }
 
+    @Override
     public void makeProperties() {
         properties = Map.of(
                 "Has token?", hasToken == null ? "false" : hasToken.toString(),
