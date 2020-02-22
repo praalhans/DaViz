@@ -21,7 +21,7 @@ public abstract class AbstractAlgorithmState implements StateInformation {
         Map<String, String> map = new HashMap<>();
         map.put("", channels.size() + " elements");
         for (int i = 0, channelsSize = channels.size(); i < channelsSize; i++) {
-            map.put(i + ":", channels.get(i).to.getLabel());
+            map.put((i + 1) + ":", channels.get(i).to.getLabel());
         }
         return map;
     }
