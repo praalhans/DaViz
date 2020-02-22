@@ -4,9 +4,9 @@ import com.aexiz.daviz.simulation.Channel;
 
 import java.util.Map;
 
-public class ReceivedSeemState extends AbstractViewpointState {
+public class ReceivedSeenState extends AbstractViewpointState {
 
-    public ReceivedSeemState(Channel channel, boolean seem) {
+    public ReceivedSeenState(Channel channel, boolean seem) {
         super(
                 channel,
                 seem ? "ReceivedSeen" : "ReceivedUnseen",

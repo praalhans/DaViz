@@ -128,10 +128,10 @@ public class Awerbuch extends AbstractFregeBasicAlgorithm {
         TRRRUII rrruii = st.mem$state.call();
 
         if (rrruii.asReceivedSeen() != null) {
-            AwerbuchReceivedSeem r = new AwerbuchReceivedSeem(helper.getChannelByTuple(rrruii.asReceivedSeen().mem1.call()), true);
+            AwerbuchReceivedSeen r = new AwerbuchReceivedSeen(helper.getChannelByTuple(rrruii.asReceivedSeen().mem1.call()), true);
             result.rrruii = r;
         } else if (rrruii.asReceivedUnseen() != null) {
-            AwerbuchReceivedSeem r = new AwerbuchReceivedSeem(helper.getChannelByTuple(rrruii.asReceivedUnseen().mem1.call()), false);
+            AwerbuchReceivedSeen r = new AwerbuchReceivedSeen(helper.getChannelByTuple(rrruii.asReceivedUnseen().mem1.call()), false);
             result.rrruii = r;
         } else if (rrruii.asReplied() != null) {
             result.rrruii = new AwerbuchReplied(helper.getChannelByTuple(rrruii.asReplied().mem1.call()));
