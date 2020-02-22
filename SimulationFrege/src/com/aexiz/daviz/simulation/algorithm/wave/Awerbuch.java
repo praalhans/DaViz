@@ -6,7 +6,7 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.Awerbuch.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Awerbuch.TRRRUII;
 import com.aexiz.daviz.simulation.algorithm.AbstractFregeBasicAlgorithm;
 import com.aexiz.daviz.simulation.algorithm.FregeAlgorithm;
-import com.aexiz.daviz.simulation.FregeHelper;
+import com.aexiz.daviz.simulation.util.FregeHelper;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;

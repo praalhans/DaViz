@@ -5,6 +5,7 @@ import com.aexiz.daviz.simulation.algorithm.Algorithm;
 import com.aexiz.daviz.simulation.algorithm.FregeAlgorithm;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
+import com.aexiz.daviz.simulation.util.FregeHelper;
 import frege.prelude.PreludeBase.TEither;
 import frege.prelude.PreludeBase.TEither.DLeft;
 import frege.prelude.PreludeBase.TList;

@@ -3,6 +3,7 @@ package com.aexiz.daviz.simulation;
 import com.aexiz.daviz.frege.simulation.Process;
 import com.aexiz.daviz.frege.simulation.Set;
 import com.aexiz.daviz.simulation.algorithm.FregeAlgorithm;
+import com.aexiz.daviz.simulation.util.FregeHelper;
 import frege.prelude.PreludeBase;
 
 public class InitialConfiguration extends DefaultConfiguration implements Configuration.InitialConfiguration {

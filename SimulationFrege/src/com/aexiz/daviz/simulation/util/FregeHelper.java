@@ -1,7 +1,8 @@
-package com.aexiz.daviz.simulation;
+package com.aexiz.daviz.simulation.util;
 
 import com.aexiz.daviz.frege.simulation.Set;
 import com.aexiz.daviz.frege.simulation.Set.TSet;
+import com.aexiz.daviz.simulation.Simulation;
 import com.aexiz.daviz.simulation.viewpoint.Channel;
 import com.aexiz.daviz.simulation.viewpoint.Node;
 import com.aexiz.daviz.util.OrderedSetList;

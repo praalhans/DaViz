@@ -12,6 +12,7 @@ import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
 import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
 import com.aexiz.daviz.simulation.algorithm.wave.cidon.*;
+import com.aexiz.daviz.simulation.util.FregeHelper;
 import com.aexiz.daviz.simulation.viewpoint.Channel;
 import frege.prelude.PreludeBase.TMaybe.DJust;
 import frege.prelude.PreludeBase.TTuple2;
