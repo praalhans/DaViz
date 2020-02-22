@@ -47,19 +47,8 @@ public class Cidon extends AbstractFregeBasicAlgorithm {
         TPS st = (TPS) o;
         TRRUI rrui = st.mem$state.call();
         CidonState cidonState = new CidonState();
-        PropertyVisitor state;
-        if (rrui.asReceived() != null) {
-            state = new CidonReceived(helper.getChannelByTuple(rrui.asReceived().mem1.call()));
-        } else if (rrui.asReplied() != null) {
-            state = new CidonReplied(helper.getChannelByTuple(rrui.asReplied().mem1.call()));
-        } else if (rrui.asUndefined() != null) {
-            state = new CidonUndefined();
-        } else if (rrui.asInitiator() != null) {
-            state = new CidonInitiator();
-        } else {
-            throw new Error("Invalid RRUI value");
-        }
 
+        PropertyVisitor state = makeState(helper, rrui);
         DJust<TTuple2<Integer, Integer>> in;
         in = st.mem$intention.call().asJust();
         boolean hasToken = st.mem$hasToken.call();
@@ -73,6 +62,7 @@ public class Cidon extends AbstractFregeBasicAlgorithm {
         cidonState.setHasToken(hasToken);
         cidonState.setIntention(intention);
         cidonState.makeProperties();
+
         return cidonState;
     }
 
@@ -85,6 +75,23 @@ public class Cidon extends AbstractFregeBasicAlgorithm {
     @Override
     public TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {
         return procDesc(Thunk.lazy(helper.getIdByNode(assumption.getInitiator()))).simsalabim();
+    }
+
+    private PropertyVisitor makeState(FregeHelper helper, TRRUI rrui) {
+        if (rrui.asReceived() != null) {
+            return new CidonReceived(helper.getChannelByTuple(rrui.asReceived().mem1.call()));
+        }
+        if (rrui.asReplied() != null) {
+            return new CidonReplied(helper.getChannelByTuple(rrui.asReplied().mem1.call()));
+        }
+        if (rrui.asUndefined() != null) {
+            return new CidonUndefined();
+        }
+        if (rrui.asInitiator() != null) {
+            return new CidonInitiator();
+        }
+        throw new Error("Invalid RRUI value");
+
     }
 
 }
