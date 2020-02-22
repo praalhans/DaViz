@@ -1,7 +1,5 @@
 package com.aexiz.daviz.simulation;
 
-import com.aexiz.daviz.simulation.algorithm.Simulation;
-
 import java.util.List;
 
 public interface Execution {

@@ -2,7 +2,6 @@ package com.aexiz.daviz.simulation;
 
 import com.aexiz.daviz.simulation.algorithm.Algorithm;
 import com.aexiz.daviz.simulation.algorithm.Assumption;
-import com.aexiz.daviz.simulation.algorithm.Simulation;
 import com.aexiz.daviz.simulation.viewpoint.Node;
 
 import java.util.UUID;
