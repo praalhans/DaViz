@@ -18,7 +18,7 @@ import java.util.List;
 
 import static com.aexiz.daviz.frege.simulation.Visited.procDesc;
 
-public class Visited extends DefaultAlgorithm {
+public class Visited extends AbstractFregeBasicAlgorithm {
 
     public Visited() {
         assumption = new Assumption() {
@@ -28,8 +28,9 @@ public class Visited extends DefaultAlgorithm {
         };
     }
 
-    protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
-        validateParameters(helper, o);
+    @Override
+    public MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
+        FregeAlgorithm.validateParameters(helper, o);
 
         @SuppressWarnings("unchecked")
         TSet<Integer> t = (TSet<Integer>) o;
@@ -38,8 +39,9 @@ public class Visited extends DefaultAlgorithm {
         return result;
     }
 
-    protected StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
-        validateParameters(helper, o);
+    @Override
+    public StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
+        FregeAlgorithm.validateParameters(helper, o);
         abstract class VisitedRRUI implements PropertyVisitor {
         }
         class VisitedState implements StateInformation {
@@ -134,12 +136,14 @@ public class Visited extends DefaultAlgorithm {
         return result;
     }
 
-    protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
-        validateParameters(helper, o);
+    @Override
+    public ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
+        FregeAlgorithm.validateParameters(helper, o);
         return (Boolean) o ? new VisitedTerminated() : new VisitedDecided();
     }
 
-    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {
+    @Override
+    public TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {
         return procDesc(Thunk.lazy(helper.getIdByNode(assumption.getInitiator()))).simsalabim();
     }
 

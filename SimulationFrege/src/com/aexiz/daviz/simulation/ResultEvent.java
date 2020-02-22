@@ -21,7 +21,7 @@ public class ResultEvent extends DefaultEvent implements tResultEvent {
         super.unload();
         hEvent = super.hEvent.asEResult();
         FregeHelper helper = new FregeHelper(simulation);
-        result = ((DefaultAlgorithm)simulation.getAlgorithm()).makeAndUnloadResult(helper, hEvent.mem$val.call());
+        result = ((FregeAlgorithm)simulation.getAlgorithm()).makeAndUnloadResult(helper, hEvent.mem$val.call());
     }
 
     @Override

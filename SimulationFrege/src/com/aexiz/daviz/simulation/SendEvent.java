@@ -24,8 +24,8 @@ public class SendEvent extends DefaultEvent implements tSendEvent {
         super.unload();
         hEvent = super.hEvent.asESend();
         FregeHelper helper = new FregeHelper(simulation);
-        message = ((DefaultAlgorithm) simulation.getAlgorithm()).makeAndUnloadMessage(helper, hEvent.mem$msg.call());
-        nextState = ((DefaultAlgorithm) simulation.getAlgorithm()).makeAndUnloadState(helper, hEvent.mem$next.call());
+        message = ((FregeAlgorithm) simulation.getAlgorithm()).makeAndUnloadMessage(helper, hEvent.mem$msg.call());
+        nextState = ((FregeAlgorithm) simulation.getAlgorithm()).makeAndUnloadState(helper, hEvent.mem$next.call());
         receiver = simulation.getNetwork().getNodeById(hEvent.mem$recv.call());
     }
 

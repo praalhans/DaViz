@@ -18,7 +18,7 @@ import java.util.List;
 
 import static com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.procDesc;
 
-public class Cidon extends DefaultAlgorithm {
+public class Cidon extends AbstractFregeBasicAlgorithm {
 
     public Cidon() {
         assumption = new Assumption() {
@@ -33,8 +33,9 @@ public class Cidon extends DefaultAlgorithm {
         return (network.getNodes().length + network.getChannels().length) * 15;
     }
 
-    protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
-        validateParameters(helper, o);
+    @Override
+    public MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
+        FregeAlgorithm.validateParameters(helper, o);
 
         short t = (Short) o;
 
@@ -43,8 +44,9 @@ public class Cidon extends DefaultAlgorithm {
         throw new Error("Unknown message");
     }
 
-    protected StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
-        validateParameters(helper, o);
+    @Override
+    public StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
+        FregeAlgorithm.validateParameters(helper, o);
         abstract class CidonRRUI implements PropertyVisitor {
         }
         class CidonState implements StateInformation {
@@ -150,12 +152,14 @@ public class Cidon extends DefaultAlgorithm {
         return result;
     }
 
-    protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
-        validateParameters(helper, o);
+    @Override
+    public ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
+        FregeAlgorithm.validateParameters(helper, o);
         return (Boolean) o ? new CidonTerminated() : new CidonDecided();
     }
 
-    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {
+    @Override
+    public TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {
         return procDesc(Thunk.lazy(helper.getIdByNode(assumption.getInitiator()))).simsalabim();
     }
 

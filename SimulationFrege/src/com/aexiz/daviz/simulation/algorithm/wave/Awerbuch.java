@@ -4,10 +4,7 @@ import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Awerbuch.TMS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Awerbuch.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Awerbuch.TRRRUII;
-import com.aexiz.daviz.simulation.Assumption;
-import com.aexiz.daviz.simulation.Channel;
-import com.aexiz.daviz.simulation.DefaultAlgorithm;
-import com.aexiz.daviz.simulation.FregeHelper;
+import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.information.*;
 import com.aexiz.daviz.simulation.algorithm.wave.awerbuch.*;
 import frege.prelude.PreludeBase.TMaybe.DJust;
@@ -18,7 +15,7 @@ import java.util.List;
 
 import static com.aexiz.daviz.frege.simulation.algorithm.wave.Awerbuch.procDesc;
 
-public class Awerbuch extends DefaultAlgorithm {
+public class Awerbuch extends AbstractFregeBasicAlgorithm {
 
     public Awerbuch() {
         assumption = new Assumption() {
@@ -28,8 +25,9 @@ public class Awerbuch extends DefaultAlgorithm {
         };
     }
 
-    protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
-        validateParameters(helper, o);
+    @Override
+    public MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
+        FregeAlgorithm.validateParameters(helper, o);
 
         short t = (Short) o;
 
@@ -39,8 +37,9 @@ public class Awerbuch extends DefaultAlgorithm {
         throw new Error("Unknown message");
     }
 
-    protected StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
-        validateParameters(helper, o);
+    @Override
+    public StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
+        FregeAlgorithm.validateParameters(helper, o);
         abstract class AwerbuchRRRUII implements PropertyVisitor {
         }
         class AwerbuchState implements StateInformation {
@@ -206,12 +205,14 @@ public class Awerbuch extends DefaultAlgorithm {
         return result;
     }
 
-    protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
-        validateParameters(helper, o);
+    @Override
+    public ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
+        FregeAlgorithm.validateParameters(helper, o);
         return (Boolean) o ? new AwerbuchTerminated() : new AwerbuchDecided();
     }
 
-    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {
+    @Override
+    public TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {
         return procDesc(Thunk.lazy(helper.getIdByNode(assumption.getInitiator()))).simsalabim();
     }
 

@@ -4,10 +4,7 @@ import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.TMS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.TRRUI;
-import com.aexiz.daviz.simulation.Assumption;
-import com.aexiz.daviz.simulation.Channel;
-import com.aexiz.daviz.simulation.DefaultAlgorithm;
-import com.aexiz.daviz.simulation.FregeHelper;
+import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.information.*;
 import com.aexiz.daviz.simulation.algorithm.wave.echo.EchoBroadcast;
 import com.aexiz.daviz.simulation.algorithm.wave.echo.EchoDecided;
@@ -18,7 +15,7 @@ import java.util.List;
 
 import static com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.procDesc;
 
-public class Echo extends DefaultAlgorithm {
+public class Echo extends AbstractFregeBasicAlgorithm {
 
     public Echo() {
         assumption = new Assumption() {
@@ -28,14 +25,16 @@ public class Echo extends DefaultAlgorithm {
         };
     }
 
-    protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
-        validateParameters(helper, o);
+    @Override
+    public MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
+        FregeAlgorithm.validateParameters(helper, o);
         if ((Short) o == TMS.Broadcast) return new EchoBroadcast();
         throw new Error("Invalid message");
     }
 
-    protected StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
-        validateParameters(helper, o);
+    @Override
+    public StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
+        FregeAlgorithm.validateParameters(helper, o);
         abstract class EchoRRUI implements PropertyVisitor {
         }
         class EchoState implements StateInformation {
@@ -130,12 +129,14 @@ public class Echo extends DefaultAlgorithm {
         return result;
     }
 
-    protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
-        validateParameters(helper, o);
+    @Override
+    public ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
+        FregeAlgorithm.validateParameters(helper, o);
         return (Boolean) o ? new EchoDecided() : new EchoTerminated();
     }
 
-    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {
+    @Override
+    public TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {
         return procDesc(Thunk.lazy(helper.getIdByNode(assumption.getInitiator()))).simsalabim();
     }
 

@@ -3,10 +3,7 @@ package com.aexiz.daviz.simulation.algorithm.wave;
 import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.Set.TSet;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Tarry.TDUI;
-import com.aexiz.daviz.simulation.Assumption;
-import com.aexiz.daviz.simulation.Channel;
-import com.aexiz.daviz.simulation.DefaultAlgorithm;
-import com.aexiz.daviz.simulation.FregeHelper;
+import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.information.*;
 import com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryDecided;
 import com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryTerminated;
@@ -19,7 +16,7 @@ import java.util.List;
 
 import static com.aexiz.daviz.frege.simulation.algorithm.wave.Tarry.procDesc;
 
-public class Tarry extends DefaultAlgorithm {
+public class Tarry extends AbstractFregeBasicAlgorithm {
 
     public Tarry() {
         assumption = new Assumption() {
@@ -29,15 +26,17 @@ public class Tarry extends DefaultAlgorithm {
         };
     }
 
-    protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
-        validateParameters(helper, o);
+    @Override
+    public MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
+        FregeAlgorithm.validateParameters(helper, o);
 
         if ((Short) o == 0) return new TarryToken();
         throw new Error("Invalid Haskell unit");
     }
 
-    protected StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
-        validateParameters(helper, o);
+    @Override
+    public StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
+        FregeAlgorithm.validateParameters(helper, o);
         abstract class TarryDUI implements PropertyVisitor {
         }
         class TarryState implements StateInformation {
@@ -129,12 +128,14 @@ public class Tarry extends DefaultAlgorithm {
         return result;
     }
 
-    protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
-        validateParameters(helper, o);
+    @Override
+    public ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
+        FregeAlgorithm.validateParameters(helper, o);
         return (Boolean) o ? new TarryTerminated() : new TarryDecided();
     }
 
-    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {
+    @Override
+    public TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {
         return procDesc(Thunk.lazy(helper.getIdByNode(assumption.getInitiator()))).simsalabim();
     }
 

@@ -4,10 +4,7 @@ import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.TMS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.TUPDS;
-import com.aexiz.daviz.simulation.Assumption;
-import com.aexiz.daviz.simulation.Channel;
-import com.aexiz.daviz.simulation.DefaultAlgorithm;
-import com.aexiz.daviz.simulation.FregeHelper;
+import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.information.*;
 import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeAckAck;
 import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeAckInfo;
@@ -18,7 +15,7 @@ import java.util.List;
 
 import static com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.procDesc;
 
-public class TreeAck extends DefaultAlgorithm {
+public class TreeAck extends AbstractFregeBasicAlgorithm {
 
     public TreeAck() {
         assumption = new Assumption() {
@@ -29,16 +26,18 @@ public class TreeAck extends DefaultAlgorithm {
         };
     }
 
-    protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
-        validateParameters(helper, o);
+    @Override
+    public MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
+        FregeAlgorithm.validateParameters(helper, o);
         Short t = (Short) o;
         if (t == TMS.Info) return new TreeAckInfo();
         if (t == TMS.Ack) return new TreeAckAck();
         throw new Error("Invalid message");
     }
 
-    protected StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
-        validateParameters(helper, o);
+    @Override
+    public StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
+        FregeAlgorithm.validateParameters(helper, o);
         abstract class TreeAckUPDS implements PropertyVisitor {
         }
         class TreeAckState implements StateInformation {
@@ -136,12 +135,14 @@ public class TreeAck extends DefaultAlgorithm {
         return result;
     }
 
-    protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
-        validateParameters(helper, o);
+    @Override
+    public ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
+        FregeAlgorithm.validateParameters(helper, o);
         return (Boolean) o ? new TreeAckDecided() : new TreeAckTerminated();
     }
 
-    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {
+    @Override
+    public TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {
         return procDesc.call().simsalabim();
     }
 

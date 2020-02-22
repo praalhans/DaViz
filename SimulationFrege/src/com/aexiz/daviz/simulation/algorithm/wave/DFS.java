@@ -3,11 +3,8 @@ package com.aexiz.daviz.simulation.algorithm.wave;
 import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.Set.TSet;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.DFS.TRRUI;
-import com.aexiz.daviz.simulation.DefaultAlgorithm;
-import com.aexiz.daviz.simulation.Assumption;
-import com.aexiz.daviz.simulation.FregeHelper;
+import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.information.*;
-import com.aexiz.daviz.simulation.Channel;
 import com.aexiz.daviz.simulation.algorithm.wave.dfs.DFSDecided;
 import com.aexiz.daviz.simulation.algorithm.wave.dfs.DFSTerminated;
 import com.aexiz.daviz.simulation.algorithm.wave.dfs.DFSToken;
@@ -21,7 +18,7 @@ import java.util.List;
 
 import static com.aexiz.daviz.frege.simulation.algorithm.wave.DFS.procDesc;
 
-public class DFS extends DefaultAlgorithm {
+public class DFS extends AbstractFregeBasicAlgorithm {
 
     public DFS() {
         assumption = new Assumption() {
@@ -31,15 +28,17 @@ public class DFS extends DefaultAlgorithm {
         };
     }
 
-    protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
-        validateParameters(helper, o);
+    @Override
+    public MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
+        FregeAlgorithm.validateParameters(helper, o);
 
         if ((Short) o == 0) return new DFSToken();
         throw new Error("Invalid Haskell unit");
     }
 
-    protected StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
-        validateParameters(helper, o);
+    @Override
+    public StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
+        FregeAlgorithm.validateParameters(helper, o);
         abstract class DFS_RRUI implements PropertyVisitor {
         }
         class DFS_State implements StateInformation {
@@ -135,11 +134,13 @@ public class DFS extends DefaultAlgorithm {
         return result;
     }
 
-    protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
+    @Override
+    public ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
         return (Boolean) o ? new DFSTerminated() : new DFSDecided();
     }
 
-    protected TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {
+    @Override
+    public TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {
         return procDesc(Thunk.lazy(helper.getIdByNode(assumption.getInitiator()))).simsalabim();
     }
 

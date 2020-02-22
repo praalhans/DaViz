@@ -24,7 +24,7 @@ public class DefaultExecution extends AbstractExecution implements Execution {
         FregeHelper helper = new FregeHelper(simulation);
         hSimulation = Simulation.simulation(
                 ((DefaultConfiguration) configuration).hConfiguration,
-                ((DefaultAlgorithm) simulation.getAlgorithm()).getProcessDescription(helper));
+                ((FregeAlgorithm) simulation.getAlgorithm()).getProcessDescription(helper));
         parent = null;
         lastEvent = null;
         // Reload configuration from Haskell

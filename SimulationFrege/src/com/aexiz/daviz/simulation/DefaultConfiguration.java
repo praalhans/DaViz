@@ -38,7 +38,7 @@ public class DefaultConfiguration extends AbstractConfiguration implements Confi
                 processState[i] = null; // TODO unload result space
             } else {
                 processAlive[i] = true;
-                processState[i] = ((DefaultAlgorithm) alg).makeAndUnloadState(helper, j.mem1.call());
+                processState[i] = ((FregeAlgorithm) alg).makeAndUnloadState(helper, j.mem1.call());
             }
         }
         // 2. Read out channel state
@@ -59,7 +59,7 @@ public class DefaultConfiguration extends AbstractConfiguration implements Confi
             boolean found = false;
             for (int i = 0; i < channels.length; i++) {
                 if (channels[i].from.hId == f && channels[i].to.hId == t) {
-                    channelState[i].add(((DefaultAlgorithm) alg).makeAndUnloadMessage(helper, msg));
+                    channelState[i].add(((FregeAlgorithm) alg).makeAndUnloadMessage(helper, msg));
                     found = true;
                     break;
                 }
