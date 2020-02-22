@@ -65,19 +65,6 @@ public class Visited extends AbstractFregeBasicAlgorithm {
                 });
             }
         }
-        class VisitedReceived extends VisitedRRUI {
-            private Channel c;
-
-            public String toString() {
-                return "Received<" + c + ">";
-            }
-
-            @Override
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Received");
-                builder.simpleProperty("From:", c.to.getLabel());
-            }
-        }
         @SuppressWarnings("unchecked")
         TTuple3<TMaybe<TSet<Integer>>, TRRUI, TSet<TTuple2<Integer, Integer>>> st =
                 (TTuple3<TMaybe<TSet<Integer>>, TRRUI, TSet<TTuple2<Integer, Integer>>>) o;
@@ -86,8 +73,7 @@ public class Visited extends AbstractFregeBasicAlgorithm {
         result.hasToken = tok == null ? null : helper.forVertexSet(tok.mem1.call());
         TRRUI rrui = st.mem2.call();
         if (rrui.asReceived() != null) {
-            VisitedReceived r = new VisitedReceived();
-            r.c = helper.getChannelByTuple(rrui.asReceived().mem1.call());
+            VisitedReceived r = new VisitedReceived(helper.getChannelByTuple(rrui.asReceived().mem1.call()));
             result.rrui = r;
         } else if (rrui.asReplied() != null) {
             VisitedReplied r = new VisitedReplied(helper.getChannelByTuple(rrui.asReplied().mem1.call()));

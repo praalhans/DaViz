@@ -5,7 +5,7 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.TMS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.TRRUI;
 import com.aexiz.daviz.simulation.*;
-import com.aexiz.daviz.simulation.algorithm.information.*;
+import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
@@ -80,25 +80,12 @@ public class Cidon extends AbstractFregeBasicAlgorithm {
                 });
             }
         }
-        class CidonReceived extends CidonRRUI {
-            private Channel c;
-
-            public String toString() {
-                return "Received<" + c + ">";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Received");
-                builder.simpleProperty("From:", c.to.getLabel());
-            }
-        }
         TPS st = (TPS) o;
         CidonState result = new CidonState();
         result.hasToken = st.mem$hasToken.call();
         TRRUI rrui = st.mem$state.call();
         if (rrui.asReceived() != null) {
-            CidonReceived r = new CidonReceived();
-            r.c = helper.getChannelByTuple(rrui.asReceived().mem1.call());
+            CidonReceived r = new CidonReceived(helper.getChannelByTuple(rrui.asReceived().mem1.call()));
             result.rrui = r;
         } else if (rrui.asReplied() != null) {
             CidonReplied r = new CidonReplied(helper.getChannelByTuple(rrui.asReplied().mem1.call()));

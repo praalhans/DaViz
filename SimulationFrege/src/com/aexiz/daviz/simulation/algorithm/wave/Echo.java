@@ -64,17 +64,6 @@ public class Echo extends AbstractFregeBasicAlgorithm {
                 });
             }
         }
-        class EchoReceived extends EchoRRUI {
-            private Channel c;
-
-            public String toString() {
-                return "Received<" + c + ">";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("Received:", c.to.getLabel());
-            }
-        }
         TPS st = (TPS) o;
         EchoState result = new EchoState();
         result.neighbors = helper.forEdgeSet(st.mem$neighbors.call());
@@ -87,8 +76,7 @@ public class Echo extends AbstractFregeBasicAlgorithm {
             EchoInitiator r = new EchoInitiator();
             result.state = r;
         } else if (up.asReceived() != null) {
-            EchoReceived r = new EchoReceived();
-            r.c = helper.getChannelByTuple(up.asReceived().mem1.call());
+            EchoReceived r = new EchoReceived(helper.getChannelByTuple(up.asReceived().mem1.call()));
             result.state = r;
         } else if (up.asReplied() != null) {
             EchoReplied r = new EchoReplied(helper.getChannelByTuple(up.asReplied().mem1.call()));

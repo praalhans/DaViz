@@ -63,18 +63,6 @@ public class DFS extends AbstractFregeBasicAlgorithm {
                 });
             }
         }
-        class DFS_Received extends DFS_RRUI {
-            private Channel c;
-
-            public String toString() {
-                return "Received<" + c + ">";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Received");
-                builder.simpleProperty("From:", c.to.getLabel());
-            }
-        }
         @SuppressWarnings("unchecked")
         TTuple4<Boolean, TRRUI, TSet<TTuple2<Integer, Integer>>, TMaybe<TTuple2<Integer, Integer>>> st =
                 (TTuple4<Boolean, TRRUI, TSet<TTuple2<Integer, Integer>>, TMaybe<TTuple2<Integer, Integer>>>) o;
@@ -82,8 +70,7 @@ public class DFS extends AbstractFregeBasicAlgorithm {
         result.hasToken = st.mem1.call();
         TRRUI rrui = st.mem2.call();
         if (rrui.asReceived() != null) {
-            DFS_Received r = new DFS_Received();
-            r.c = helper.getChannelByTuple(rrui.asReceived().mem1.call());
+            DFSReceived r = new DFSReceived(helper.getChannelByTuple(rrui.asReceived().mem1.call()));
             result.rrui = r;
         } else if (rrui.asReplied() != null) {
             DFSReplied r = new DFSReplied(helper.getChannelByTuple(rrui.asReplied().mem1.call()));

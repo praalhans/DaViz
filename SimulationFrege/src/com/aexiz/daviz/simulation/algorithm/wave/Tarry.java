@@ -59,18 +59,6 @@ public class Tarry extends AbstractFregeBasicAlgorithm {
                 });
             }
         }
-        class TarryReceived extends TarryDUI {
-            private Channel c;
-
-            public String toString() {
-                return "Received<" + c + ">";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Received");
-                builder.simpleProperty("From:", c.to.getLabel());
-            }
-        }
         @SuppressWarnings("unchecked")
         TTuple3<Boolean, TDUI, TSet<TTuple2<Integer, Integer>>> st =
                 (TTuple3<Boolean, TDUI, TSet<TTuple2<Integer, Integer>>>) o;
@@ -78,8 +66,7 @@ public class Tarry extends AbstractFregeBasicAlgorithm {
         result.hasToken = st.mem1.call();
         TDUI dui = st.mem2.call();
         if (dui.asReceived() != null) {
-            TarryReceived r = new TarryReceived();
-            r.c = helper.getChannelByTuple(dui.asReceived().mem1.call());
+            TarryReceived r = new TarryReceived(helper.getChannelByTuple(dui.asReceived().mem1.call()));
             result.dui = r;
         } else if (dui.asReplied() != null) {
             TarryReplied r = new TarryReplied(helper.getChannelByTuple(dui.asReplied().mem1.call()));
