@@ -30,6 +30,7 @@ public class ControlFrame extends JFrame {
     JMenu testCaseMenu;
     TestCases[] testCases;
     JMenuItem[] testCaseButtons;
+
     ControlFrame() {
         ArrayList<Image> icons = new ArrayList<>();
         icons.add(new ImageIcon(ImageRoot.class.getResource("d16/multitool.png")).getImage());
