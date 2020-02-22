@@ -45,9 +45,19 @@ public abstract class AbstractEvent extends Locus implements Cloneable, Event {
     }
 
     @Override
+    public void setSimulation(Simulation simulation) {
+        this.simulation = simulation;
+    }
+
+    @Override
     public Execution getExecution() {
         isInvariant();
         return execution;
+    }
+
+    @Override
+    public void setExecution(Execution execution) {
+        this.execution = execution;
     }
 
     @Override
@@ -58,16 +68,6 @@ public abstract class AbstractEvent extends Locus implements Cloneable, Event {
     @Override
     public Node getHappensAt() {
         return happensAt;
-    }
-
-    @Override
-    public void setSimulation(Simulation simulation) {
-        this.simulation = simulation;
-    }
-
-    @Override
-    public void setExecution(Execution execution) {
-        this.execution = execution;
     }
 
     @Override

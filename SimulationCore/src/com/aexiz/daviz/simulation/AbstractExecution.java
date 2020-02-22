@@ -11,14 +11,12 @@ public abstract class AbstractExecution implements Execution {
      * may be null for root
      */
     protected Execution parent;
-
+    protected transient List<Execution> successors;
+    protected transient Configuration configuration;
     /**
      * may be null for root
      */
     Event lastEvent;
-
-    protected transient List<Execution> successors;
-    protected transient Configuration configuration;
 
     protected void isInvariant() {
         if (simulation == null) throw new Error("Invalid simulation");
@@ -37,6 +35,11 @@ public abstract class AbstractExecution implements Execution {
     }
 
     @Override
+    public void setParent(Execution parent) {
+        this.parent = parent;
+    }
+
+    @Override
     public boolean hasEvents() {
         return hasParent();
     }
@@ -49,11 +52,6 @@ public abstract class AbstractExecution implements Execution {
     @Override
     public void setSimulation(Simulation simulation) {
         this.simulation = simulation;
-    }
-
-    @Override
-    public void setParent(Execution parent) {
-        this.parent = parent;
     }
 
     @Override

@@ -9,7 +9,7 @@ public abstract class AbstractAlgorithm implements Algorithm {
     }
 
     @Override
-    public Integer getMaxRounds(Network network){
+    public Integer getMaxRounds(Network network) {
         return null;
     }
 
