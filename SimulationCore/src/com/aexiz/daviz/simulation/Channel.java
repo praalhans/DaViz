@@ -34,13 +34,13 @@ public class Channel extends Viewpoint {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof com.aexiz.daviz.simulation.Channel) {
-            return equals((com.aexiz.daviz.simulation.Channel) obj);
+        if (obj instanceof Channel) {
+            return equals((Channel) obj);
         }
         return false;
     }
 
-    public boolean equals(com.aexiz.daviz.simulation.Channel other) {
+    public boolean equals(Channel other) {
         if (other == null) return false;
         return other.from.equals(from) && other.to.equals(to);
     }
