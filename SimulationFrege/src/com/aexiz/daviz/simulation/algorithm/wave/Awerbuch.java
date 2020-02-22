@@ -8,7 +8,7 @@ import com.aexiz.daviz.simulation.AbstractFregeBasicAlgorithm;
 import com.aexiz.daviz.simulation.Channel;
 import com.aexiz.daviz.simulation.FregeAlgorithm;
 import com.aexiz.daviz.simulation.FregeHelper;
-import com.aexiz.daviz.simulation.algorithm.information.*;
+import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
@@ -102,19 +102,6 @@ public class Awerbuch extends AbstractFregeBasicAlgorithm {
                 builder.simpleProperty("Ack:", toAck == null ? "None" : toAck.to.getLabel());
             }
         }
-        class AwerbuchReceivedUnseen extends AwerbuchRRRUII {
-            private Channel c;
-
-            public String toString() {
-                return "ReceivedUnseen<" + c + ">";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Received");
-                builder.simpleProperty("Seen token?", "false");
-                builder.simpleProperty("From:", c.to.getLabel());
-            }
-        }
         class AwerbuchInitiatorSeen extends AwerbuchRRRUII {
             public String toString() {
                 return "InitiatorSeen";
@@ -141,11 +128,10 @@ public class Awerbuch extends AbstractFregeBasicAlgorithm {
         TRRRUII rrruii = st.mem$state.call();
 
         if (rrruii.asReceivedSeen() != null) {
-            AwerbuchReceivedSeen r = new AwerbuchReceivedSeen(helper.getChannelByTuple(rrruii.asReceivedSeen().mem1.call()));
+            AwerbuchReceivedSeem r = new AwerbuchReceivedSeem(helper.getChannelByTuple(rrruii.asReceivedSeen().mem1.call()), true);
             result.rrruii = r;
         } else if (rrruii.asReceivedUnseen() != null) {
-            AwerbuchReceivedUnseen r = new AwerbuchReceivedUnseen();
-            r.c = helper.getChannelByTuple(rrruii.asReceivedUnseen().mem1.call());
+            AwerbuchReceivedSeem r = new AwerbuchReceivedSeem(helper.getChannelByTuple(rrruii.asReceivedUnseen().mem1.call()), false);
             result.rrruii = r;
         } else if (rrruii.asReplied() != null) {
             result.rrruii = new AwerbuchReplied(helper.getChannelByTuple(rrruii.asReplied().mem1.call()));
