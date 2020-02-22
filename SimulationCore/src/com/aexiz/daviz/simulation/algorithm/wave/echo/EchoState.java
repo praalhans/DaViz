@@ -29,7 +29,8 @@ public class EchoState extends AbstractAlgorithmState {
         this.state = state;
     }
 
-    public void makeState() {
+    @Override
+    public void makeProperties() {
         properties = Map.of(
                 "State", state,
                 "Neighbors", makeNodesProperty(neighbors),
