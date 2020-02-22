@@ -1,7 +1,7 @@
 package com.aexiz.daviz.simulation.algorithm.wave.cidon;
 
 import com.aexiz.daviz.simulation.Assumption;
-import com.aexiz.daviz.simulation.BasicAlgorithm;
+import com.aexiz.daviz.simulation.algorithm.BasicAlgorithm;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 

@@ -1,5 +1,7 @@
 package com.aexiz.daviz.simulation;
 
+import com.aexiz.daviz.simulation.algorithm.Algorithm;
+
 import java.util.UUID;
 
 public abstract class AbstractSimulation implements Simulation {

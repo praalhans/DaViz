@@ -1,5 +1,7 @@
 package com.aexiz.daviz.simulation;
 
+import com.aexiz.daviz.simulation.algorithm.Algorithm;
+
 public class DefaultSimulation extends AbstractSimulation implements Simulation {
 
 

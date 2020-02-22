@@ -1,4 +1,7 @@
-package com.aexiz.daviz.simulation;
+package com.aexiz.daviz.simulation.algorithm;
+
+import com.aexiz.daviz.simulation.Assumption;
+import com.aexiz.daviz.simulation.Network;
 
 public interface Algorithm {
     Assumption getAssumption();
