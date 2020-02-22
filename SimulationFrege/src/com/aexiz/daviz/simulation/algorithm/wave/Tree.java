@@ -5,10 +5,7 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.Tree.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Tree.TUP;
 import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.information.*;
-import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeAssumption;
-import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeDecided;
-import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeInfo;
-import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeUndefined;
+import com.aexiz.daviz.simulation.algorithm.wave.tree.*;
 
 import java.util.List;
 
@@ -52,17 +49,6 @@ public class Tree extends AbstractFregeBasicAlgorithm {
                 });
             }
         }
-        class TreeParent extends TreeUP {
-            private Channel c;
-
-            public String toString() {
-                return "Parent<" + c + ">";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("Parent:", c.to.getLabel());
-            }
-        }
         TPS st = (TPS) o;
         TreeState result = new TreeState();
         result.neigh = helper.forEdgeSet(st.mem$neigh.call());
@@ -71,8 +57,7 @@ public class Tree extends AbstractFregeBasicAlgorithm {
             TreeUndefined r = new TreeUndefined();
             result.state = r;
         } else if (up.asParent() != null) {
-            TreeParent r = new TreeParent();
-            r.c = helper.getChannelByTuple(up.asParent().mem1.call());
+            TreeParent r = new TreeParent(helper.getChannelByTuple(up.asParent().mem1.call()));
             result.state = r;
         } else throw new Error();
         return result;

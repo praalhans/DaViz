@@ -6,12 +6,7 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.TUPDS;
 import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.information.*;
-import com.aexiz.daviz.simulation.algorithm.wave.treeack.TreeAckAck;
-import com.aexiz.daviz.simulation.algorithm.wave.treeack.TreeAckInfo;
-import com.aexiz.daviz.simulation.algorithm.wave.treeack.TreeAckAssumption;
-import com.aexiz.daviz.simulation.algorithm.wave.treeack.TreeAckDecided;
-import com.aexiz.daviz.simulation.algorithm.wave.treeack.TreeAckTerminated;
-import com.aexiz.daviz.simulation.algorithm.wave.treeack.TreeAckUndefined;
+import com.aexiz.daviz.simulation.algorithm.wave.treeack.*;
 
 import java.util.List;
 
@@ -66,17 +61,6 @@ public class TreeAck extends AbstractFregeBasicAlgorithm {
                 });
             }
         }
-        class TreeAckParent extends TreeAckUPDS {
-            private Channel c;
-
-            public String toString() {
-                return "Parent<" + c + ">";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("Parent:", c.to.getLabel());
-            }
-        }
         class TreeAckDecider extends TreeAckUPDS {
             private Channel c;
 
@@ -108,8 +92,7 @@ public class TreeAck extends AbstractFregeBasicAlgorithm {
             TreeAckUndefined r = new TreeAckUndefined();
             result.state = r;
         } else if (up.asParent() != null) {
-            TreeAckParent r = new TreeAckParent();
-            r.c = helper.getChannelByTuple(up.asParent().mem1.call());
+            TreeAckParent r = new TreeAckParent(helper.getChannelByTuple(up.asParent().mem1.call()));
             result.state = r;
         } else if (up.asDecider() != null) {
             TreeAckDecider r = new TreeAckDecider();
