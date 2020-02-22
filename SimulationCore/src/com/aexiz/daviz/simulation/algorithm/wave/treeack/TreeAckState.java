@@ -1,23 +1,29 @@
-package com.aexiz.daviz.simulation.algorithm.wave.tree;
+package com.aexiz.daviz.simulation.algorithm.wave.treeack;
 
 import com.aexiz.daviz.simulation.Channel;
+import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
 import com.aexiz.daviz.simulation.algorithm.information.state.AbstractAlgorithmState;
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
 
 import java.util.List;
 import java.util.Map;
 
-public class TreeState extends AbstractAlgorithmState {
+public class TreeAckState extends AbstractAlgorithmState {
     List<Channel> neighbors;
+    List<Channel> children;
     PropertyVisitor state;
 
     @Override
     public String toString() {
-        return "(" + neighbors + "," + state + ")";
+        return "(" + neighbors + "," + children + "," + state + ")";
     }
 
     public void setNeighbors(List<Channel> neighbors) {
         this.neighbors = neighbors;
+    }
+
+    public void setChildren(List<Channel> children) {
+        this.children = children;
     }
 
     public void setState(PropertyVisitor state) {
@@ -27,7 +33,8 @@ public class TreeState extends AbstractAlgorithmState {
     public void makeProperties() {
         properties = Map.of(
                 "State", state,
-                "Neighbors", makeNodesProperty(neighbors)
+                "Neighbors", makeNodesProperty(neighbors),
+                "Children", makeNodesProperty(children)
         );
     }
 }
