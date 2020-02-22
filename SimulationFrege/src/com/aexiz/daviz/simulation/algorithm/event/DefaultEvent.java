@@ -21,7 +21,7 @@ public abstract class DefaultEvent extends AbstractEvent implements Cloneable, E
         super();
     }
 
-    static void matchAndLinkEvents(@NotNull List<DefaultEvent> events) {
+    static public void matchAndLinkEvents(@NotNull List<DefaultEvent> events) {
         // First we clear the state of all events
         for (DefaultEvent old : events) {
             old.matchingEvent = null;
@@ -63,7 +63,7 @@ public abstract class DefaultEvent extends AbstractEvent implements Cloneable, E
     }
 
     @NotNull
-    static Event makeAndUnload(TEvent<Object, Object, Object> event, @NotNull DefaultExecution execution) {
+    static public Event makeAndUnload(TEvent<Object, Object, Object> event, @NotNull DefaultExecution execution) {
         DefaultEvent result = (DefaultEvent) mapFregeToJavaEvent(event);
 
         result.simulation = execution.getSimulation();
