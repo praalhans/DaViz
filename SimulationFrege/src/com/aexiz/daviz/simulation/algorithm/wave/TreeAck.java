@@ -13,6 +13,8 @@ import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformati
 import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
 import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
+import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeAckDecider;
+import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeAckSpreader;
 import com.aexiz.daviz.simulation.algorithm.wave.treeack.*;
 
 import java.util.List;
@@ -68,28 +70,7 @@ public class TreeAck extends AbstractFregeBasicAlgorithm {
                 });
             }
         }
-        class TreeAckDecider extends TreeAckUPDS {
-            private Channel c;
 
-            public String toString() {
-                return "Decider<" + c + ">";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("Decider:", c.to.getLabel());
-            }
-        }
-        class TreeAckSpreader extends TreeAckUPDS {
-            private Channel c;
-
-            public String toString() {
-                return "Spreader<" + c + ">";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("Spreader:", c.to.getLabel());
-            }
-        }
         TPS st = (TPS) o;
         TreeAckState result = new TreeAckState();
         result.neighbors = helper.forEdgeSet(st.mem$neighbors.call());
@@ -100,13 +81,9 @@ public class TreeAck extends AbstractFregeBasicAlgorithm {
         } else if (up.asParent() != null) {
             result.state = new TreeAckParent(helper.getChannelByTuple(up.asParent().mem1.call()).to);
         } else if (up.asDecider() != null) {
-            TreeAckDecider r = new TreeAckDecider();
-            r.c = helper.getChannelByTuple(up.asDecider().mem1.call());
-            result.state = r;
+            result.state = new TreeAckDecider(helper.getChannelByTuple(up.asDecider().mem1.call()));
         } else if (up.asSpreader() != null) {
-            TreeAckSpreader r = new TreeAckSpreader();
-            r.c = helper.getChannelByTuple(up.asSpreader().mem1.call());
-            result.state = r;
+            result.state = new TreeAckSpreader(helper.getChannelByTuple(up.asSpreader().mem1.call()));
         } else throw new Error();
         return result;
     }
