@@ -1,20 +1,17 @@
 package com.aexiz.daviz.simulation.algorithm.information.message;
 
-import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
+import java.util.Map;
 
-public class InfoMessage extends AbstractMessageInformation {
+public class InfoMessage extends AbstractMessage {
+    public InfoMessage() {
+        super(
+                "info",
+                Map.of("", "Info")
+        );
+    }
+
     @Override
     public boolean equals(Object obj) {
         return obj instanceof InfoMessage;
-    }
-
-    @Override
-    public String toString() {
-        return "*info*";
-    }
-
-    @Override
-    public void buildProperties(PropertyBuilder builder) {
-        builder.simpleProperty("", "Info");
     }
 }

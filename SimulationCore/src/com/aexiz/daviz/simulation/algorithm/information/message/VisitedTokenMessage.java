@@ -5,8 +5,13 @@ import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
 
 import java.util.List;
 
-public class VisitedTokenMessage extends AbstractMessageInformation {
+public class VisitedTokenMessage extends AbstractMessage {
     protected List<Node> visited;
+
+    public VisitedTokenMessage(List<Node> visited) {
+        super("token");
+        this.visited = visited;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -18,11 +23,6 @@ public class VisitedTokenMessage extends AbstractMessageInformation {
     }
 
     @Override
-    public String toString() {
-        return "*token* " + visited;
-    }
-
-    @Override
     public void buildProperties(PropertyBuilder builder) {
         builder.simpleProperty("", "Token");
         builder.compoundProperty("Visited", builder1 -> {
@@ -31,13 +31,5 @@ public class VisitedTokenMessage extends AbstractMessageInformation {
                 builder1.simpleProperty(i + ":", visited.get(i).getLabel());
             }
         });
-    }
-
-    public List<Node> getVisited() {
-        return visited;
-    }
-
-    public void setVisited(List<Node> visited) {
-        this.visited = visited;
     }
 }

@@ -32,8 +32,7 @@ public class Visited extends AbstractFregeBasicAlgorithm {
 
         @SuppressWarnings("unchecked")
         TSet<Integer> t = (TSet<Integer>) o;
-        VisitedToken result = new VisitedToken();
-        result.setVisited(helper.forVertexSet(t));
+        VisitedToken result = new VisitedToken(helper.forVertexSet(t));
         return result;
     }
 

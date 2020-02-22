@@ -1,20 +1,17 @@
 package com.aexiz.daviz.simulation.algorithm.information.message;
 
-import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
+import java.util.Map;
 
-public class AckMessage extends AbstractMessageInformation {
+public class AckMessage extends AbstractMessage {
+    public AckMessage() {
+        super(
+                "ack",
+                Map.of("", "Ack")
+        );
+    }
+
     @Override
     public boolean equals(Object obj) {
         return obj instanceof AckMessage;
-    }
-
-    @Override
-    public String toString() {
-        return "*ack*";
-    }
-
-    @Override
-    public void buildProperties(PropertyBuilder builder) {
-        builder.simpleProperty("", "Ack");
     }
 }

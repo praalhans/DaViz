@@ -1,16 +1,13 @@
 package com.aexiz.daviz.simulation.algorithm.information.message;
 
-import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
+import java.util.Map;
 
-public class TokenMessage extends AbstractMessageInformation {
-    @Override
-    public void buildProperties(PropertyBuilder builder) {
-        builder.simpleProperty("", "Token");
-    }
-
-    @Override
-    public String toString() {
-        return "*token*";
+public class TokenMessage extends AbstractMessage {
+    public TokenMessage() {
+        super(
+                "token",
+                Map.of("", "Token")
+        );
     }
 
     @Override

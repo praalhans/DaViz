@@ -10,7 +10,7 @@ public class ReceivedState extends AbstractViewpointState {
                 channel,
                 "Received",
                 Map.of(
-                        "", "Replied",
+                        "", "Received",
                         "From", channel.to.getLabel()
                 )
         );
