@@ -12,8 +12,9 @@ public abstract class AbstractAlgorithmState implements StateInformation {
 
     static protected Map<String, String> makeNodesProperty(List<Channel> channels) {
         Map<String, String> map = new HashMap<>();
-        map.put("", channels.size() + " elements");
-        for (int i = 0, channelsSize = channels.size(); i < channelsSize; i++) {
+        int channelsSize = channels.size();
+        map.put("", channelsSize + " node" + (channelsSize != 1 ? "s" : ""));
+        for (int i = 0; i < channelsSize; i++) {
             map.put((i + 1) + ":", channels.get(i).to.getLabel());
         }
         return map;
