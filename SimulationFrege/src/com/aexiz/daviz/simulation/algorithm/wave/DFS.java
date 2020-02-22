@@ -4,10 +4,8 @@ import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.Set.TSet;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.DFS.TRRUI;
 import com.aexiz.daviz.simulation.AbstractFregeBasicAlgorithm;
-import com.aexiz.daviz.simulation.Channel;
 import com.aexiz.daviz.simulation.FregeAlgorithm;
 import com.aexiz.daviz.simulation.FregeHelper;
-import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
@@ -18,8 +16,6 @@ import frege.prelude.PreludeBase.TMaybe.DJust;
 import frege.prelude.PreludeBase.TTuple2;
 import frege.prelude.PreludeBase.TTuple4;
 import frege.run8.Thunk;
-
-import java.util.List;
 
 import static com.aexiz.daviz.frege.simulation.algorithm.wave.DFS.procDesc;
 
@@ -41,50 +37,18 @@ public class DFS extends AbstractFregeBasicAlgorithm {
     public StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
         FregeAlgorithm.validateParameters(helper, o);
 
-        class DFS_State implements StateInformation {
-            boolean hasToken;
-            PropertyVisitor rrui;
-            List<Channel> neighbors;
-            Channel incoming;
-
-            public String toString() {
-                return "(" + hasToken + "," + rrui + "," + neighbors + "," + incoming + ")";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("Has token?", String.valueOf(hasToken));
-                builder.compoundProperty("State", rrui);
-                builder.simpleProperty("Reply to:", incoming == null ? "None" : incoming.to.getLabel());
-                builder.compoundProperty("Neighbors", new PropertyVisitor() {
-                    public void buildProperties(PropertyBuilder builder) {
-                        builder.simpleProperty("", neighbors.size() + " elements");
-                        for (int i = 0, size = neighbors.size(); i < size; i++) {
-                            builder.simpleProperty(i + ":", neighbors.get(i).to.getLabel());
-                        }
-                    }
-                });
-            }
-        }
         @SuppressWarnings("unchecked")
         TTuple4<Boolean, TRRUI, TSet<TTuple2<Integer, Integer>>, TMaybe<TTuple2<Integer, Integer>>> st =
                 (TTuple4<Boolean, TRRUI, TSet<TTuple2<Integer, Integer>>, TMaybe<TTuple2<Integer, Integer>>>) o;
-        DFS_State result = new DFS_State();
-        result.hasToken = st.mem1.call();
+        DFSState result = new DFSState();
+        result.setHasToken(st.mem1.call());
         TRRUI rrui = st.mem2.call();
-        if (rrui.asReceived() != null) {
-            result.rrui = new DFSReceived(helper.getChannelByTuple(rrui.asReceived().mem1.call()));
-        } else if (rrui.asReplied() != null) {
-            result.rrui = new DFSReplied(helper.getChannelByTuple(rrui.asReplied().mem1.call()));
-        } else if (rrui.asUndefined() != null) {
-            result.rrui = new DFSUndefined();
-        } else if (rrui.asInitiator() != null) {
-            result.rrui = new DFSInitiator();
-        } else {
-            throw new Error("Invalid RRUI value");
-        }
-        result.neighbors = helper.forEdgeSet(st.mem3.call());
+        result.setState(makeState(helper, rrui));
+        result.setNeighbors(helper.forEdgeSet(st.mem3.call()));
         DJust<TTuple2<Integer, Integer>> in = st.mem4.call().asJust();
-        result.incoming = in == null ? null : helper.getChannelByTuple(in.mem1.call());
+        result.setIncoming(in == null ? null : helper.getChannelByTuple(in.mem1.call()));
+        result.makeProperties();
+
         return result;
     }
 
@@ -96,6 +60,22 @@ public class DFS extends AbstractFregeBasicAlgorithm {
     @Override
     public TProcessDescription<Object, Object, Object, Object> getProcessDescription(FregeHelper helper) {
         return procDesc(Thunk.lazy(helper.getIdByNode(assumption.getInitiator()))).simsalabim();
+    }
+
+    private PropertyVisitor makeState(FregeHelper helper, TRRUI rrui) {
+        if (rrui.asReceived() != null) {
+            return new DFSReceived(helper.getChannelByTuple(rrui.asReceived().mem1.call()));
+        }
+        if (rrui.asReplied() != null) {
+            return new DFSReplied(helper.getChannelByTuple(rrui.asReplied().mem1.call()));
+        }
+        if (rrui.asUndefined() != null) {
+            return new DFSUndefined();
+        }
+        if (rrui.asInitiator() != null) {
+            return new DFSInitiator();
+        }
+        throw new Error("Invalid RRUI value");
     }
 
 }
