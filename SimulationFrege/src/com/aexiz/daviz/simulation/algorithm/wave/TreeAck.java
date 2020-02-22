@@ -96,7 +96,7 @@ public class TreeAck extends AbstractFregeBasicAlgorithm {
             TreeAckUndefined r = new TreeAckUndefined();
             result.state = r;
         } else if (up.asParent() != null) {
-            TreeAckParent r = new TreeAckParent(helper.getChannelByTuple(up.asParent().mem1.call()));
+            TreeAckParent r = new TreeAckParent(helper.getChannelByTuple(up.asParent().mem1.call()).to);
             result.state = r;
         } else if (up.asDecider() != null) {
             TreeAckDecider r = new TreeAckDecider();

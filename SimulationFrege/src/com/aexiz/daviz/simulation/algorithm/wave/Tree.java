@@ -61,7 +61,7 @@ public class Tree extends AbstractFregeBasicAlgorithm {
             TreeUndefined r = new TreeUndefined();
             result.state = r;
         } else if (up.asParent() != null) {
-            TreeParent r = new TreeParent(helper.getChannelByTuple(up.asParent().mem1.call()));
+            TreeParent r = new TreeParent(helper.getChannelByTuple(up.asParent().mem1.call()).to);
             result.state = r;
         } else throw new Error();
         return result;

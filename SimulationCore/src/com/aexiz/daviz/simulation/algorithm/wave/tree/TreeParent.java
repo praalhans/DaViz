@@ -1,10 +1,10 @@
 package com.aexiz.daviz.simulation.algorithm.wave.tree;
 
-import com.aexiz.daviz.simulation.Channel;
+import com.aexiz.daviz.simulation.Node;
 import com.aexiz.daviz.simulation.algorithm.information.state.ParentState;
 
 public class TreeParent extends ParentState {
-    public TreeParent(Channel channel) {
-        super(channel);
+    public TreeParent(Node node) {
+        super(node);
     }
 }
