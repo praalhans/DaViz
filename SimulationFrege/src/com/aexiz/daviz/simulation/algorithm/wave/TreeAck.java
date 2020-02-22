@@ -4,8 +4,11 @@ import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.TMS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.TUPDS;
-import com.aexiz.daviz.simulation.*;
-import com.aexiz.daviz.simulation.algorithm.information.*;
+import com.aexiz.daviz.simulation.AbstractFregeBasicAlgorithm;
+import com.aexiz.daviz.simulation.Channel;
+import com.aexiz.daviz.simulation.FregeAlgorithm;
+import com.aexiz.daviz.simulation.FregeHelper;
+import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
@@ -93,11 +96,9 @@ public class TreeAck extends AbstractFregeBasicAlgorithm {
         result.children = helper.forEdgeSet(st.mem$children.call());
         TUPDS up = st.mem$state.call();
         if (up.asUndefined() != null) {
-            TreeAckUndefined r = new TreeAckUndefined();
-            result.state = r;
+            result.state = new TreeAckUndefined();
         } else if (up.asParent() != null) {
-            TreeAckParent r = new TreeAckParent(helper.getChannelByTuple(up.asParent().mem1.call()).to);
-            result.state = r;
+            result.state = new TreeAckParent(helper.getChannelByTuple(up.asParent().mem1.call()).to);
         } else if (up.asDecider() != null) {
             TreeAckDecider r = new TreeAckDecider();
             r.c = helper.getChannelByTuple(up.asDecider().mem1.call());

@@ -43,8 +43,7 @@ public class Awerbuch extends AbstractFregeBasicAlgorithm {
     @Override
     public StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
         FregeAlgorithm.validateParameters(helper, o);
-        abstract class AwerbuchRRRUII implements PropertyVisitor {
-        }
+
         class AwerbuchState implements StateInformation {
             boolean hasToken;
             PropertyVisitor rrruii;
@@ -108,11 +107,13 @@ public class Awerbuch extends AbstractFregeBasicAlgorithm {
         TRRRUII rrruii = st.mem$state.call();
 
         if (rrruii.asReceivedSeen() != null) {
-            AwerbuchReceivedSeen r = new AwerbuchReceivedSeen(helper.getChannelByTuple(rrruii.asReceivedSeen().mem1.call()), true);
-            result.rrruii = r;
+            result.rrruii = new AwerbuchReceivedSeen(
+                    helper.getChannelByTuple(rrruii.asReceivedSeen().mem1.call()),
+                    true);
         } else if (rrruii.asReceivedUnseen() != null) {
-            AwerbuchReceivedSeen r = new AwerbuchReceivedSeen(helper.getChannelByTuple(rrruii.asReceivedUnseen().mem1.call()), false);
-            result.rrruii = r;
+            result.rrruii = new AwerbuchReceivedSeen(
+                    helper.getChannelByTuple(rrruii.asReceivedUnseen().mem1.call()),
+                    false);
         } else if (rrruii.asReplied() != null) {
             result.rrruii = new AwerbuchReplied(helper.getChannelByTuple(rrruii.asReplied().mem1.call()));
         } else if (rrruii.asUndefined() != null) {

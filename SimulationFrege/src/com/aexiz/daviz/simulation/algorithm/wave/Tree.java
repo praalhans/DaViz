@@ -3,8 +3,11 @@ package com.aexiz.daviz.simulation.algorithm.wave;
 import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Tree.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Tree.TUP;
-import com.aexiz.daviz.simulation.*;
-import com.aexiz.daviz.simulation.algorithm.information.*;
+import com.aexiz.daviz.simulation.AbstractFregeBasicAlgorithm;
+import com.aexiz.daviz.simulation.Channel;
+import com.aexiz.daviz.simulation.FregeAlgorithm;
+import com.aexiz.daviz.simulation.FregeHelper;
+import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
@@ -31,8 +34,7 @@ public class Tree extends AbstractFregeBasicAlgorithm {
     @Override
     public StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
         FregeAlgorithm.validateParameters(helper, o);
-        abstract class TreeUP implements PropertyVisitor {
-        }
+
         class TreeState implements StateInformation {
             List<Channel> neigh;
             PropertyVisitor state;
@@ -58,11 +60,9 @@ public class Tree extends AbstractFregeBasicAlgorithm {
         result.neigh = helper.forEdgeSet(st.mem$neigh.call());
         TUP up = st.mem$state.call();
         if (up.asUndefined() != null) {
-            TreeUndefined r = new TreeUndefined();
-            result.state = r;
+            result.state = new TreeUndefined();
         } else if (up.asParent() != null) {
-            TreeParent r = new TreeParent(helper.getChannelByTuple(up.asParent().mem1.call()).to);
-            result.state = r;
+            result.state = new TreeParent(helper.getChannelByTuple(up.asParent().mem1.call()).to);
         } else throw new Error();
         return result;
     }

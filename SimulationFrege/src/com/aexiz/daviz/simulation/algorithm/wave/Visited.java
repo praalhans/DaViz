@@ -4,7 +4,7 @@ import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.Set.TSet;
 import com.aexiz.daviz.frege.simulation.Visited.TRRUI;
 import com.aexiz.daviz.simulation.*;
-import com.aexiz.daviz.simulation.algorithm.information.*;
+import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
@@ -39,8 +39,7 @@ public class Visited extends AbstractFregeBasicAlgorithm {
     @Override
     public StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
         FregeAlgorithm.validateParameters(helper, o);
-        abstract class VisitedRRUI implements PropertyVisitor {
-        }
+
         class VisitedState implements StateInformation {
             List<Node> hasToken;
             PropertyVisitor rrui;
@@ -72,11 +71,9 @@ public class Visited extends AbstractFregeBasicAlgorithm {
         result.hasToken = tok == null ? null : helper.forVertexSet(tok.mem1.call());
         TRRUI rrui = st.mem2.call();
         if (rrui.asReceived() != null) {
-            VisitedReceived r = new VisitedReceived(helper.getChannelByTuple(rrui.asReceived().mem1.call()));
-            result.rrui = r;
+            result.rrui = new VisitedReceived(helper.getChannelByTuple(rrui.asReceived().mem1.call()));
         } else if (rrui.asReplied() != null) {
-            VisitedReplied r = new VisitedReplied(helper.getChannelByTuple(rrui.asReplied().mem1.call()));
-            result.rrui = r;
+            result.rrui = new VisitedReplied(helper.getChannelByTuple(rrui.asReplied().mem1.call()));
         } else if (rrui.asUndefined() != null) {
             result.rrui = new VisitedUndefined();
         } else if (rrui.asInitiator() != null) {

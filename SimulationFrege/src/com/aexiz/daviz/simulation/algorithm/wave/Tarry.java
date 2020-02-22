@@ -3,8 +3,11 @@ package com.aexiz.daviz.simulation.algorithm.wave;
 import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.Set.TSet;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Tarry.TDUI;
-import com.aexiz.daviz.simulation.*;
-import com.aexiz.daviz.simulation.algorithm.information.*;
+import com.aexiz.daviz.simulation.AbstractFregeBasicAlgorithm;
+import com.aexiz.daviz.simulation.Channel;
+import com.aexiz.daviz.simulation.FregeAlgorithm;
+import com.aexiz.daviz.simulation.FregeHelper;
+import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
@@ -35,8 +38,7 @@ public class Tarry extends AbstractFregeBasicAlgorithm {
     @Override
     public StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
         FregeAlgorithm.validateParameters(helper, o);
-        abstract class TarryDUI implements PropertyVisitor {
-        }
+
         class TarryState implements StateInformation {
             boolean hasToken;
             PropertyVisitor dui;
@@ -66,11 +68,9 @@ public class Tarry extends AbstractFregeBasicAlgorithm {
         result.hasToken = st.mem1.call();
         TDUI dui = st.mem2.call();
         if (dui.asReceived() != null) {
-            TarryReceived r = new TarryReceived(helper.getChannelByTuple(dui.asReceived().mem1.call()));
-            result.dui = r;
+            result.dui = new TarryReceived(helper.getChannelByTuple(dui.asReceived().mem1.call()));
         } else if (dui.asReplied() != null) {
-            TarryReplied r = new TarryReplied(helper.getChannelByTuple(dui.asReplied().mem1.call()));
-            result.dui = r;
+            result.dui = new TarryReplied(helper.getChannelByTuple(dui.asReplied().mem1.call()));
         } else if (dui.asUndefined() != null) {
             result.dui = new TarryUndefined();
         } else if (dui.asInitiator() != null) {

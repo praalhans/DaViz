@@ -44,8 +44,7 @@ public class Cidon extends AbstractFregeBasicAlgorithm {
     @Override
     public StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
         FregeAlgorithm.validateParameters(helper, o);
-        abstract class CidonRRUI implements PropertyVisitor {
-        }
+
         class CidonState implements StateInformation {
             boolean hasToken;
             PropertyVisitor rrui;
@@ -85,11 +84,9 @@ public class Cidon extends AbstractFregeBasicAlgorithm {
         result.hasToken = st.mem$hasToken.call();
         TRRUI rrui = st.mem$state.call();
         if (rrui.asReceived() != null) {
-            CidonReceived r = new CidonReceived(helper.getChannelByTuple(rrui.asReceived().mem1.call()));
-            result.rrui = r;
+            result.rrui = new CidonReceived(helper.getChannelByTuple(rrui.asReceived().mem1.call()));
         } else if (rrui.asReplied() != null) {
-            CidonReplied r = new CidonReplied(helper.getChannelByTuple(rrui.asReplied().mem1.call()));
-            result.rrui = r;
+            result.rrui = new CidonReplied(helper.getChannelByTuple(rrui.asReplied().mem1.call()));
         } else if (rrui.asUndefined() != null) {
             result.rrui = new CidonUndefined();
         } else if (rrui.asInitiator() != null) {

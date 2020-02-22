@@ -4,8 +4,11 @@ import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.TMS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.TRRUI;
-import com.aexiz.daviz.simulation.*;
-import com.aexiz.daviz.simulation.algorithm.information.*;
+import com.aexiz.daviz.simulation.AbstractFregeBasicAlgorithm;
+import com.aexiz.daviz.simulation.Channel;
+import com.aexiz.daviz.simulation.FregeAlgorithm;
+import com.aexiz.daviz.simulation.FregeHelper;
+import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
@@ -33,8 +36,7 @@ public class Echo extends AbstractFregeBasicAlgorithm {
     @Override
     public StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
         FregeAlgorithm.validateParameters(helper, o);
-        abstract class EchoRRUI implements PropertyVisitor {
-        }
+
         class EchoState implements StateInformation {
             List<Channel> neighbors;
             List<Channel> children;
@@ -70,17 +72,13 @@ public class Echo extends AbstractFregeBasicAlgorithm {
         result.children = helper.forEdgeSet(st.mem$children.call());
         TRRUI up = st.mem$state.call();
         if (up.asUndefined() != null) {
-            EchoUndefined r = new EchoUndefined();
-            result.state = r;
+            result.state = new EchoUndefined();
         } else if (up.asInitiator() != null) {
-            EchoInitiator r = new EchoInitiator();
-            result.state = r;
+            result.state = new EchoInitiator();
         } else if (up.asReceived() != null) {
-            EchoReceived r = new EchoReceived(helper.getChannelByTuple(up.asReceived().mem1.call()));
-            result.state = r;
+            result.state = new EchoReceived(helper.getChannelByTuple(up.asReceived().mem1.call()));
         } else if (up.asReplied() != null) {
-            EchoReplied r = new EchoReplied(helper.getChannelByTuple(up.asReplied().mem1.call()));
-            result.state = r;
+            result.state = new EchoReplied(helper.getChannelByTuple(up.asReplied().mem1.call()));
         } else throw new Error();
         return result;
     }

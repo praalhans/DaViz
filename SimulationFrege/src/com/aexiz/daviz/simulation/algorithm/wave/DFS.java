@@ -3,8 +3,11 @@ package com.aexiz.daviz.simulation.algorithm.wave;
 import com.aexiz.daviz.frege.simulation.Process.TProcessDescription;
 import com.aexiz.daviz.frege.simulation.Set.TSet;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.DFS.TRRUI;
-import com.aexiz.daviz.simulation.*;
-import com.aexiz.daviz.simulation.algorithm.information.*;
+import com.aexiz.daviz.simulation.AbstractFregeBasicAlgorithm;
+import com.aexiz.daviz.simulation.Channel;
+import com.aexiz.daviz.simulation.FregeAlgorithm;
+import com.aexiz.daviz.simulation.FregeHelper;
+import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
@@ -37,8 +40,7 @@ public class DFS extends AbstractFregeBasicAlgorithm {
     @Override
     public StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
         FregeAlgorithm.validateParameters(helper, o);
-        abstract class DFS_RRUI implements PropertyVisitor {
-        }
+
         class DFS_State implements StateInformation {
             boolean hasToken;
             PropertyVisitor rrui;
@@ -70,11 +72,9 @@ public class DFS extends AbstractFregeBasicAlgorithm {
         result.hasToken = st.mem1.call();
         TRRUI rrui = st.mem2.call();
         if (rrui.asReceived() != null) {
-            DFSReceived r = new DFSReceived(helper.getChannelByTuple(rrui.asReceived().mem1.call()));
-            result.rrui = r;
+            result.rrui = new DFSReceived(helper.getChannelByTuple(rrui.asReceived().mem1.call()));
         } else if (rrui.asReplied() != null) {
-            DFSReplied r = new DFSReplied(helper.getChannelByTuple(rrui.asReplied().mem1.call()));
-            result.rrui = r;
+            result.rrui = new DFSReplied(helper.getChannelByTuple(rrui.asReplied().mem1.call()));
         } else if (rrui.asUndefined() != null) {
             result.rrui = new DFSUndefined();
         } else if (rrui.asInitiator() != null) {
