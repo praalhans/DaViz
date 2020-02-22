@@ -14,6 +14,9 @@ public abstract class AbstractAlgorithmState implements StateInformation {
         this.properties = properties;
     }
 
+    public AbstractAlgorithmState() {
+    }
+
     static protected Map<String, String> makeNodesProperty(List<Channel> channels) {
         Map<String, String> map = new HashMap<>();
         map.put("", channels.size() + " elements");

@@ -46,6 +46,7 @@ public class Cidon extends AbstractFregeBasicAlgorithm {
 
         TPS st = (TPS) o;
         TRRUI rrui = st.mem$state.call();
+        CidonState cidonState = new CidonState();
         PropertyVisitor state;
         if (rrui.asReceived() != null) {
             state = new CidonReceived(helper.getChannelByTuple(rrui.asReceived().mem1.call()));
@@ -66,7 +67,13 @@ public class Cidon extends AbstractFregeBasicAlgorithm {
         List<Channel> forward = helper.forEdgeSet(st.mem$forward.call());
         List<Channel> info = helper.forEdgeSet(st.mem$info.call());
 
-        return new CidonState(hasToken, state, intention, forward, info);
+        cidonState.setState(state);
+        cidonState.setForward(forward);
+        cidonState.setInfo(info);
+        cidonState.setHasToken(hasToken);
+        cidonState.setIntention(intention);
+        cidonState.makeProperties();
+        return cidonState;
     }
 
     @Override
