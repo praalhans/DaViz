@@ -5,12 +5,12 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.Tree.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Tree.TUP;
 import com.aexiz.daviz.simulation.algorithm.AbstractFregeBasicAlgorithm;
 import com.aexiz.daviz.simulation.algorithm.FregeAlgorithm;
-import com.aexiz.daviz.simulation.util.FregeHelper;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
 import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
 import com.aexiz.daviz.simulation.algorithm.wave.tree.*;
+import com.aexiz.daviz.simulation.util.FregeHelper;
 
 import static com.aexiz.daviz.frege.simulation.algorithm.wave.Tree.procDesc;
 

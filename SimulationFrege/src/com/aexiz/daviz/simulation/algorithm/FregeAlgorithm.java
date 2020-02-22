@@ -1,10 +1,10 @@
 package com.aexiz.daviz.simulation.algorithm;
 
 import com.aexiz.daviz.frege.simulation.Process;
-import com.aexiz.daviz.simulation.util.FregeHelper;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
+import com.aexiz.daviz.simulation.util.FregeHelper;
 
 import java.security.InvalidParameterException;
 

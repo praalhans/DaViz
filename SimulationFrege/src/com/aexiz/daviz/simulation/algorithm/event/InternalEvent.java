@@ -1,9 +1,9 @@
 package com.aexiz.daviz.simulation.algorithm.event;
 
 import com.aexiz.daviz.frege.simulation.Event;
-import com.aexiz.daviz.simulation.util.FregeHelper;
 import com.aexiz.daviz.simulation.algorithm.FregeAlgorithm;
 import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
+import com.aexiz.daviz.simulation.util.FregeHelper;
 
 public class InternalEvent extends DefaultEvent implements tInternalEvent {
 

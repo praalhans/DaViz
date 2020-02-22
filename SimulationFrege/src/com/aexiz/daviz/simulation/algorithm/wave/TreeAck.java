@@ -6,7 +6,6 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.TUPDS;
 import com.aexiz.daviz.simulation.algorithm.AbstractFregeBasicAlgorithm;
 import com.aexiz.daviz.simulation.algorithm.FregeAlgorithm;
-import com.aexiz.daviz.simulation.util.FregeHelper;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
@@ -14,6 +13,7 @@ import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
 import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeAckDecider;
 import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeAckSpreader;
 import com.aexiz.daviz.simulation.algorithm.wave.treeack.*;
+import com.aexiz.daviz.simulation.util.FregeHelper;
 
 import static com.aexiz.daviz.frege.simulation.algorithm.wave.TreeAck.procDesc;
 
