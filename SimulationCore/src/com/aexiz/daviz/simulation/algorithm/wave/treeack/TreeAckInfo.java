@@ -1,4 +1,4 @@
-package com.aexiz.daviz.simulation.algorithm.wave.tree;
+package com.aexiz.daviz.simulation.algorithm.wave.treeack;
 
 import com.aexiz.daviz.simulation.algorithm.information.InfoMessage;
 
