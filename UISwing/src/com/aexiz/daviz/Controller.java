@@ -1,6 +1,8 @@
 package com.aexiz.daviz;
 
-import com.aexiz.daviz.simulation.*;
+import com.aexiz.daviz.simulation.DefaultNetwork;
+import com.aexiz.daviz.simulation.DefaultSimulation;
+import com.aexiz.daviz.simulation.Network;
 import com.aexiz.daviz.simulation.Simulation;
 import com.aexiz.daviz.simulation.viewpoint.Channel;
 import com.aexiz.daviz.simulation.viewpoint.Node;

@@ -1,16 +1,15 @@
 package com.aexiz.daviz;
 
 import com.aexiz.daviz.simulation.*;
-import com.aexiz.daviz.simulation.Simulation;
+import com.aexiz.daviz.simulation.algorithm.event.tInternalEvent;
+import com.aexiz.daviz.simulation.algorithm.event.tReceiveEvent;
+import com.aexiz.daviz.simulation.algorithm.event.tResultEvent;
+import com.aexiz.daviz.simulation.algorithm.event.tSendEvent;
 import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
 import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
-import com.aexiz.daviz.simulation.algorithm.event.tInternalEvent;
-import com.aexiz.daviz.simulation.algorithm.event.tReceiveEvent;
-import com.aexiz.daviz.simulation.algorithm.event.tResultEvent;
-import com.aexiz.daviz.simulation.algorithm.event.tSendEvent;
 import com.aexiz.daviz.simulation.viewpoint.Channel;
 import com.aexiz.daviz.simulation.viewpoint.Node;
 import com.aexiz.daviz.ui.ExecutionModel;

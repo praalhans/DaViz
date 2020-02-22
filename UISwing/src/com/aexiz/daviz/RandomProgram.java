@@ -2,9 +2,8 @@ package com.aexiz.daviz;
 
 import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.Algorithm;
-import com.aexiz.daviz.simulation.Simulation;
-import com.aexiz.daviz.simulation.algorithm.wave.Cidon;
 import com.aexiz.daviz.simulation.algorithm.event.tSendEvent;
+import com.aexiz.daviz.simulation.algorithm.wave.Cidon;
 import com.aexiz.daviz.simulation.viewpoint.Channel;
 import com.aexiz.daviz.simulation.viewpoint.Node;
 
