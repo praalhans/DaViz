@@ -2,7 +2,6 @@ package com.aexiz.daviz.simulation.algorithm.wave.treeack;
 
 import com.aexiz.daviz.simulation.Channel;
 import com.aexiz.daviz.simulation.Node;
-import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
 import com.aexiz.daviz.simulation.algorithm.information.state.AbstractAlgorithmState;
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
 
