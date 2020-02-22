@@ -3,6 +3,8 @@ package com.aexiz.daviz.simulation;
 import com.aexiz.daviz.frege.simulation.Event.TEvent;
 import com.aexiz.daviz.frege.simulation.Simulation;
 import com.aexiz.daviz.frege.simulation.Simulation.TSimulation;
+import com.aexiz.daviz.simulation.algorithm.FregeAlgorithm;
+import com.aexiz.daviz.simulation.algorithm.event.DefaultEvent;
 import frege.prelude.PreludeBase.TList;
 import frege.prelude.PreludeBase.TList.DCons;
 import frege.prelude.PreludeBase.TTuple2;

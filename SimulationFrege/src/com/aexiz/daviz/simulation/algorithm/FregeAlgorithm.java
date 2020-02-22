@@ -1,7 +1,7 @@
-package com.aexiz.daviz.simulation;
+package com.aexiz.daviz.simulation.algorithm;
 
 import com.aexiz.daviz.frege.simulation.Process;
-import com.aexiz.daviz.simulation.algorithm.Algorithm;
+import com.aexiz.daviz.simulation.FregeHelper;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;

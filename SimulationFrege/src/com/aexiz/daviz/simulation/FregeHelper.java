@@ -15,7 +15,7 @@ public class FregeHelper {
 
     private Simulation simulation;
 
-    FregeHelper(Simulation sim) {
+    public FregeHelper(Simulation sim) {
         simulation = sim;
     }
 

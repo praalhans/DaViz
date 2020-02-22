@@ -5,6 +5,8 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.TMS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.TRRUI;
 import com.aexiz.daviz.simulation.*;
+import com.aexiz.daviz.simulation.algorithm.AbstractFregeBasicAlgorithm;
+import com.aexiz.daviz.simulation.algorithm.FregeAlgorithm;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;

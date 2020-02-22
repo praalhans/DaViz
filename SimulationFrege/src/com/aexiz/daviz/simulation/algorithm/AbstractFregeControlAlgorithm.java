@@ -1,6 +1,4 @@
-package com.aexiz.daviz.simulation;
-
-import com.aexiz.daviz.simulation.algorithm.AbstractControlAlgorithm;
+package com.aexiz.daviz.simulation.algorithm;
 
 public abstract class AbstractFregeControlAlgorithm extends AbstractControlAlgorithm implements FregeAlgorithm {
 }

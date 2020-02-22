@@ -1,48 +1,50 @@
-package com.aexiz.daviz.simulation;
+package com.aexiz.daviz.simulation.algorithm.event;
 
 import com.aexiz.daviz.frege.simulation.Event;
+import com.aexiz.daviz.simulation.FregeHelper;
+import com.aexiz.daviz.simulation.algorithm.FregeAlgorithm;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
-import com.aexiz.daviz.simulation.event.tReceiveEvent;
 import com.aexiz.daviz.simulation.viewpoint.Node;
 
-public class ReceiveEvent extends DefaultEvent implements tReceiveEvent {
+public class SendEvent extends DefaultEvent implements tSendEvent {
 
     // Haskell dependencies
-    transient Event.TEvent.DEReceive<Object, Object, Object> hEvent;
+    transient Event.TEvent.DESend<Object, Object, Object> hEvent;
 
     // Computed properties
     transient MessageInformation message;
     transient StateInformation nextState;
-    transient Node sender;
+    transient Node receiver;
 
-    ReceiveEvent() {
+    SendEvent() {
         super();
     }
 
     @Override
     protected void unload() {
         super.unload();
-        hEvent = super.hEvent.asEReceive();
+        hEvent = super.hEvent.asESend();
         FregeHelper helper = new FregeHelper(simulation);
         message = ((FregeAlgorithm) simulation.getAlgorithm()).makeAndUnloadMessage(helper, hEvent.mem$msg.call());
         nextState = ((FregeAlgorithm) simulation.getAlgorithm()).makeAndUnloadState(helper, hEvent.mem$next.call());
-        sender = simulation.getNetwork().getNodeById(hEvent.mem$send.call());
+        receiver = simulation.getNetwork().getNodeById(hEvent.mem$recv.call());
     }
 
     @Override
-    protected ReceiveEvent clone(DefaultEvent to) {
+    protected SendEvent clone(DefaultEvent to) {
         super.clone(to);
-        ReceiveEvent tor = (ReceiveEvent) to;
+        SendEvent tor = (SendEvent) to;
         tor.hEvent = this.hEvent;
         tor.message = this.message;
         tor.nextState = this.nextState;
-        tor.sender = this.sender;
+        tor.receiver = this.receiver;
         return tor;
     }
 
-    public ReceiveEvent clone() {
-        return clone(new ReceiveEvent());
+    @Override
+    public SendEvent clone() {
+        return clone(new SendEvent());
     }
 
     @Override
@@ -66,29 +68,28 @@ public class ReceiveEvent extends DefaultEvent implements tReceiveEvent {
     }
 
     @Override
-    public boolean hasSender() {
+    public boolean hasReceiver() {
         return true;
     }
 
     @Override
-    public Node getSender() {
-        return sender;
+    public Node getReceiver() {
+        return receiver;
     }
 
     @Override
     public boolean hasMatchingEvent() {
-        return true;
+        return matchingEvent != null;
     }
 
     @Override
-    public SendEvent getMatchingEvent() {
-        if (matchingEvent == null) throw new Error("Unmatched receive event");
-        return (SendEvent) matchingEvent;
+    public ReceiveEvent getMatchingEvent() {
+        return (ReceiveEvent) matchingEvent;
     }
 
     @Override
     public String toString() {
-        return "Process " + happensAt.getLabel() + " receives " + message + " from " + sender;
+        return "Process " + happensAt.getLabel() + " sends " + message + " to " + receiver;
     }
 
 }

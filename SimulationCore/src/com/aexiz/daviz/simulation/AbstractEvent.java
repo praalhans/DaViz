@@ -3,10 +3,10 @@ package com.aexiz.daviz.simulation;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
-import com.aexiz.daviz.simulation.event.tInternalEvent;
-import com.aexiz.daviz.simulation.event.tReceiveEvent;
-import com.aexiz.daviz.simulation.event.tResultEvent;
-import com.aexiz.daviz.simulation.event.tSendEvent;
+import com.aexiz.daviz.simulation.algorithm.event.tInternalEvent;
+import com.aexiz.daviz.simulation.algorithm.event.tReceiveEvent;
+import com.aexiz.daviz.simulation.algorithm.event.tResultEvent;
+import com.aexiz.daviz.simulation.algorithm.event.tSendEvent;
 import com.aexiz.daviz.simulation.viewpoint.Locus;
 import com.aexiz.daviz.simulation.viewpoint.Node;
 

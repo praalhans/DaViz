@@ -1,9 +1,10 @@
-package com.aexiz.daviz.simulation;
+package com.aexiz.daviz.simulation.algorithm.event;
 
 import com.aexiz.daviz.frege.simulation.Event.TEvent;
+import com.aexiz.daviz.simulation.AbstractEvent;
+import com.aexiz.daviz.simulation.DefaultExecution;
+import com.aexiz.daviz.simulation.Event;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
-import com.aexiz.daviz.simulation.event.tReceiveEvent;
-import com.aexiz.daviz.simulation.event.tSendEvent;
 import com.aexiz.daviz.simulation.viewpoint.Node;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -65,7 +66,7 @@ public abstract class DefaultEvent extends AbstractEvent implements Cloneable, E
     static Event makeAndUnload(TEvent<Object, Object, Object> event, @NotNull DefaultExecution execution) {
         DefaultEvent result = (DefaultEvent) mapFregeToJavaEvent(event);
 
-        result.simulation = execution.simulation;
+        result.simulation = execution.getSimulation();
         result.execution = execution;
         result.hEvent = event;
         result.unload();

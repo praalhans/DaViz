@@ -1,8 +1,9 @@
-package com.aexiz.daviz.simulation;
+package com.aexiz.daviz.simulation.algorithm.event;
 
 import com.aexiz.daviz.frege.simulation.Event;
+import com.aexiz.daviz.simulation.FregeHelper;
+import com.aexiz.daviz.simulation.algorithm.FregeAlgorithm;
 import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
-import com.aexiz.daviz.simulation.event.tResultEvent;
 
 public class ResultEvent extends DefaultEvent implements tResultEvent {
 

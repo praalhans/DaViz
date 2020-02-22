@@ -2,6 +2,7 @@ package com.aexiz.daviz.simulation;
 
 import com.aexiz.daviz.frege.simulation.Simulation.TConfiguration;
 import com.aexiz.daviz.simulation.algorithm.Algorithm;
+import com.aexiz.daviz.simulation.algorithm.FregeAlgorithm;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
 import frege.prelude.PreludeBase.TEither;
