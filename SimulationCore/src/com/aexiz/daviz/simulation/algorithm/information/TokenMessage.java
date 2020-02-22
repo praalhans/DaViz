@@ -1,6 +1,6 @@
 package com.aexiz.daviz.simulation.algorithm.information;
 
-public class TokenInformation extends AbstractMessageInformation {
+public class TokenMessage extends AbstractMessageInformation {
     @Override
     public void buildProperties(PropertyBuilder builder) {
         builder.simpleProperty("", "Token");
@@ -13,6 +13,6 @@ public class TokenInformation extends AbstractMessageInformation {
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof TokenInformation;
+        return obj instanceof TokenMessage;
     }
 }

@@ -1,13 +1,14 @@
 package com.aexiz.daviz.simulation.algorithm.information;
 
-public class TerminationInformation extends AbstractInformation implements ResultInformation {
+public class DecidedResult extends AbstractInformation implements ResultInformation {
     @Override
     public void buildProperties(PropertyBuilder builder) {
-        builder.simpleProperty("", "Terminated");
+        builder.simpleProperty("", "Decided");
     }
 
     @Override
     public String toString() {
-        return "Terminated";
+        return "Decided";
     }
+
 }

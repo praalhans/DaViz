@@ -2,10 +2,10 @@ package com.aexiz.daviz.simulation.algorithm.information;
 
 import com.aexiz.daviz.simulation.Channel;
 
-public class RepliedInformation extends AbstractInformation implements PropertyVisitor {
+public class RepliedState extends AbstractInformation implements PropertyVisitor {
     protected Channel channel;
 
-    public RepliedInformation(Channel channel) {
+    public RepliedState(Channel channel) {
         super();
         this.channel = channel;
     }

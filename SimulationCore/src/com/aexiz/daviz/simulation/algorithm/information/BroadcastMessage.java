@@ -1,9 +1,9 @@
 package com.aexiz.daviz.simulation.algorithm.information;
 
-public class BroadcastInformation extends AbstractMessageInformation {
+public class BroadcastMessage extends AbstractMessageInformation {
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof BroadcastInformation;
+        return obj instanceof BroadcastMessage;
     }
 
     @Override

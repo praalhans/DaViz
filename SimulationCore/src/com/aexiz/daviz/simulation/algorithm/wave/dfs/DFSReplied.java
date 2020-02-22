@@ -1,9 +1,9 @@
 package com.aexiz.daviz.simulation.algorithm.wave.dfs;
 
 import com.aexiz.daviz.simulation.Channel;
-import com.aexiz.daviz.simulation.algorithm.information.RepliedInformation;
+import com.aexiz.daviz.simulation.algorithm.information.RepliedState;
 
-public class DFSReplied extends RepliedInformation {
+public class DFSReplied extends RepliedState {
     public DFSReplied(Channel channel) {
         super(channel);
     }

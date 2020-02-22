@@ -4,13 +4,13 @@ import com.aexiz.daviz.simulation.Node;
 
 import java.util.List;
 
-public class VisitedTokenInformation extends AbstractMessageInformation {
+public class VisitedTokenMessage extends AbstractMessageInformation {
     protected List<Node> visited;
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof VisitedTokenInformation) {
-            VisitedTokenInformation other = (VisitedTokenInformation) obj;
+        if (obj instanceof VisitedTokenMessage) {
+            VisitedTokenMessage other = (VisitedTokenMessage) obj;
             return other.visited.equals(visited);
         }
         return false;

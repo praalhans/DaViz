@@ -1,9 +1,9 @@
 package com.aexiz.daviz.simulation.algorithm.information;
 
-public class AckInformation extends AbstractMessageInformation {
+public class AckMessage extends AbstractMessageInformation {
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof AckInformation;
+        return obj instanceof AckMessage;
     }
 
     @Override

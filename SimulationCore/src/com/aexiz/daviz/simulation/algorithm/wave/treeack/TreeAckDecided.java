@@ -1,6 +1,6 @@
 package com.aexiz.daviz.simulation.algorithm.wave.treeack;
 
-import com.aexiz.daviz.simulation.algorithm.information.DecidedInformation;
+import com.aexiz.daviz.simulation.algorithm.information.DecidedResult;
 
-public class TreeAckDecided extends DecidedInformation {
+public class TreeAckDecided extends DecidedResult {
 }

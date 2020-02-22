@@ -1,6 +1,6 @@
 package com.aexiz.daviz.simulation.algorithm.wave.cidon;
 
-import com.aexiz.daviz.simulation.algorithm.information.TerminationInformation;
+import com.aexiz.daviz.simulation.algorithm.information.TerminationResult;
 
-public class CidonTerminated extends TerminationInformation {
+public class CidonTerminated extends TerminationResult {
 }

@@ -1,6 +1,6 @@
 package com.aexiz.daviz.simulation.algorithm.wave.awerbuch;
 
-import com.aexiz.daviz.simulation.algorithm.information.TerminationInformation;
+import com.aexiz.daviz.simulation.algorithm.information.TerminationResult;
 
-public class AwerbuchTerminated extends TerminationInformation {
+public class AwerbuchTerminated extends TerminationResult {
 }
