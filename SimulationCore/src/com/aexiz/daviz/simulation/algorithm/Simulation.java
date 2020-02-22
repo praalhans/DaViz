@@ -2,7 +2,7 @@ package com.aexiz.daviz.simulation.algorithm;
 
 import com.aexiz.daviz.simulation.Execution;
 import com.aexiz.daviz.simulation.Network;
-import com.aexiz.daviz.simulation.Node;
+import com.aexiz.daviz.simulation.viewpoint.Node;
 
 public interface Simulation {
     void load();

@@ -1,4 +1,4 @@
-package com.aexiz.daviz.simulation;
+package com.aexiz.daviz.simulation.viewpoint;
 
 public abstract class Viewpoint extends Locus {
     protected String networkUUID;

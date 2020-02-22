@@ -1,6 +1,6 @@
 package com.aexiz.daviz.simulation.algorithm.information.state;
 
-import com.aexiz.daviz.simulation.Viewpoint;
+import com.aexiz.daviz.simulation.viewpoint.Viewpoint;
 
 import java.util.Map;
 

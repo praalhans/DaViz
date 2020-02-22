@@ -1,5 +1,7 @@
 package com.aexiz.daviz.simulation;
 
+import com.aexiz.daviz.simulation.viewpoint.Channel;
+import com.aexiz.daviz.simulation.viewpoint.Node;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -82,14 +84,14 @@ public abstract class AbstractNetwork implements Network {
     @Override
     public boolean isStronglyConnected() {
         for (Node n : processes) {
-            n.marked = false;
+            n.setMarked(false);
         }
         if (processes.size() > 0) {
             Node start = processes.get(0);
             floodFill(start);
         }
         for (Node n : processes) {
-            if (!n.marked) return false;
+            if (!n.isMarked()) return false;
         }
         return true;
     }
@@ -97,14 +99,14 @@ public abstract class AbstractNetwork implements Network {
     protected void initiateNodesIds() {
         int id = 1;
         for (Node p : processes) {
-            p.hId = id++;
+            p.sethId(id++);
         }
     }
 
     @Override
     public Node getNodeById(int hId) {
         for (Node p : processes) {
-            if (p.hId == hId)
+            if (p.ishIdEqual(hId))
                 return p;
         }
         return null;
@@ -126,8 +128,8 @@ public abstract class AbstractNetwork implements Network {
     }
 
     private void floodFill(@NotNull Node node) {
-        if (node.marked) return;
-        node.marked = true;
+        if (node.isMarked()) return;
+        node.setMarked(true);
         for (Channel c : channels) {
             if (c.from == node)
                 floodFill(c.to);

@@ -2,6 +2,8 @@ package com.aexiz.daviz.simulation;
 
 import com.aexiz.daviz.frege.simulation.Set;
 import com.aexiz.daviz.frege.simulation.Set.TSet;
+import com.aexiz.daviz.simulation.viewpoint.Channel;
+import com.aexiz.daviz.simulation.viewpoint.Node;
 import frege.prelude.PreludeBase.TTuple2;
 import frege.run8.Lazy;
 import frege.run8.Thunk;
@@ -37,8 +39,8 @@ public class DefaultNetwork extends AbstractNetwork implements Network {
         hNetwork = Set.<TTuple2<Integer, Integer>>emptyS().call();
         for (Channel c : channels) {
             // 2.2. Construct one element
-            Lazy<Integer> from = Thunk.lazy(c.from.hId);
-            Lazy<Integer> to = Thunk.lazy(c.to.hId);
+            Lazy<Integer> from = Thunk.lazy(c.from.gethId());
+            Lazy<Integer> to = Thunk.lazy(c.to.gethId());
             TTuple2<Integer, Integer> ch = TTuple2.mk(from, to);
             // 2.3. Add one element to set
             hNetwork = Set.addS(hNetwork, ch);

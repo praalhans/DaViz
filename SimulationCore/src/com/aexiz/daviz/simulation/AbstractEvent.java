@@ -8,6 +8,8 @@ import com.aexiz.daviz.simulation.event.tInternalEvent;
 import com.aexiz.daviz.simulation.event.tReceiveEvent;
 import com.aexiz.daviz.simulation.event.tResultEvent;
 import com.aexiz.daviz.simulation.event.tSendEvent;
+import com.aexiz.daviz.simulation.viewpoint.Locus;
+import com.aexiz.daviz.simulation.viewpoint.Node;
 
 public abstract class AbstractEvent extends Locus implements Cloneable, Event {
     protected Simulation simulation;

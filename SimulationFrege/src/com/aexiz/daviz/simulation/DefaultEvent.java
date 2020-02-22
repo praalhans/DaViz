@@ -4,6 +4,7 @@ import com.aexiz.daviz.frege.simulation.Event.TEvent;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.event.tReceiveEvent;
 import com.aexiz.daviz.simulation.event.tSendEvent;
+import com.aexiz.daviz.simulation.viewpoint.Node;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 

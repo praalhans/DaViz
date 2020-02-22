@@ -11,6 +11,8 @@ import com.aexiz.daviz.simulation.event.tInternalEvent;
 import com.aexiz.daviz.simulation.event.tReceiveEvent;
 import com.aexiz.daviz.simulation.event.tResultEvent;
 import com.aexiz.daviz.simulation.event.tSendEvent;
+import com.aexiz.daviz.simulation.viewpoint.Channel;
+import com.aexiz.daviz.simulation.viewpoint.Node;
 import com.aexiz.daviz.ui.ExecutionModel;
 import com.aexiz.daviz.ui.ExecutionModel.EventModel;
 import com.aexiz.daviz.ui.ExecutionModel.EventType;

@@ -3,6 +3,8 @@ package com.aexiz.daviz.simulation;
 import com.aexiz.daviz.simulation.algorithm.Simulation;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
+import com.aexiz.daviz.simulation.viewpoint.Channel;
+import com.aexiz.daviz.simulation.viewpoint.Node;
 
 import java.io.PrintStream;
 import java.util.ArrayList;

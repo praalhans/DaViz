@@ -1,4 +1,4 @@
-package com.aexiz.daviz.simulation;
+package com.aexiz.daviz.simulation.viewpoint;
 
 public class Channel extends Viewpoint {
     public static final String CLIENT_PROPERTY_EDGEMODEL = "edgemodel";

@@ -1,4 +1,4 @@
-package com.aexiz.daviz.simulation;
+package com.aexiz.daviz.simulation.viewpoint;
 
 import java.util.HashMap;
 

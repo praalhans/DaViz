@@ -4,6 +4,7 @@ import com.aexiz.daviz.frege.simulation.Event;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
 import com.aexiz.daviz.simulation.event.tSendEvent;
+import com.aexiz.daviz.simulation.viewpoint.Node;
 
 public class SendEvent extends DefaultEvent implements tSendEvent {
 

@@ -1,4 +1,4 @@
-package com.aexiz.daviz.simulation;
+package com.aexiz.daviz.simulation.viewpoint;
 
 /**
  * This class should actually be "process", but because Java already has a built-in class called Process,
@@ -36,5 +36,25 @@ public class Node extends Viewpoint {
     @Override
     public String toString() {
         return this.label != null ? getLabel() : super.toString();
+    }
+
+    public int gethId() {
+        return hId;
+    }
+
+    public void sethId(int hId) {
+        this.hId = hId;
+    }
+
+    public boolean ishIdEqual(int hId) {
+        return this.hId == hId;
+    }
+
+    public boolean isMarked() {
+        return marked;
+    }
+
+    public void setMarked(boolean marked) {
+        this.marked = marked;
     }
 }

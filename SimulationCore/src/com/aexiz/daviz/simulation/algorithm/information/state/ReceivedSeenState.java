@@ -1,6 +1,6 @@
 package com.aexiz.daviz.simulation.algorithm.information.state;
 
-import com.aexiz.daviz.simulation.Channel;
+import com.aexiz.daviz.simulation.viewpoint.Channel;
 
 import java.util.Map;
 

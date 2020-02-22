@@ -1,6 +1,6 @@
 package com.aexiz.daviz.simulation.algorithm;
 
-import com.aexiz.daviz.simulation.Node;
+import com.aexiz.daviz.simulation.viewpoint.Node;
 
 import java.util.List;
 

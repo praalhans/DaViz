@@ -32,7 +32,7 @@ public class DefaultConfiguration extends AbstractConfiguration implements Confi
         processAlive = new boolean[processes.length];
         processState = new StateInformation[processes.length];
         for (int i = 0; i < processes.length; i++) {
-            TEither<Object, Object> m = hConfiguration.mem2.call().apply(Thunk.lazy(processes[i].hId)).call();
+            TEither<Object, Object> m = hConfiguration.mem2.call().apply(Thunk.lazy(processes[i].gethId())).call();
             DLeft<Object, Object> j = m.asLeft();
             if (j == null) {
                 processAlive[i] = false;
@@ -59,7 +59,7 @@ public class DefaultConfiguration extends AbstractConfiguration implements Confi
             Object msg = cm.mem2.call();
             boolean found = false;
             for (int i = 0; i < channels.length; i++) {
-                if (channels[i].from.hId == f && channels[i].to.hId == t) {
+                if (channels[i].from.ishIdEqual(f) && channels[i].to.ishIdEqual(t)) {
                     channelState[i].add(((FregeAlgorithm) alg).makeAndUnloadMessage(helper, msg));
                     found = true;
                     break;

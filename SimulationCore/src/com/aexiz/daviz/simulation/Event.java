@@ -4,6 +4,7 @@ import com.aexiz.daviz.simulation.algorithm.Simulation;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
+import com.aexiz.daviz.simulation.viewpoint.Node;
 
 public interface Event {
     Simulation getSimulation();

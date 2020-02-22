@@ -5,6 +5,8 @@ import com.aexiz.daviz.simulation.algorithm.Algorithm;
 import com.aexiz.daviz.simulation.algorithm.Simulation;
 import com.aexiz.daviz.simulation.algorithm.wave.Cidon;
 import com.aexiz.daviz.simulation.event.tSendEvent;
+import com.aexiz.daviz.simulation.viewpoint.Channel;
+import com.aexiz.daviz.simulation.viewpoint.Node;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;

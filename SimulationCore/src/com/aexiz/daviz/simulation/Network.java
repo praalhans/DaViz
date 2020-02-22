@@ -1,5 +1,7 @@
 package com.aexiz.daviz.simulation;
 
+import com.aexiz.daviz.simulation.viewpoint.Channel;
+import com.aexiz.daviz.simulation.viewpoint.Node;
 import org.jetbrains.annotations.NotNull;
 
 public interface Network {

@@ -3,6 +3,8 @@ package com.aexiz.daviz.simulation;
 import com.aexiz.daviz.frege.simulation.Set;
 import com.aexiz.daviz.frege.simulation.Set.TSet;
 import com.aexiz.daviz.simulation.algorithm.Simulation;
+import com.aexiz.daviz.simulation.viewpoint.Channel;
+import com.aexiz.daviz.simulation.viewpoint.Node;
 import com.aexiz.daviz.util.OrderedSetList;
 import frege.prelude.PreludeBase.TList;
 import frege.prelude.PreludeBase.TList.DCons;
@@ -19,12 +21,12 @@ public class FregeHelper {
     }
 
     public int getIdByNode(Node node) {
-        return node.hId;
+        return node.gethId();
     }
 
     public Node getNodeById(int id) {
         for (Node p : simulation.getNetwork().getNodes()) {
-            if (p.hId == id)
+            if (p.ishIdEqual(id))
                 return p;
         }
         throw new Error("Network and Haskell out-of-sync");
@@ -32,7 +34,7 @@ public class FregeHelper {
 
     public Channel getChannelByIds(int from, int to) {
         for (Channel c : simulation.getNetwork().getChannels()) {
-            if (c.from.hId == from && c.to.hId == to)
+            if (c.from.ishIdEqual(from) && c.to.ishIdEqual(to))
                 return c;
         }
         throw new Error("Network and Haskell out-of-sync");
