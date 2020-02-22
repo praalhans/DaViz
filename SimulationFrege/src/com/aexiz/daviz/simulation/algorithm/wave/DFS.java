@@ -71,15 +71,6 @@ public class DFS extends AbstractFregeBasicAlgorithm {
                 builder.simpleProperty("From:", c.to.getLabel());
             }
         }
-        class DFS_Undefined extends DFS_RRUI {
-            public String toString() {
-                return "Undefined";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Undefined");
-            }
-        }
         class DFS_Initiator extends DFS_RRUI {
             public String toString() {
                 return "Initiator";
@@ -103,7 +94,7 @@ public class DFS extends AbstractFregeBasicAlgorithm {
             DFSReplied r = new DFSReplied(helper.getChannelByTuple(rrui.asReplied().mem1.call()));
             result.rrui = r;
         } else if (rrui.asUndefined() != null) {
-            result.rrui = new DFS_Undefined();
+            result.rrui = new DFSUndefined();
         } else if (rrui.asInitiator() != null) {
             result.rrui = new DFS_Initiator();
         } else {

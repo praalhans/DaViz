@@ -67,16 +67,6 @@ public class Tarry extends AbstractFregeBasicAlgorithm {
                 builder.simpleProperty("From:", c.to.getLabel());
             }
         }
-
-        class TarryUndefined extends TarryDUI {
-            public String toString() {
-                return "Undefined";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Undefined");
-            }
-        }
         class TarryInitiator extends TarryDUI {
             public String toString() {
                 return "Initiator";

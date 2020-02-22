@@ -11,6 +11,7 @@ import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeAckInfo;
 import com.aexiz.daviz.simulation.algorithm.wave.treeack.TreeAckAssumption;
 import com.aexiz.daviz.simulation.algorithm.wave.treeack.TreeAckDecided;
 import com.aexiz.daviz.simulation.algorithm.wave.treeack.TreeAckTerminated;
+import com.aexiz.daviz.simulation.algorithm.wave.treeack.TreeAckUndefined;
 
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class TreeAck extends AbstractFregeBasicAlgorithm {
         class TreeAckState implements StateInformation {
             List<Channel> neighbors;
             List<Channel> children;
-            TreeAckUPDS state;
+            PropertyVisitor state;
 
             public String toString() {
                 return "(" + neighbors + "," + children + "," + state + ")";
@@ -63,15 +64,6 @@ public class TreeAck extends AbstractFregeBasicAlgorithm {
                         }
                     }
                 });
-            }
-        }
-        class TreeAckUndefined extends TreeAckUPDS {
-            public String toString() {
-                return "Undefined";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Undefined");
             }
         }
         class TreeAckParent extends TreeAckUPDS {

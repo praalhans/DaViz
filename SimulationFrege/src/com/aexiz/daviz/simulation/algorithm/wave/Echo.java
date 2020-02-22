@@ -60,15 +60,6 @@ public class Echo extends AbstractFregeBasicAlgorithm {
                 });
             }
         }
-        class EchoUndefined extends EchoRRUI {
-            public String toString() {
-                return "Undefined";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Undefined");
-            }
-        }
         class EchoInitiator extends EchoRRUI {
             public String toString() {
                 return "Initiator";

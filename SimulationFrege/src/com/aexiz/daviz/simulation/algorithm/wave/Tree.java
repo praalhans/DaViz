@@ -8,6 +8,7 @@ import com.aexiz.daviz.simulation.algorithm.information.*;
 import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeAssumption;
 import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeDecided;
 import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeInfo;
+import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeUndefined;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class Tree extends AbstractFregeBasicAlgorithm {
         }
         class TreeState implements StateInformation {
             List<Channel> neigh;
-            TreeUP state;
+            PropertyVisitor state;
 
             public String toString() {
                 return "(" + neigh + "," + state + ")";
@@ -49,15 +50,6 @@ public class Tree extends AbstractFregeBasicAlgorithm {
                         }
                     }
                 });
-            }
-        }
-        class TreeUndefined extends TreeUP {
-            public String toString() {
-                return "Undefined";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Undefined");
             }
         }
         class TreeParent extends TreeUP {

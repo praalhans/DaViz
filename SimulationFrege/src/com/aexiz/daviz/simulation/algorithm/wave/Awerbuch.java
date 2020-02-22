@@ -124,15 +124,6 @@ public class Awerbuch extends AbstractFregeBasicAlgorithm {
                 builder.simpleProperty("From:", c.to.getLabel());
             }
         }
-        class AwerbuchUndefined extends AwerbuchRRRUII {
-            public String toString() {
-                return "Undefined";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Undefined");
-            }
-        }
         class AwerbuchInitiatorSeen extends AwerbuchRRRUII {
             public String toString() {
                 return "InitiatorSeen";

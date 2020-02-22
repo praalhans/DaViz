@@ -74,15 +74,6 @@ public class Visited extends AbstractFregeBasicAlgorithm {
                 builder.simpleProperty("From:", c.to.getLabel());
             }
         }
-        class VisitedUndefined extends VisitedRRUI {
-            public String toString() {
-                return "Undefined";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Undefined");
-            }
-        }
         class VisitedInitiator extends VisitedRRUI {
             public String toString() {
                 return "Initiator";

@@ -88,15 +88,6 @@ public class Cidon extends AbstractFregeBasicAlgorithm {
                 builder.simpleProperty("From:", c.to.getLabel());
             }
         }
-        class CidonUndefined extends CidonRRUI {
-            public String toString() {
-                return "Undefined";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Undefined");
-            }
-        }
         class CidonInitiator extends CidonRRUI {
             public String toString() {
                 return "Initiator";
