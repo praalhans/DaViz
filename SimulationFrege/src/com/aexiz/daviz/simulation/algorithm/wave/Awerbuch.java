@@ -102,19 +102,6 @@ public class Awerbuch extends AbstractFregeBasicAlgorithm {
                 builder.simpleProperty("Ack:", toAck == null ? "None" : toAck.to.getLabel());
             }
         }
-        class AwerbuchReceivedSeen extends AwerbuchRRRUII {
-            private Channel c;
-
-            public String toString() {
-                return "ReceivedSeen<" + c + ">";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Received");
-                builder.simpleProperty("Seen token?", "true");
-                builder.simpleProperty("From:", c.to.getLabel());
-            }
-        }
         class AwerbuchReceivedUnseen extends AwerbuchRRRUII {
             private Channel c;
 
@@ -154,8 +141,7 @@ public class Awerbuch extends AbstractFregeBasicAlgorithm {
         TRRRUII rrruii = st.mem$state.call();
 
         if (rrruii.asReceivedSeen() != null) {
-            AwerbuchReceivedSeen r = new AwerbuchReceivedSeen();
-            r.c = helper.getChannelByTuple(rrruii.asReceivedSeen().mem1.call());
+            AwerbuchReceivedSeen r = new AwerbuchReceivedSeen(helper.getChannelByTuple(rrruii.asReceivedSeen().mem1.call()));
             result.rrruii = r;
         } else if (rrruii.asReceivedUnseen() != null) {
             AwerbuchReceivedUnseen r = new AwerbuchReceivedUnseen();
