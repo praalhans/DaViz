@@ -75,15 +75,6 @@ public class DFS extends AbstractFregeBasicAlgorithm {
                 builder.simpleProperty("From:", c.to.getLabel());
             }
         }
-        class DFS_Initiator extends DFS_RRUI {
-            public String toString() {
-                return "Initiator";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Initiator");
-            }
-        }
         @SuppressWarnings("unchecked")
         TTuple4<Boolean, TRRUI, TSet<TTuple2<Integer, Integer>>, TMaybe<TTuple2<Integer, Integer>>> st =
                 (TTuple4<Boolean, TRRUI, TSet<TTuple2<Integer, Integer>>, TMaybe<TTuple2<Integer, Integer>>>) o;
@@ -100,7 +91,7 @@ public class DFS extends AbstractFregeBasicAlgorithm {
         } else if (rrui.asUndefined() != null) {
             result.rrui = new DFSUndefined();
         } else if (rrui.asInitiator() != null) {
-            result.rrui = new DFS_Initiator();
+            result.rrui = new DFSInitiator();
         } else {
             throw new Error("Invalid RRUI value");
         }

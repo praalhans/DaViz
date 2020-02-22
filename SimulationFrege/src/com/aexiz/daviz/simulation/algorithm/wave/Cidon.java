@@ -92,15 +92,6 @@ public class Cidon extends AbstractFregeBasicAlgorithm {
                 builder.simpleProperty("From:", c.to.getLabel());
             }
         }
-        class CidonInitiator extends CidonRRUI {
-            public String toString() {
-                return "Initiator";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Initiator");
-            }
-        }
         TPS st = (TPS) o;
         CidonState result = new CidonState();
         result.hasToken = st.mem$hasToken.call();

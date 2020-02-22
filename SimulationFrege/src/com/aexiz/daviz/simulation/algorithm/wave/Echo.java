@@ -64,15 +64,6 @@ public class Echo extends AbstractFregeBasicAlgorithm {
                 });
             }
         }
-        class EchoInitiator extends EchoRRUI {
-            public String toString() {
-                return "Initiator";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Initiator");
-            }
-        }
         class EchoReceived extends EchoRRUI {
             private Channel c;
 

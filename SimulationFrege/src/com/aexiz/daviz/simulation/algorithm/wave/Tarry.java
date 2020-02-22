@@ -71,15 +71,6 @@ public class Tarry extends AbstractFregeBasicAlgorithm {
                 builder.simpleProperty("From:", c.to.getLabel());
             }
         }
-        class TarryInitiator extends TarryDUI {
-            public String toString() {
-                return "Initiator";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Initiator");
-            }
-        }
         @SuppressWarnings("unchecked")
         TTuple3<Boolean, TDUI, TSet<TTuple2<Integer, Integer>>> st =
                 (TTuple3<Boolean, TDUI, TSet<TTuple2<Integer, Integer>>>) o;
