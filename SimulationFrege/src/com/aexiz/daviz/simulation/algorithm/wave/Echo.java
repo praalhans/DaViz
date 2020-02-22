@@ -9,6 +9,9 @@ import com.aexiz.daviz.simulation.Channel;
 import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.FregeHelper;
 import com.aexiz.daviz.simulation.algorithm.information.*;
+import com.aexiz.daviz.simulation.algorithm.wave.echo.EchoBroadcast;
+import com.aexiz.daviz.simulation.algorithm.wave.echo.EchoDecided;
+import com.aexiz.daviz.simulation.algorithm.wave.echo.EchoTerminated;
 import frege.run8.Thunk;
 
 import java.util.List;
@@ -26,14 +29,7 @@ public class Echo extends DefaultAlgorithm {
     }
 
     protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
-        class EchoInformation extends BroadcastInformation {
-
-            public boolean equals(Object obj) {
-                return obj instanceof EchoInformation;
-            }
-        }
-
-        if ((Short) o == TMS.Broadcast) return new EchoInformation();
+        if ((Short) o == TMS.Broadcast) return new EchoBroadcast();
         throw new Error("Invalid message");
     }
 
@@ -133,12 +129,6 @@ public class Echo extends DefaultAlgorithm {
     }
 
     protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
-        class EchoTerminated extends TerminationInformation {
-        }
-
-        class EchoDecided extends DecidedInformation {
-        }
-
         return (Boolean) o ? new EchoDecided() : new EchoTerminated();
     }
 

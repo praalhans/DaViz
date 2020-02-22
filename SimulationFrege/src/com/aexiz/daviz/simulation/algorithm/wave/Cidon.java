@@ -6,6 +6,10 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Cidon.TRRUI;
 import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.information.*;
+import com.aexiz.daviz.simulation.algorithm.wave.cidon.CidonDecided;
+import com.aexiz.daviz.simulation.algorithm.wave.cidon.CidonInfo;
+import com.aexiz.daviz.simulation.algorithm.wave.cidon.CidonTerminated;
+import com.aexiz.daviz.simulation.algorithm.wave.cidon.CidonToken;
 import frege.prelude.PreludeBase.TMaybe.DJust;
 import frege.prelude.PreludeBase.TTuple2;
 import frege.run8.Thunk;
@@ -31,18 +35,6 @@ public class Cidon extends DefaultAlgorithm {
 
     protected MessageInformation makeAndUnloadMessage(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
-
-        class CidonToken extends TokenInformation {
-            public boolean equals(Object obj) {
-                return obj instanceof CidonToken;
-            }
-        }
-
-        class CidonInfo extends InfoInformation {
-            public boolean equals(Object obj) {
-                return obj instanceof CidonInfo;
-            }
-        }
 
         short t = (Short) o;
 
@@ -159,12 +151,6 @@ public class Cidon extends DefaultAlgorithm {
     }
 
     protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
-        class CidonTerminated extends TerminationInformation {
-        }
-
-        class CidonDecided extends DecidedInformation {
-        }
-
         return (Boolean) o ? new CidonTerminated() : new CidonDecided();
     }
 

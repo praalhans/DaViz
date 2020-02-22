@@ -9,6 +9,7 @@ import com.aexiz.daviz.simulation.Channel;
 import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.FregeHelper;
 import com.aexiz.daviz.simulation.algorithm.information.*;
+import com.aexiz.daviz.simulation.algorithm.wave.awerbuch.*;
 import frege.prelude.PreludeBase.TMaybe.DJust;
 import frege.prelude.PreludeBase.TTuple2;
 import frege.run8.Thunk;
@@ -29,23 +30,6 @@ public class Awerbuch extends DefaultAlgorithm {
 
     protected MessageInformation makeAndUnloadMessage(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
-        class AwerbuchToken extends TokenInformation {
-            public boolean equals(Object obj) {
-                return obj instanceof AwerbuchToken;
-            }
-        }
-
-        class AwerbuchInfo extends InfoInformation {
-            public boolean equals(Object obj) {
-                return obj instanceof AwerbuchInfo;
-            }
-        }
-
-        class AwerbuchAck extends AckInformation {
-            public boolean equals(Object obj) {
-                return obj instanceof AwerbuchAck;
-            }
-        }
 
         short t = (Short) o;
 
@@ -223,12 +207,6 @@ public class Awerbuch extends DefaultAlgorithm {
     }
 
     protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
-        class AwerbuchTerminated extends TerminationInformation {
-        }
-
-        class AwerbuchDecided extends DecidedInformation {
-        }
-
         return (Boolean) o ? new AwerbuchTerminated() : new AwerbuchDecided();
     }
 

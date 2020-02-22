@@ -8,6 +8,8 @@ import com.aexiz.daviz.simulation.Channel;
 import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.FregeHelper;
 import com.aexiz.daviz.simulation.algorithm.information.*;
+import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeDecided;
+import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeInfo;
 
 import java.util.List;
 
@@ -25,15 +27,8 @@ public class Tree extends DefaultAlgorithm {
     }
 
     protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
-        class TreeInfo extends InfoInformation {
-            public boolean equals(Object obj) {
-                return obj instanceof TreeInfo;
-            }
-        }
-
-        Short t = (Short) o;
-        if (t != 0) throw new Error("Invalid Haskell unit");
-        return new TreeInfo();
+        if ((Short) o == 0) return new TreeInfo();
+        throw new Error("Invalid Haskell unit");
     }
 
     protected StateInformation makeAndUnloadState(FregeHelper helper, Object o) {
@@ -95,10 +90,7 @@ public class Tree extends DefaultAlgorithm {
     }
 
     protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
-        class TreeResult extends DecidedInformation {
-        }
-
-        if ((Short) o == 0) return new TreeResult();
+        if ((Short) o == 0) return new TreeDecided();
         throw new Error("Invalid Haskell unit");
     }
 

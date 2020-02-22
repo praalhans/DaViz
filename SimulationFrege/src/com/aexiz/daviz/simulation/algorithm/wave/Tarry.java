@@ -8,6 +8,9 @@ import com.aexiz.daviz.simulation.Channel;
 import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.FregeHelper;
 import com.aexiz.daviz.simulation.algorithm.information.*;
+import com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryDecided;
+import com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryTerminated;
+import com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryToken;
 import frege.prelude.PreludeBase.TTuple2;
 import frege.prelude.PreludeBase.TTuple3;
 import frege.run8.Thunk;
@@ -29,13 +32,7 @@ public class Tarry extends DefaultAlgorithm {
     protected MessageInformation makeAndUnloadMessage(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
 
-        class TarryMessage extends TokenInformation {
-            public boolean equals(Object obj) {
-                return obj instanceof TarryMessage;
-            }
-        }
-
-        if ((Short) o == 0) return new TarryMessage();
+        if ((Short) o == 0) return new TarryToken();
         throw new Error("Invalid Haskell unit");
     }
 
@@ -133,12 +130,6 @@ public class Tarry extends DefaultAlgorithm {
     }
 
     protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
-        class TarryTerminated extends TerminationInformation {
-        }
-
-        class TarryDecided extends DecidedInformation {
-        }
-
         return (Boolean) o ? new TarryTerminated() : new TarryDecided();
     }
 

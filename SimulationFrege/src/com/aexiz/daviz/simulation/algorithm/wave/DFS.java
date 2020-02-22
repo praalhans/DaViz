@@ -8,6 +8,9 @@ import com.aexiz.daviz.simulation.Assumption;
 import com.aexiz.daviz.simulation.FregeHelper;
 import com.aexiz.daviz.simulation.algorithm.information.*;
 import com.aexiz.daviz.simulation.Channel;
+import com.aexiz.daviz.simulation.algorithm.wave.dfs.DFSDecided;
+import com.aexiz.daviz.simulation.algorithm.wave.dfs.DFSTerminated;
+import com.aexiz.daviz.simulation.algorithm.wave.dfs.DFSToken;
 import frege.prelude.PreludeBase.TMaybe;
 import frege.prelude.PreludeBase.TMaybe.DJust;
 import frege.prelude.PreludeBase.TTuple2;
@@ -31,13 +34,7 @@ public class DFS extends DefaultAlgorithm {
     protected MessageInformation makeAndUnloadMessage(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
 
-        class DFS_Message extends TokenInformation {
-            public boolean equals(Object obj) {
-                return obj instanceof DFS_Message;
-            }
-        }
-
-        if ((Short) o == 0) return new DFS_Message();
+        if ((Short) o == 0) return new DFSToken();
         throw new Error("Invalid Haskell unit");
     }
 
@@ -139,12 +136,6 @@ public class DFS extends DefaultAlgorithm {
     }
 
     protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
-        class DFSTerminated  extends TerminationInformation {
-        }
-
-        class DFSDecided extends DecidedInformation {
-        }
-
         return (Boolean) o ? new DFSTerminated() : new DFSDecided();
     }
 

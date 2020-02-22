@@ -9,6 +9,10 @@ import com.aexiz.daviz.simulation.Channel;
 import com.aexiz.daviz.simulation.DefaultAlgorithm;
 import com.aexiz.daviz.simulation.FregeHelper;
 import com.aexiz.daviz.simulation.algorithm.information.*;
+import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeAckAck;
+import com.aexiz.daviz.simulation.algorithm.wave.tree.TreeAckInfo;
+import com.aexiz.daviz.simulation.algorithm.wave.treeack.TreeAckDecided;
+import com.aexiz.daviz.simulation.algorithm.wave.treeack.TreeAckTerminated;
 
 import java.util.List;
 
@@ -26,22 +30,9 @@ public class TreeAck extends DefaultAlgorithm {
     }
 
     protected MessageInformation makeAndUnloadMessage(FregeHelper helper, Object o) {
-
-        class TreeAckInfoMessage extends InfoInformation {
-            public boolean equals(Object obj) {
-                return obj instanceof TreeAckInfoMessage;
-            }
-        }
-
-        class TreeAckAckMessage extends AckInformation {
-            public boolean equals(Object obj) {
-                return obj instanceof TreeAckAckMessage;
-            }
-        }
-
         Short t = (Short) o;
-        if (t == TMS.Info) return new TreeAckInfoMessage();
-        if (t == TMS.Ack) return new TreeAckAckMessage();
+        if (t == TMS.Info) return new TreeAckInfo();
+        if (t == TMS.Ack) return new TreeAckAck();
         throw new Error("Invalid message");
     }
 
@@ -144,12 +135,6 @@ public class TreeAck extends DefaultAlgorithm {
     }
 
     protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
-        class TreeAckTerminated extends TerminationInformation {
-        }
-
-        class TreeAckDecided extends DecidedInformation {
-        }
-
         return (Boolean) o ? new TreeAckDecided() : new TreeAckTerminated();
     }
 

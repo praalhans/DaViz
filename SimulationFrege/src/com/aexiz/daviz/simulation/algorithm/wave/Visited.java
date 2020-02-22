@@ -5,6 +5,9 @@ import com.aexiz.daviz.frege.simulation.Set.TSet;
 import com.aexiz.daviz.frege.simulation.Visited.TRRUI;
 import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.information.*;
+import com.aexiz.daviz.simulation.algorithm.wave.visited.VisitedDecided;
+import com.aexiz.daviz.simulation.algorithm.wave.visited.VisitedTerminated;
+import com.aexiz.daviz.simulation.algorithm.wave.visited.VisitedToken;
 import frege.prelude.PreludeBase.TMaybe;
 import frege.prelude.PreludeBase.TMaybe.DJust;
 import frege.prelude.PreludeBase.TTuple2;
@@ -28,12 +31,9 @@ public class Visited extends DefaultAlgorithm {
     protected MessageInformation makeAndUnloadMessage(FregeHelper help, Object o) {
         if (help == null || o == null) throw null;
 
-        class VisitedMessage extends VisitedTokenInformation {
-        }
-
         @SuppressWarnings("unchecked")
         TSet<Integer> t = (TSet<Integer>) o;
-        VisitedMessage result = new VisitedMessage();
+        VisitedToken result = new VisitedToken();
         result.setVisited(help.forVertexSet(t));
         return result;
     }
@@ -135,12 +135,6 @@ public class Visited extends DefaultAlgorithm {
     }
 
     protected ResultInformation makeAndUnloadResult(FregeHelper helper, Object o) {
-        class VisitedTerminated extends TerminationInformation {
-        }
-
-        class VisitedDecided extends DecidedInformation {
-        }
-
         return (Boolean) o ? new VisitedTerminated() : new VisitedDecided();
     }
 
