@@ -6,6 +6,10 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.TRRUI;
 import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.information.*;
+import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
+import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
+import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
+import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
 import com.aexiz.daviz.simulation.algorithm.wave.echo.*;
 import frege.run8.Thunk;
 

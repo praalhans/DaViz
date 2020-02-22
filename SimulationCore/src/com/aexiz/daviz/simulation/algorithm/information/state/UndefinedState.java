@@ -1,4 +1,7 @@
-package com.aexiz.daviz.simulation.algorithm.information;
+package com.aexiz.daviz.simulation.algorithm.information.state;
+
+import com.aexiz.daviz.simulation.algorithm.information.AbstractInformation;
+import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
 
 public class UndefinedState extends AbstractInformation implements PropertyVisitor {
     @Override

@@ -1,7 +1,7 @@
 package com.aexiz.daviz.simulation;
 
 import com.aexiz.daviz.frege.simulation.Event;
-import com.aexiz.daviz.simulation.algorithm.information.StateInformation;
+import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
 import com.aexiz.daviz.simulation.event.tInternalEvent;
 
 public class InternalEvent extends DefaultEvent implements tInternalEvent {

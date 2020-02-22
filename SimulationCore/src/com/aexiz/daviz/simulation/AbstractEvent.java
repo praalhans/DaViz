@@ -1,8 +1,8 @@
 package com.aexiz.daviz.simulation;
 
-import com.aexiz.daviz.simulation.algorithm.information.MessageInformation;
-import com.aexiz.daviz.simulation.algorithm.information.ResultInformation;
-import com.aexiz.daviz.simulation.algorithm.information.StateInformation;
+import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
+import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
+import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
 import com.aexiz.daviz.simulation.event.tInternalEvent;
 import com.aexiz.daviz.simulation.event.tReceiveEvent;
 import com.aexiz.daviz.simulation.event.tResultEvent;

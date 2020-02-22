@@ -1,6 +1,7 @@
-package com.aexiz.daviz.simulation.algorithm.information;
+package com.aexiz.daviz.simulation.algorithm.information.message;
 
 import com.aexiz.daviz.simulation.Node;
+import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
 
 import java.util.List;
 

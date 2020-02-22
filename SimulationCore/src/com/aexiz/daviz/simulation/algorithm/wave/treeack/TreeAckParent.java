@@ -1,7 +1,7 @@
 package com.aexiz.daviz.simulation.algorithm.wave.treeack;
 
 import com.aexiz.daviz.simulation.Channel;
-import com.aexiz.daviz.simulation.algorithm.information.ParentState;
+import com.aexiz.daviz.simulation.algorithm.information.state.ParentState;
 
 public class TreeAckParent extends ParentState {
     public TreeAckParent(Channel channel) {

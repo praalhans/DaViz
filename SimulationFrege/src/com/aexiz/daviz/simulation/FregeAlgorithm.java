@@ -1,9 +1,9 @@
 package com.aexiz.daviz.simulation;
 
 import com.aexiz.daviz.frege.simulation.Process;
-import com.aexiz.daviz.simulation.algorithm.information.MessageInformation;
-import com.aexiz.daviz.simulation.algorithm.information.ResultInformation;
-import com.aexiz.daviz.simulation.algorithm.information.StateInformation;
+import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
+import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
+import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
 
 import java.security.InvalidParameterException;
 

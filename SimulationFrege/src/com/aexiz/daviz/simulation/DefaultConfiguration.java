@@ -1,8 +1,8 @@
 package com.aexiz.daviz.simulation;
 
 import com.aexiz.daviz.frege.simulation.Simulation.TConfiguration;
-import com.aexiz.daviz.simulation.algorithm.information.MessageInformation;
-import com.aexiz.daviz.simulation.algorithm.information.StateInformation;
+import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
+import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
 import frege.prelude.PreludeBase.TEither;
 import frege.prelude.PreludeBase.TEither.DLeft;
 import frege.prelude.PreludeBase.TList;

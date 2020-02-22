@@ -1,6 +1,6 @@
 package com.aexiz.daviz.simulation;
 
-import com.aexiz.daviz.simulation.algorithm.information.StateInformation;
+import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
 
 import java.io.PrintStream;
 

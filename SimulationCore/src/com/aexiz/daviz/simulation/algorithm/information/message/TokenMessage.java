@@ -1,4 +1,6 @@
-package com.aexiz.daviz.simulation.algorithm.information;
+package com.aexiz.daviz.simulation.algorithm.information.message;
+
+import com.aexiz.daviz.simulation.algorithm.information.PropertyBuilder;
 
 public class TokenMessage extends AbstractMessageInformation {
     @Override

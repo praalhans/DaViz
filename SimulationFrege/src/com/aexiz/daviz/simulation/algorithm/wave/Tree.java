@@ -5,6 +5,10 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.Tree.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Tree.TUP;
 import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.information.*;
+import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
+import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
+import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
+import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
 import com.aexiz.daviz.simulation.algorithm.wave.tree.*;
 
 import java.util.List;
