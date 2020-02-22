@@ -5,10 +5,7 @@ import com.aexiz.daviz.frege.simulation.Set.TSet;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.DFS.TRRUI;
 import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.information.*;
-import com.aexiz.daviz.simulation.algorithm.wave.dfs.DFSAssumption;
-import com.aexiz.daviz.simulation.algorithm.wave.dfs.DFSDecided;
-import com.aexiz.daviz.simulation.algorithm.wave.dfs.DFSTerminated;
-import com.aexiz.daviz.simulation.algorithm.wave.dfs.DFSToken;
+import com.aexiz.daviz.simulation.algorithm.wave.dfs.*;
 import frege.prelude.PreludeBase.TMaybe;
 import frege.prelude.PreludeBase.TMaybe.DJust;
 import frege.prelude.PreludeBase.TTuple2;
@@ -40,7 +37,7 @@ public class DFS extends AbstractFregeBasicAlgorithm {
         }
         class DFS_State implements StateInformation {
             boolean hasToken;
-            DFS_RRUI rrui;
+            PropertyVisitor rrui;
             List<Channel> neighbors;
             Channel incoming;
 
@@ -74,18 +71,6 @@ public class DFS extends AbstractFregeBasicAlgorithm {
                 builder.simpleProperty("From:", c.to.getLabel());
             }
         }
-        class DFS_Replied extends DFS_RRUI {
-            private Channel c;
-
-            public String toString() {
-                return "Replied<" + c + ">";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Replied");
-                builder.simpleProperty("To:", c.to.getLabel());
-            }
-        }
         class DFS_Undefined extends DFS_RRUI {
             public String toString() {
                 return "Undefined";
@@ -115,8 +100,7 @@ public class DFS extends AbstractFregeBasicAlgorithm {
             r.c = helper.getChannelByTuple(rrui.asReceived().mem1.call());
             result.rrui = r;
         } else if (rrui.asReplied() != null) {
-            DFS_Replied r = new DFS_Replied();
-            r.c = helper.getChannelByTuple(rrui.asReplied().mem1.call());
+            DFSReplied r = new DFSReplied(helper.getChannelByTuple(rrui.asReplied().mem1.call()));
             result.rrui = r;
         } else if (rrui.asUndefined() != null) {
             result.rrui = new DFS_Undefined();

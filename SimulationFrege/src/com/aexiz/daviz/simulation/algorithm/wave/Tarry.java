@@ -5,10 +5,7 @@ import com.aexiz.daviz.frege.simulation.Set.TSet;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Tarry.TDUI;
 import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.information.*;
-import com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryAssumption;
-import com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryDecided;
-import com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryTerminated;
-import com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryToken;
+import com.aexiz.daviz.simulation.algorithm.wave.tarry.*;
 import frege.prelude.PreludeBase.TTuple2;
 import frege.prelude.PreludeBase.TTuple3;
 import frege.run8.Thunk;
@@ -38,7 +35,7 @@ public class Tarry extends AbstractFregeBasicAlgorithm {
         }
         class TarryState implements StateInformation {
             boolean hasToken;
-            TarryDUI dui;
+            PropertyVisitor dui;
             List<Channel> neighbors;
 
             public String toString() {
@@ -70,18 +67,7 @@ public class Tarry extends AbstractFregeBasicAlgorithm {
                 builder.simpleProperty("From:", c.to.getLabel());
             }
         }
-        class TarryReplied extends TarryDUI {
-            private Channel c;
 
-            public String toString() {
-                return "Replied<" + c + ">";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Replied");
-                builder.simpleProperty("To:", c.to.getLabel());
-            }
-        }
         class TarryUndefined extends TarryDUI {
             public String toString() {
                 return "Undefined";
@@ -111,8 +97,7 @@ public class Tarry extends AbstractFregeBasicAlgorithm {
             r.c = helper.getChannelByTuple(dui.asReceived().mem1.call());
             result.dui = r;
         } else if (dui.asReplied() != null) {
-            TarryReplied r = new TarryReplied();
-            r.c = helper.getChannelByTuple(dui.asReplied().mem1.call());
+            TarryReplied r = new TarryReplied(helper.getChannelByTuple(dui.asReplied().mem1.call()));
             result.dui = r;
         } else if (dui.asUndefined() != null) {
             result.dui = new TarryUndefined();

@@ -6,10 +6,7 @@ import com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.TPS;
 import com.aexiz.daviz.frege.simulation.algorithm.wave.Echo.TRRUI;
 import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.information.*;
-import com.aexiz.daviz.simulation.algorithm.wave.echo.EchoAssumption;
-import com.aexiz.daviz.simulation.algorithm.wave.echo.EchoBroadcast;
-import com.aexiz.daviz.simulation.algorithm.wave.echo.EchoDecided;
-import com.aexiz.daviz.simulation.algorithm.wave.echo.EchoTerminated;
+import com.aexiz.daviz.simulation.algorithm.wave.echo.*;
 import frege.run8.Thunk;
 
 import java.util.List;
@@ -37,7 +34,7 @@ public class Echo extends AbstractFregeBasicAlgorithm {
         class EchoState implements StateInformation {
             List<Channel> neighbors;
             List<Channel> children;
-            EchoRRUI state;
+            PropertyVisitor state;
 
             public String toString() {
                 return "(" + neighbors + "," + children + "," + state + ")";
@@ -92,17 +89,6 @@ public class Echo extends AbstractFregeBasicAlgorithm {
                 builder.simpleProperty("Received:", c.to.getLabel());
             }
         }
-        class EchoReplied extends EchoRRUI {
-            private Channel c;
-
-            public String toString() {
-                return "Replied<" + c + ">";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("Replied:", c.to.getLabel());
-            }
-        }
         TPS st = (TPS) o;
         EchoState result = new EchoState();
         result.neighbors = helper.forEdgeSet(st.mem$neighbors.call());
@@ -119,8 +105,7 @@ public class Echo extends AbstractFregeBasicAlgorithm {
             r.c = helper.getChannelByTuple(up.asReceived().mem1.call());
             result.state = r;
         } else if (up.asReplied() != null) {
-            EchoReplied r = new EchoReplied();
-            r.c = helper.getChannelByTuple(up.asReplied().mem1.call());
+            EchoReplied r = new EchoReplied(helper.getChannelByTuple(up.asReplied().mem1.call()));
             result.state = r;
         } else throw new Error();
         return result;

@@ -5,10 +5,7 @@ import com.aexiz.daviz.frege.simulation.Set.TSet;
 import com.aexiz.daviz.frege.simulation.Visited.TRRUI;
 import com.aexiz.daviz.simulation.*;
 import com.aexiz.daviz.simulation.algorithm.information.*;
-import com.aexiz.daviz.simulation.algorithm.wave.visited.VisitedAssumption;
-import com.aexiz.daviz.simulation.algorithm.wave.visited.VisitedDecided;
-import com.aexiz.daviz.simulation.algorithm.wave.visited.VisitedTerminated;
-import com.aexiz.daviz.simulation.algorithm.wave.visited.VisitedToken;
+import com.aexiz.daviz.simulation.algorithm.wave.visited.*;
 import frege.prelude.PreludeBase.TMaybe;
 import frege.prelude.PreludeBase.TMaybe.DJust;
 import frege.prelude.PreludeBase.TTuple2;
@@ -43,7 +40,7 @@ public class Visited extends AbstractFregeBasicAlgorithm {
         }
         class VisitedState implements StateInformation {
             List<Node> hasToken;
-            VisitedRRUI rrui;
+            PropertyVisitor rrui;
             List<Channel> neighbors;
 
             public String toString() {
@@ -77,18 +74,6 @@ public class Visited extends AbstractFregeBasicAlgorithm {
                 builder.simpleProperty("From:", c.to.getLabel());
             }
         }
-        class VisitedReplied extends VisitedRRUI {
-            private Channel c;
-
-            public String toString() {
-                return "Replied<" + c + ">";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Replied");
-                builder.simpleProperty("To:", c.to.getLabel());
-            }
-        }
         class VisitedUndefined extends VisitedRRUI {
             public String toString() {
                 return "Undefined";
@@ -119,8 +104,7 @@ public class Visited extends AbstractFregeBasicAlgorithm {
             r.c = helper.getChannelByTuple(rrui.asReceived().mem1.call());
             result.rrui = r;
         } else if (rrui.asReplied() != null) {
-            VisitedReplied r = new VisitedReplied();
-            r.c = helper.getChannelByTuple(rrui.asReplied().mem1.call());
+            VisitedReplied r = new VisitedReplied(helper.getChannelByTuple(rrui.asReplied().mem1.call()));
             result.rrui = r;
         } else if (rrui.asUndefined() != null) {
             result.rrui = new VisitedUndefined();

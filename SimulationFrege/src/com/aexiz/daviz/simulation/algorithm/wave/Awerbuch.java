@@ -43,7 +43,7 @@ public class Awerbuch extends AbstractFregeBasicAlgorithm {
         }
         class AwerbuchState implements StateInformation {
             boolean hasToken;
-            AwerbuchRRRUII rrruii;
+            PropertyVisitor rrruii;
             List<Channel> inform;
             List<Channel> acked;
             Channel intended;
@@ -124,18 +124,6 @@ public class Awerbuch extends AbstractFregeBasicAlgorithm {
                 builder.simpleProperty("From:", c.to.getLabel());
             }
         }
-        class AwerbuchReplied extends AwerbuchRRRUII {
-            private Channel c;
-
-            public String toString() {
-                return "Replied<" + c + ">";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Replied");
-                builder.simpleProperty("To:", c.to.getLabel());
-            }
-        }
         class AwerbuchUndefined extends AwerbuchRRRUII {
             public String toString() {
                 return "Undefined";
@@ -169,6 +157,7 @@ public class Awerbuch extends AbstractFregeBasicAlgorithm {
         AwerbuchState result = new AwerbuchState();
         result.hasToken = st.mem$hasToken.call();
         TRRRUII rrruii = st.mem$state.call();
+
         if (rrruii.asReceivedSeen() != null) {
             AwerbuchReceivedSeen r = new AwerbuchReceivedSeen();
             r.c = helper.getChannelByTuple(rrruii.asReceivedSeen().mem1.call());
@@ -178,9 +167,7 @@ public class Awerbuch extends AbstractFregeBasicAlgorithm {
             r.c = helper.getChannelByTuple(rrruii.asReceivedUnseen().mem1.call());
             result.rrruii = r;
         } else if (rrruii.asReplied() != null) {
-            AwerbuchReplied r = new AwerbuchReplied();
-            r.c = helper.getChannelByTuple(rrruii.asReplied().mem1.call());
-            result.rrruii = r;
+            result.rrruii = new AwerbuchReplied(helper.getChannelByTuple(rrruii.asReplied().mem1.call()));
         } else if (rrruii.asUndefined() != null) {
             result.rrruii = new AwerbuchUndefined();
         } else if (rrruii.asInitiatorSeen() != null) {

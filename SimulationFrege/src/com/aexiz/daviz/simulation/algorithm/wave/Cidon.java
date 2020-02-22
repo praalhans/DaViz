@@ -44,7 +44,7 @@ public class Cidon extends AbstractFregeBasicAlgorithm {
         }
         class CidonState implements StateInformation {
             boolean hasToken;
-            CidonRRUI rrui;
+            PropertyVisitor rrui;
             Channel intention;
             List<Channel> forward;
             List<Channel> info;
@@ -88,18 +88,6 @@ public class Cidon extends AbstractFregeBasicAlgorithm {
                 builder.simpleProperty("From:", c.to.getLabel());
             }
         }
-        class CidonReplied extends CidonRRUI {
-            private Channel c;
-
-            public String toString() {
-                return "Replied<" + c + ">";
-            }
-
-            public void buildProperties(PropertyBuilder builder) {
-                builder.simpleProperty("", "Replied");
-                builder.simpleProperty("To:", c.to.getLabel());
-            }
-        }
         class CidonUndefined extends CidonRRUI {
             public String toString() {
                 return "Undefined";
@@ -127,8 +115,7 @@ public class Cidon extends AbstractFregeBasicAlgorithm {
             r.c = helper.getChannelByTuple(rrui.asReceived().mem1.call());
             result.rrui = r;
         } else if (rrui.asReplied() != null) {
-            CidonReplied r = new CidonReplied();
-            r.c = helper.getChannelByTuple(rrui.asReplied().mem1.call());
+            CidonReplied r = new CidonReplied(helper.getChannelByTuple(rrui.asReplied().mem1.call()));
             result.rrui = r;
         } else if (rrui.asUndefined() != null) {
             result.rrui = new CidonUndefined();
