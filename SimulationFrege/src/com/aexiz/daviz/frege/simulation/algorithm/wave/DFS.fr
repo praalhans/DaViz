@@ -1,0 +1,54 @@
+module com.aexiz.daviz.frege.simulation.algorithm.wave.DFS where
+    
+    import com.aexiz.daviz.frege.simulation.Set
+    import com.aexiz.daviz.frege.simulation.Process
+    
+    data RRUI = Received Channel
+             | Replied Channel
+             | Undefined
+             | Initiator
+    derive Eq RRUI
+    
+    -- Process state and message state spaces
+    type PS = (Bool, RRUI, Set Channel, Maybe Channel)
+    type MS = () -- token
+    type RS = Bool -- decide or terminate
+    
+    -- State transition function
+    trans :: PS -> ProcessResult RS PS MS
+    -- procDesc (token, parent, neighbors left, incoming channel)
+    -- Step 1.
+    trans (True, p, n, Nothing) | sizeS n > 0 = PSend s' (ch, tok) where
+        s' = (False, p, n', Nothing)
+        n' = removeS n ch
+        ch = nextS n
+        tok = ()
+    -- Step 2.
+    trans (True, p, n, Just ch) = PSend s' (ch, tok) where
+        s' = (False, p, n', Nothing)
+        n' = removeS n ch
+        tok = ()
+    -- Step 3.
+    trans (True, Received ch, n, Nothing) | sizeS n == 0 = PSend s' (ch, tok) where
+        s' = (False, Replied ch, n, Nothing)
+        tok = ()
+    -- Step 4.
+    trans (True, Initiator, n, Nothing) | sizeS n == 0 = PResult True
+    -- Step 5.
+    trans (False, Replied _, n, Nothing) | sizeS n == 0 = PResult False
+    trans (False, Undefined, n, Nothing) | sizeS n == 0 = PResult False
+    -- Step 6.
+    trans (False, Undefined, n, m) = PReceive f where
+        f (rch, tok) = let ch = reverseC rch in (True, Received ch, removeS n ch, Nothing)
+    trans (False, p, n, m) = PReceive f where
+        f (rch, tok) = let ch = reverseC rch in case member ch n of
+                                    True  -> (True, p, removeS n ch, Just ch)
+                                    False -> (True, p, n, Nothing)
+    -- Partial
+    trans _ = error "Underspecified"
+    
+    procDesc :: Process -> ProcessDescription KnownNetwork RS PS MS
+    procDesc i = PD init trans where
+        init (n, p) | p == i =    (True, Initiator, outChannels n p, Nothing)
+                    | otherwise = (False, Undefined, outChannels n p, Nothing)
+    

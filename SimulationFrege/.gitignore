@@ -1,0 +1,2 @@
+# ignore java classes in frege package
+src/com/aexiz/daviz/frege/**/*.java
