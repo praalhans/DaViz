@@ -7,6 +7,7 @@
       <element id="module-output" name="SimulationFrege" />
       <element id="module-output" name="SimulationCore" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/frege3.25.84.jar" path-in-jar="/" />
+      <element id="module-output" name="Assets" />
     </root>
   </artifact>
 </component>
