@@ -10,11 +10,7 @@ The Frege simulation can still be used but the Java simulation module is however
 
 ### Features
 
-- [#11](https://github.com/praalhans/DaViz/issues/11) - Prepare application to receive a java port
-
-### Development process changes
-
-- [#12](https://github.com/praalhans/DaViz/issues/12) - Replace Eclipse for Intellij IDEA 
+- [#16](https://github.com/praalhans/DaViz/pull/16) - Prepare application to receive a java port
 
 ## v1.0.1
 
@@ -24,13 +20,13 @@ This release provides minor fixes and improvements, ensuring that the Tree and E
 
 ### Fix
 
-- [#1](https://github.com/praalhans/DaViz/issues/1) - Attempt to fix class path libraries for any contributor 
-- [#2](https://github.com/praalhans/DaViz/issues/2) - Cannot make simulations using the tree algorithm 
-- [#9](https://github.com/praalhans/DaViz/issues/9) - Enable Echo algorithm 
+- [#3](https://github.com/praalhans/DaViz/pull/3) - Attempt to fix class path libraries for any contributor 
+- [#4](https://github.com/praalhans/DaViz/pull/4) - Fixes exceptions when trying to run simulations using the tree algorithm
+- [#10](https://github.com/praalhans/DaViz/pull/10) - Enable Echo algorithm 
 
 ### Docummentation
 
-- [5](https://github.com/praalhans/DaViz/issues/5) - Describe Frege implementation of Tarry and Tree algorithms
+- [8](https://github.com/praalhans/DaViz/pull/8) - Describe Frege implementation of Tarry and Tree algorithms
 
 ## v1.0.0
 
