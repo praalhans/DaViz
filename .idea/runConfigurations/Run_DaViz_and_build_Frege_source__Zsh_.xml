@@ -1,10 +1,10 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Run DaViz and build Frege source (Zsh)" type="Application" factoryName="Application">
+  <configuration default="false" name="Run DaViz and build Frege source (Zsh)" type="Application" factoryName="Application" activateToolWindowBeforeRun="false">
     <option name="MAIN_CLASS_NAME" value="com.aexis.daviz.DaViz" />
     <module name="DaViz" />
     <method v="2">
-      <option name="Make" enabled="true" />
       <option name="Sh.BeforeRunTask" RUN_CONFIG_NAME="Build Frege source (Zsh)" RUN_CONFIG_TYPE="ShConfigurationType" />
+      <option name="Make" enabled="true" />
     </method>
   </configuration>
 </component>
