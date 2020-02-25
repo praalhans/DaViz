@@ -18,30 +18,16 @@ class AlgorithmUI {
     }
 
     static AlgorithmUI[] getAlgorithms() {
-        HashMap<String, ? extends Algorithm> list = Algorithms.getAlgorithm();
+        Map<String, Algorithm> list = Algorithms.getAlgorithm();
         AlgorithmUI[] algorithms = new AlgorithmUI[list.size()];
         int index = 0;
-        for (Map.Entry<String, ? extends Algorithm> entry : list.entrySet()) {
+        for (Map.Entry<String, Algorithm> entry : list.entrySet()) {
             String key = entry.getKey();
             Algorithm value = entry.getValue();
             algorithms[index] = new AlgorithmUI(key, value);
             index++;
         }
         return algorithms;
-
-//        .forEach((key, value) -> {
-//
-//        });
-//        return new AlgorithmUI[]{
-//                new AlgorithmUI("Tarry", new Tarry()),
-//                new AlgorithmUI("DFS", new DFS()),
-//                new AlgorithmUI("DFS + Visited", new Visited()),
-//                new AlgorithmUI("Awerbuch", new Awerbuch()),
-//                new AlgorithmUI("Cidon", new Cidon()),
-//                new AlgorithmUI("Tree", new Tree()),
-//                new AlgorithmUI("Tree + Ack", new TreeAck()),
-//                new AlgorithmUI("Echo", new Echo()),
-//        };
     }
 
     // It is necessary to expose the same methods as assumption, since

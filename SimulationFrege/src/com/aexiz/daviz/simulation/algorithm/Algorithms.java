@@ -1,17 +1,20 @@
 package com.aexiz.daviz.simulation.algorithm;
 
-import com.aexiz.daviz.simulation.algorithm.wave.Cidon;
-import com.aexiz.daviz.simulation.algorithm.wave.Tarry;
+import com.aexiz.daviz.simulation.algorithm.wave.*;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Algorithms {
-    public static HashMap<String, ? extends Algorithm> getAlgorithm() {
-        System.out.println("Frege");
-        return (HashMap<String, ? extends Algorithm>) Map.of(
+    public static Map<String, Algorithm> getAlgorithm() {
+        return Map.of(
                 "Tarry", new Tarry(),
-                "Cion", new Cidon()
+                "DFS", new DFS(),
+                "DFS + Visited", new Visited(),
+                "Awerbuch", new Awerbuch(),
+                "Cidon", new Cidon(),
+                "Tree", new Tree(),
+                "Tree + Ack", new TreeAck(),
+                "Echo", new Echo()
         );
     }
 }
