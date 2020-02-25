@@ -9,7 +9,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="UISwing" />
     <orderEntry type="module" module-name="SimulationFrege" />
+    <orderEntry type="module" module-name="UISwing" />
   </component>
 </module>
