@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run DaViz (Frege)" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.aexis.daviz.DaVizFrege" />
+    <module name="DaVizFrege" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

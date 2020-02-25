@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run DaViz (Java) and build Frege source (PowerShell)" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.aexis.daviz.DaVizJava" />
+    <module name="DaVizJava" />
+    <method v="2">
+      <option name="Sh.BeforeRunTask" RUN_CONFIG_NAME="Build Frege source (PowerShell)" RUN_CONFIG_TYPE="ShConfigurationType" />
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
