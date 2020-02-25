@@ -19,7 +19,6 @@ public class ControlFrame extends JFrame {
     private static final long serialVersionUID = 6858557427390573562L;
     AboutFrame about;
     Controller controller;
-    Handler handler;
     JCoolBar toolbar;
     JPanel pane;
     JComboBox<Algorithms> algorithmsBox;
@@ -27,9 +26,6 @@ public class ControlFrame extends JFrame {
     JLabel assumptionCentralized;
     JLabel assumptionDecentralized;
     JAssignmentField initiatorBox;
-    JMenu testCaseMenu;
-    TestCases[] testCases;
-    JMenuItem[] testCaseButtons;
 
     ControlFrame() {
         ArrayList<Image> icons = new ArrayList<>();
@@ -39,8 +35,6 @@ public class ControlFrame extends JFrame {
         setResizable(false);
 
         about = new AboutFrame(this);
-
-        handler = new Handler();
 
         JPanel topPane = new JPanel(new BorderLayout());
         toolbar = new JCoolBar();
@@ -164,23 +158,6 @@ public class ControlFrame extends JFrame {
     }
 
     void loadAlgorithms() {
-		/*controller.simulationManager.performJob(new Callable<Void>() {
-			public Void call() throws Exception {
-				// Loading the TestCases class also pulls in the Haskell compiled classes
-				testCases = TestCases.getTestCases();
-				SwingUtilities.invokeAndWait(() -> {
-					testCaseButtons = new JMenuItem[testCases.length];
-					for (int i = 0; i < testCases.length; i++) {
-						testCaseButtons[i] = new JMenuItem(testCases[i].getPage() + " (" + testCases[i].getName() + ")");
-						testCaseButtons[i].setActionCommand("load");
-						testCaseButtons[i].addActionListener(handler);
-						testCaseMenu.add(testCaseButtons[i]);
-					}
-					testCaseMenu.revalidate();
-				});
-				return null;
-			}
-		});*/
         controller.simulationManager.performJob(() -> {
             // Loading the Algorithms also pulls in the Haskell compiled classes
             Algorithms[] algorithms = Algorithms.getAlgorithms();
@@ -385,21 +362,4 @@ public class ControlFrame extends JFrame {
         menu.add(mb);
         menubar.add(menu);
     }
-
-    class Handler implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-            controller.simulationManager.performJob(() -> {
-                for (int i = 0; i < testCases.length; i++) {
-                    if (e.getSource() == testCaseButtons[i]) {
-                        controller.simulationManager.loadSimulation(testCases[i].method);
-                        break;
-                    }
-                }
-                return null;
-            });
-        }
-
-    }
-
 }

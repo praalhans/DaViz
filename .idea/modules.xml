@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/SimulationDummy/SimulationDummy.iml" filepath="$PROJECT_DIR$/SimulationDummy/SimulationDummy.iml" />
       <module fileurl="file://$PROJECT_DIR$/SimulationFrege/SimulationFrege.iml" filepath="$PROJECT_DIR$/SimulationFrege/SimulationFrege.iml" />
       <module fileurl="file://$PROJECT_DIR$/SimulationJava/SimulationJava.iml" filepath="$PROJECT_DIR$/SimulationJava/SimulationJava.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Test/Test.iml" filepath="$PROJECT_DIR$/Test/Test.iml" />
       <module fileurl="file://$PROJECT_DIR$/UISwing/UISwing.iml" filepath="$PROJECT_DIR$/UISwing/UISwing.iml" />
     </modules>
   </component>
