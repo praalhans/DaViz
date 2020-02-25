@@ -1,3 +1,6 @@
 Manifest-Version: 1.0
 Main-Class: com.aexis.daviz.DaVizFrege
-
+Name: com/aexis/daviz
+Specification-Title: DaViz Frege port
+Implementation-Title: com.aexis.daviz
+Implementation-Version: 2.0.0
