@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="DaVizJava:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/DaVizJava_jar</output-path>
+    <root id="archive" name="DaVizJava.jar">
+      <element id="module-output" name="DaVizJava" />
+      <element id="module-output" name="SimulationJava" />
+      <element id="module-output" name="SimulationCore" />
+      <element id="module-output" name="UISwing" />
+      <element id="module-output" name="Assets" />
+    </root>
+  </artifact>
+</component>

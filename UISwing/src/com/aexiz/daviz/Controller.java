@@ -451,7 +451,7 @@ class Controller {
 
     void start() {
         simulationManager.afterSimulation(() -> {
-            Algorithms alg = (Algorithms) control.algorithmsBox.getSelectedItem();
+            AlgorithmUI alg = (AlgorithmUI) control.algorithmsBox.getSelectedItem();
             Object[] init = control.initiatorBox.getValue();
 
             if (networkModel.isEmpty()) {

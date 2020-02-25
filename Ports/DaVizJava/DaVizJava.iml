@@ -7,7 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="Assets" exported="" />
-    <orderEntry type="module" module-name="SimulationDummy" />
+    <orderEntry type="module" module-name="SimulationJava" />
+    <orderEntry type="module" module-name="UISwing" />
   </component>
 </module>

@@ -1,29 +1,30 @@
 package com.aexiz.daviz;
 
 import com.aexiz.daviz.simulation.algorithm.Algorithm;
-import com.aexiz.daviz.simulation.algorithm.wave.*;
+import com.aexiz.daviz.simulation.algorithm.Algorithms;
 
-class Algorithms {
+import java.util.ArrayList;
+import java.util.List;
+
+// TODO Rename class to be more intuitive
+class AlgorithmUI {
 
     String name;
     Algorithm alg;
 
-    Algorithms(String name, Algorithm alg) {
+    AlgorithmUI(String name, Algorithm alg) {
         this.name = name;
         this.alg = alg;
     }
 
-    static Algorithms[] getAlgorithms() {
-        return new Algorithms[]{
-                new Algorithms("Tarry", new Tarry()),
-                new Algorithms("DFS", new DFS()),
-                new Algorithms("DFS + Visited", new Visited()),
-                new Algorithms("Awerbuch", new Awerbuch()),
-                new Algorithms("Cidon", new Cidon()),
-                new Algorithms("Tree", new Tree()),
-                new Algorithms("Tree + Ack", new TreeAck()),
-                new Algorithms("Echo", new Echo()),
-        };
+    static AlgorithmUI[] getAlgorithms() {
+        List<AlgorithmUI> algorithms = new ArrayList<>();
+
+        Algorithms.getAlgorithm().forEach((key, value) -> {
+            algorithms.add(new AlgorithmUI(key, value));
+        });
+
+        return algorithms.toArray(new AlgorithmUI[0]);
     }
 
     // It is necessary to expose the same methods as assumption, since
