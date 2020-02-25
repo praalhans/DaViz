@@ -26,7 +26,7 @@ class AboutFrame extends JDialog {
         pane.setBackground(Color.WHITE);
         pane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel title = new JLabel("Distributed Algorithms Visualisation");
+        JLabel title = new JLabel("Distributed AlgorithmUI Visualisation");
         title.setFont(title.getFont().deriveFont(24.0f));
         gbc.gridwidth = 2;
         gbl.setConstraints(title, gbc);

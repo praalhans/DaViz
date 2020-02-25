@@ -8,7 +8,6 @@ import com.aexiz.daviz.ui.JCoolBar;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ public class ControlFrame extends JFrame {
     Controller controller;
     JCoolBar toolbar;
     JPanel pane;
-    JComboBox<Algorithms> algorithmsBox;
+    JComboBox<AlgorithmUI> algorithmsBox;
     JLabel assumptionAcyclic;
     JLabel assumptionCentralized;
     JLabel assumptionDecentralized;
@@ -58,7 +57,7 @@ public class ControlFrame extends JFrame {
         algorithmsBox.setBorder(null);
         algorithmsBox.addActionListener(e -> {
             Object selection = algorithmsBox.getSelectedItem();
-            Algorithms alg = (Algorithms) selection;
+            AlgorithmUI alg = (AlgorithmUI) selection;
             assumptionAcyclic.setEnabled(alg.isAcyclicGraph());
             assumptionCentralized.setEnabled(alg.isCentralized());
             assumptionDecentralized.setEnabled(alg.isDecentralized());
@@ -159,10 +158,10 @@ public class ControlFrame extends JFrame {
 
     void loadAlgorithms() {
         controller.simulationManager.performJob(() -> {
-            // Loading the Algorithms also pulls in the Haskell compiled classes
-            Algorithms[] algorithms = Algorithms.getAlgorithms();
+            // Loading the AlgorithmUI also pulls in the Haskell compiled classes
+            AlgorithmUI[] algorithms = AlgorithmUI.getAlgorithms();
             SwingUtilities.invokeAndWait(() -> {
-                for (Algorithms alg : algorithms) {
+                for (AlgorithmUI alg : algorithms) {
                     algorithmsBox.addItem(alg);
                 }
             });
