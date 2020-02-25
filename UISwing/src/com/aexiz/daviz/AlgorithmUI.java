@@ -3,8 +3,8 @@ package com.aexiz.daviz;
 import com.aexiz.daviz.simulation.algorithm.Algorithm;
 import com.aexiz.daviz.simulation.algorithm.Algorithms;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 // TODO Rename class to be more intuitive
 class AlgorithmUI {
@@ -18,16 +18,13 @@ class AlgorithmUI {
     }
 
     static AlgorithmUI[] getAlgorithms() {
-        Map<String, Algorithm> list = Algorithms.getAlgorithm();
-        AlgorithmUI[] algorithms = new AlgorithmUI[list.size()];
-        int index = 0;
-        for (Map.Entry<String, Algorithm> entry : list.entrySet()) {
-            String key = entry.getKey();
-            Algorithm value = entry.getValue();
-            algorithms[index] = new AlgorithmUI(key, value);
-            index++;
-        }
-        return algorithms;
+        List<AlgorithmUI> algorithms = new ArrayList<>();
+
+        Algorithms.getAlgorithm().forEach((key, value) -> {
+            algorithms.add(new AlgorithmUI(key, value));
+        });
+
+        return algorithms.toArray(new AlgorithmUI[0]);
     }
 
     // It is necessary to expose the same methods as assumption, since
