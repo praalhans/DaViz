@@ -24,8 +24,8 @@ The dependencies between modules are already configured and shared in the reposi
 Base build and application (run) configurations are already available in the project and can be simply executed to build or start the application. The following configurations are available:
 
 - Build Frege source: Generate intermediate Java files for frege implementation in the SimulationFrege module. Available for Zsh and PowerShell (**Not tested**). 
-- Run DaViz: Invoke the IDE build/run for the main executable class of the project.
-- Run DaViz and build Frege source: Run the two configurations above. 
+- Run DaViz: Invoke the IDE build/run for the main executable class of the project. Available for Frege and Java ports.
+- Run DaViz and build Frege source: Run all combinations of the two configurations above. 
 
 These configurations were verified to work for Mac OS and Linux distributions. They were **not tested** yet on Windows.
 
@@ -55,7 +55,12 @@ For learning Haskell, refer to:
 
 ## Modules
 
-This project is organized using the [Modules](https://www.jetbrains.com/help/idea/creating-and-managing-modules.html) structure from IntelliJ IDEA. Currently, there is 1 UI module (Swing) and 3 simulation modules (Core, Java and Frege). While there is just one UI module, it is possible to run DaViz as a native Java solution using the Java module or as a Java-Haskell solution using the Frege module. The Core module provides shared classes between the Java and Frege modules.
+This project is organized using the [Modules](https://www.jetbrains.com/help/idea/creating-and-managing-modules.html) structure from IntelliJ IDEA. Currently, there is 1 UI module (Swing), 4 simulation modules (Core, Java, Frege and Dummy) and 2 port modules (Java and Frege). While there is just one UI module, it is possible to run DaViz as a native Java solution using the Java module or as a Java-Haskell solution using the Frege module. The Core module provides shared classes between the Java and Frege modules. The Dummy module serves to inform the UI module the existent classes and methods, but it will be overridden by the dependency load in the Port module.  The Port modules wrap the dependencies required for the given port. 
+
+Port modules:
+
+- DaVizJava
+- DaVizFrege
 
 UI modules:
 
@@ -66,6 +71,7 @@ Simulation modules:
 - Core
 - Frege
 - Java (**Not ready for use**)
+- Dummy
 
 ## Contributing
 
