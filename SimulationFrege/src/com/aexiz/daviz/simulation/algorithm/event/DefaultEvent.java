@@ -24,10 +24,7 @@ public abstract class DefaultEvent extends AbstractEvent implements Cloneable, E
     static public void matchAndLinkEvents(List<Event> events) {
         // First we clear the state of all events
         clearEvents( events);
-//        for (DefaultEvent old : events) {
-//            old.matchingEvent = null;
-//            old.previousEvent = null;
-//        }
+
         // Match send and receive events
         for (int i = 0, size = events.size(); i < size; i++) {
             Event event = events.get(i);
