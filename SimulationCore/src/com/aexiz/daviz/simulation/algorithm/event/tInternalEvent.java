@@ -1,4 +1,6 @@
 package com.aexiz.daviz.simulation.algorithm.event;
 
-public interface tInternalEvent {
+import com.aexiz.daviz.simulation.Event;
+
+public interface tInternalEvent extends Event {
 }
