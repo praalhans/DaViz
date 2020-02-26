@@ -21,21 +21,22 @@ public abstract class DefaultEvent extends AbstractEvent implements Cloneable, E
         super();
     }
 
-    static public void matchAndLinkEvents(@NotNull List<DefaultEvent> events) {
+    static public void matchAndLinkEvents(List<Event> events) {
         // First we clear the state of all events
-        for (DefaultEvent old : events) {
-            old.matchingEvent = null;
-            old.previousEvent = null;
-        }
+        clearEvents( events);
+//        for (DefaultEvent old : events) {
+//            old.matchingEvent = null;
+//            old.previousEvent = null;
+//        }
         // Match send and receive events
         for (int i = 0, size = events.size(); i < size; i++) {
-            DefaultEvent event = events.get(i);
+            Event event = events.get(i);
             if (event instanceof tReceiveEvent) {
                 ReceiveEvent receive = (ReceiveEvent) event;
                 MessageInformation rMsg = receive.getMessage();
                 boolean matched = false;
                 for (int j = 0; j < i; j++) {
-                    DefaultEvent other = events.get(j);
+                    Event other = events.get(j);
                     if (other instanceof tSendEvent) {
                         SendEvent sender = (SendEvent) other;
                         MessageInformation sMsg = sender.getMessage();
@@ -54,10 +55,10 @@ public abstract class DefaultEvent extends AbstractEvent implements Cloneable, E
             }
         }
         // Build a linked list of events and their predecessor within the same process
-        HashMap<Node, DefaultEvent> map = new HashMap<>();
-        for (DefaultEvent event : events) {
+        HashMap<Node, Event> map = new HashMap<>();
+        for (Event event : events) {
             Node happens = event.getHappensAt();
-            event.previousEvent = map.get(happens);
+            event.setPreviousEvent(map.get(happens));
             map.put(happens, event);
         }
     }

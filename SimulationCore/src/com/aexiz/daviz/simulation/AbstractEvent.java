@@ -10,6 +10,8 @@ import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
 import com.aexiz.daviz.simulation.viewpoint.Locus;
 import com.aexiz.daviz.simulation.viewpoint.Node;
 
+import java.util.List;
+
 public abstract class AbstractEvent extends Locus implements Cloneable, Event {
     protected Simulation simulation;
     protected Execution execution;
@@ -143,6 +145,21 @@ public abstract class AbstractEvent extends Locus implements Cloneable, Event {
     }
 
     @Override
+    public void clearMatchingEvent() {
+        matchingEvent = null;
+    }
+
+    @Override
+    public void clearPreviousEvent() {
+        previousEvent = null;
+    }
+
+    @Override
+    public void setPreviousEvent(Event previousEvent) {
+        this.previousEvent = previousEvent;
+    }
+
+    @Override
     public abstract Event clone();
 
     protected AbstractEvent clone(AbstractEvent to) {
@@ -151,4 +168,13 @@ public abstract class AbstractEvent extends Locus implements Cloneable, Event {
         to.happensAt = this.happensAt;
         return to;
     }
+
+    protected static void clearEvents(List<Event> events){
+        for (Event event : events) {
+            event.clearMatchingEvent();
+            event.clearPreviousEvent();
+        }
+    }
+
+
 }

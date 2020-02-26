@@ -75,11 +75,11 @@ public class DefaultExecution extends AbstractExecution implements Execution {
 
     @Override
     public Event[] getLinkedEvents() {
-        ArrayList<DefaultEvent> events = new ArrayList<>();
+        ArrayList<Event> events = new ArrayList<>();
         // Traverse and collect
         DefaultExecution elem = this;
         while (elem.hasEvents()) {
-            events.add((DefaultEvent) elem.lastEvent);
+            events.add(elem.lastEvent);
             elem = (DefaultExecution) elem.parent;
         }
 

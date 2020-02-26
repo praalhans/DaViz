@@ -18,11 +18,17 @@ public interface Event {
 
     Node getHappensAt();
 
+    void clearPreviousEvent();
+
+    void setPreviousEvent(Event event);
+
     void setHappensAt(Node happensAt);
 
     boolean hasMatchingEvent();
 
     Event getMatchingEvent();
+
+    void clearMatchingEvent();
 
     boolean hasHappensAt();
 
