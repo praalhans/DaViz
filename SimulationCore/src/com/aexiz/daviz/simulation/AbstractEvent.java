@@ -10,7 +10,9 @@ import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
 import com.aexiz.daviz.simulation.viewpoint.Locus;
 import com.aexiz.daviz.simulation.viewpoint.Node;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class AbstractEvent extends Locus implements Cloneable, Event {
     protected Simulation simulation;
@@ -160,6 +162,11 @@ public abstract class AbstractEvent extends Locus implements Cloneable, Event {
     }
 
     @Override
+    public void setMatchingEvent(Event matchingEvent) {
+        this.matchingEvent = matchingEvent;
+    }
+
+    @Override
     public abstract Event clone();
 
     protected AbstractEvent clone(AbstractEvent to) {
@@ -169,12 +176,59 @@ public abstract class AbstractEvent extends Locus implements Cloneable, Event {
         return to;
     }
 
-    protected static void clearEvents(List<Event> events){
+    static public void matchAndLinkEvents(List<Event> events) {
+        // First we clear the state of all events
+        clearEvents(events);
+
+        // Match send and receive events
+        matchSendAndReceiveEvents(events);
+
+        // Build a linked list of events and their predecessor within the same process
+        linkPreviousEvents(events);
+    }
+
+    private static void clearEvents(List<Event> events) {
         for (Event event : events) {
             event.clearMatchingEvent();
             event.clearPreviousEvent();
         }
     }
 
+    private static void matchSendAndReceiveEvents(List<Event> events) {
+        for (int i = 0, size = events.size(); i < size; i++) {
+            Event receiveEvent = events.get(i);
+            if (receiveEvent instanceof tReceiveEvent) {
+                boolean matched = false;
+                for (int j = 0; j < i; j++) {
+                    Event sendEvent = events.get(j);
+                    if (sendEvent instanceof tSendEvent && areEventsMatched(sendEvent, receiveEvent)) {
+                        sendEvent.setMatchingEvent(receiveEvent);
+                        receiveEvent.setMatchingEvent(sendEvent);
+                        matched = true;
+                        break;
+                    }
+                }
+                if (!matched)
+                    throw new Error("Unmatched receive and send events");
+            }
+        }
+    }
 
+    private static boolean areEventsMatched(Event sendEvent, Event receiveEvent) {
+        if (sendEvent.getReceiver() != receiveEvent.getHappensAt()) return false;
+        if (receiveEvent.getSender() != sendEvent.getHappensAt()) return false;
+        if (sendEvent.hasMatchingEvent()) return false;
+        if (!receiveEvent.getMessage().equals(sendEvent.getMessage())) return false;
+
+        return true;
+    }
+
+    private static void linkPreviousEvents(List<Event> events) {
+        Map<Node, Event> map = new HashMap<>();
+        for (Event event : events) {
+            Node happens = event.getHappensAt();
+            event.setPreviousEvent(map.get(happens));
+            map.put(happens, event);
+        }
+    }
 }

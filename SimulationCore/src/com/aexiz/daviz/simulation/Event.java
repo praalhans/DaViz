@@ -30,6 +30,8 @@ public interface Event {
 
     void clearMatchingEvent();
 
+    void setMatchingEvent(Event event);
+
     boolean hasHappensAt();
 
     boolean hasNextState();
