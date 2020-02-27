@@ -66,6 +66,11 @@ public abstract class AbstractExecution implements Execution {
     }
 
     @Override
+    public Event getLastEvent() {
+        return lastEvent;
+    }
+
+    @Override
     public boolean hasNext() {
         return successors.size() != 0;
     }
@@ -119,5 +124,20 @@ public abstract class AbstractExecution implements Execution {
         // Reverse
         Collections.reverse(result);
         return result;
+    }
+
+    @Override
+    public Event[] getLinkedEvents() {
+        ArrayList<Event> events = new ArrayList<>();
+        // Traverse and collect
+        Execution elem = this;
+        while (elem.hasEvents()) {
+            events.add(elem.getLastEvent());
+            elem = elem.getParent();
+        }
+
+        Collections.reverse(events);
+        AbstractEvent.matchAndLinkEvents(events);
+        return events.toArray(new Event[0]);
     }
 }

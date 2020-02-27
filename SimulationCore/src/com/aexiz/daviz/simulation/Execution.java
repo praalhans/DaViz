@@ -29,6 +29,8 @@ public interface Execution {
 
     void setLastEvent(Event lastEvent);
 
+    Event getLastEvent();
+
     Configuration getConfiguration();
 
     void setConfiguration(Configuration configuration);
