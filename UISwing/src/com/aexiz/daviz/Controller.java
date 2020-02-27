@@ -438,9 +438,7 @@ class Controller {
 
     void clear() {
         simulationManager.stopSimulation();
-        simulationManager.afterSimulation(() -> {
-            clear0();
-        });
+        simulationManager.afterSimulation(this::clear0);
     }
 
     private void clear0() {
