@@ -63,7 +63,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
     public void updateProcessSpace(Event event) {
         setTokenInformation(event);
         lastEvent = event;
-        processesSpace.put(event.getHappensAt(), (TarryState) ((DefaultEvent) event).getNextState());
+        processesSpace.put(event.getHappensAt(), (TarryState) event.getNextState());
     }
 
     private void setTokenInformation(Event event) {
