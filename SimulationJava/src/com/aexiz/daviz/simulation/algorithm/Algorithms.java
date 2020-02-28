@@ -1,6 +1,6 @@
 package com.aexiz.daviz.simulation.algorithm;
 
-import com.aexiz.daviz.simulation.algorithm.wave.Tarry;
+import com.aexiz.daviz.simulation.algorithm.wave.tarry.Tarry;
 
 import java.util.Map;
 
