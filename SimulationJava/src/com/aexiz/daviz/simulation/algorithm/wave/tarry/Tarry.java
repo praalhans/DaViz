@@ -43,15 +43,17 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
     public List<Event> makePossibleNextEvents() {
         List<Event> events = new ArrayList<>();
 
-        processesSpace.forEach((node, processSpace) -> {
-
+        for (Map.Entry<Node, TarryState> entry : processesSpace.entrySet()) {
+            Node node = entry.getKey();
+            TarryState processSpace = entry.getValue();
+            if (isTokenInChannel && !node.isEqualTo(tokenTo)) continue;
             boolean foundEvent = verifyAndMakeSendEventForNextNeighbor(events, processSpace)
                     || verifyAndMakeSendEventForReplyingParent(events, processSpace)
                     || verifyAndMakeResultEventToTerminate(events, processSpace, node)
                     || verifyAndMakeResultEventToDecide(events, processSpace, node)
                     || verifyAndMakeReceiveEventForNonInitiatorInUndefinedState(events, processSpace)
                     || verifyAndMakeReceiveEventForNonInitiator(events, processSpace);
-        });
+        }
         if (events.isEmpty()) throw new Error("Unknown step of Tarry algorithm");
         return events;
     }
