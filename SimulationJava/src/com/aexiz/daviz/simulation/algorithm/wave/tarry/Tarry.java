@@ -89,7 +89,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
 
     private void setTokenInformation(Event event) {
         if (event instanceof tSendEvent) {
-            channelWithToken = new Channel( ((SendEvent) event).getHappensAt(), ((SendEvent) event).getReceiver());
+            channelWithToken = new Channel( event.getHappensAt(), event.getReceiver());
             isTokenInChannel = true;
         } else {
             channelWithToken = null;
