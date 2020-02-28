@@ -1,17 +1,18 @@
 package com.aexiz.daviz.simulation.algorithm.event;
 
 import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
+import com.aexiz.daviz.simulation.viewpoint.Node;
 
 public class ResultEvent extends DefaultEvent implements tResultEvent {
     transient ResultInformation result;
 
-    ResultEvent() {
-        super();
-    }
-
-    public ResultEvent(ResultInformation result) {
+    public ResultEvent(ResultInformation result, Node happensAt) {
         super();
         this.result = result;
+        this.happensAt = happensAt;
+    }
+
+    public ResultEvent() {
     }
 
     @Override

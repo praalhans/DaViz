@@ -3,6 +3,7 @@ package com.aexiz.daviz.simulation.algorithm.wave.tarry;
 import com.aexiz.daviz.simulation.Event;
 import com.aexiz.daviz.simulation.Network;
 import com.aexiz.daviz.simulation.algorithm.AbstractJavaBasicAlgorithm;
+import com.aexiz.daviz.simulation.algorithm.event.ReceiveEvent;
 import com.aexiz.daviz.simulation.algorithm.event.ResultEvent;
 import com.aexiz.daviz.simulation.algorithm.event.SendEvent;
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
@@ -38,20 +39,19 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
         return processSpace.get(node);
     }
 
-    //    @Override
+    @Override
     public Event[] makePossibleNextEvents() {
         List<Event> events = new ArrayList<>();
 
         processSpace.forEach((node, processSpace) -> {
-            boolean foundEvent = verifyAndMakeSendEventForNextNeighbor(processSpace, events)
-                    || verifyAndMakeSendEventForReplyingParent(processSpace, events)
-                    || verifyAndMakeResultEventToTerminate(processSpace, events);
-
-//            else if (processSpace.hasToken && !processSpace.hasNeighbors()) {
-//                events.add(makeResultEvent(processSpace));
-//            }
+            boolean foundEvent = verifyAndMakeSendEventForNextNeighbor(events, processSpace)
+                    || verifyAndMakeSendEventForReplyingParent(events, processSpace)
+                    || verifyAndMakeResultEventToTerminate(events, processSpace, node)
+                    || verifyAndMakeResultEventToDecide(events, processSpace, node)
+                    || verifyAndMakeReceiveEventForNonInitiatorInUndefinedState(events, processSpace)
+                    || verifyAndMakeReceiveEventForNonInitiator(events, processSpace);
         });
-
+        if (events.isEmpty()) throw new Error("Unknown step of Tarry algorithm");
         return events.toArray(new Event[0]);
     }
 
@@ -60,7 +60,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
      * to send the token to the first neighbor in the {@link Channel} list and remove the channel from the list. The process state is
      * NOT modified and should be {@link TarryInitiator} for the initiator process and {@link TarryReceived} for all other processes.
      */
-    private boolean verifyAndMakeSendEventForNextNeighbor(TarryState processSpace, List<Event> events) {
+    private boolean verifyAndMakeSendEventForNextNeighbor(List<Event> events, TarryState processSpace) {
         if (processSpace.hasToken && processSpace.hasNeighbors()) {
             List<Channel> neighbors = processSpace.neighbors;
             Channel channel = neighbors.remove(0);
@@ -77,7 +77,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
      * the channel which first sent it the token. The process state is modified to {@link TarryReplied} state with the same
      * {@link Channel} set in the previously {@link TarryReceived} state.
      */
-    private boolean verifyAndMakeSendEventForReplyingParent(TarryState processSpace, List<Event> events) {
+    private boolean verifyAndMakeSendEventForReplyingParent(List<Event> events, TarryState processSpace) {
         if (processSpace.hasToken && !processSpace.hasNeighbors() && processSpace.getState() instanceof TarryReceived) {
             Channel parentChannel = (Channel) ((TarryReceived) processSpace.getState()).getViewpoint();
             PropertyVisitor nextState = processSpace.isInitiator() ? new TarryInitiator() : new TarryReceived(parentChannel);
@@ -91,16 +91,63 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
     }
 
     /**
-     * For a initiator process holding the token with no non-visited neighbor, create a {@link ResultEvent} as a {@link TarryTerminated}
+     * For a initiator process holding the token with no non-visited neighbor, create a {@link ResultEvent} as {@link TarryTerminated}
      */
-    private boolean verifyAndMakeResultEventToTerminate(TarryState processSpace, List<Event> events) {
+    private boolean verifyAndMakeResultEventToTerminate(List<Event> events, TarryState processSpace, Node happensAt) {
         if (processSpace.hasToken && processSpace.isInitiator() && !processSpace.hasNeighbors()) {
-            events.add(new ResultEvent(new TarryTerminated()));
+            events.add(new ResultEvent(new TarryTerminated(), happensAt));
             return true;
         }
         return false;
     }
 
+    /**
+     * For a non-initiator process not holding the token and with no non-visited neighbor and in the state {@link TarryUndefined} or
+     * {@link TarryReplied}, create a {@link ResultEvent} as {@link TarryDecided}
+     */
+    private boolean verifyAndMakeResultEventToDecide(List<Event> events, TarryState processSpace, Node happensAt) {
+        if (!processSpace.hasToken && !processSpace.hasNeighbors() &&
+                (processSpace.getState() instanceof TarryUndefined || processSpace.getState() instanceof TarryReplied)
+        ) {
+            events.add(new ResultEvent(new TarryDecided(), happensAt));
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * For a non-initiator process not holding the token and with at least one non-visited neighbor and in the state {@link TarryUndefined},
+     * create a {@link ReceiveEvent} to the first non-visited neighbor {@link Channel} and remove it from the list.
+     */
+    private boolean verifyAndMakeReceiveEventForNonInitiatorInUndefinedState(List<Event> events, TarryState processSpace) {
+        if (!processSpace.hasToken && processSpace.getState() instanceof TarryUndefined && processSpace.hasNeighbors()) {
+            List<Channel> neighbors = processSpace.neighbors;
+            Channel channel = neighbors.remove(0);
+            PropertyVisitor nextState = new TarryReceived(new Channel(channel.to, channel.from));
+
+            TarryState nextProcessSpace = new TarryState(true, nextState, neighbors);
+
+            events.add(new ReceiveEvent(new TarryToken(), nextProcessSpace, channel.from, channel.to));
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * For a non-initiator process not holding the token and with at least one non-visited neighbor,
+     * keep the same state and update the process space to hold the token
+     */
+    private boolean verifyAndMakeReceiveEventForNonInitiator(List<Event> events, TarryState processSpace) {
+        if (!processSpace.hasToken && processSpace.hasNeighbors()) {
+            Channel parentChannel = (Channel) ((TarryReceived) processSpace.getState()).getViewpoint();
+
+            TarryState nextProcessSpace = new TarryState(true, processSpace.getState(), processSpace.getNeighbors());
+
+            events.add(new ReceiveEvent(new TarryToken(), nextProcessSpace, parentChannel.from, parentChannel.to));
+            return true;
+        }
+        return false;
+    }
 
     private void makeInitialNodeStates(Network network) {
         Node initiator = assumption.getInitiator();

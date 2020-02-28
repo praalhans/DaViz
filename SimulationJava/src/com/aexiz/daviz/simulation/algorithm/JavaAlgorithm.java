@@ -12,6 +12,6 @@ public interface JavaAlgorithm extends Algorithm {
 
     StateInformation getProcessSpace(Node node);
 
-//    Event[] makePossibleNextEvents();
+    Event[] makePossibleNextEvents();
 
 }
