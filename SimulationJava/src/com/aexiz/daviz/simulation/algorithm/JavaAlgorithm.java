@@ -5,6 +5,8 @@ import com.aexiz.daviz.simulation.Network;
 import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
 import com.aexiz.daviz.simulation.viewpoint.Node;
 
+import java.util.List;
+
 public interface JavaAlgorithm extends Algorithm {
     void setNetwork(Network network);
 
@@ -12,6 +14,6 @@ public interface JavaAlgorithm extends Algorithm {
 
     StateInformation getProcessSpace(Node node);
 
-    Event[] makePossibleNextEvents();
+    List<Event> makePossibleNextEvents();
 
 }

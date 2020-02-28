@@ -40,7 +40,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
     }
 
     @Override
-    public Event[] makePossibleNextEvents() {
+    public List<Event> makePossibleNextEvents() {
         List<Event> events = new ArrayList<>();
 
         processSpace.forEach((node, processSpace) -> {
@@ -52,7 +52,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
                     || verifyAndMakeReceiveEventForNonInitiator(events, processSpace);
         });
         if (events.isEmpty()) throw new Error("Unknown step of Tarry algorithm");
-        return events.toArray(new Event[0]);
+        return events;
     }
 
     /**
