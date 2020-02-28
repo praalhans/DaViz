@@ -3,7 +3,12 @@ package com.aexiz.daviz.simulation.algorithm.wave.tarry;
 import com.aexiz.daviz.simulation.Event;
 import com.aexiz.daviz.simulation.Network;
 import com.aexiz.daviz.simulation.algorithm.AbstractJavaBasicAlgorithm;
-import com.aexiz.daviz.simulation.algorithm.event.*;
+import com.aexiz.daviz.simulation.algorithm.event.ReceiveEvent;
+import com.aexiz.daviz.simulation.algorithm.event.ResultEvent;
+import com.aexiz.daviz.simulation.algorithm.event.SendEvent;
+import com.aexiz.daviz.simulation.algorithm.event.tSendEvent;
+import com.aexiz.daviz.simulation.algorithm.information.Information;
+import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
 import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
 import com.aexiz.daviz.simulation.viewpoint.Channel;
@@ -15,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Tarry extends AbstractJavaBasicAlgorithm {
-    Map<Node, TarryState> processesSpace;
+    Map<Node, Information> processesSpace;
     boolean isTokenInChannel;
     Event lastEvent;
     Node tokenTo;
@@ -37,17 +42,26 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
 
     @Override
     public StateInformation getProcessSpace(Node node) {
-        return processesSpace.get(node);
+        return (StateInformation) processesSpace.get(node);
     }
 
     @Override
     public List<Event> makePossibleNextEvents() {
         List<Event> events = new ArrayList<>();
+        int finishedProcessCount = 0;
 
-        for (Map.Entry<Node, TarryState> entry : processesSpace.entrySet()) {
+        for (Map.Entry<Node, Information> entry : processesSpace.entrySet()) {
             Node node = entry.getKey();
-            TarryState processSpace = entry.getValue();
+            System.out.println(node + " . " + entry.getValue());
+
             if (isTokenInChannel && !node.isEqualTo(tokenTo)) continue;
+            if (entry.getValue() instanceof ResultInformation) {
+                finishedProcessCount++;
+                continue;
+            }
+
+            TarryState processSpace = (TarryState) entry.getValue();
+
             boolean foundEvent = verifyAndMakeSendEventForNextNeighbor(events, processSpace)
                     || verifyAndMakeSendEventForReplyingParent(events, processSpace)
                     || verifyAndMakeResultEventToTerminate(events, processSpace, node)
@@ -55,7 +69,8 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
                     || verifyAndMakeReceiveEventForNonInitiatorInUndefinedState(events, processSpace)
                     || verifyAndMakeReceiveEventForNonInitiator(events, processSpace);
         }
-        if (events.isEmpty()) throw new Error("Unknown step of Tarry algorithm");
+        if (events.isEmpty() && finishedProcessCount != processesSpace.size())
+            throw new Error("Unknown step of Tarry algorithm");
         return events;
     }
 
@@ -63,7 +78,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
     public void updateProcessSpace(Event event) {
         setTokenInformation(event);
         lastEvent = event;
-        processesSpace.put(event.getHappensAt(), (TarryState) event.getNextState());
+        processesSpace.put(event.getHappensAt(), event instanceof ResultEvent ? event.getResult() : (TarryState) event.getNextState());
     }
 
     private void setTokenInformation(Event event) {
