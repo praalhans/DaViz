@@ -13,6 +13,14 @@ public class SendEvent extends DefaultEvent implements tSendEvent {
         super();
     }
 
+    public SendEvent(MessageInformation message, StateInformation nextState, Node receiver, Node happensAt) {
+        super();
+        this.message = message;
+        this.nextState = nextState;
+        this.receiver = receiver;
+        this.happensAt = happensAt;
+    }
+
     @Override
     protected SendEvent clone(DefaultEvent to) {
         super.clone(to);

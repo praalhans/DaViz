@@ -18,12 +18,12 @@ public class DefaultConfiguration extends AbstractConfiguration {
         processState = new StateInformation[processes.length];
 
         JavaAlgorithm algorithm = ((JavaAlgorithm) simulation.getAlgorithm());
-
-        algorithm.makeState(simulation.getNetwork());
+        algorithm.setNetwork(simulation.getNetwork());
+        algorithm.makeState();
         for (int i = 0, processesLength = processes.length; i < processesLength; i++) {
             Node process = processes[i];
             processAlive[i] = true;
-            processState[i] = algorithm.getState(process);
+            processState[i] = algorithm.getProcessSpace(process);
         }
     }
 }

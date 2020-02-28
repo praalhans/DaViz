@@ -2,6 +2,7 @@ package com.aexiz.daviz.simulation.algorithm.event;
 
 import com.aexiz.daviz.simulation.AbstractEvent;
 import com.aexiz.daviz.simulation.Event;
+import com.aexiz.daviz.simulation.Execution;
 
 public abstract class DefaultEvent extends AbstractEvent implements Cloneable, Event {
     DefaultEvent() {
@@ -14,5 +15,9 @@ public abstract class DefaultEvent extends AbstractEvent implements Cloneable, E
     protected DefaultEvent clone(DefaultEvent to) {
         super.clone(to);
         return to;
+    }
+
+    static public Event load(Execution execution){
+        return null;
     }
 }

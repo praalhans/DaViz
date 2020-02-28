@@ -9,6 +9,11 @@ public class ResultEvent extends DefaultEvent implements tResultEvent {
         super();
     }
 
+    public ResultEvent(ResultInformation result) {
+        super();
+        this.result = result;
+    }
+
     @Override
     protected ResultEvent clone(DefaultEvent to) {
         super.clone(to);

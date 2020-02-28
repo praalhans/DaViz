@@ -23,6 +23,11 @@ public abstract class AbstractExecution implements Execution {
         this.configuration = configuration;
     }
 
+    public AbstractExecution(Simulation simulation, Execution parent) {
+        this.simulation = simulation;
+        this.parent = parent;
+    }
+
     public AbstractExecution(Simulation simulation) {
         this.simulation = simulation;
     }

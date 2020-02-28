@@ -1,8 +1,16 @@
 package com.aexiz.daviz.simulation;
 
+import com.aexiz.daviz.simulation.algorithm.event.DefaultEvent;
+
+import java.util.ArrayList;
+
 public class DefaultExecution extends AbstractExecution {
     public DefaultExecution(Simulation simulation, Configuration configuration) {
         super(simulation, configuration);
+    }
+
+    public DefaultExecution(Simulation simulation, Execution parent) {
+        super(simulation, parent);
     }
 
     public DefaultExecution(Simulation simulation) {
@@ -12,7 +20,7 @@ public class DefaultExecution extends AbstractExecution {
     public DefaultExecution() {
     }
 
-    public void load() {
+    public void loadConfiguration() {
         isInvariant();
         if (configuration != null) return;
         parent = null;
@@ -22,18 +30,38 @@ public class DefaultExecution extends AbstractExecution {
         ((DefaultConfiguration) configuration).load();
     }
 
-    protected void loadConfiguration() {
+    private void loadSuccessor() {
+        isInvariant();
+        if (successors != null) return;
+
+        successors = new ArrayList<>();
+        DefaultExecution resultChoice = new DefaultExecution(simulation, this);
+        resultChoice.lastEvent = DefaultEvent.load(resultChoice);
+        successors.add(resultChoice);
 
     }
 
     @Override
     public Configuration getConfiguration() {
-        load();
+        loadConfiguration();
         return super.getConfiguration();
     }
 
     @Override
     public boolean hasNext() {
+        loadSuccessor();
         return super.hasNext();
+    }
+
+    @Override
+    public Execution getNext(int index) {
+        loadSuccessor();
+        return super.getNext(index);
+    }
+
+    @Override
+    public int getNextCount() {
+        loadSuccessor();
+        return super.getNextCount();
     }
 }

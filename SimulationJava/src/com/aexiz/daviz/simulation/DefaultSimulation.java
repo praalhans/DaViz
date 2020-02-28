@@ -6,6 +6,6 @@ public class DefaultSimulation extends AbstractSimulation {
         network.load();
 
         execution = new DefaultExecution(this);
-        ((DefaultExecution) execution).load();
+        ((DefaultExecution) execution).loadConfiguration();
     }
 }

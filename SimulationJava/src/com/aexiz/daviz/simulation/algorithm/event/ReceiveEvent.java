@@ -13,6 +13,13 @@ public class ReceiveEvent extends DefaultEvent implements tReceiveEvent {
         super();
     }
 
+    public ReceiveEvent(MessageInformation message, StateInformation nextState, Node sender, Node happensAt) {
+        this.message = message;
+        this.nextState = nextState;
+        this.sender = sender;
+        this.happensAt = happensAt;
+    }
+
     @Override
     protected ReceiveEvent clone(DefaultEvent to) {
         super.clone(to);
