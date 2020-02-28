@@ -21,10 +21,11 @@ import java.util.Map;
 
 public class Tarry extends AbstractJavaBasicAlgorithm {
     Map<Node, Information> processesSpace;
-    boolean isTokenInChannel;
-    Event lastEvent;
-    Node tokenTo;
-    boolean isProcessSpaceUpdated;
+
+    transient boolean isTokenInChannel;
+    transient Event lastEvent;
+    transient Channel channelWithToken;
+    transient boolean isProcessSpaceUpdated;
 
     public Tarry() {
         assumption = TarryAssumption.makeAssumption();
@@ -54,7 +55,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
             Node node = entry.getKey();
             System.out.println(node + " . " + entry.getValue());
 
-            if (isTokenInChannel && !node.isEqualTo(tokenTo)) continue;
+            if (isTokenInChannel && !node.isEqualTo(channelWithToken.to)) continue;
             if (entry.getValue() instanceof ResultInformation) {
                 finishedProcessCount++;
                 continue;
@@ -73,6 +74,8 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
         if (events.isEmpty() && finishedProcessCount != processesSpace.size())
             throw new Error("Unknown step of Tarry algorithm");
         isProcessSpaceUpdated = false;
+
+        System.out.println(events);
         return events;
     }
 
@@ -88,10 +91,10 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
 
     private void setTokenInformation(Event event) {
         if (event instanceof tSendEvent) {
-            tokenTo = ((SendEvent) event).getReceiver();
+            channelWithToken = new Channel( ((SendEvent) event).getHappensAt(), ((SendEvent) event).getReceiver());
             isTokenInChannel = true;
         } else {
-            tokenTo = null;
+            channelWithToken = null;
             isTokenInChannel = false;
         }
     }
@@ -162,12 +165,13 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
     private boolean verifyAndMakeReceiveEventForNonInitiatorInUndefinedState(List<Event> events, TarryState processSpace) {
         if (isTokenInChannel && !processSpace.hasToken && processSpace.getState() instanceof TarryUndefined && processSpace.hasNeighbors()) {
             List<Channel> neighbors = processSpace.neighbors;
-            Channel channel = neighbors.remove(0);
-            PropertyVisitor nextState = new TarryReceived(new Channel(channel.to, channel.from));
+            Channel channel = new Channel(channelWithToken.to, channelWithToken.from);
+            neighbors.remove(channel);
+            PropertyVisitor nextState = new TarryReceived(channelWithToken);
 
             TarryState nextProcessSpace = new TarryState(true, nextState, neighbors);
 
-            events.add(new ReceiveEvent(new TarryToken(), nextProcessSpace, channel.to, channel.from));
+            events.add(new ReceiveEvent(new TarryToken(), nextProcessSpace, channelWithToken.from, channelWithToken.to));
             return true;
         }
         return false;
