@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class Tarry extends AbstractJavaBasicAlgorithm {
     transient boolean isTokenInChannel;
-    transient Event lastEvent;
+
     transient Channel channelWithToken;
     transient boolean isProcessSpaceUpdated;
 
@@ -62,8 +62,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
     public void updateProcessSpace(Event event) {
         if (!isProcessSpaceUpdated) {
             setTokenInformation(event);
-            lastEvent = event;
-            processesSpace.put(event.getHappensAt(), event instanceof ResultEvent ? event.getResult() : (TarryState) event.getNextState());
+            super.updateProcessSpace(event);
         }
         isProcessSpaceUpdated = true;
     }
