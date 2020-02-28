@@ -18,17 +18,17 @@ import java.util.List;
 import java.util.Map;
 
 public class Tarry extends AbstractJavaBasicAlgorithm {
-    Map<Node, TarryState> processSpace;
+    Map<Node, TarryState> processesSpace;
 
     public Tarry() {
         assumption = TarryAssumption.makeAssumption();
-        processSpace = new HashMap<>();
+        processesSpace = new HashMap<>();
     }
 
     @Override
     public void makeState() {
         validateNetwork();
-        if (processSpace.isEmpty()) {
+        if (processesSpace.isEmpty()) {
             makeInitialNodeStates(network);
             return;
         }
@@ -37,14 +37,14 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
 
     @Override
     public StateInformation getProcessSpace(Node node) {
-        return processSpace.get(node);
+        return processesSpace.get(node);
     }
 
     @Override
     public List<Event> makePossibleNextEvents() {
         List<Event> events = new ArrayList<>();
 
-        processSpace.forEach((node, processSpace) -> {
+        processesSpace.forEach((node, processSpace) -> {
             boolean foundEvent = verifyAndMakeSendEventForNextNeighbor(events, processSpace)
                     || verifyAndMakeSendEventForReplyingParent(events, processSpace)
                     || verifyAndMakeResultEventToTerminate(events, processSpace, node)
@@ -58,7 +58,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
 
     @Override
     public void updateProcessSpace(Event event) {
-        processSpace.put(event.getHappensAt(), (TarryState) ((DefaultEvent)event).getNextState());
+        processesSpace.put(event.getHappensAt(), (TarryState) ((DefaultEvent)event).getNextState());
     }
 
     /**
@@ -168,7 +168,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
             initialState.setNeighbors(channels);
             initialState.makeProperties();
 
-            processSpace.put(node, initialState);
+            processesSpace.put(node, initialState);
         });
     }
 
