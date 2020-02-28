@@ -17,6 +17,7 @@ import java.util.Map;
 public class Tarry extends AbstractJavaBasicAlgorithm {
     Map<Node, TarryState> processesSpace;
     boolean isTokenInChannel;
+    Event lastEvent;
     Node tokenTo;
 
     public Tarry() {
@@ -61,6 +62,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
     @Override
     public void updateProcessSpace(Event event) {
         setTokenInformation(event);
+        lastEvent = event;
         processesSpace.put(event.getHappensAt(), (TarryState) ((DefaultEvent) event).getNextState());
     }
 
@@ -152,16 +154,17 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
     }
 
     /**
-     * For a non-initiator process not holding the token and with at least one non-visited neighbor,
+     * For a process not holding the token and the token is in a channel,
      * keep the same state and update the process space to hold the token
      */
     private boolean verifyAndMakeReceiveEventForNonInitiator(List<Event> events, TarryState processSpace) {
-        if (isTokenInChannel && !processSpace.hasToken && processSpace.hasNeighbors()) {
-            Channel parentChannel = (Channel) ((TarryReceived) processSpace.getState()).getViewpoint();
+        if (isTokenInChannel && !processSpace.hasToken) {
+            Node to = lastEvent.getReceiver();
+            Node from = lastEvent.getHappensAt();
 
             TarryState nextProcessSpace = new TarryState(true, processSpace.getState(), processSpace.getNeighbors());
 
-            events.add(new ReceiveEvent(new TarryToken(), nextProcessSpace, parentChannel.from, parentChannel.to));
+            events.add(new ReceiveEvent(new TarryToken(), nextProcessSpace, from, to));
             return true;
         }
         return false;
