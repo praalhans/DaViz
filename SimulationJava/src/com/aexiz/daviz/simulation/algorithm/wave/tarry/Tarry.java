@@ -3,10 +3,7 @@ package com.aexiz.daviz.simulation.algorithm.wave.tarry;
 import com.aexiz.daviz.simulation.Event;
 import com.aexiz.daviz.simulation.Network;
 import com.aexiz.daviz.simulation.algorithm.AbstractJavaBasicAlgorithm;
-import com.aexiz.daviz.simulation.algorithm.event.DefaultEvent;
-import com.aexiz.daviz.simulation.algorithm.event.ReceiveEvent;
-import com.aexiz.daviz.simulation.algorithm.event.ResultEvent;
-import com.aexiz.daviz.simulation.algorithm.event.SendEvent;
+import com.aexiz.daviz.simulation.algorithm.event.*;
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
 import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
 import com.aexiz.daviz.simulation.viewpoint.Channel;
@@ -19,6 +16,8 @@ import java.util.Map;
 
 public class Tarry extends AbstractJavaBasicAlgorithm {
     Map<Node, TarryState> processesSpace;
+    boolean isTokenInChannel;
+    Node tokenTo;
 
     public Tarry() {
         assumption = TarryAssumption.makeAssumption();
@@ -27,7 +26,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
 
     @Override
     public void makeState() {
-        validateNetwork();
+        if (network == null) throw new Error("Algorithm does not know the network");
         if (processesSpace.isEmpty()) {
             makeInitialNodeStates(network);
             return;
@@ -45,6 +44,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
         List<Event> events = new ArrayList<>();
 
         processesSpace.forEach((node, processSpace) -> {
+
             boolean foundEvent = verifyAndMakeSendEventForNextNeighbor(events, processSpace)
                     || verifyAndMakeSendEventForReplyingParent(events, processSpace)
                     || verifyAndMakeResultEventToTerminate(events, processSpace, node)
@@ -58,7 +58,18 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
 
     @Override
     public void updateProcessSpace(Event event) {
-        processesSpace.put(event.getHappensAt(), (TarryState) ((DefaultEvent)event).getNextState());
+        setTokenInformation(event);
+        processesSpace.put(event.getHappensAt(), (TarryState) ((DefaultEvent) event).getNextState());
+    }
+
+    private void setTokenInformation(Event event) {
+        if (event instanceof tSendEvent) {
+            tokenTo = ((SendEvent) event).getReceiver();
+            isTokenInChannel = true;
+        } else {
+            tokenTo = null;
+            isTokenInChannel = false;
+        }
     }
 
     /**
@@ -90,7 +101,6 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
             TarryState nextProcessSpace = new TarryState(true, nextState, new ArrayList<>());
 
             events.add(new SendEvent(new TarryToken(), nextProcessSpace, parentChannel.to, parentChannel.from));
-
             return true;
         }
         return false;
@@ -126,7 +136,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
      * create a {@link ReceiveEvent} to the first non-visited neighbor {@link Channel} and remove it from the list.
      */
     private boolean verifyAndMakeReceiveEventForNonInitiatorInUndefinedState(List<Event> events, TarryState processSpace) {
-        if (!processSpace.hasToken && processSpace.getState() instanceof TarryUndefined && processSpace.hasNeighbors()) {
+        if (isTokenInChannel && !processSpace.hasToken && processSpace.getState() instanceof TarryUndefined && processSpace.hasNeighbors()) {
             List<Channel> neighbors = processSpace.neighbors;
             Channel channel = neighbors.remove(0);
             PropertyVisitor nextState = new TarryReceived(new Channel(channel.to, channel.from));
@@ -144,7 +154,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
      * keep the same state and update the process space to hold the token
      */
     private boolean verifyAndMakeReceiveEventForNonInitiator(List<Event> events, TarryState processSpace) {
-        if (!processSpace.hasToken && processSpace.hasNeighbors()) {
+        if (isTokenInChannel && !processSpace.hasToken && processSpace.hasNeighbors()) {
             Channel parentChannel = (Channel) ((TarryReceived) processSpace.getState()).getViewpoint();
 
             TarryState nextProcessSpace = new TarryState(true, processSpace.getState(), processSpace.getNeighbors());
@@ -169,11 +179,8 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
             initialState.makeProperties();
 
             processesSpace.put(node, initialState);
+            isTokenInChannel = false;
         });
-    }
-
-    private void validateNetwork() {
-        if (network == null) throw new Error("Algorithm does not know the network");
     }
 
 }
