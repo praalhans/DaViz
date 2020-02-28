@@ -17,6 +17,7 @@ public class TarryState extends AbstractAlgorithmState {
         this.hasToken = hasToken;
         this.state = state;
         this.neighbors = neighbors;
+        makeProperties();
     }
 
     public TarryState() {
