@@ -4,8 +4,7 @@ import com.aexiz.daviz.simulation.viewpoint.Channel;
 import com.aexiz.daviz.simulation.viewpoint.Node;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.UUID;
+import java.util.*;
 
 public abstract class AbstractNetwork implements Network {
     protected ArrayList<Node> processes = new ArrayList<>();
@@ -125,6 +124,30 @@ public abstract class AbstractNetwork implements Network {
     @Override
     public boolean belongsToSimulation() {
         return simulationUUID != null;
+    }
+
+    @Override
+    public List<Channel> getChannelsFromNode(Node node) {
+        List<Channel> channels = new ArrayList<>();
+
+        this.channels.forEach((channel) -> {
+            if (channel.from.ishIdEqual(node.gethId())) {
+                channels.add(channel);
+            }
+        });
+
+        return channels;
+    }
+
+    @Override
+    public Map<Node, List<Channel>> makeMapOfChannelsFromNodes() {
+        Map<Node, List<Channel>> channelsFromNode = new HashMap<>();
+
+        processes.forEach((process) -> {
+            channelsFromNode.put(process, getChannelsFromNode(process));
+        });
+
+        return channelsFromNode;
     }
 
     private void floodFill(@NotNull Node node) {
