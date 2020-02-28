@@ -33,11 +33,10 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
     @Override
     public void makeState() {
         if (network == null) throw new Error("Algorithm does not know the network");
-        if (processesSpace.isEmpty()) {
-            makeInitialNodeStates(network);
-            return;
+        if (!processesSpace.isEmpty()) {
+            processesSpace = new HashMap<>();
         }
-        throw new Error("makeState is implemented only for initial state");
+        makeInitialNodeStates(network);
     }
 
     @Override
