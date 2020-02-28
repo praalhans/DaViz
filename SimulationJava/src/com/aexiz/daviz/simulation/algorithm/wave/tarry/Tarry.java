@@ -3,6 +3,7 @@ package com.aexiz.daviz.simulation.algorithm.wave.tarry;
 import com.aexiz.daviz.simulation.Event;
 import com.aexiz.daviz.simulation.Network;
 import com.aexiz.daviz.simulation.algorithm.AbstractJavaBasicAlgorithm;
+import com.aexiz.daviz.simulation.algorithm.event.DefaultEvent;
 import com.aexiz.daviz.simulation.algorithm.event.ReceiveEvent;
 import com.aexiz.daviz.simulation.algorithm.event.ResultEvent;
 import com.aexiz.daviz.simulation.algorithm.event.SendEvent;
@@ -53,6 +54,11 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
         });
         if (events.isEmpty()) throw new Error("Unknown step of Tarry algorithm");
         return events;
+    }
+
+    @Override
+    public void updateProcessSpace(Event event) {
+        processSpace.put(event.getHappensAt(), (TarryState) ((DefaultEvent)event).getNextState());
     }
 
     /**

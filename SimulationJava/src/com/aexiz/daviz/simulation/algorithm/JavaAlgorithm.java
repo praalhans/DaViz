@@ -16,4 +16,6 @@ public interface JavaAlgorithm extends Algorithm {
 
     List<Event> makePossibleNextEvents();
 
+    void updateProcessSpace(Event event);
+
 }

@@ -1,5 +1,6 @@
 package com.aexiz.daviz.simulation;
 
+import com.aexiz.daviz.simulation.algorithm.JavaAlgorithm;
 import com.aexiz.daviz.simulation.algorithm.event.DefaultEvent;
 import com.aexiz.daviz.simulation.algorithm.wave.tarry.Tarry;
 
@@ -68,7 +69,9 @@ public class DefaultExecution extends AbstractExecution {
     @Override
     public Execution getNext(int index) {
         loadSuccessor();
-        return super.getNext(index);
+        Execution nextExecution = super.getNext(index);
+        ((JavaAlgorithm)simulation.getAlgorithm()).updateProcessSpace(nextExecution.getLastEvent());
+        return nextExecution;
     }
 
     @Override
