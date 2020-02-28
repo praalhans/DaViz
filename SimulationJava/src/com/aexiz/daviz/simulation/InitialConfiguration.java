@@ -1,7 +1,6 @@
 package com.aexiz.daviz.simulation;
 
 import com.aexiz.daviz.simulation.algorithm.JavaAlgorithm;
-import com.aexiz.daviz.simulation.algorithm.wave.tarry.Tarry;
 
 public class InitialConfiguration extends DefaultConfiguration implements Configuration.InitialConfiguration {
     public InitialConfiguration(Simulation simulation) {

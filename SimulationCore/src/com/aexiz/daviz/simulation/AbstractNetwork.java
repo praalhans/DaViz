@@ -131,7 +131,7 @@ public abstract class AbstractNetwork implements Network {
         List<Channel> channels = new ArrayList<>();
 
         this.channels.forEach((channel) -> {
-            if (channel.from.ishIdEqual(node.gethId())) {
+            if (channel.from.isEqualTo(node)) {
                 channels.add(channel);
             }
         });
