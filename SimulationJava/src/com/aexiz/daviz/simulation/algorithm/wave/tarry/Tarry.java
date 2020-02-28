@@ -9,7 +9,6 @@ import com.aexiz.daviz.simulation.algorithm.event.tSendEvent;
 import com.aexiz.daviz.simulation.algorithm.information.Information;
 import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
-import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
 import com.aexiz.daviz.simulation.viewpoint.Channel;
 import com.aexiz.daviz.simulation.viewpoint.Node;
 
