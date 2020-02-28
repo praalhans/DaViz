@@ -35,8 +35,6 @@ public interface Execution {
 
     void setConfiguration(Configuration configuration);
 
-    void loadFirst();
-
     Simulation getSimulation();
 
     void setSimulation(Simulation simulation);

@@ -20,7 +20,6 @@ public class DefaultExecution extends AbstractExecution implements Execution {
     DefaultExecution() {
     }
 
-    @Override
     public void loadFirst() {
         if (simulation == null) throw new Error("Invalid simulation");
         if (!(configuration instanceof InitialConfiguration)) throw new Error("Invalid initial configuration");

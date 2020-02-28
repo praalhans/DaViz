@@ -20,7 +20,15 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
     }
 
     @Override
-    public void makeInitialNodeStates(Network network) {
+    public void makeState(Network network) {
+        if (nodesState.isEmpty()){
+            makeInitialNodeStates(network);
+            return;
+        }
+        throw new Error("makeState is implemented only for initial state");
+    }
+
+    private void makeInitialNodeStates(Network network) {
         Node initiator = assumption.getInitiator();
         Map<Node, List<Channel>> mapOfChannelsFromNodes = network.makeMapOfChannelsFromNodes();
         mapOfChannelsFromNodes.forEach((node, channels) -> {
@@ -31,6 +39,8 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
             initialState.setHasToken(isNodeInitiator);
             initialState.setState(state);
             initialState.setNeighbors(channels);
+            initialState.makeProperties();
+
             nodesState.put(node, initialState);
         });
     }

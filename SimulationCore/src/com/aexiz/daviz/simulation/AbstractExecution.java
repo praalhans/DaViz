@@ -18,6 +18,18 @@ public abstract class AbstractExecution implements Execution {
      */
     Event lastEvent;
 
+    public AbstractExecution(Simulation simulation, Configuration configuration) {
+        this.simulation = simulation;
+        this.configuration = configuration;
+    }
+
+    public AbstractExecution(Simulation simulation) {
+        this.simulation = simulation;
+    }
+
+    public AbstractExecution() {
+    }
+
     protected void isInvariant() {
         if (simulation == null) throw new Error("Invalid simulation");
     }

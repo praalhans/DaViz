@@ -22,7 +22,7 @@ public class DefaultSimulation extends AbstractSimulation {
         execution = new DefaultExecution();
         execution.setSimulation(this);
         execution.setConfiguration(ic);
-        execution.loadFirst();
+        ((DefaultExecution) execution).loadFirst();
     }
 
 }

@@ -1,20 +1,39 @@
 package com.aexiz.daviz.simulation;
 
 public class DefaultExecution extends AbstractExecution {
-    @Override
-    public void loadFirst() {
-        isInvariant();
-        resetExecution();
-        configuration = new DefaultConfiguration();
-        configuration.setSimulation(simulation);
-        ((DefaultConfiguration) configuration).unload();
-
-        throw new Error("DefaultExecution not implemented");
+    public DefaultExecution(Simulation simulation, Configuration configuration) {
+        super(simulation, configuration);
     }
 
-    private void resetExecution(){
+    public DefaultExecution(Simulation simulation) {
+        super(simulation);
+    }
+
+    public DefaultExecution() {
+    }
+
+    public void load() {
+        isInvariant();
+        if (configuration != null) return;
         parent = null;
         lastEvent = null;
-        configuration = null;
+
+        configuration = new DefaultConfiguration(simulation);
+        ((DefaultConfiguration) configuration).load();
+    }
+
+    protected void loadConfiguration() {
+
+    }
+
+    @Override
+    public Configuration getConfiguration() {
+        load();
+        return super.getConfiguration();
+    }
+
+    @Override
+    public boolean hasNext() {
+        return super.hasNext();
     }
 }
