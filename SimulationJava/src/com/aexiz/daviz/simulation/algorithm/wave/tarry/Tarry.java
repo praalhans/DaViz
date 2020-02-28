@@ -50,10 +50,9 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
     public List<Event> makePossibleNextEvents() {
         List<Event> events = new ArrayList<>();
         int finishedProcessCount = 0;
-        System.out.println("--");
+
         for (Map.Entry<Node, Information> entry : processesSpace.entrySet()) {
             Node node = entry.getKey();
-            System.out.println(node + " . " + entry.getValue());
 
             if (isTokenInChannel && !node.isEqualTo(channelWithToken.to)) continue;
             if (entry.getValue() instanceof ResultInformation) {
@@ -75,7 +74,6 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
             throw new Error("Unknown step of Tarry algorithm");
         isProcessSpaceUpdated = false;
 
-        System.out.println(events);
         return events;
     }
 
