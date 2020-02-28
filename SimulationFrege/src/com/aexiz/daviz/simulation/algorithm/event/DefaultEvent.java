@@ -4,13 +4,8 @@ import com.aexiz.daviz.frege.simulation.Event.TEvent;
 import com.aexiz.daviz.simulation.AbstractEvent;
 import com.aexiz.daviz.simulation.DefaultExecution;
 import com.aexiz.daviz.simulation.Event;
-import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
-import com.aexiz.daviz.simulation.viewpoint.Node;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.HashMap;
-import java.util.List;
 
 public abstract class DefaultEvent extends AbstractEvent implements Cloneable, Event {
     // Haskell dependency
@@ -19,47 +14,6 @@ public abstract class DefaultEvent extends AbstractEvent implements Cloneable, E
 
     DefaultEvent() {
         super();
-    }
-
-    static public void matchAndLinkEvents(@NotNull List<DefaultEvent> events) {
-        // First we clear the state of all events
-        for (DefaultEvent old : events) {
-            old.matchingEvent = null;
-            old.previousEvent = null;
-        }
-        // Match send and receive events
-        for (int i = 0, size = events.size(); i < size; i++) {
-            DefaultEvent event = events.get(i);
-            if (event instanceof tReceiveEvent) {
-                ReceiveEvent receive = (ReceiveEvent) event;
-                MessageInformation rMsg = receive.getMessage();
-                boolean matched = false;
-                for (int j = 0; j < i; j++) {
-                    DefaultEvent other = events.get(j);
-                    if (other instanceof tSendEvent) {
-                        SendEvent sender = (SendEvent) other;
-                        MessageInformation sMsg = sender.getMessage();
-                        if (sender.getReceiver() != receive.getHappensAt()) continue;
-                        if (receive.getSender() != sender.getHappensAt()) continue;
-                        if (sender.hasMatchingEvent()) continue;
-                        if (!rMsg.equals(sMsg)) continue;
-                        sender.matchingEvent = receive;
-                        receive.matchingEvent = sender;
-                        matched = true;
-                        break;
-                    }
-                }
-                if (!matched)
-                    throw new Error("Unmatched Haskell receive event");
-            }
-        }
-        // Build a linked list of events and their predecessor within the same process
-        HashMap<Node, DefaultEvent> map = new HashMap<>();
-        for (DefaultEvent event : events) {
-            Node happens = event.getHappensAt();
-            event.previousEvent = map.get(happens);
-            map.put(happens, event);
-        }
     }
 
     @NotNull

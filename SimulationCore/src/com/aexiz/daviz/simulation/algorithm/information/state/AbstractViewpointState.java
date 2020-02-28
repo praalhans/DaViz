@@ -17,4 +17,8 @@ public class AbstractViewpointState extends AbstractState implements PropertyVis
         Class<? extends Viewpoint> viewpointClass = viewpoint.getClass();
         return state + "<" + viewpointClass + ">";
     }
+
+    public Viewpoint getViewpoint() {
+        return viewpoint;
+    }
 }
