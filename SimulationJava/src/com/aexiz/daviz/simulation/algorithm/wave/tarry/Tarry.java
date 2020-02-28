@@ -1,7 +1,6 @@
 package com.aexiz.daviz.simulation.algorithm.wave.tarry;
 
 import com.aexiz.daviz.simulation.Event;
-import com.aexiz.daviz.simulation.Network;
 import com.aexiz.daviz.simulation.algorithm.AbstractJavaBasicAlgorithm;
 import com.aexiz.daviz.simulation.algorithm.event.ReceiveEvent;
 import com.aexiz.daviz.simulation.algorithm.event.ResultEvent;
@@ -15,35 +14,18 @@ import com.aexiz.daviz.simulation.viewpoint.Channel;
 import com.aexiz.daviz.simulation.viewpoint.Node;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Tarry extends AbstractJavaBasicAlgorithm {
-    Map<Node, Information> processesSpace;
-
     transient boolean isTokenInChannel;
     transient Event lastEvent;
     transient Channel channelWithToken;
     transient boolean isProcessSpaceUpdated;
 
     public Tarry() {
+        super();
         assumption = TarryAssumption.makeAssumption();
-        processesSpace = new HashMap<>();
-    }
-
-    @Override
-    public void makeState() {
-        if (network == null) throw new Error("Algorithm does not know the network");
-        if (!processesSpace.isEmpty()) {
-            processesSpace = new HashMap<>();
-        }
-        makeInitialNodeStates(network);
-    }
-
-    @Override
-    public StateInformation getProcessSpace(Node node) {
-        return (StateInformation) processesSpace.get(node);
     }
 
     @Override
@@ -192,7 +174,8 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
         return false;
     }
 
-    private void makeInitialNodeStates(Network network) {
+    @Override
+    protected void makeInitialNodeStates() {
         Node initiator = assumption.getInitiator();
         Map<Node, List<Channel>> mapOfChannelsFromNodes = network.makeMapOfChannelsFromNodes();
         mapOfChannelsFromNodes.forEach((node, channels) -> {
