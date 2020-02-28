@@ -24,6 +24,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
     boolean isTokenInChannel;
     Event lastEvent;
     Node tokenTo;
+    boolean isProcessSpaceUpdated;
 
     public Tarry() {
         assumption = TarryAssumption.makeAssumption();
@@ -48,7 +49,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
     public List<Event> makePossibleNextEvents() {
         List<Event> events = new ArrayList<>();
         int finishedProcessCount = 0;
-
+        System.out.println("--");
         for (Map.Entry<Node, Information> entry : processesSpace.entrySet()) {
             Node node = entry.getKey();
             System.out.println(node + " . " + entry.getValue());
@@ -70,14 +71,18 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
         }
         if (events.isEmpty() && finishedProcessCount != processesSpace.size())
             throw new Error("Unknown step of Tarry algorithm");
+        isProcessSpaceUpdated = false;
         return events;
     }
 
     @Override
     public void updateProcessSpace(Event event) {
-        setTokenInformation(event);
-        lastEvent = event;
-        processesSpace.put(event.getHappensAt(), event instanceof ResultEvent ? event.getResult() : (TarryState) event.getNextState());
+        if (!isProcessSpaceUpdated) {
+            setTokenInformation(event);
+            lastEvent = event;
+            processesSpace.put(event.getHappensAt(), event instanceof ResultEvent ? event.getResult() : (TarryState) event.getNextState());
+        }
+        isProcessSpaceUpdated = true;
     }
 
     private void setTokenInformation(Event event) {
@@ -199,6 +204,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
 
             processesSpace.put(node, initialState);
             isTokenInChannel = false;
+            isProcessSpaceUpdated = false;
         });
     }
 
