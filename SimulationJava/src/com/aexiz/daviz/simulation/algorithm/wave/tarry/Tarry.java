@@ -102,7 +102,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
         if (processSpace.hasToken && !processSpace.hasNeighbors() && processSpace.getState() instanceof TarryReceived) {
             Channel parentChannel = (Channel) ((TarryReceived) processSpace.getState()).getViewpoint();
             PropertyVisitor nextState = processSpace.isInitiator() ? new TarryInitiator() : new TarryReplied(parentChannel);
-            TarryState nextProcessSpace = new TarryState(true, nextState, new ArrayList<>());
+            TarryState nextProcessSpace = new TarryState(false, nextState, new ArrayList<>());
 
             events.add(new SendEvent(new TarryToken(), nextProcessSpace, parentChannel.from, parentChannel.to));
             return true;
