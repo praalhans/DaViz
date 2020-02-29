@@ -1,6 +1,6 @@
 # Changelog
 
-## v2.0.0-rc.1
+## [v2.0.0-rc.1](https://github.com/praalhans/DaViz/releases/tag/v2.0.0-rc.1)
 
 Date: 29 Feb 2020
 
@@ -14,7 +14,7 @@ This pre-release provide a lightwave prototype of DaViz using native Java for th
 
 - [#26](https://github.com/praalhans/DaViz/pull/26) - Fix UndefinedState label to `Undefined`
 
-## v2.0.0-rc.0
+## [v2.0.0-rc.0](https://github.com/praalhans/DaViz/releases/tag/v2.0.0-rc.0)
 
 Date: 23 Feb 2020
 
@@ -26,7 +26,7 @@ The Frege simulation can still be used but the Java simulation module is however
 
 - [#16](https://github.com/praalhans/DaViz/pull/16) - Prepare application to receive a java port
 
-## v1.0.1
+## [v1.0.1](https://github.com/praalhans/DaViz/releases/tag/v1.0.1)
 
 Date 8 Jan 2020
 
@@ -42,7 +42,7 @@ This release provides minor fixes and improvements, ensuring that the Tree and E
 
 - [8](https://github.com/praalhans/DaViz/pull/8) - Describe Frege implementation of Tarry and Tree algorithms
 
-## v1.0.0
+## [v1.0.0](https://github.com/praalhans/DaViz/releases/tag/v1.0.0)
 
 Date: 9 Dec 2019
 
