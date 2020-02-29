@@ -1,5 +1,19 @@
 # Changelog
 
+## v2.0.0-rc.1
+
+Date: 29 Feb 2020
+
+This pre-release provide a lightwave prototype of DaViz using native Java for the simulation. Tarry algorithm is implemented as starter of the native Java port.
+
+### Features
+
+- [#28](https://github.com/praalhans/DaViz/pull/28) - Add native Java prototype of the simulation
+
+### Fix
+
+- [#26](https://github.com/praalhans/DaViz/pull/26) - Fix UndefinedState label to `Undefined`
+
 ## v2.0.0-rc.0
 
 Date: 23 Feb 2020
