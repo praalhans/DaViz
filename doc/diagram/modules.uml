@@ -13,7 +13,7 @@
     <node x="147.0" y="5.0">mdl-SimulationFrege</node>
     <node x="325.0" y="108.10606060606062">mdl-SimulationDummy</node>
     <node x="151.5" y="53.106060606060616">mdl-SimulationJava</node>
-    <node x="335.0" y="100.83333333333334">lib-annotations-18.0.0.jar</node>
+    <node x="490.0" y="-62.16666666666666">lib-annotations-18.0.0.jar</node>
   </nodes>
   <notes />
   <edges>
@@ -90,7 +90,7 @@
       <point x="-59.5" y="-0.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="248.5" y="84.5" />
+  <settings layout="Hierarchic Group" zoom="1.0" x="326.0" y="53.0" />
   <SelectedNodes>
     <node>mdl-SimulationFrege</node>
   </SelectedNodes>
