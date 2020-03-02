@@ -6,8 +6,8 @@
     <node x="1391.3146551724137" y="247.0">com.aexiz.daviz.simulation.algorithm.information.state.AbstractViewpointState</node>
     <node x="1367.25" y="405.0">com.aexiz.daviz.simulation.algorithm.wave.echo.EchoReceived</node>
     <node x="554.4396551724137" y="168.0">com.aexiz.daviz.simulation.algorithm.information.result.AbstractResult</node>
-    <node x="664.0" y="326.0">com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryDecided</node>
     <node x="1031.0086206896551" y="247.0">com.aexiz.daviz.simulation.algorithm.information.state.InitiatorState</node>
+    <node x="664.0" y="326.0">com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryDecided</node>
     <node x="584.21408045977" y="0.0">com.aexiz.daviz.simulation.algorithm.information.Information</node>
     <node x="961.0" y="326.0">com.aexiz.daviz.simulation.algorithm.wave.echo.EchoInitiator</node>
     <node x="1069.2586206896551" y="168.0">com.aexiz.daviz.simulation.algorithm.information.state.AbstractState</node>
@@ -27,9 +27,9 @@
     <node x="491.0" y="326.0">com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryTerminated</node>
     <node x="180.0" y="247.0">com.aexiz.daviz.simulation.algorithm.information.message.TokenMessage</node>
     <node x="1120.0" y="326.0">com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryInitiator</node>
-    <node x="1593.5" y="326.0">com.aexiz.daviz.simulation.algorithm.information.state.RepliedState</node>
     <node x="1519.25" y="405.0">com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryReplied</node>
     <node x="78.75862068965512" y="168.0">com.aexiz.daviz.simulation.algorithm.information.message.AbstractMessage</node>
+    <node x="1593.5" y="326.0">com.aexiz.daviz.simulation.algorithm.information.state.RepliedState</node>
     <node x="393.2586206896552" y="247.0">com.aexiz.daviz.simulation.algorithm.information.result.TerminationResult</node>
   </nodes>
   <notes />
@@ -213,7 +213,7 @@
       <point x="60.33333333333337" y="14.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.5664835164835165" x="900.0" y="217.0" />
+  <settings layout="Hierarchic Group" zoom="0.5674188222344524" x="898.5" y="217.0" />
   <SelectedNodes>
     <node>com.aexiz.daviz.simulation.algorithm.information.Information</node>
   </SelectedNodes>
