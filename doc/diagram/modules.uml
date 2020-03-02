@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Diagram>
   <ID>MODULES</ID>
-  <OriginalElement />
+  <OriginalElement>mdl-SimulationFrege</OriginalElement>
   <nodes>
-    <node x="0.0" y="0.0">mdl-DaVizFrege</node>
-    <node x="173.0" y="122.5">mdl-UISwing</node>
-    <node x="4.5" y="135.75">mdl-DaVizJava</node>
-    <node x="334.0" y="23.5">mdl-SimulationCore</node>
-    <node x="361.5" y="137.41666666666666">mdl-Assets</node>
-    <node x="22.5" y="70.0">mdl-Test</node>
-    <node x="147.0" y="8.916666666666657">mdl-SimulationFrege</node>
-    <node x="151.5" y="52.416666666666664">mdl-SimulationJava</node>
-    <node x="325.0" y="97.41666666666666">mdl-SimulationDummy</node>
+    <node x="0.0" y="0.45454545454546746">mdl-DaVizFrege</node>
+    <node x="173.0" y="132.95454545454547">mdl-UISwing</node>
+    <node x="331.5" y="0.0">lib-frege3.25.84.jar</node>
+    <node x="334.0" y="48.106060606060616">mdl-SimulationCore</node>
+    <node x="4.5" y="146.43939393939394">mdl-DaVizJava</node>
+    <node x="361.5" y="148.10606060606062">mdl-Assets</node>
+    <node x="22.5" y="72.04545454545456">mdl-Test</node>
+    <node x="147.0" y="5.0">mdl-SimulationFrege</node>
+    <node x="325.0" y="108.10606060606062">mdl-SimulationDummy</node>
+    <node x="151.5" y="53.106060606060616">mdl-SimulationJava</node>
   </nodes>
   <notes />
   <edges>
@@ -21,43 +22,47 @@
     </edge>
     <edge source="mdl-DaVizFrege" target="mdl-UISwing">
       <point x="48.5" y="5.0" />
-      <point x="147.0" y="125.83333333333333" />
-      <point x="-38.0" y="-6.666666666666671" />
+      <point x="147.0" y="136.2878787878788" />
+      <point x="-38.0" y="-6.666666666666657" />
+    </edge>
+    <edge source="mdl-UISwing" target="mdl-SimulationDummy">
+      <point x="38.0" y="-5.0" />
+      <point x="275.0" y="137.95454545454547" />
+      <point x="-70.0" y="-0.0" />
+    </edge>
+    <edge source="mdl-Test" target="mdl-UISwing">
+      <point x="26.0" y="5.0" />
+      <point x="97.0" y="87.04545454545456" />
+      <point x="147.0" y="142.95454545454547" />
+      <point x="-38.0" y="-0.0" />
+    </edge>
+    <edge source="mdl-Test" target="mdl-SimulationFrege">
+      <point x="26.0" y="-5.0" />
+      <point x="97.0" y="77.04545454545456" />
+      <point x="-64.0" y="5.0" />
+    </edge>
+    <edge source="mdl-SimulationFrege" target="lib-frege3.25.84.jar">
+      <point x="64.0" y="-5.0" />
+      <point x="-63.5" y="-0.0" />
     </edge>
     <edge source="mdl-SimulationDummy" target="mdl-SimulationCore">
       <point x="0.0" y="-10.0" />
       <point x="0.0" y="10.0" />
     </edge>
     <edge source="mdl-SimulationFrege" target="mdl-SimulationCore">
-      <point x="64.0" y="-0.0" />
+      <point x="64.0" y="5.0" />
       <point x="-61.0" y="-5.0" />
     </edge>
     <edge source="mdl-DaVizJava" target="mdl-UISwing">
       <point x="44.0" y="5.0" />
-      <point x="147.0" y="139.16666666666669" />
-      <point x="-38.0" y="6.666666666666671" />
-    </edge>
-    <edge source="mdl-UISwing" target="mdl-SimulationDummy">
-      <point x="38.0" y="-5.0" />
-      <point x="275.0" y="127.5" />
-      <point x="-70.0" y="-0.0" />
+      <point x="147.0" y="149.62121212121212" />
+      <point x="-38.0" y="6.666666666666657" />
     </edge>
     <edge source="mdl-UISwing" target="mdl-Assets">
       <point x="38.0" y="5.0" />
-      <point x="275.0" y="137.5" />
-      <point x="325.0" y="147.41666666666666" />
+      <point x="275.0" y="147.95454545454547" />
+      <point x="325.0" y="158.10606060606062" />
       <point x="-33.5" y="-0.0" />
-    </edge>
-    <edge source="mdl-Test" target="mdl-UISwing">
-      <point x="26.0" y="5.0" />
-      <point x="97.0" y="85.0" />
-      <point x="147.0" y="132.5" />
-      <point x="-38.0" y="-0.0" />
-    </edge>
-    <edge source="mdl-Test" target="mdl-SimulationFrege">
-      <point x="26.0" y="-5.0" />
-      <point x="97.0" y="75.0" />
-      <point x="-64.0" y="5.0" />
     </edge>
     <edge source="mdl-DaVizFrege" target="mdl-SimulationFrege">
       <point x="48.5" y="-5.0" />
@@ -68,11 +73,10 @@
       <point x="-59.5" y="-0.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="232.5" y="79.0" />
+  <settings layout="Hierarchic Group" zoom="1.0" x="232.5" y="84.5" />
   <SelectedNodes />
   <Categories>
     <Category>Libraries</Category>
-    <Category>Show Paths: Root -&gt; Selection</Category>
   </Categories>
 </Diagram>
 

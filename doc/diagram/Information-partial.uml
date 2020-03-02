@@ -3,145 +3,145 @@
   <ID>JAVA</ID>
   <OriginalElement>com.aexiz.daviz.simulation.algorithm.information.Information</OriginalElement>
   <nodes>
-    <node x="1387.3922413793102" y="247.0">com.aexiz.daviz.simulation.algorithm.information.state.AbstractViewpointState</node>
-    <node x="1667.75" y="405.0">com.aexiz.daviz.simulation.algorithm.wave.echo.EchoReceived</node>
-    <node x="531.2672413793103" y="168.0">com.aexiz.daviz.simulation.algorithm.information.result.AbstractResult</node>
-    <node x="1027.9310344827586" y="247.0">com.aexiz.daviz.simulation.algorithm.information.state.InitiatorState</node>
-    <node x="466.5" y="326.0">com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryDecided</node>
-    <node x="561.8261494252873" y="0.0">com.aexiz.daviz.simulation.algorithm.information.Information</node>
-    <node x="957.5" y="326.0">com.aexiz.daviz.simulation.algorithm.wave.echo.EchoInitiator</node>
-    <node x="1066.1810344827586" y="168.0">com.aexiz.daviz.simulation.algorithm.information.state.AbstractState</node>
-    <node x="386.6810344827586" y="247.0">com.aexiz.daviz.simulation.algorithm.information.result.DecidedResult</node>
-    <node x="16.431034482758605" y="79.0">com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation</node>
-    <node x="1508.75" y="405.0">com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryReceived</node>
-    <node x="813.2945402298851" y="79.0">com.aexiz.daviz.simulation.algorithm.information.AbstractInformation</node>
-    <node x="152.0" y="247.0">com.aexiz.daviz.simulation.algorithm.information.message.BroadcastMessage</node>
-    <node x="618.5" y="326.0">com.aexiz.daviz.simulation.algorithm.wave.echo.EchoTerminated</node>
-    <node x="1211.75" y="405.0">com.aexiz.daviz.simulation.algorithm.wave.echo.EchoReplied</node>
-    <node x="162.5" y="326.0">com.aexiz.daviz.simulation.algorithm.wave.echo.EchoBroadcast</node>
-    <node x="1418.816091954023" y="79.0">com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor</node>
-    <node x="443.8261494252873" y="79.0">com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation</node>
-    <node x="7.0" y="326.0">com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryToken</node>
-    <node x="321.5" y="326.0">com.aexiz.daviz.simulation.algorithm.wave.echo.EchoDecided</node>
-    <node x="1586.5" y="326.0">com.aexiz.daviz.simulation.algorithm.information.state.ReceivedState</node>
-    <node x="784.5" y="326.0">com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryTerminated</node>
-    <node x="0.0" y="247.0">com.aexiz.daviz.simulation.algorithm.information.message.TokenMessage</node>
-    <node x="1116.5" y="326.0">com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryInitiator</node>
-    <node x="1282.5" y="326.0">com.aexiz.daviz.simulation.algorithm.information.state.RepliedState</node>
-    <node x="65.1810344827586" y="168.0">com.aexiz.daviz.simulation.algorithm.information.message.AbstractMessage</node>
-    <node x="1356.75" y="405.0">com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryReplied</node>
-    <node x="687.1810344827586" y="247.0">com.aexiz.daviz.simulation.algorithm.information.result.TerminationResult</node>
+    <node x="1391.3146551724137" y="247.0">com.aexiz.daviz.simulation.algorithm.information.state.AbstractViewpointState</node>
+    <node x="1367.25" y="405.0">com.aexiz.daviz.simulation.algorithm.wave.echo.EchoReceived</node>
+    <node x="554.4396551724137" y="168.0">com.aexiz.daviz.simulation.algorithm.information.result.AbstractResult</node>
+    <node x="664.0" y="326.0">com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryDecided</node>
+    <node x="1031.0086206896551" y="247.0">com.aexiz.daviz.simulation.algorithm.information.state.InitiatorState</node>
+    <node x="584.21408045977" y="0.0">com.aexiz.daviz.simulation.algorithm.information.Information</node>
+    <node x="961.0" y="326.0">com.aexiz.daviz.simulation.algorithm.wave.echo.EchoInitiator</node>
+    <node x="1069.2586206896551" y="168.0">com.aexiz.daviz.simulation.algorithm.information.state.AbstractState</node>
+    <node x="732.2586206896551" y="247.0">com.aexiz.daviz.simulation.algorithm.information.result.DecidedResult</node>
+    <node x="30.008620689655118" y="79.0">com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation</node>
+    <node x="1208.25" y="405.0">com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryReceived</node>
+    <node x="828.1393678160919" y="79.0">com.aexiz.daviz.simulation.algorithm.information.AbstractInformation</node>
+    <node x="0.0" y="247.0">com.aexiz.daviz.simulation.algorithm.information.message.BroadcastMessage</node>
+    <node x="325.0" y="326.0">com.aexiz.daviz.simulation.algorithm.wave.echo.EchoTerminated</node>
+    <node x="1671.25" y="405.0">com.aexiz.daviz.simulation.algorithm.wave.echo.EchoReplied</node>
+    <node x="10.5" y="326.0">com.aexiz.daviz.simulation.algorithm.wave.echo.EchoBroadcast</node>
+    <node x="1423.1005747126437" y="79.0">com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor</node>
+    <node x="466.21408045977" y="79.0">com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation</node>
+    <node x="187.0" y="326.0">com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryToken</node>
+    <node x="816.0" y="326.0">com.aexiz.daviz.simulation.algorithm.wave.echo.EchoDecided</node>
+    <node x="1286.0" y="326.0">com.aexiz.daviz.simulation.algorithm.information.state.ReceivedState</node>
+    <node x="491.0" y="326.0">com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryTerminated</node>
+    <node x="180.0" y="247.0">com.aexiz.daviz.simulation.algorithm.information.message.TokenMessage</node>
+    <node x="1120.0" y="326.0">com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryInitiator</node>
+    <node x="1593.5" y="326.0">com.aexiz.daviz.simulation.algorithm.information.state.RepliedState</node>
+    <node x="1519.25" y="405.0">com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryReplied</node>
+    <node x="78.75862068965512" y="168.0">com.aexiz.daviz.simulation.algorithm.information.message.AbstractMessage</node>
+    <node x="393.2586206896552" y="247.0">com.aexiz.daviz.simulation.algorithm.information.result.TerminationResult</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="com.aexiz.daviz.simulation.algorithm.information.state.AbstractState" target="com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor">
-      <point x="34.75" y="-14.5" />
-      <point x="1170.4310344827586" y="148.0" />
-      <point x="1457.066091954023" y="148.0" />
-      <point x="-38.25" y="14.5" />
-    </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.wave.echo.EchoDecided" target="com.aexiz.daviz.simulation.algorithm.information.result.DecidedResult">
       <point x="0.0" y="-14.5" />
-      <point x="384.0" y="301.0" />
-      <point x="421.4310344827586" y="301.0" />
-      <point x="-34.75" y="14.5" />
+      <point x="878.5" y="301.0" />
+      <point x="836.5086206896551" y="301.0" />
+      <point x="34.75" y="14.5" />
+    </edge>
+    <edge source="com.aexiz.daviz.simulation.algorithm.information.state.AbstractState" target="com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor">
+      <point x="34.75" y="-14.5" />
+      <point x="1173.5086206896551" y="148.0" />
+      <point x="1461.3505747126437" y="148.0" />
+      <point x="-38.25" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.information.message.AbstractMessage" target="com.aexiz.daviz.simulation.algorithm.information.AbstractInformation">
       <point x="38.25" y="-14.5" />
-      <point x="179.9310344827586" y="138.0" />
-      <point x="843.4612068965516" y="138.0" />
+      <point x="193.50862068965512" y="138.0" />
+      <point x="858.3060344827585" y="138.0" />
       <point x="-60.33333333333337" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation" target="com.aexiz.daviz.simulation.algorithm.information.Information">
       <point x="0.0" y="-14.5" />
-      <point x="103.4310344827586" y="49.0" />
-      <point x="577.4511494252873" y="49.0" />
+      <point x="117.00862068965512" y="49.0" />
+      <point x="599.83908045977" y="49.0" />
       <point x="-46.875" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.wave.echo.EchoInitiator" target="com.aexiz.daviz.simulation.algorithm.information.state.InitiatorState">
       <point x="0.0" y="-14.5" />
-      <point x="1027.0" y="301.0" />
-      <point x="1064.4310344827586" y="301.0" />
+      <point x="1030.5" y="301.0" />
+      <point x="1067.5086206896551" y="301.0" />
       <point x="-36.5" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.information.state.RepliedState" target="com.aexiz.daviz.simulation.algorithm.information.state.AbstractViewpointState">
       <point x="0.0" y="-14.5" />
-      <point x="1348.5" y="301.0" />
-      <point x="1437.8922413793102" y="301.0" />
-      <point x="-50.5" y="14.5" />
+      <point x="1659.5" y="301.0" />
+      <point x="1542.8146551724137" y="301.0" />
+      <point x="50.5" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.information.message.TokenMessage" target="com.aexiz.daviz.simulation.algorithm.information.message.AbstractMessage">
       <point x="0.0" y="-14.5" />
-      <point x="66.0" y="222.0" />
-      <point x="103.4310344827586" y="222.0" />
-      <point x="-38.25" y="14.5" />
+      <point x="246.0" y="222.0" />
+      <point x="193.50862068965512" y="222.0" />
+      <point x="38.25" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.wave.echo.EchoReceived" target="com.aexiz.daviz.simulation.algorithm.information.state.ReceivedState">
       <point x="0.0" y="-14.5" />
-      <point x="1733.75" y="380.0" />
-      <point x="1690.75" y="380.0" />
+      <point x="1433.25" y="380.0" />
+      <point x="1390.25" y="380.0" />
       <point x="34.75" y="14.5" />
+    </edge>
+    <edge source="com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryToken" target="com.aexiz.daviz.simulation.algorithm.information.message.TokenMessage">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation" target="com.aexiz.daviz.simulation.algorithm.information.Information">
       <point x="0.0" y="-14.5" />
-      <point x="527.3261494252873" y="59.0" />
-      <point x="608.7011494252873" y="59.0" />
+      <point x="549.71408045977" y="59.0" />
+      <point x="631.08908045977" y="59.0" />
       <point x="-15.625" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.information.message.AbstractMessage" target="com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation">
       <point x="-38.25" y="-14.5" />
       <point x="0.0" y="14.5" />
     </edge>
-    <edge source="com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryToken" target="com.aexiz.daviz.simulation.algorithm.information.message.TokenMessage">
-      <point x="0.0" y="-14.5" />
-      <point x="0.0" y="14.5" />
+    <edge source="com.aexiz.daviz.simulation.algorithm.information.state.AbstractViewpointState" target="com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor">
+      <point x="50.5" y="-14.5" />
+      <point x="1542.8146551724137" y="148.0" />
+      <point x="1537.8505747126437" y="148.0" />
+      <point x="38.25" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.information.result.AbstractResult" target="com.aexiz.daviz.simulation.algorithm.information.AbstractInformation">
       <point x="36.5" y="-14.5" />
-      <point x="640.7672413793103" y="148.0" />
-      <point x="903.7945402298851" y="148.0" />
+      <point x="663.9396551724137" y="148.0" />
+      <point x="918.6393678160919" y="148.0" />
       <point x="0.0" y="14.5" />
-    </edge>
-    <edge source="com.aexiz.daviz.simulation.algorithm.information.state.AbstractViewpointState" target="com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor">
-      <point x="50.5" y="-14.5" />
-      <point x="1538.8922413793102" y="148.0" />
-      <point x="1533.566091954023" y="148.0" />
-      <point x="38.25" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.information.result.AbstractResult" target="com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation">
       <point x="-36.5" y="-14.5" />
-      <point x="567.7672413793103" y="128.0" />
-      <point x="527.3261494252873" y="128.0" />
+      <point x="590.9396551724137" y="128.0" />
+      <point x="549.71408045977" y="128.0" />
       <point x="0.0" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.wave.echo.EchoTerminated" target="com.aexiz.daviz.simulation.algorithm.information.result.TerminationResult">
       <point x="0.0" y="-14.5" />
-      <point x="691.5" y="301.0" />
-      <point x="728.9310344827586" y="301.0" />
+      <point x="398.0" y="301.0" />
+      <point x="435.0086206896552" y="301.0" />
       <point x="-41.75" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryReceived" target="com.aexiz.daviz.simulation.algorithm.information.state.ReceivedState">
       <point x="0.0" y="-14.5" />
-      <point x="1578.25" y="380.0" />
-      <point x="1621.25" y="380.0" />
+      <point x="1277.75" y="380.0" />
+      <point x="1320.75" y="380.0" />
       <point x="-34.75" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.wave.echo.EchoReplied" target="com.aexiz.daviz.simulation.algorithm.information.state.RepliedState">
       <point x="0.0" y="-14.5" />
-      <point x="1274.25" y="380.0" />
-      <point x="1315.5" y="380.0" />
-      <point x="-33.0" y="14.5" />
+      <point x="1733.75" y="380.0" />
+      <point x="1692.5" y="380.0" />
+      <point x="33.0" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.information.message.BroadcastMessage" target="com.aexiz.daviz.simulation.algorithm.information.message.AbstractMessage">
       <point x="0.0" y="-14.5" />
-      <point x="232.0" y="222.0" />
-      <point x="179.9310344827586" y="222.0" />
-      <point x="38.25" y="14.5" />
+      <point x="80.0" y="222.0" />
+      <point x="117.00862068965512" y="222.0" />
+      <point x="-38.25" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.information.state.AbstractViewpointState" target="com.aexiz.daviz.simulation.algorithm.information.state.AbstractState">
       <point x="-50.5" y="-14.5" />
-      <point x="1437.8922413793102" y="222.0" />
-      <point x="1170.4310344827586" y="222.0" />
+      <point x="1441.8146551724137" y="222.0" />
+      <point x="1173.5086206896551" y="222.0" />
       <point x="34.75" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.information.state.InitiatorState" target="com.aexiz.daviz.simulation.algorithm.information.state.AbstractState">
@@ -150,57 +150,57 @@
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor" target="com.aexiz.daviz.simulation.algorithm.information.Information">
       <point x="0.0" y="-14.5" />
-      <point x="1495.316091954023" y="49.0" />
-      <point x="671.2011494252873" y="49.0" />
+      <point x="1499.6005747126437" y="49.0" />
+      <point x="693.58908045977" y="49.0" />
       <point x="46.875" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.information.AbstractInformation" target="com.aexiz.daviz.simulation.algorithm.information.Information">
       <point x="0.0" y="-14.5" />
-      <point x="903.7945402298851" y="59.0" />
-      <point x="639.9511494252873" y="59.0" />
+      <point x="918.6393678160919" y="59.0" />
+      <point x="662.33908045977" y="59.0" />
       <point x="15.625" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryDecided" target="com.aexiz.daviz.simulation.algorithm.information.result.DecidedResult">
       <point x="0.0" y="-14.5" />
-      <point x="532.5" y="301.0" />
-      <point x="490.9310344827586" y="301.0" />
-      <point x="34.75" y="14.5" />
+      <point x="730.0" y="301.0" />
+      <point x="767.0086206896551" y="301.0" />
+      <point x="-34.75" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.information.state.ReceivedState" target="com.aexiz.daviz.simulation.algorithm.information.state.AbstractViewpointState">
       <point x="0.0" y="-14.5" />
-      <point x="1656.0" y="301.0" />
-      <point x="1538.8922413793102" y="301.0" />
-      <point x="50.5" y="14.5" />
+      <point x="1355.5" y="301.0" />
+      <point x="1441.8146551724137" y="301.0" />
+      <point x="-50.5" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.information.result.DecidedResult" target="com.aexiz.daviz.simulation.algorithm.information.result.AbstractResult">
-      <point x="-5.6843418860808015E-14" y="-14.5" />
-      <point x="456.18103448275855" y="222.0" />
-      <point x="567.7672413793103" y="222.0" />
-      <point x="-36.5" y="14.5" />
+      <point x="0.0" y="-14.5" />
+      <point x="801.7586206896551" y="222.0" />
+      <point x="663.9396551724137" y="222.0" />
+      <point x="36.5" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryInitiator" target="com.aexiz.daviz.simulation.algorithm.information.state.InitiatorState">
       <point x="0.0" y="-14.5" />
-      <point x="1189.5" y="301.0" />
-      <point x="1137.4310344827586" y="301.0" />
+      <point x="1193.0" y="301.0" />
+      <point x="1140.5086206896551" y="301.0" />
       <point x="36.5" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryTerminated" target="com.aexiz.daviz.simulation.algorithm.information.result.TerminationResult">
       <point x="0.0" y="-14.5" />
-      <point x="861.0" y="301.0" />
-      <point x="812.4310344827586" y="301.0" />
-      <point x="41.75" y="14.5" />
+      <point x="567.5" y="301.0" />
+      <point x="518.5086206896551" y="301.0" />
+      <point x="41.74999999999994" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.information.result.TerminationResult" target="com.aexiz.daviz.simulation.algorithm.information.result.AbstractResult">
-      <point x="0.0" y="-14.5" />
-      <point x="770.6810344827586" y="222.0" />
-      <point x="640.7672413793103" y="222.0" />
-      <point x="36.5" y="14.5" />
+      <point x="-5.6843418860808015E-14" y="-14.5" />
+      <point x="476.7586206896551" y="222.0" />
+      <point x="590.9396551724137" y="222.0" />
+      <point x="-36.5" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.wave.tarry.TarryReplied" target="com.aexiz.daviz.simulation.algorithm.information.state.RepliedState">
       <point x="0.0" y="-14.5" />
-      <point x="1422.75" y="380.0" />
-      <point x="1381.5" y="380.0" />
-      <point x="33.0" y="14.5" />
+      <point x="1585.25" y="380.0" />
+      <point x="1626.5" y="380.0" />
+      <point x="-33.0" y="14.5" />
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.wave.echo.EchoBroadcast" target="com.aexiz.daviz.simulation.algorithm.information.message.BroadcastMessage">
       <point x="0.0" y="-14.5" />
@@ -208,13 +208,15 @@
     </edge>
     <edge source="com.aexiz.daviz.simulation.algorithm.information.state.AbstractState" target="com.aexiz.daviz.simulation.algorithm.information.AbstractInformation">
       <point x="-34.75" y="-14.5" />
-      <point x="1100.9310344827586" y="148.0" />
-      <point x="964.1278735632184" y="148.0" />
+      <point x="1104.0086206896551" y="148.0" />
+      <point x="978.9727011494252" y="148.0" />
       <point x="60.33333333333337" y="14.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.7757769652650822" x="825.9402615765289" y="217.0" />
-  <SelectedNodes />
+  <settings layout="Hierarchic Group" zoom="0.5664835164835165" x="900.0" y="217.0" />
+  <SelectedNodes>
+    <node>com.aexiz.daviz.simulation.algorithm.information.Information</node>
+  </SelectedNodes>
   <Categories />
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>
