@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>MODULES</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="0.0" y="0.0">mdl-DaVizFrege</node>
+    <node x="173.0" y="122.5">mdl-UISwing</node>
+    <node x="4.5" y="135.75">mdl-DaVizJava</node>
+    <node x="334.0" y="23.5">mdl-SimulationCore</node>
+    <node x="361.5" y="137.41666666666666">mdl-Assets</node>
+    <node x="22.5" y="70.0">mdl-Test</node>
+    <node x="147.0" y="8.916666666666657">mdl-SimulationFrege</node>
+    <node x="151.5" y="52.416666666666664">mdl-SimulationJava</node>
+    <node x="325.0" y="97.41666666666666">mdl-SimulationDummy</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="mdl-SimulationJava" target="mdl-SimulationCore">
+      <point x="59.5" y="-0.0" />
+      <point x="-61.0" y="5.0" />
+    </edge>
+    <edge source="mdl-DaVizFrege" target="mdl-UISwing">
+      <point x="48.5" y="5.0" />
+      <point x="147.0" y="125.83333333333333" />
+      <point x="-38.0" y="-6.666666666666671" />
+    </edge>
+    <edge source="mdl-SimulationDummy" target="mdl-SimulationCore">
+      <point x="0.0" y="-10.0" />
+      <point x="0.0" y="10.0" />
+    </edge>
+    <edge source="mdl-SimulationFrege" target="mdl-SimulationCore">
+      <point x="64.0" y="-0.0" />
+      <point x="-61.0" y="-5.0" />
+    </edge>
+    <edge source="mdl-DaVizJava" target="mdl-UISwing">
+      <point x="44.0" y="5.0" />
+      <point x="147.0" y="139.16666666666669" />
+      <point x="-38.0" y="6.666666666666671" />
+    </edge>
+    <edge source="mdl-UISwing" target="mdl-SimulationDummy">
+      <point x="38.0" y="-5.0" />
+      <point x="275.0" y="127.5" />
+      <point x="-70.0" y="-0.0" />
+    </edge>
+    <edge source="mdl-UISwing" target="mdl-Assets">
+      <point x="38.0" y="5.0" />
+      <point x="275.0" y="137.5" />
+      <point x="325.0" y="147.41666666666666" />
+      <point x="-33.5" y="-0.0" />
+    </edge>
+    <edge source="mdl-Test" target="mdl-UISwing">
+      <point x="26.0" y="5.0" />
+      <point x="97.0" y="85.0" />
+      <point x="147.0" y="132.5" />
+      <point x="-38.0" y="-0.0" />
+    </edge>
+    <edge source="mdl-Test" target="mdl-SimulationFrege">
+      <point x="26.0" y="-5.0" />
+      <point x="97.0" y="75.0" />
+      <point x="-64.0" y="5.0" />
+    </edge>
+    <edge source="mdl-DaVizFrege" target="mdl-SimulationFrege">
+      <point x="48.5" y="-5.0" />
+      <point x="-64.0" y="-5.0" />
+    </edge>
+    <edge source="mdl-DaVizJava" target="mdl-SimulationJava">
+      <point x="44.0" y="-5.0" />
+      <point x="-59.5" y="-0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="232.5" y="79.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Libraries</Category>
+    <Category>Show Paths: Root -&gt; Selection</Category>
+  </Categories>
+</Diagram>
+
