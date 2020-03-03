@@ -53,7 +53,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
                     || verifyAndMakeResultEventToTerminate(events, processSpace, node)
                     || verifyAndMakeResultEventToDecide(events, processSpace, node)
                     || verifyAndMakeReceiveEventForNonInitiatorInUndefinedState(events, processSpace)
-                    || verifyAndMakeReceiveEventForNonInitiator(events, processSpace);
+                    || verifyAndMakeReceiveEventForActiveProcess(events, processSpace);
         }
         if (events.isEmpty() && finishedProcessCount != processesSpace.size())
             throw new Error("Unknown step of Tarry algorithm");
@@ -83,7 +83,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
      */
     private boolean verifyAndMakeSendEventForNextNeighbor(List<Event> events, TarryState processSpace) {
         if (processSpace.hasToken && processSpace.hasNeighbors()) {
-            List<Channel> neighbors = processSpace.neighbors;
+            List<Channel> neighbors = processSpace.getNeighbors();
             Channel channel = neighbors.remove(0);
             TarryState nextProcessSpace = new TarryState(false, processSpace.state, neighbors);
 
@@ -141,7 +141,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
      */
     private boolean verifyAndMakeReceiveEventForNonInitiatorInUndefinedState(List<Event> events, TarryState processSpace) {
         if (isTokenInChannel && !processSpace.hasToken && processSpace.getState() instanceof TarryUndefined && processSpace.hasNeighbors()) {
-            List<Channel> neighbors = processSpace.neighbors;
+            List<Channel> neighbors = processSpace.getNeighbors();
             Channel channel = new Channel(channelWithToken.to, channelWithToken.from);
             neighbors.remove(channel);
             PropertyVisitor nextState = new TarryReceived(channel);
@@ -158,7 +158,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
      * For a process not holding the token and the token is in a channel,
      * keep the same state and update the process space to hold the token
      */
-    private boolean verifyAndMakeReceiveEventForNonInitiator(List<Event> events, TarryState processSpace) {
+    private boolean verifyAndMakeReceiveEventForActiveProcess(List<Event> events, TarryState processSpace) {
         if (isTokenInChannel && !processSpace.hasToken) {
             Node to = lastEvent.getReceiver();
             Node from = lastEvent.getHappensAt();

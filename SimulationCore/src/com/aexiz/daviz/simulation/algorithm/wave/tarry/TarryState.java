@@ -11,7 +11,7 @@ import java.util.Map;
 public class TarryState extends AbstractAlgorithmState {
     boolean hasToken;
     PropertyVisitor state;
-    List<Channel> neighbors;
+    private List<Channel> neighbors;
 
     public TarryState(boolean hasToken, PropertyVisitor state, List<Channel> neighbors) {
         this.hasToken = hasToken;
