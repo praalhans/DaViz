@@ -3,7 +3,6 @@ package com.aexiz.daviz.simulation.algorithm.event;
 import com.aexiz.daviz.simulation.algorithm.information.message.MessageInformation;
 import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
 import com.aexiz.daviz.simulation.viewpoint.Node;
-import org.jetbrains.annotations.NotNull;
 
 public class ReceiveEvent extends DefaultEvent implements tReceiveEvent {
     transient MessageInformation message;
