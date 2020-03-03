@@ -65,7 +65,7 @@ public class DefaultExecution extends AbstractExecution {
     public Execution getNext(int index) {
         loadSuccessor();
         Execution nextExecution = super.getNext(index);
-        ((JavaAlgorithm)simulation.getAlgorithm()).updateProcessSpace(nextExecution.getLastEvent());
+        ((JavaAlgorithm) simulation.getAlgorithm()).updateProcessSpace(nextExecution.getLastEvent());
         return nextExecution;
     }
 
