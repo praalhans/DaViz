@@ -47,6 +47,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
             // foundEvent is not used, but it was needed to stop verifying if an event is found
             // Initially, the ifs condition within each method was done here, but it was hurting legibility
             // The scheme below is used as a sort of if/else
+            @SuppressWarnings("unused")
             boolean foundEvent = verifyAndMakeSendEventForNextNeighbor(events, processSpace)
                     || verifyAndMakeSendEventForReplyingParent(events, processSpace)
                     || verifyAndMakeResultEventToTerminate(events, processSpace, node)
