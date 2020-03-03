@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Tarry extends AbstractJavaBasicAlgorithm {
+    // Consider moving the flag and channel information to AbstractJavaBasicAlgorithm
     transient boolean isTokenInChannel;
 
     transient Channel channelWithToken;
