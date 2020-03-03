@@ -16,14 +16,6 @@ public class ResultEvent extends DefaultEvent implements tResultEvent {
     }
 
     @Override
-    protected ResultEvent clone(DefaultEvent to) {
-        super.clone(to);
-        ResultEvent tor = (ResultEvent) to;
-        tor.result = this.result;
-        return tor;
-    }
-
-    @Override
     public boolean hasResult() {
         return true;
     }
@@ -35,7 +27,10 @@ public class ResultEvent extends DefaultEvent implements tResultEvent {
 
     @Override
     public ResultEvent clone() {
-        return clone(new ResultEvent());
+        ResultEvent clonedEvent = (ResultEvent) super.clone(new ResultEvent());
+        clonedEvent.result = this.result;
+
+        return clonedEvent;
     }
 
     @Override
