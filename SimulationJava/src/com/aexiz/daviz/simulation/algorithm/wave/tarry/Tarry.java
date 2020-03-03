@@ -44,7 +44,9 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
 
             TarryState processSpace = (TarryState) entry.getValue();
 
-            // foundEvent is not needed, but it was needed to stop verifying if an event is found
+            // foundEvent is not used, but it was needed to stop verifying if an event is found
+            // Initially, the ifs condition within each method was done here, but it was hurting legibility
+            // The scheme below is used as a sort of if/else
             boolean foundEvent = verifyAndMakeSendEventForNextNeighbor(events, processSpace)
                     || verifyAndMakeSendEventForReplyingParent(events, processSpace)
                     || verifyAndMakeResultEventToTerminate(events, processSpace, node)
