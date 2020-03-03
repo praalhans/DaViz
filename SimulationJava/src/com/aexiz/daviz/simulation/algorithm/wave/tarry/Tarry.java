@@ -83,7 +83,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
      */
     private boolean verifyAndMakeSendEventForNextNeighbor(List<Event> events, TarryState processSpace) {
         if (processSpace.hasToken && processSpace.hasNeighbors()) {
-            List<Channel> neighbors = new ArrayList<>(processSpace.getNeighbors());
+            List<Channel> neighbors = processSpace.getNeighbors();
             Channel channel = neighbors.remove(0);
             TarryState nextProcessSpace = new TarryState(false, processSpace.state, neighbors);
 
