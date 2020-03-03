@@ -21,7 +21,6 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
     transient boolean isTokenInChannel;
 
     transient Channel channelWithToken;
-    transient boolean isProcessSpaceUpdated;
 
     public Tarry() {
         super();
@@ -56,18 +55,13 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
         }
         if (events.isEmpty() && finishedProcessCount != processesSpace.size())
             throw new Error("Unknown step of Tarry algorithm");
-        isProcessSpaceUpdated = false;
-
         return events;
     }
 
     @Override
     public void updateProcessSpace(Event event) {
-        if (!isProcessSpaceUpdated) {
-            setTokenInformation(event);
-            super.updateProcessSpace(event);
-        }
-        isProcessSpaceUpdated = true;
+        setTokenInformation(event);
+        super.updateProcessSpace(event);
     }
 
     private void setTokenInformation(Event event) {
@@ -191,7 +185,6 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
 
             processesSpace.put(node, initialState);
             isTokenInChannel = false;
-            isProcessSpaceUpdated = false;
         });
     }
 
