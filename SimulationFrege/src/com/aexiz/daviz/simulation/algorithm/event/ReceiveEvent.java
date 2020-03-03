@@ -42,6 +42,7 @@ public class ReceiveEvent extends DefaultEvent implements tReceiveEvent {
         return tor;
     }
 
+    @Override
     public ReceiveEvent clone() {
         return clone(new ReceiveEvent());
     }

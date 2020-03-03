@@ -34,6 +34,7 @@ public class InternalEvent extends DefaultEvent implements tInternalEvent {
         return tor;
     }
 
+    @Override
     public InternalEvent clone() {
         return clone(new InternalEvent());
     }
