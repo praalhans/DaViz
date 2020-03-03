@@ -1,7 +1,6 @@
 package com.aexiz.daviz.simulation;
 
 import com.aexiz.daviz.simulation.algorithm.JavaAlgorithm;
-import com.aexiz.daviz.simulation.algorithm.event.DefaultEvent;
 import com.aexiz.daviz.simulation.algorithm.wave.tarry.Tarry;
 
 import java.util.ArrayList;
@@ -12,8 +11,8 @@ public class DefaultExecution extends AbstractExecution {
         super(simulation, configuration);
     }
 
-    public DefaultExecution(Simulation simulation, Execution parent) {
-        super(simulation, parent);
+    public DefaultExecution(Simulation simulation, Execution parent, Event lastEvent) {
+        super(simulation, parent, lastEvent);
     }
 
     public DefaultExecution(Simulation simulation) {
@@ -45,12 +44,8 @@ public class DefaultExecution extends AbstractExecution {
             event.setSimulation(simulation);
             event.setExecution(this);
 
-            DefaultExecution resultChoice = new DefaultExecution(simulation, this);
-            resultChoice.lastEvent = event;
-            successors.add(resultChoice);
+            successors.add(new DefaultExecution(simulation, this, event));
         });
-
-
 
     }
 

@@ -8,14 +8,11 @@ import com.aexiz.daviz.simulation.viewpoint.Node;
 import java.util.List;
 
 public interface JavaAlgorithm extends Algorithm {
-    void setNetwork(Network network);
-
-    void makeState();
+    void makeState(Network network);
 
     StateInformation getProcessSpace(Node node);
 
     List<Event> makePossibleNextEvents();
 
     void updateProcessSpace(Event event);
-
 }

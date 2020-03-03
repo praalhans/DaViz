@@ -12,7 +12,6 @@ import java.util.Map;
 
 public abstract class AbstractJavaBasicAlgorithm extends AbstractAlgorithm implements JavaAlgorithm, BasicAlgorithm {
     protected Map<Node, Information> processesSpace;
-    protected Network network;
 
     protected transient Event lastEvent;
 
@@ -21,17 +20,12 @@ public abstract class AbstractJavaBasicAlgorithm extends AbstractAlgorithm imple
     }
 
     @Override
-    public void setNetwork(Network network) {
-        this.network = network;
-    }
-
-    @Override
-    public void makeState() {
+    public void makeState(Network network) {
         if (network == null) throw new Error("Algorithm does not know the network");
         if (!processesSpace.isEmpty()) {
             processesSpace = new HashMap<>();
         }
-        makeInitialNodeStates();
+        makeInitialNodeStates(network);
     }
 
     @Override
@@ -45,5 +39,5 @@ public abstract class AbstractJavaBasicAlgorithm extends AbstractAlgorithm imple
         processesSpace.put(event.getHappensAt(), event instanceof ResultEvent ? event.getResult() : event.getNextState());
     }
 
-    abstract protected void makeInitialNodeStates();
+    abstract protected void makeInitialNodeStates(Network network);
 }

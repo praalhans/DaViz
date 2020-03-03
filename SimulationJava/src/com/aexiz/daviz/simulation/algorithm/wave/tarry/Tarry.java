@@ -1,6 +1,7 @@
 package com.aexiz.daviz.simulation.algorithm.wave.tarry;
 
 import com.aexiz.daviz.simulation.Event;
+import com.aexiz.daviz.simulation.Network;
 import com.aexiz.daviz.simulation.algorithm.AbstractJavaBasicAlgorithm;
 import com.aexiz.daviz.simulation.algorithm.event.ReceiveEvent;
 import com.aexiz.daviz.simulation.algorithm.event.ResultEvent;
@@ -173,7 +174,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
     }
 
     @Override
-    protected void makeInitialNodeStates() {
+    protected void makeInitialNodeStates(Network network) {
         Node initiator = assumption.getInitiator();
         Map<Node, List<Channel>> mapOfChannelsFromNodes = network.makeMapOfChannelsFromNodes();
         mapOfChannelsFromNodes.forEach((node, channels) -> {
