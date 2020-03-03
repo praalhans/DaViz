@@ -1,5 +1,16 @@
 # Changelog
 
+## [v2.0.0-rc.3](https://github.com/praalhans/DaViz/releases/tag/v2.0.0-rc.3)
+
+Date: 03 Mar 2020
+
+This pre-release do a fix in Tarry algorithm where it would fail to simulate in some cases.
+
+### Fix 
+
+- [#33](https://github.com/praalhans/DaViz/pull/33) - Fix Tarry skipping some events on non-deterministic choices
+
+
 ## [v2.0.0-rc.1](https://github.com/praalhans/DaViz/releases/tag/v2.0.0-rc.1)
 
 Date: 29 Feb 2020
