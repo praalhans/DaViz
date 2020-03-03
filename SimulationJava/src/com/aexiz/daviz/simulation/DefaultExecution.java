@@ -1,23 +1,32 @@
 package com.aexiz.daviz.simulation;
 
 import com.aexiz.daviz.simulation.algorithm.JavaAlgorithm;
-import com.aexiz.daviz.simulation.algorithm.event.DefaultEvent;
 import com.aexiz.daviz.simulation.algorithm.wave.tarry.Tarry;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DefaultExecution extends AbstractExecution {
+    /**
+     * The state is currently updated when requesting the next execution using {@link DefaultExecution#getNext(int)}
+     * However, this method can be invoked multiple times for each step.
+     * This flag was a quick and dirty solution to avoid updating the process space multiple times
+     */
+    boolean isProcessSpaceUpdated;
+
     public DefaultExecution(Simulation simulation, Configuration configuration) {
         super(simulation, configuration);
+        isProcessSpaceUpdated = false;
     }
 
-    public DefaultExecution(Simulation simulation, Execution parent) {
-        super(simulation, parent);
+    public DefaultExecution(Simulation simulation, Execution parent, Event lastEvent) {
+        super(simulation, parent, lastEvent);
+        isProcessSpaceUpdated = false;
     }
 
     public DefaultExecution(Simulation simulation) {
         super(simulation);
+        isProcessSpaceUpdated = false;
     }
 
     public DefaultExecution() {
@@ -37,6 +46,7 @@ public class DefaultExecution extends AbstractExecution {
         isInvariant();
         if (successors != null) return;
 
+        isProcessSpaceUpdated = false;
         successors = new ArrayList<>();
 
         List<Event> possibleNextEvents = ((Tarry) simulation.getAlgorithm()).makePossibleNextEvents();
@@ -45,12 +55,8 @@ public class DefaultExecution extends AbstractExecution {
             event.setSimulation(simulation);
             event.setExecution(this);
 
-            DefaultExecution resultChoice = new DefaultExecution(simulation, this);
-            resultChoice.lastEvent = event;
-            successors.add(resultChoice);
+            successors.add(new DefaultExecution(simulation, this, event));
         });
-
-
 
     }
 
@@ -70,7 +76,7 @@ public class DefaultExecution extends AbstractExecution {
     public Execution getNext(int index) {
         loadSuccessor();
         Execution nextExecution = super.getNext(index);
-        ((JavaAlgorithm)simulation.getAlgorithm()).updateProcessSpace(nextExecution.getLastEvent());
+        updateProcessSpace(nextExecution);
         return nextExecution;
     }
 
@@ -78,5 +84,12 @@ public class DefaultExecution extends AbstractExecution {
     public int getNextCount() {
         loadSuccessor();
         return super.getNextCount();
+    }
+
+    private void updateProcessSpace(Execution execution) {
+        if (!isProcessSpaceUpdated) {
+            ((JavaAlgorithm) simulation.getAlgorithm()).updateProcessSpace(execution.getLastEvent());
+        }
+        isProcessSpaceUpdated = true;
     }
 }

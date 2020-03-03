@@ -22,18 +22,13 @@ public class SendEvent extends DefaultEvent implements tSendEvent {
     }
 
     @Override
-    protected SendEvent clone(DefaultEvent to) {
-        super.clone(to);
-        SendEvent tor = (SendEvent) to;
-        tor.message = this.message;
-        tor.nextState = this.nextState;
-        tor.receiver = this.receiver;
-        return tor;
-    }
-
-    @Override
     public SendEvent clone() {
-        return clone(new SendEvent());
+        SendEvent clonedEvent = (SendEvent) super.clone(new SendEvent());
+        clonedEvent.message = this.message;
+        clonedEvent.nextState = this.nextState;
+        clonedEvent.receiver = this.receiver;
+
+        return clonedEvent;
     }
 
     @Override

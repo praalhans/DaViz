@@ -9,16 +9,11 @@ public class InternalEvent extends DefaultEvent implements tInternalEvent {
         super();
     }
 
-    @Override
-    protected InternalEvent clone(DefaultEvent to) {
-        super.clone(to);
-        InternalEvent tor = (InternalEvent) to;
-        tor.nextState = this.nextState;
-        return tor;
-    }
-
     public InternalEvent clone() {
-        return clone(new InternalEvent());
+        InternalEvent clonedEvent = (InternalEvent) super.clone(new InternalEvent());
+        clonedEvent.nextState = this.nextState;
+
+        return clonedEvent;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.aexiz.daviz.simulation.algorithm.wave.tarry;
 
 import com.aexiz.daviz.simulation.Event;
+import com.aexiz.daviz.simulation.Network;
 import com.aexiz.daviz.simulation.algorithm.AbstractJavaBasicAlgorithm;
 import com.aexiz.daviz.simulation.algorithm.event.ReceiveEvent;
 import com.aexiz.daviz.simulation.algorithm.event.ResultEvent;
@@ -17,10 +18,10 @@ import java.util.List;
 import java.util.Map;
 
 public class Tarry extends AbstractJavaBasicAlgorithm {
+    // Consider moving the flag and channel information to AbstractJavaBasicAlgorithm
     transient boolean isTokenInChannel;
 
     transient Channel channelWithToken;
-    transient boolean isProcessSpaceUpdated;
 
     public Tarry() {
         super();
@@ -43,7 +44,10 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
 
             TarryState processSpace = (TarryState) entry.getValue();
 
-            // foundEvent is not needed, but it was needed to stop verifying if an event is found
+            // foundEvent is not used, but it was needed to stop verifying if an event is found
+            // Initially, the ifs condition within each method was done here, but it was hurting legibility
+            // The scheme below is used as a sort of if/else
+            @SuppressWarnings("unused")
             boolean foundEvent = verifyAndMakeSendEventForNextNeighbor(events, processSpace)
                     || verifyAndMakeSendEventForReplyingParent(events, processSpace)
                     || verifyAndMakeResultEventToTerminate(events, processSpace, node)
@@ -53,23 +57,18 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
         }
         if (events.isEmpty() && finishedProcessCount != processesSpace.size())
             throw new Error("Unknown step of Tarry algorithm");
-        isProcessSpaceUpdated = false;
-
         return events;
     }
 
     @Override
     public void updateProcessSpace(Event event) {
-        if (!isProcessSpaceUpdated) {
-            setTokenInformation(event);
-            super.updateProcessSpace(event);
-        }
-        isProcessSpaceUpdated = true;
+        setTokenInformation(event);
+        super.updateProcessSpace(event);
     }
 
     private void setTokenInformation(Event event) {
         if (event instanceof tSendEvent) {
-            channelWithToken = new Channel( event.getHappensAt(), event.getReceiver());
+            channelWithToken = new Channel(event.getHappensAt(), event.getReceiver());
             isTokenInChannel = true;
         } else {
             channelWithToken = null;
@@ -173,7 +172,7 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
     }
 
     @Override
-    protected void makeInitialNodeStates() {
+    protected void makeInitialNodeStates(Network network) {
         Node initiator = assumption.getInitiator();
         Map<Node, List<Channel>> mapOfChannelsFromNodes = network.makeMapOfChannelsFromNodes();
         mapOfChannelsFromNodes.forEach((node, channels) -> {
@@ -188,7 +187,6 @@ public class Tarry extends AbstractJavaBasicAlgorithm {
 
             processesSpace.put(node, initialState);
             isTokenInChannel = false;
-            isProcessSpaceUpdated = false;
         });
     }
 

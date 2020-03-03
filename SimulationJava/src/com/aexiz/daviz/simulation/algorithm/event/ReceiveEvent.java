@@ -20,18 +20,13 @@ public class ReceiveEvent extends DefaultEvent implements tReceiveEvent {
         this.happensAt = happensAt;
     }
 
-    @Override
-    protected ReceiveEvent clone(DefaultEvent to) {
-        super.clone(to);
-        ReceiveEvent tor = (ReceiveEvent) to;
-        tor.message = this.message;
-        tor.nextState = this.nextState;
-        tor.sender = this.sender;
-        return tor;
-    }
-
     public ReceiveEvent clone() {
-        return clone(new ReceiveEvent());
+        ReceiveEvent clonedEvent = (ReceiveEvent) super.clone(new ReceiveEvent());
+        clonedEvent.message = this.message;
+        clonedEvent.nextState = this.nextState;
+        clonedEvent.sender = this.sender;
+
+        return clonedEvent;
     }
 
     @Override

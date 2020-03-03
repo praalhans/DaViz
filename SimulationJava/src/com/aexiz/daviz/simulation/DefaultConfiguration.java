@@ -18,8 +18,7 @@ public class DefaultConfiguration extends AbstractConfiguration {
         processState = new StateInformation[processes.length];
 
         JavaAlgorithm algorithm = ((JavaAlgorithm) simulation.getAlgorithm());
-        algorithm.setNetwork(simulation.getNetwork());
-        algorithm.makeState();
+        algorithm.makeState(simulation.getNetwork());
         for (int i = 0, processesLength = processes.length; i < processesLength; i++) {
             Node process = processes[i];
             processAlive[i] = true;
