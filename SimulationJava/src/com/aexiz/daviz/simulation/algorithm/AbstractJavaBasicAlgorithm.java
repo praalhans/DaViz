@@ -10,7 +10,7 @@ import com.aexiz.daviz.simulation.viewpoint.Node;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractJavaBasicAlgorithm extends AbstractBasicAlgorithm implements JavaAlgorithm {
+public abstract class AbstractJavaBasicAlgorithm extends AbstractAlgorithm implements JavaAlgorithm, BasicAlgorithm {
     protected Map<Node, Information> processesSpace;
     protected Network network;
 
