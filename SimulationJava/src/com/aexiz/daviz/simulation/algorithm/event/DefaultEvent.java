@@ -9,15 +9,10 @@ public abstract class DefaultEvent extends AbstractEvent implements Cloneable, E
         super();
     }
 
-    @Override
-    public abstract DefaultEvent clone();
-
-    protected DefaultEvent clone(DefaultEvent to) {
-        super.clone(to);
-        return to;
-    }
-
-    static public Event load(Execution execution){
+    static public Event load(Execution execution) {
         return null;
     }
+
+    @Override
+    public abstract DefaultEvent clone();
 }
