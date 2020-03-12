@@ -1,0 +1,58 @@
+module com.aexiz.daviz.sim.Echo where
+    
+    import com.aexiz.daviz.sim.Set
+    import com.aexiz.daviz.sim.Process
+    
+    data RRUI = Received Channel
+              | Replied Channel
+              | Undefined
+              | Initiator
+    derive Eq RRUI
+    
+    -- Process state and message state spaces
+    data PS = PS { neighbors :: Set Channel
+                 , children :: Set Channel
+                 , state :: RRUI }
+    data MS = Broadcast
+    type RS = Bool -- decide or terminate
+    
+    -- State transition function (bulk send, reversed channel)
+    trans :: PS -> ProcessResult RS PS MS
+    -- Step 1.
+    trans (PS c d (Received p)) | (sizeS c) > 0 =
+        PSend s' (ch, Broadcast) where
+            ch = nextS c
+            s' = PS (removeS c ch) (addS d ch) (Received p)
+    trans (PS c d Initiator) | (sizeS c) > 0 =
+        PSend s' (ch, Broadcast) where
+            ch = nextS c
+            s' = PS (removeS c ch) (addS d ch) Initiator
+    -- Step 2.
+    trans (PS c d (Received p)) | (sizeS c) == 0 && (sizeS d) > 0 =
+        PReceive f where
+            f (rch, Broadcast) = let ch = reverseC rch in PS emptyS (removeS d ch) (Received p)
+    trans (PS c d Initiator) | (sizeS c) == 0 && (sizeS d) > 0 =
+        PReceive f where
+            f (rch, Broadcast) = let ch = reverseC rch in PS emptyS (removeS d ch) Initiator
+    -- Step 3.
+    trans (PS c d Undefined) | (sizeS c) > 0 && (sizeS d) == 0 =
+        PReceive f where
+            f (rch, Broadcast) = let ch = reverseC rch in PS (removeS c ch) emptyS (Received ch)
+    -- Step 4.
+    trans (PS c d (Received p)) | (sizeS c) == 0 && (sizeS d) == 0 =
+        PSend s' (p, Broadcast) where
+            s' = PS emptyS emptyS (Replied p)
+    -- Step 5.
+    trans (PS c d (Replied p)) | (sizeS c) == 0 && (sizeS d) == 0 =
+        PResult False
+    -- Step 6.
+    trans (PS c d Initiator) | (sizeS c) == 0 && (sizeS d) == 0 =
+        PResult True
+    -- Partial
+    trans _ = error "Underspecified"
+    
+    procDesc :: Process -> ProcessDescription KnownNetwork RS PS MS
+    procDesc i = PD init trans where
+        init (n, p) | p == i =    PS (outChannels n p) emptyS Initiator
+                    | otherwise = PS (outChannels n p) emptyS Undefined
+    

@@ -1,1 +1,3 @@
-.project
+# Result of building project
+build/
+bin/

@@ -1,0 +1,95 @@
+module com.aexiz.daviz.sim.Event where
+    
+    import Data.List
+    import com.aexiz.daviz.sim.Process
+    
+    -- An event trace is a deterministic result of actions
+    data Event tau sigma mu = ESend { proc :: Process, msg :: mu, recv :: Process, next :: sigma }
+                            | EInternal { proc :: Process, next :: sigma }
+                            | EReceive { proc :: Process, msg :: mu, send :: Process, next :: sigma }
+                            | EResult { proc :: Process, val :: tau }
+    derive Ord (Event tau sigma mu)
+    derive Eq (Event tau sigma mu)
+    
+    nextE :: Event tau sigma mu -> Maybe sigma
+    nextE (ESend _ _ _ n) = Just n
+    nextE (EInternal _ n) = Just n
+    nextE (EReceive _ _ _ n) = Just n
+    nextE (EResult _ _) = Nothing
+    
+    -- Project events to events without state or result
+    project :: [Event tau sigma mu] -> [Event () () mu]
+    project = map projectE
+    
+    projectE :: Event tau sigma mu -> Event () () mu
+    projectE (ESend p m r _) = ESend p m r ()
+    projectE (EInternal p _) = EInternal p ()
+    projectE (EReceive p m s _) = EReceive p m s ()
+    projectE (EResult p n) = EResult p ()
+    
+    -- Predicates on communication events
+    isCommunication :: Event tau sigma mu -> Bool
+    isCommunication (ESend{}) = True
+    isCommunication (EReceive{}) = True
+    isCommunication _ = False
+    
+    -- Predicates on communication events
+    isFinal :: Event tau sigma mu -> Bool
+    isFinal (EResult{}) = True
+    isFinal _ = False
+    
+    -- Corresponding send event
+    correspondent :: Event () () mu -> Event () () mu
+    correspondent (EReceive p m s _) = ESend s m p () -- Here we need projection of state space to ()
+    correspondent x = x
+    
+    -- And order events, such that we group sends and receives by
+    -- mapping all events to corresponding sends, and use natural order
+    orderE :: Ord mu => Event () () mu -> Event () () mu -> Ordering
+    orderE x y = compare (correspondent x) (correspondent y)
+    
+    -- Given a filtered list, bring it into the shape:
+    -- [Send 1, Receive 1, Send 2, Receive 2, ..., Send n, Receive n]
+    sorted :: Ord mu => [Event () () mu] -> [Event () () mu]
+    sorted = sortBy orderE
+    
+    -- Predicates on corresponding events
+    isCorresonding :: Eq mu => Event () () mu -> Event () () mu -> Bool
+    isCorresonding (x@(EReceive{})) (y@(ESend{})) = correspondent x == y
+    isCorresonding _ _ = False
+    
+    isNotCorresonding :: Eq mu => Event () () mu -> Event () () mu -> Bool
+    isNotCorresonding x y = not (isCorresonding x y)
+    
+    -- Recurse until result does not change
+    findFixedPoint :: Eq a => (a -> a) -> a -> a
+    findFixedPoint f x = let h = f x in
+        if h == x then x else findFixedPoint f h
+    
+    -- Special filter that operates on two consecutive elements
+    filter2 :: (a -> a -> Bool) -> [a] -> [a]
+    filter2 _ [] = []
+    filter2 _ [x] = [x]
+    filter2 f (x : y : zs) | f x y = x : filter2 f (y : zs)
+                           | otherwise = filter2 f zs
+    
+    -- Cancellation of the sorted and filtered list of events happens by finding a fixpoint 
+    -- of the operation: traverse the list and remove any occurrence of the sub-list
+    -- [x@(Send{}), y@(Receive{})] such that x corresponds to y.
+    cancel :: Eq mu => [Event () () mu] -> [Event () () mu]
+    cancel = findFixedPoint (filter2 isNotCorresonding)
+
+    -- Retrieve original events based on results (although, state should not matter)
+    rematch :: Eq mu => [Event tau sigma mu] -> [Event () () mu] -> [Event tau sigma mu]
+    rematch xs [] = []
+    rematch xs (y:ys) = find xs : rematch xs ys where
+        find [] = error "Could not find event in rematching"
+        find (x:xs) | (projectE x == y) = x
+                    | otherwise = find xs
+
+    -- Retrieve last state of process (partial function)
+    lastEvent :: Process -> [Event tau sigma mu] -> Event tau sigma mu
+    lastEvent p (x:xs) | p == (Event.proc x) = x
+    lastEvent p (_:xs) = lastEvent p xs
+    lastEvent p [] = error "No last event"
+    

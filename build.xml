@@ -1,0 +1,67 @@
+<project name="DaViz" basedir="." default="clean-build">
+
+	<target name="clean">
+		<delete dir="build" />
+	</target>
+
+	<target name="compile-frege">
+		<mkdir dir="build/generated" />
+
+		<fileset dir="src/frege" id="srcFregeFiles">
+			<include name="**/*.fr" />
+		</fileset>
+		<pathconvert property="srcFregeArgs" refid="srcFregeFiles" pathsep=" " />
+
+		<java jar="lib/fregec.jar" fork="true" failonerror="true">
+			<arg value="-ascii" />
+			<arg value="-latin" />
+			<!-- Compile dependencies first -->
+			<arg value="-make" />
+			<!-- Do not invoke Java compiler -->
+			<arg value="-j" />
+			<arg value="-d" />
+			<arg value="build/generated" />
+			<arg value="-sp" />
+			<arg value="src/frege" />
+			<arg line="${srcFregeArgs}" />
+		</java>
+	</target>
+
+	<target name="extract-runtime">
+		<mkdir dir="build/classes" />
+		<unzip src="lib/fregec.jar" dest="build/classes">
+			<patternset>
+				<include name="frege/run8/*.class" />
+				<include name="frege/run/*.class" />
+				<include name="frege/runtime/*.class" />
+				<include name="frege/Prelude*.class" />
+				<include name="frege/prelude/**/*.class" />
+				<include name="frege/system/*.class" />
+				<include name="frege/control/**/*.class" />
+				<include name="frege/data/**/*.class" />
+				<include name="frege/java/**/*.class" />
+			</patternset>
+		</unzip>
+	</target>
+
+	<target name="compile-java" depends="compile-frege,extract-runtime">
+		<javac includeantruntime="false" srcdir="build/generated" destdir="build/classes" />
+		<javac includeantruntime="false" srcdir="src/java" destdir="build/classes" />
+		<copy todir="build/classes">
+			<fileset dir="src/java" excludes="**/*.java" />
+			<fileset dir="src/frege" excludes="**/*.fr" />
+		</copy>
+	</target>
+
+	<target name="jar" depends="compile-java">
+		<mkdir dir="build/jar" />
+		<jar destfile="build/jar/DaViz.jar" basedir="build/classes">
+			<manifest>
+				<attribute name="Main-Class" value="com.aexiz.daviz.Launcher" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="clean-build" depends="clean,jar" />
+
+</project>
