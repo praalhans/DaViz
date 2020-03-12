@@ -14,6 +14,7 @@ import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowListener;
 import java.util.EventObject;
 import java.util.HashMap;
+import java.util.concurrent.Callable;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -68,7 +69,7 @@ class Controller {
 	
 	private HashMap<String,Action> actionMap = new HashMap<>();
 	
-	SimulationManager simulationManager;
+	private SimulationManager simulationManager;
 	
 	boolean dirty;
 	String filename;
@@ -117,18 +118,23 @@ class Controller {
 		
 		info.setLocation(posleft, postop);
 		info.setSize(300, 300 + spacetop + 250);
+		info.setMinimumSize(new Dimension(300, 300 + spacetop + 250));
 		info.setVisible(true);
 		timeline.setLocation(posleft + 500 + spaceleft + 300 + spaceleft, postop);
 		timeline.setSize(600, 300 + spacetop + 100);
+		timeline.setMinimumSize(new Dimension(600, 300 + spacetop + 100));
 		timeline.setVisible(true);
 		choice.setLocation(posleft + 500 + spaceleft + 300 + spaceleft, postop + 300 + spacetop + 100 + spacetop);
 		choice.setSize(600, 125);
+		choice.setMinimumSize(new Dimension(600, 125));
 		choice.setVisible(true);
 		control.setLocation(posleft + 300 + spaceleft, postop);
 		control.setSize(500, 200);
+		control.setMinimumSize(new Dimension(500, 200));
 		control.setVisible(true);
 		network.setLocation(posleft + 300 + spaceleft, postop + 200 + spacetop);
 		network.setSize(500, 350);
+		network.setMinimumSize(new Dimension(500, 350));
 		network.setVisible(true);
 	}
 	
@@ -450,7 +456,7 @@ class Controller {
 	
 	void start() {
 		simulationManager.afterSimulation(() -> {
-			Algorithms alg = (Algorithms) control.algorithmsBox.getSelectedItem();
+			AlgorithmSelection alg = (AlgorithmSelection) control.algorithmsBox.getSelectedItem();
 			Object[] init = control.initiatorBox.getValue();
 
 			if (networkModel.isEmpty()) {
@@ -521,12 +527,35 @@ class Controller {
 		});
 	}
 	
+	void startTestCase(TestCase testCase) {
+		// Clear any existing model, because we are loading a new one
+		networkModel.clear();
+		control.algorithmsBox.setSelectedItem(testCase.algorithm);
+		// Load the simulation as prepared by the TestCase method.
+		simulationManager.performJob(new Callable<Void>() {
+			public Void call() throws Exception {
+				// By the action listener, the status flags are updated too
+				simulationManager.loadSimulation(testCase.method);
+				return null;
+			}
+		});
+	}
+	
 	void clearSimulation() {
 		selectionModel.clearSelection();
 		listSelectionModel.clearSelection();
 		timelineModel.clear();
 		choiceModel.clear();
-		networkModel.clear();
+	}
+	
+	void stop() {
+		// stopSimulation calls clearSimulation
+		simulationManager.stopSimulation();
+	}
+	
+	void performJob(Callable<Void> call) {
+		// Runs the task in a separate thread
+		simulationManager.performJob(call);
 	}
 	
 	// Executes within AWT dispatch thread

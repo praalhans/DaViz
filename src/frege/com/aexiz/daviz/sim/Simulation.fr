@@ -3,6 +3,7 @@ module com.aexiz.daviz.sim.Simulation where
     import com.aexiz.daviz.sim.Event
     import com.aexiz.daviz.sim.Graph
     import com.aexiz.daviz.sim.Process
+    import Data.List (sortBy)
     
     data Configuration tau sigma mu = Config Network (Process -> Either sigma tau) (ChanState mu)
     
@@ -65,14 +66,17 @@ module com.aexiz.daviz.sim.Simulation where
         (ichm@(_,(chm@((f,t),m)))) <- unreceivedMsgs c p
         let next = fun chm
         [(EReceive p m f next, removeMsg (updateState c p next) ichm)]
-    step c p (PInternal s) = do
+    step c p (PInternal s) | length s > 0 = do
         next <- s
         [(EInternal p next, updateState c p next)]
     step c p (PSend next (chm@((f, t), m))) | p == f && incidentC c f t = do
         [(ESend p m t next, addMsg (updateState c p next) chm)]
+    step c p (PChoose nextF s) | length s > 0 = do
+        (i, msg) <- zip (iterate (+1) 0) s
+        step c p (PSend (nextF i) msg)
     step c p (PResult t) = do
         [(EResult p t, updateResult c p t)]
-    step (Config n pst chs) p _ = error "Invalid simulation"
+    step _ _ _ = error "Invalid simulation"
     
     -- final implementation with non-determinisism
     transitionRelation :: Configuration tau sigma mu -> ProcessDescription rho tau sigma mu -> [(Event tau sigma mu, Configuration tau sigma mu)]
@@ -80,9 +84,15 @@ module com.aexiz.daviz.sim.Simulation where
         (p, st) <- processStates c
         step c p (pd st)
     
+    -- Always put result events at last
+    stepOrder :: (Event tau sigma mu, Configuration tau sigma mu) -> (Event tau sigma mu, Configuration tau sigma mu) -> Ordering
+    stepOrder ((EResult _ _), _) _ = Gt
+    stepOrder _ ((EResult _ _), _) = Lt
+    stepOrder _ _ = Eq
+    
     -- temporary implementation, only at most a single successor
     simulation :: Configuration tau sigma mu -> ProcessDescription rho tau sigma mu -> Simulation tau sigma mu
-    simulation st pd = Sim st (map f (transitionRelation st pd)) where
+    simulation st pd = Sim st (map f (sortBy stepOrder (transitionRelation st pd))) where
     	f (e, c) = (e, simulation c pd)
     
     

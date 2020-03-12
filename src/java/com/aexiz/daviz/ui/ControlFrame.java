@@ -10,6 +10,8 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.net.URI;
 import java.util.ArrayList;
@@ -50,14 +52,13 @@ public class ControlFrame extends JFrame {
 	
 	JCoolBar toolbar;
 	JPanel pane;
-	JComboBox<Algorithms> algorithmsBox;
+	JComboBox<AlgorithmSelection> algorithmsBox;
 	JLabel assumptionAcyclic;
 	JLabel assumptionCentralized;
 	JLabel assumptionDecentralized;
 	JAssignmentField initiatorBox;
 	
 	JMenu testCaseMenu;
-	TestCases[] testCases;
 	JMenuItem[] testCaseButtons;
 	
 	public static void launch() {
@@ -93,10 +94,11 @@ public class ControlFrame extends JFrame {
 		algorithmsBox = new JComboBox<>();
 		algorithmsBox.setOpaque(false);
 		algorithmsBox.setBorder(null);
-		algorithmsBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		algorithmsBox.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
 				Object selection = algorithmsBox.getSelectedItem();
-				Algorithms alg = (Algorithms) selection;
+				AlgorithmSelection alg = (AlgorithmSelection) selection;
 				assumptionAcyclic.setEnabled(alg.isAcyclicGraph());
 				assumptionCentralized.setEnabled(alg.isCentralized());
 				assumptionDecentralized.setEnabled(alg.isDecentralized());
@@ -186,6 +188,7 @@ public class ControlFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				controller.restoreWindows();
+				controller.control.requestFocus();
 			}
 		});
 		showWindowTimer.setRepeats(false);
@@ -207,15 +210,16 @@ public class ControlFrame extends JFrame {
 	
 	void loadAlgorithms() {
 		if (SHOW_TESTCASE_MENU) {
-			controller.simulationManager.performJob(new Callable<Void>() {
+			controller.performJob(new Callable<Void>() {
 				public Void call() throws Exception {
 					// Loading the TestCases class also pulls in the Haskell compiled classes
-					testCases = TestCases.getTestCases();
+					final TestCase[] testCases = TestCase.getTestCases();
 					SwingUtilities.invokeAndWait(() -> {
 						testCaseButtons = new JMenuItem[testCases.length];
 						for (int i = 0; i < testCases.length; i++) {
 							testCaseButtons[i] = new JMenuItem(testCases[i].getPage() + " (" + testCases[i].getName() + ")");
 							testCaseButtons[i].setActionCommand("load");
+							testCaseButtons[i].putClientProperty("TestCase", testCases[i]);
 							testCaseButtons[i].addActionListener(handler);
 							testCaseMenu.add(testCaseButtons[i]);
 						}
@@ -225,12 +229,12 @@ public class ControlFrame extends JFrame {
 				}
 			});
 		}
-		controller.simulationManager.performJob(new Callable<Void>() {
+		controller.performJob(new Callable<Void>() {
 			public Void call() throws Exception {
 				// Loading the Algorithms also pulls in the Haskell compiled classes
-				Algorithms[] algorithms = Algorithms.getAlgorithms();
+				final AlgorithmSelection[] algorithms = AlgorithmSelection.getAlgorithms();
 				SwingUtilities.invokeAndWait(() -> {
-					for (Algorithms alg : algorithms) {
+					for (AlgorithmSelection alg : algorithms) {
 						algorithmsBox.addItem(alg);
 					}
 				});
@@ -264,7 +268,7 @@ public class ControlFrame extends JFrame {
 				putValue(Action.SMALL_ICON, new ImageIcon(ImageRoot.class.getResource("d16/clock_history_frame.png")));
 			}
 			public void actionPerformed(ActionEvent e) {
-				controller.simulationManager.stopSimulation();
+				controller.stop();
 			}
 		});
 		controller.registerAction("new-scenario", new AbstractAction() {
@@ -382,8 +386,8 @@ public class ControlFrame extends JFrame {
 	
 	void populateMenuBar(Controller controller, JMenuBar menubar) {
 		if (SHOW_TESTCASE_MENU) {
-			testCaseMenu = new JMenu("Tests");
-			testCaseMenu.setMnemonic('t');
+			testCaseMenu = new JMenu("Book");
+			testCaseMenu.setMnemonic('b');
 			menubar.add(testCaseMenu, 0);
 			// Test case menu is populated asynchronously
 		}
@@ -409,7 +413,8 @@ public class ControlFrame extends JFrame {
 		mb = new JMenuItem(controller.getAction("new-scenario"));
 		mb.setToolTipText(null);
 		menu.add(mb);
-		mb = new JMenuItem(controller.getAction("load-scenario"));
+		// TODO: saving and loading scenarios is not yet supported
+		/*mb = new JMenuItem(controller.getAction("load-scenario"));
 		mb.setToolTipText(null);
 		menu.add(mb);
 		mb = new JMenuItem(controller.getAction("save-scenario"));
@@ -417,7 +422,7 @@ public class ControlFrame extends JFrame {
 		menu.add(mb);
 		mb = new JMenuItem(controller.getAction("save-as-scenario"));
 		mb.setToolTipText(null);
-		menu.add(mb);
+		menu.add(mb);*/
 		menu.addSeparator();
 		mb = new JMenuItem(controller.getAction("exit"));
 		mb.setToolTipText(null);
@@ -426,6 +431,10 @@ public class ControlFrame extends JFrame {
 		
 		menu = new JMenu("Help");
 		menu.setMnemonic('h');
+		mb = new JMenuItem(controller.getAction("help-contents"));
+		mb.setToolTipText(null);
+		menu.add(mb);
+		menu.addSeparator();
 		mb = new JMenuItem(controller.getAction("help-about"));
 		mb.setToolTipText(null);
 		menu.add(mb);
@@ -435,17 +444,12 @@ public class ControlFrame extends JFrame {
 	class Handler implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			controller.simulationManager.performJob(new Callable<Void>() {
-				public Void call() throws Exception {
-					for (int i = 0; i < testCases.length; i++) {
-						if (e.getSource() == testCaseButtons[i]) {
-							controller.simulationManager.loadSimulation(testCases[i].method);
-							break;
-						}
-					}
-					return null;
+			for (int i = 0; i < testCaseButtons.length; i++) {
+				if (e.getSource() == testCaseButtons[i]) {
+					TestCase test = (TestCase) testCaseButtons[i].getClientProperty("TestCase");
+					controller.startTestCase(test);
 				}
-			});
+			}
 		}
 		
 	}

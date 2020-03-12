@@ -52,7 +52,7 @@ public class JAssignmentField extends JPanel {
 		add(field, BorderLayout.CENTER);
 		add(picker, BorderLayout.LINE_END);
 		field.setBounds(0, 0, 105, height);
-		int shiftleft = -2;
+		int shiftleft = 2;
 		picker.setBounds(105 - shiftleft, 0, 25 + shiftleft, height);
 	}
 	
@@ -64,11 +64,9 @@ public class JAssignmentField extends JPanel {
 				text += value[i].toString();
 			}
 		}
-		if (isEnabled()) {
-			customDocument.locked = false;
-			field.setText(text);
-			customDocument.locked = true;
-		}
+		customDocument.locked = false;
+		field.setText(text);
+		customDocument.locked = true;
 	}
 	
 	protected void filterValue() {
@@ -86,6 +84,11 @@ public class JAssignmentField extends JPanel {
 		replayValue();
 	}
 	
+	public void setValue(Object[] selection) {
+		value = selection.clone();
+		replayValue();
+	}
+	
 	public void clearValue() {
 		value = null;
 		updateField();
@@ -99,13 +102,7 @@ public class JAssignmentField extends JPanel {
 		super.setEnabled(enabled);
 		field.setEnabled(enabled);
 		picker.setEnabled(enabled);
-		if (!enabled) {
-			customDocument.locked = false;
-			clearValue();
-			customDocument.locked = true;
-		} else {
-			updateField();
-		}
+		updateField();
 	}
 	
 	public void setSelectionModel(ObjectSelectionModel selectionModel) {

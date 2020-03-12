@@ -17,7 +17,8 @@ module com.aexiz.daviz.sim.Tarry where
     -- Process state space
     --	Holding the token - Yes or No
     --	Process state
-    --	Adjacent channels (not visited yet) 
+    --	Adjacent channels (not visited yet)
+    --  Selected channel
     type PS = (Bool, DUI, Set Channel)
 
     -- Message state space
@@ -44,11 +45,12 @@ module com.aexiz.daviz.sim.Tarry where
     -- 	Send the token `tok` to the channel `ch` 
     -- 		and remove this channel from the initial `n` channels
     --		and update the current process space token and channels
-    trans (True, p, n) | sizeS n > 0 = PSend s' (ch, tok) where
-        s' = (False, p, n')
-        n' = removeS n ch
-        ch = nextS n
-        tok = ()
+    trans (True, p, n) | sizeS n > 0 = PChoose f xs where
+        nn   = normalS n
+        xs   = map g nn
+        g ch = (ch, tok)
+        tok  = ()
+        f i  = (False, p, removeS n (nn!!i))
         
     -- Step 2.
     -- 	Scenario: I am not the initiator, I have the token and I cannot forward it to another process

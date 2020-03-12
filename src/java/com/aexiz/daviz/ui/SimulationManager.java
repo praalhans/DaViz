@@ -640,8 +640,9 @@ class SimulationManager {
 			}
 		}
 		// Update time to fire time listener
-		float timeline = controller.timelineModel.getCurrentTimeWithoutDelta();
-		controller.timelineModel.setCurrentTime(timeline);
+		// TODO: maybe enable this later if necessary: I do not know what it does
+		//float timeline = controller.timelineModel.getCurrentTimeWithoutDelta();
+		//controller.timelineModel.setCurrentTime(timeline);
 	}
 	
 	// Executes within worker thread
@@ -664,6 +665,7 @@ class SimulationManager {
 					if (nodes[i].hasClientProperty(Node.CLIENT_PROPERTY_POSITION_Y, Float.class))
 						y = (Float) nodes[i].getClientProperty(Node.CLIENT_PROPERTY_POSITION_Y);
 					nodeModels[i] = controller.networkModel.createNode(x, y);
+					nodes[i].putClientProperty(Node.CLIENT_PROPERTY_NODEMODEL, nodeModels[i]);
 					nodeModels[i].setLabel(nodes[i].getLabel());
 					controller.networkModel.addNode(nodeModels[i]);
 				}
@@ -700,6 +702,7 @@ class SimulationManager {
 						// Create a directed edge
 						channelEdgeModels[i] = controller.networkModel.createEdge(from, to);
 						channelEdgeModels[i].setDirected(true);
+						channels[i].putClientProperty(Channel.CLIENT_PROPERTY_EDGEMODEL, channelEdgeModels[i]);
 						controller.networkModel.addEdge(channelEdgeModels[i]);
 					} else {
 						// Convert to a non-directed edge
@@ -771,6 +774,8 @@ class SimulationManager {
 		if (path != null && path.size() > 1)
 			st.step(path.get(path.size() - 1));
 		while (st.hasNext()) {
+			// Introduce a short delay, so the user can follow what changes happen on the UI
+			Thread.sleep(50l);
 			st.step(st.getNext());
 		}
 		executionPath.clear();
@@ -779,6 +784,7 @@ class SimulationManager {
 		
 	}
 	
+	// Executes within AWT dispatch thread
 	void afterSimulation(Runnable r) {
 		performJob(() -> {
 			SwingUtilities.invokeAndWait(r);
@@ -807,6 +813,13 @@ class SimulationManager {
 			});
 			Simulation sim = method.call();
 			loadNetwork(sim.getNetwork());
+			if (sim.hasInitiator()) {
+				Node initiator = sim.getInitiator();
+				NodeModel nodeModel = (NodeModel) initiator.getClientProperty(Node.CLIENT_PROPERTY_NODEMODEL);
+				controller.control.initiatorBox.setValue(new Object[] { nodeModel });
+			} else {
+				controller.control.initiatorBox.clearValue();
+			}
 			loadExecution(sim.getExecution(), null);
 			SwingUtilities.invokeAndWait(() -> {
 				// Update time to update choice window
@@ -826,7 +839,7 @@ class SimulationManager {
 				try {
 					while (true) {
 						Callable<Void> job = queue.take();
-						SwingUtilities.invokeAndWait(() -> {
+						SwingUtilities.invokeLater(() -> {
 							controller.setWaiting(true);
 						});
 						try {
@@ -835,7 +848,7 @@ class SimulationManager {
 							System.err.println("Worker thread job failed with exception");
 							ex.printStackTrace();
 						} finally {
-							SwingUtilities.invokeAndWait(() -> {
+							SwingUtilities.invokeLater(() -> {
 								controller.setWaiting(false);
 							});
 						}

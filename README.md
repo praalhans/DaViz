@@ -3,6 +3,8 @@ DaViz - Distributed Algorithms Visualization
 
 DaViz is a tool for simulating and visualizing distributed algorithms.
 
+[![Build Status](https://travis-ci.com/praalhans/DaViz.svg?branch=master)](https://travis-ci.com/praalhans/DaViz)
+
 ## Installation and starting the tool
 
 Ensure you have a Java 8 runtime installed on your machine, or a Java runtime that is compatible with Java 8.

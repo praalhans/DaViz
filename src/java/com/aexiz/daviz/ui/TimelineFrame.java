@@ -65,6 +65,8 @@ class TimelineFrame extends JDialog {
 		});
 		JScrollPane scrollPane = new JScrollPane(timeline);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+		scrollPane.getHorizontalScrollBar().setUnitIncrement(10);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(10);
 		
 		JPanel bottomPane = new JPanel(new BorderLayout());
 		status = new JStatus();

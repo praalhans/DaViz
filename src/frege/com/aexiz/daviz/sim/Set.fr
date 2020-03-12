@@ -1,6 +1,10 @@
 module com.aexiz.daviz.sim.Set where
     
-    import Data.Foldable
+    import frege.Prelude hiding (fold, foldr, foldr1, foldl, foldl1, 
+        mapM_, forM_, sequence_, msum, concat, concatMap, and, or,
+        any, all, sum, product, maximum, minimum, elem, notElem)
+    
+    import Data.Foldable hiding (minimumBy, maximumBy, find)
     import Data.List
     
     -- The list may contain duplicate elements

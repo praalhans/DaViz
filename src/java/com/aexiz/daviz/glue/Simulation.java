@@ -51,6 +51,16 @@ public class Simulation {
 		if (proc.network != network) throw new Error("Process not owned by simulation");
 		assumption.initiator = proc;
 	}
+	public boolean hasInitiator() {
+		if (assumption == null) throw new Error("No algorithm");
+		return assumption.centralized_user;
+	}
+	public Viewpoint.Node getInitiator() {
+		if (assumption == null) throw new Error("No algorithm");
+		if (!assumption.centralized_user) throw new Error("Algorithm is not centralized by user-input");
+		if (network == null) throw new Error("Network is not set");
+		return assumption.initiator;
+	}
 	
 	public void load() {
 		network.load();

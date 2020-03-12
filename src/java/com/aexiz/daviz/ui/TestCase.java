@@ -7,30 +7,30 @@ import com.aexiz.daviz.glue.Viewpoint.*;
 import com.aexiz.daviz.glue.alg.*;
 
 // Note that loading this class will also load all Haskell code
-class TestCases {
+class TestCase {
 	
-	String name;
 	String page;
+	AlgorithmSelection algorithm;
 	Callable<Simulation> method;
 	
-	TestCases(String page, String name, Callable<Simulation> method) {
+	TestCase(String page, AlgorithmSelection algorithm, Callable<Simulation> method) {
 		this.page = page;
-		this.name = name;
+		this.algorithm = algorithm;
 		this.method = method;
 	}
 	String getPage() { return page; }
-	String getName() { return name; }
+	String getName() { return algorithm.name; }
 	
-	static TestCases[] getTestCases() {
-		return new TestCases[] {
-				new TestCases("Page 20", "Tarry", TestCases::page20book),
-				new TestCases("Page 21", "DFS", TestCases::page21book_dfs),
-				new TestCases("Page 21", "DFS + visited", TestCases::page21book_visited),
-				new TestCases("Page 22", "Awerbuch", TestCases::page22book_awerbuch),
-				new TestCases("Page 22", "Cidon", TestCases::page22book_cidon),
-				new TestCases("Page 23", "Tree", TestCases::page23book_tree),
-				new TestCases("Page 23", "Tree + ack", TestCases::page23book_tree_ack),
-				new TestCases("Page 24", "Echo", TestCases::page24book_echo)
+	static TestCase[] getTestCases() {
+		return new TestCase[] {
+				new TestCase("Page 20", AlgorithmSelection.TARRY, TestCase::page20book),
+				new TestCase("Page 21", AlgorithmSelection.DFS, TestCase::page21book_dfs),
+				new TestCase("Page 21", AlgorithmSelection.VISITED, TestCase::page21book_visited),
+				new TestCase("Page 22", AlgorithmSelection.AWERBUCH, TestCase::page22book_awerbuch),
+				new TestCase("Page 22", AlgorithmSelection.CIDON, TestCase::page22book_cidon),
+				new TestCase("Page 23", AlgorithmSelection.TREE, TestCase::page23book_tree),
+				new TestCase("Page 23", AlgorithmSelection.TREEACK, TestCase::page23book_tree_ack),
+				new TestCase("Page 24", AlgorithmSelection.ECHO, TestCase::page24book_echo)
 		};
 	}
 	

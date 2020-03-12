@@ -14,12 +14,13 @@ module com.aexiz.daviz.sim.Process where
     -- Assumptions
     type KnownNetwork = (Network, Process)
     
-    -- A process results is a non-deterministic description
+    -- A process result
     data ProcessResult tau sigma mu = 
-    	PReceive (ChanMsg mu -> sigma) -- to must be process
-        | PInternal [sigma]            -- must not be empty
-        | PSend sigma (ChanMsg mu)     -- from must be process - Process Space (Message Space) 
-        | PResult tau                  -- last result
+    	  PReceive (ChanMsg mu -> sigma)      -- the received message determines next state
+        | PInternal [sigma]                   -- internal non-deterministic choice (must not be empty)
+        | PSend sigma (ChanMsg mu)            -- send a message, and go to next state
+        | PChoose (Int -> sigma) [ChanMsg mu] -- select where to send a message to: one is chosen, and that determines the next state
+        | PResult tau                         -- the process ends, and give the last result
     
     data ProcessDescription rho tau sigma mu = PD { init :: rho -> sigma
                                                   , step :: sigma -> ProcessResult tau sigma mu }
@@ -47,24 +48,4 @@ module com.aexiz.daviz.sim.Process where
             PInternal xs -> PInternal xs
             PSend s m -> PSend s m
             PResult t -> PResult t
-    
-    -- A process result with bulk sending
-    data ProcessResult2 tau sigma mu = P2Receive (ChanMsg mu -> sigma) -- to must be process
-                                     | P2Internal [sigma] -- must not be empty
-                                     | P2Send sigma [ChanMsg mu] -- from must be process
-                                     | P2Result tau -- last result
-    data ProcessDescription2 rho tau sigma mu = PD2 { init :: rho -> sigma
-                                                    , step :: sigma -> ProcessResult2 tau sigma mu }
-    -- Convert pd2 back to pd
-    pd2_to_pd :: ProcessDescription2 rho tau sigma mu -> ProcessDescription rho tau (sigma, [ChanMsg mu]) mu 
-    pd2_to_pd (PD2 init step) = PD init' step' where
-        init' r = (init r, [])
-        step' (s, []) = case step s of
-            P2Receive f -> PReceive g where
-                g (rch, m) = (f (rch, m), [])
-            P2Internal xs -> PInternal (map g xs) where
-                g x = (x, [])
-            P2Send s ms -> PInternal [(s, ms)]
-            P2Result t -> PResult t
-        step' (s, x:xs) = PSend (s, xs) x
-    
+            PChoose f xs -> PChoose f xs
