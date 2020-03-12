@@ -6,10 +6,12 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
@@ -34,6 +36,7 @@ public class JAssignmentField extends JPanel {
 		super(null);
 		Handler h = new Handler();
 		field = new JTextField();
+		field.setBorder(BorderFactory.createLineBorder(UIManager.getColor("Button.darkShadow")));
 		height = field.getPreferredSize().height;
 		field.setPreferredSize(new Dimension(105, height));
 		field.setBackground(Color.WHITE);
@@ -49,8 +52,8 @@ public class JAssignmentField extends JPanel {
 		add(field, BorderLayout.CENTER);
 		add(picker, BorderLayout.LINE_END);
 		field.setBounds(0, 0, 105, height);
-		int shiftleft = 0;
-		picker.setBounds(105 - shiftleft, -1, 25 + shiftleft, height + 2);
+		int shiftleft = -2;
+		picker.setBounds(105 - shiftleft, 0, 25 + shiftleft, height);
 	}
 	
 	protected void updateField() {

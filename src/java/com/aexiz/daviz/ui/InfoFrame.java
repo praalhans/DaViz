@@ -29,6 +29,7 @@ class InfoFrame extends JDialog {
 		icons.add(new ImageIcon(ImageRoot.class.getResource("d16/preferences.png")).getImage());
 		icons.add(new ImageIcon(ImageRoot.class.getResource("d32/preferences.png")).getImage());
 		setIconImages(icons);
+		setType(Window.Type.UTILITY);
 		
 		table = new JInfoTable();
 		
@@ -37,9 +38,6 @@ class InfoFrame extends JDialog {
 		
 		Container contentPane = getContentPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
-		
-		setType(Window.Type.UTILITY);
-		setResizable(false);
 	}
 	
 	// Called by Controller to create actions

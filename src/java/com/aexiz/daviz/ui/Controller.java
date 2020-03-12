@@ -112,32 +112,27 @@ class Controller {
 	void restoreWindows() {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int spaceleft = 25, spacetop = 25;
-		int posleft = (screenSize.width - 200 - spaceleft - 400 - spaceleft - 600 - spaceleft) / 2;
+		int posleft = (screenSize.width - 300 - spaceleft - 500 - spaceleft - 600 - spaceleft) / 2;
 		int postop = (screenSize.height - 300 - spacetop - 250) / 2;
 		
-		info.setLocation(posleft + 5, postop + 5);
-		info.setSize(new Dimension(200 - 10, 300 + spacetop + 250 - 10));
-		if (!info.isVisible())
-			info.setVisible(true);
-		timeline.setLocation(posleft + 400 + spaceleft + 200 + spaceleft, postop);
+		info.setLocation(posleft, postop);
+		info.setSize(300, 300 + spacetop + 250);
+		info.setVisible(true);
+		timeline.setLocation(posleft + 500 + spaceleft + 300 + spaceleft, postop);
 		timeline.setSize(600, 300 + spacetop + 100);
-		if (!timeline.isVisible())
-			timeline.setVisible(true);
-		choice.setLocation(posleft + 400 + spaceleft + 200 + spaceleft, postop + 300 + spacetop + 100 + spacetop);
+		timeline.setVisible(true);
+		choice.setLocation(posleft + 500 + spaceleft + 300 + spaceleft, postop + 300 + spacetop + 100 + spacetop);
 		choice.setSize(600, 125);
-		if (!choice.isVisible())
-			choice.setVisible(true);
-		control.setLocation(posleft + 200 + spaceleft + 5, postop + 5);
-		control.setSize(400 - 10, 200 - 10);
-		if (!control.isVisible())
-			control.setVisible(true);
-		network.setLocation(posleft + 200 + spaceleft, postop + 200 + spacetop);
-		network.setSize(400, 350);
-		if (!network.isVisible())
-			network.setVisible(true);
+		choice.setVisible(true);
+		control.setLocation(posleft + 300 + spaceleft, postop);
+		control.setSize(500, 200);
+		control.setVisible(true);
+		network.setLocation(posleft + 300 + spaceleft, postop + 200 + spacetop);
+		network.setSize(500, 350);
+		network.setVisible(true);
 	}
 	
-	JMenuBar createMenuBar() {
+	private JMenuBar createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu("Window");
 		menu.setMnemonic('w');
@@ -177,7 +172,7 @@ class Controller {
 			{
 				putValue(Action.NAME, "Information");
 				putValue(Action.MNEMONIC_KEY, KeyEvent.VK_I);
-				putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
+				putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F8, 0));
 			}
 			public void actionPerformed(ActionEvent e) {
 				info.setVisible(true);
@@ -190,7 +185,7 @@ class Controller {
 			{
 				putValue(Action.NAME, "Simulation");
 				putValue(Action.MNEMONIC_KEY, KeyEvent.VK_S);
-				putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
+				putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F9, 0));
 			}
 			public void actionPerformed(ActionEvent e) {
 				control.setVisible(true);
@@ -203,7 +198,7 @@ class Controller {
 			{
 				putValue(Action.NAME, "Network");
 				putValue(Action.MNEMONIC_KEY, KeyEvent.VK_N);
-				putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0));
+				putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F10, 0));
 			}
 			public void actionPerformed(ActionEvent e) {
 				network.setVisible(true);
@@ -216,7 +211,7 @@ class Controller {
 			{
 				putValue(Action.NAME, "Timeline");
 				putValue(Action.MNEMONIC_KEY, KeyEvent.VK_T);
-				putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0));
+				putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F11, 0));
 			}
 			public void actionPerformed(ActionEvent e) {
 				timeline.setVisible(true);
@@ -229,7 +224,7 @@ class Controller {
 			{
 				putValue(Action.NAME, "Choice");
 				putValue(Action.MNEMONIC_KEY, KeyEvent.VK_C);
-				putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
+				putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F12, 0));
 				setEnabled(false);
 			}
 			public void actionPerformed(ActionEvent e) {
@@ -531,6 +526,7 @@ class Controller {
 		listSelectionModel.clearSelection();
 		timelineModel.clear();
 		choiceModel.clear();
+		networkModel.clear();
 	}
 	
 	// Executes within AWT dispatch thread

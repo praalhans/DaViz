@@ -2,7 +2,7 @@ package com.aexiz.daviz.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.EventQueue;
+import java.awt.Desktop;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
@@ -27,9 +28,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
 import com.aexiz.daviz.images.ImageRoot;
@@ -41,7 +42,7 @@ public class ControlFrame extends JFrame {
 	
 	private static final long serialVersionUID = 6858557427390573562L;
 	
-	private static final boolean SHOW_TESTCASE_MENU = false;
+	private static final boolean SHOW_TESTCASE_MENU = true;
 
 	AboutFrame about;
 	Controller controller;
@@ -68,7 +69,6 @@ public class ControlFrame extends JFrame {
 		icons.add(new ImageIcon(ImageRoot.class.getResource("d16/multitool.png")).getImage());
 		icons.add(new ImageIcon(ImageRoot.class.getResource("d32/multitool.png")).getImage());
 		setIconImages(icons);
-		setResizable(false);
 		
 		about = new AboutFrame(this);
 		
@@ -105,9 +105,7 @@ public class ControlFrame extends JFrame {
 		});
 		gbc.anchor = GridBagConstraints.LINE_START;
 		gbc.gridx = 1;
-		gbc.gridwidth = 2;
 		gbc.gridy = 0;
-		gbc.weightx = 1.0;
 		gbl.setConstraints(algorithmsBox, gbc);
 		pane.add(algorithmsBox);
 		
@@ -159,6 +157,14 @@ public class ControlFrame extends JFrame {
 		gbl.setConstraints(initiatorBox, gbc);
 		pane.add(initiatorBox);
 		
+		JPanel fillPanel = new JPanel();
+		gbc.anchor = GridBagConstraints.LINE_START;
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		gbc.gridwidth = 2;
+		gbc.weighty = 1.0f;
+		pane.add(fillPanel);
+		
 		Container contentPane = getContentPane();
 		contentPane.add(topPane, BorderLayout.PAGE_START);
 		contentPane.add(pane, BorderLayout.CENTER);
@@ -168,13 +174,22 @@ public class ControlFrame extends JFrame {
 		controller.registerGlobalActions();
 		controller.populateMenuBars();
 		controller.installFocusListeners();
-		controller.restoreWindows();
 		controller.refreshActions();
 		initiatorBox.setSelectionModel(controller.selectionModel);
 		loadAlgorithms();
 		updateTitle();
 		
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		setVisible(true);
+		
+		Timer showWindowTimer = new Timer(10, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.restoreWindows();
+			}
+		});
+		showWindowTimer.setRepeats(false);
+		showWindowTimer.start();
 	}
 	
 	void updateTitle() {
@@ -313,6 +328,21 @@ public class ControlFrame extends JFrame {
 				System.exit(0);
 			}
 		});
+		controller.registerAction("help-contents", new AbstractAction() {
+			private static final long serialVersionUID = 345831661808747964L;
+			{
+				putValue(Action.NAME, "Contents");
+				putValue(Action.MNEMONIC_KEY, KeyEvent.VK_C);
+				putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
+			}
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Desktop.getDesktop().browse(new URI("https://github.com/praalhans/DaViz/wiki"));
+				} catch (Exception ex) {
+					getToolkit().beep();
+				}
+			}
+		});
 		controller.registerAction("help-about", new AbstractAction() {
 			private static final long serialVersionUID = 345831661808747964L;
 			{
@@ -351,10 +381,12 @@ public class ControlFrame extends JFrame {
 	}
 	
 	void populateMenuBar(Controller controller, JMenuBar menubar) {
-		/*testCaseMenu = new JMenu("Tests");
-		testCaseMenu.setMnemonic('t');
-		menubar.add(testCaseMenu, 0);*/
-		// Test case menu is populated asynchronously
+		if (SHOW_TESTCASE_MENU) {
+			testCaseMenu = new JMenu("Tests");
+			testCaseMenu.setMnemonic('t');
+			menubar.add(testCaseMenu, 0);
+			// Test case menu is populated asynchronously
+		}
 		
 		JMenu menu = new JMenu("Simulation");
 		menu.setMnemonic('s');
@@ -377,7 +409,7 @@ public class ControlFrame extends JFrame {
 		mb = new JMenuItem(controller.getAction("new-scenario"));
 		mb.setToolTipText(null);
 		menu.add(mb);
-		/*mb = new JMenuItem(controller.getAction("load-scenario"));
+		mb = new JMenuItem(controller.getAction("load-scenario"));
 		mb.setToolTipText(null);
 		menu.add(mb);
 		mb = new JMenuItem(controller.getAction("save-scenario"));
@@ -385,7 +417,7 @@ public class ControlFrame extends JFrame {
 		menu.add(mb);
 		mb = new JMenuItem(controller.getAction("save-as-scenario"));
 		mb.setToolTipText(null);
-		menu.add(mb);*/
+		menu.add(mb);
 		menu.addSeparator();
 		mb = new JMenuItem(controller.getAction("exit"));
 		mb.setToolTipText(null);
