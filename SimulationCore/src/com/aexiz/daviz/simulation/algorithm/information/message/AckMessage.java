@@ -1,13 +1,12 @@
 package com.aexiz.daviz.simulation.algorithm.information.message;
 
-import java.util.Map;
+import java.util.HashMap;
 
 public class AckMessage extends AbstractMessage {
     public AckMessage() {
-        super(
-                "ack",
-                Map.of("", "Ack")
-        );
+        super("ack", new HashMap<String, String>() {{
+            put("", "Ack");
+        }});
     }
 
     @Override

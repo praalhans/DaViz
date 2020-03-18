@@ -1,13 +1,12 @@
 package com.aexiz.daviz.simulation.algorithm.information.message;
 
-import java.util.Map;
+import java.util.HashMap;
 
 public class InfoMessage extends AbstractMessage {
     public InfoMessage() {
-        super(
-                "info",
-                Map.of("", "Info")
-        );
+        super("info", new HashMap<String, String>() {{
+            put("", "Info");
+        }});
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.aexiz.daviz.simulation.algorithm.information.state;
 
 import com.aexiz.daviz.simulation.algorithm.information.AbstractInformation;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public abstract class AbstractState extends AbstractInformation implements PropertyVisitor {
@@ -13,7 +14,9 @@ public abstract class AbstractState extends AbstractInformation implements Prope
     }
 
     public AbstractState(String state) {
-        super(Map.of("", state));
+        super(new HashMap<String, String>() {{
+            put("", "state");
+        }});
         this.state = state;
     }
 

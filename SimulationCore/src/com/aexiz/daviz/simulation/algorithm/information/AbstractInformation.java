@@ -5,6 +5,7 @@ import com.aexiz.daviz.simulation.algorithm.information.result.ResultInformation
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
 import com.aexiz.daviz.simulation.algorithm.information.state.StateInformation;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public abstract class AbstractInformation implements Information {
@@ -12,7 +13,7 @@ public abstract class AbstractInformation implements Information {
 
     public AbstractInformation() {
         validateObject();
-        parameters = Map.of();
+        parameters = new HashMap<>();
     }
 
     public AbstractInformation(Map<String, String> parameters) {

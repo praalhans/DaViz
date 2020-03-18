@@ -1,9 +1,11 @@
 package com.aexiz.daviz.simulation.algorithm.information.result;
 
-import java.util.Map;
+import java.util.HashMap;
 
 public class DecidedResult extends AbstractResult {
     public DecidedResult() {
-        super("Decided", Map.of("", "Decided"));
+        super("Decided", new HashMap<String, String>() {{
+            put("", "Decided");
+        }});
     }
 }
