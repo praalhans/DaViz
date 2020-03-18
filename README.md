@@ -8,7 +8,7 @@ The steps below explain how to setup and run DaViz. For a detailed description o
 
 ### Prerequisites
 
-- [Java](https://www.oracle.com/java/technologies/javase-downloads.html) v11.0.1+
+- Java OpenJDK 1.8
 - [Frege](https://github.com/Frege/frege) v3.25.42+ (available in [lib](lib/) directory)
 - [IntelliJ IDEA](https://www.jetbrains.com/idea/) (Community version is enough)
 
