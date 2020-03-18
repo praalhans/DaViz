@@ -12,7 +12,7 @@ public class ReceivedSeenState extends AbstractViewpointState {
                 seem ? "ReceivedSeen" : "ReceivedUnseen",
                 new HashMap<String, String>() {{
                     put("", "Received");
-                    put("Seen token?", seem ? "true" : "false");
+                    put("Seen token?", String.valueOf(seem));
                     put("From:", channel.to.getLabel());
                 }}
         );

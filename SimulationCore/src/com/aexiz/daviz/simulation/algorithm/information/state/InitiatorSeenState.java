@@ -9,7 +9,7 @@ public class InitiatorSeenState extends AbstractState {
                 seem ? "InitiatorSeen" : "InitiatorUnseen",
                 new HashMap<String, String>() {{
                     put("", "Initiator");
-                    put("Seen token?", seem ? "true" : "false");
+                    put("Seen token?", String.valueOf(seem));
                 }}
         );
     }

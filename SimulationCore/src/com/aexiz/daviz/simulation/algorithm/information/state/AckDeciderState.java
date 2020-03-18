@@ -10,7 +10,7 @@ public class AckDeciderState extends AbstractViewpointState {
                 channel,
                 "Decider",
                 new HashMap<String, String>() {{
-                    put("Decider", channel.to.getLabel());
+                    put("Decider:", channel.to.getLabel());
                 }}
         );
     }
