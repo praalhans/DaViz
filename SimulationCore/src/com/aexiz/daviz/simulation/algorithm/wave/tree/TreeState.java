@@ -4,8 +4,8 @@ import com.aexiz.daviz.simulation.algorithm.information.state.AbstractAlgorithmS
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
 import com.aexiz.daviz.simulation.viewpoint.Channel;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class TreeState extends AbstractAlgorithmState {
     List<Channel> neighbors;
@@ -26,9 +26,9 @@ public class TreeState extends AbstractAlgorithmState {
 
     @Override
     public void makeProperties() {
-        properties = Map.of(
-                "State", state,
-                "Neighbors", makeNodesProperty(neighbors)
-        );
+        properties = new HashMap<String, Object>() {{
+            put("State", state);
+            put("Neighbors", makeNodesProperty(neighbors));
+        }};
     }
 }

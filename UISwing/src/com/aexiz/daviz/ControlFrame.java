@@ -149,7 +149,11 @@ public class ControlFrame extends JFrame {
 
     void updateTitle() {
         String title = "DaViz - ";
-        title += Objects.requireNonNullElse(controller.filename, "Untitled");
+        if (controller.filename != null) {
+            title += controller.filename;
+        } else {
+            title += "Untitled";
+        }
         if (controller.isDirty()) {
             title += "*";
         }

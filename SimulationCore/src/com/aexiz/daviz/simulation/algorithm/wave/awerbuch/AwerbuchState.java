@@ -4,8 +4,8 @@ import com.aexiz.daviz.simulation.algorithm.information.state.AbstractAlgorithmS
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
 import com.aexiz.daviz.simulation.viewpoint.Channel;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class AwerbuchState extends AbstractAlgorithmState {
     boolean hasToken;
@@ -63,15 +63,15 @@ public class AwerbuchState extends AbstractAlgorithmState {
 
     @Override
     public void makeProperties() {
-        properties = Map.of(
-                "Has token?", String.valueOf(hasToken),
-                "State", state,
-                "Informing", makeNodesProperty(inform),
-                "Waiting for", makeNodesProperty(acked),
-                "Candidates", makeNodesProperty(forward),
-                "Neighbors", makeNodesProperty(info),
-                "Reply to:", last == null ? "None" : last.to.getLabel(),
-                "Ack:", toAck == null ? "None" : toAck.to.getLabel()
-        );
+        properties = new HashMap<String, Object>() {{
+            put("Has token?", String.valueOf(hasToken));
+            put("State", state);
+            put("Informing", makeNodesProperty(inform));
+            put("Waiting for", makeNodesProperty(acked));
+            put("Candidates", makeNodesProperty(forward));
+            put("Neighbors", makeNodesProperty(info));
+            put("Reply to:", last == null ? "None" : last.to.getLabel());
+            put("Ack:", toAck == null ? "None" : toAck.to.getLabel());
+        }};
     }
 }

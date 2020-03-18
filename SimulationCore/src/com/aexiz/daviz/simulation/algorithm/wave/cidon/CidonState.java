@@ -4,8 +4,8 @@ import com.aexiz.daviz.simulation.algorithm.information.state.AbstractAlgorithmS
 import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
 import com.aexiz.daviz.simulation.viewpoint.Channel;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class CidonState extends AbstractAlgorithmState {
     boolean hasToken;
@@ -42,12 +42,12 @@ public class CidonState extends AbstractAlgorithmState {
 
     @Override
     public void makeProperties() {
-        properties = Map.of(
-                "Has token?", String.valueOf(hasToken),
-                "State", state,
-                "Token to", intention == null ? "None" : intention.to.getLabel(),
-                "Candidates", makeNodesProperty(forward),
-                "Neighbors", makeNodesProperty(info)
-        );
+        properties = new HashMap<String, Object>() {{
+            put("Has token?", String.valueOf(hasToken));
+            put("State", state);
+            put("Token to", intention == null ? "None" : intention.to.getLabel());
+            put("Candidates", makeNodesProperty(forward));
+            put("Neighbors", makeNodesProperty(info));
+        }};
     }
 }

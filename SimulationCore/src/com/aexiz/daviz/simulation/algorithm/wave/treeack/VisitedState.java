@@ -5,8 +5,8 @@ import com.aexiz.daviz.simulation.algorithm.information.state.PropertyVisitor;
 import com.aexiz.daviz.simulation.viewpoint.Channel;
 import com.aexiz.daviz.simulation.viewpoint.Node;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class VisitedState extends AbstractAlgorithmState {
     List<Node> hasToken;
@@ -31,10 +31,10 @@ public class VisitedState extends AbstractAlgorithmState {
 
     @Override
     public void makeProperties() {
-        properties = Map.of(
-                "Has token?", hasToken == null ? "false" : hasToken.toString(),
-                "State", state,
-                "Neighbors", makeNodesProperty(neighbors)
-        );
+        properties = new HashMap<String, Object>() {{
+            put("Has token?", String.valueOf(hasToken));
+            put("State", state);
+            put("Neighbors", makeNodesProperty(neighbors));
+        }};
     }
 }
