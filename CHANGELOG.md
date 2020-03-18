@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.2.0-rc.4](https://github.com/praalhans/DaViz/releases/tag/v0.2.0-rc.4)
+
+Date: 18 Mar 2020
+
+This pre-release downgrade DaViz v0.2.x JDK from OpenJDK 11 to OpenJDK 1.8 
+
 ## [v0.2.0-rc.3](https://github.com/praalhans/DaViz/releases/tag/v0.2.0-rc.3)
 
 Date: 03 Mar 2020
