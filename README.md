@@ -15,7 +15,13 @@ The steps below explain how to setup and run DaViz. For a detailed description o
 ### Setup
 
 1. Clone the repository using `git clone git@github.com:praalhans/DaViz.git`
-1. Open the project in IntelliJ IDEA 
+1. Open the project in IntelliJ IDEA
+
+There might be the need to download the Jetbrains metadata annotations. To do so, follow the instructions on [Add org.jetbrains.annotations to other projects](https://www.jetbrains.com/help/idea/annotating-source-code.html#add-annotations). Currently, the project uses version `18.0.0` for the annotation package.
+
+#### Windows only
+
+To use the provided scripts, you might need to add the `.SH` extension to the variable path `PATHEXT`.
 
 ### Build and Execution
 
@@ -39,7 +45,7 @@ Although this workflow overhead is minimal since the project is small, we know t
 
 ### Generating Executable JAR
 
-Configurations to generating executable JARs are also provided. To run these configurations, go to `Build > Build artifacts` and select the desired configuration. Currently, there are 2 configurations: a Java native solution and a Java-Haskell/Frege solution. The resulting build will be located at `out/artifacts`.
+Configurations to generating executable JARs are also provided. To run these configurations, go to `Build > Build artefacts` and select the desired configuration. Currently, there are 2 configurations: a Java native solution and a Java-Haskell/Frege solution. The resulting build will be located at `out/artefacts`.
 
 For additional configurations, refers to the [Package your application in a JAR](https://www.jetbrains.com/help/idea/packaging-a-module-into-a-jar-file.html) docs.
 
@@ -48,7 +54,7 @@ For additional configurations, refers to the [Package your application in a JAR]
 For learning Haskell, refer to:
 
 - [Haskell Tutorial by Derek Banas](https://www.youtube.com/watch?v=02_H3LjqMr8) - YouTube Video - Great introduction to Haskell.
-- [Learn You a Haskell by miran lipovača](http://learnyouahaskell.com/) - Free online or paid printable Book - Great coverage fo Haskell, from basics to advanced scenarios.
+- [Learn You a Haskell by Miran Lipovača](http://learnyouahaskell.com/) - Free online or paid printable Book - Great coverage fo Haskell, from basics to advanced scenarios.
 - [Haskell Documentation](https://www.haskell.org/documentation/)
 - [The Haskell Cheatsheet by Justin Bailey](https://cheatsheet.codeslower.com/)
 - [Introduction to Functional Programming](https://courses.edx.org/courses/course-v1:DelftX+FP101x+3T2015/course/) - FreeEdx course to learn functional programming focused on Haskell.

@@ -438,9 +438,7 @@ class Controller {
 
     void clear() {
         simulationManager.stopSimulation();
-        simulationManager.afterSimulation(() -> {
-            clear0();
-        });
+        simulationManager.afterSimulation(this::clear0);
     }
 
     private void clear0() {
@@ -449,7 +447,16 @@ class Controller {
         refreshActions();
     }
 
+    /**
+     * Prepare information for simulation and start it.
+     *
+     * First it validates if the network defined by the user complies with the assumptions of the selected algorithm.
+     * Then a Simulation object is created and the selected algorithm is provided to the simulation.
+     * Then a Network object is created and the network nodes, channels and initiator are identified and set in the object.
+     * Then the network is loaded and returned.
+     */
     void start() {
+        // TODO Split this method in smaller methods with specific goals
         simulationManager.afterSimulation(() -> {
             AlgorithmUI alg = (AlgorithmUI) control.algorithmsBox.getSelectedItem();
             Object[] init = control.initiatorBox.getValue();

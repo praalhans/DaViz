@@ -39,6 +39,8 @@ public class Echo extends AbstractFregeBasicAlgorithm {
         result.setChildren(helper.forEdgeSet(st.mem$children.call()));
         TRRUI up = st.mem$state.call();
         result.setState(makeState(helper, up));
+        result.makeProperties();
+
         return result;
     }
 

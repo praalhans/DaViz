@@ -8,7 +8,7 @@ import frege.prelude.PreludeBase.TTuple2;
 import frege.run8.Lazy;
 import frege.run8.Thunk;
 
-public class DefaultNetwork extends AbstractNetwork implements Network {
+public class DefaultNetwork extends AbstractNetwork {
     // Haskell dependence
     transient TSet<TTuple2<Integer, Integer>> hNetwork;
 

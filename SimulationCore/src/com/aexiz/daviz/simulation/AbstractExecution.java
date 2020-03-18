@@ -18,6 +18,24 @@ public abstract class AbstractExecution implements Execution {
      */
     Event lastEvent;
 
+    public AbstractExecution(Simulation simulation, Configuration configuration) {
+        this.simulation = simulation;
+        this.configuration = configuration;
+    }
+
+    public AbstractExecution(Simulation simulation, Execution parent, Event lastEvent) {
+        this.simulation = simulation;
+        this.parent = parent;
+        this.lastEvent = lastEvent;
+    }
+
+    public AbstractExecution(Simulation simulation) {
+        this.simulation = simulation;
+    }
+
+    public AbstractExecution() {
+    }
+
     protected void isInvariant() {
         if (simulation == null) throw new Error("Invalid simulation");
     }
@@ -63,6 +81,11 @@ public abstract class AbstractExecution implements Execution {
     @Override
     public void setLastEvent(Event lastEvent) {
         this.lastEvent = lastEvent;
+    }
+
+    @Override
+    public Event getLastEvent() {
+        return lastEvent;
     }
 
     @Override
@@ -119,5 +142,20 @@ public abstract class AbstractExecution implements Execution {
         // Reverse
         Collections.reverse(result);
         return result;
+    }
+
+    @Override
+    public Event[] getLinkedEvents() {
+        ArrayList<Event> events = new ArrayList<>();
+        // Traverse and collect
+        Execution elem = this;
+        while (elem.hasEvents()) {
+            events.add(elem.getLastEvent());
+            elem = elem.getParent();
+        }
+
+        Collections.reverse(events);
+        AbstractEvent.matchAndLinkEvents(events);
+        return events.toArray(new Event[0]);
     }
 }

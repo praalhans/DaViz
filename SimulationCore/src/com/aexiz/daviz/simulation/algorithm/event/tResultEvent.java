@@ -1,4 +1,6 @@
 package com.aexiz.daviz.simulation.algorithm.event;
 
-public interface tResultEvent {
+import com.aexiz.daviz.simulation.Event;
+
+public interface tResultEvent extends Event {
 }

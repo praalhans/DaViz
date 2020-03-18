@@ -50,6 +50,10 @@ public class Node extends Viewpoint {
         return this.hId == hId;
     }
 
+    public boolean isEqualTo(Node node) {
+        return this.hId == node.gethId();
+    }
+
     public boolean isMarked() {
         return marked;
     }

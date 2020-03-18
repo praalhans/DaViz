@@ -2,7 +2,7 @@ package com.aexiz.daviz.simulation;
 
 import com.aexiz.daviz.simulation.algorithm.Algorithm;
 
-public class DefaultSimulation extends AbstractSimulation implements Simulation {
+public class DefaultSimulation extends AbstractSimulation {
 
 
     public DefaultSimulation() {
@@ -22,7 +22,7 @@ public class DefaultSimulation extends AbstractSimulation implements Simulation 
         execution = new DefaultExecution();
         execution.setSimulation(this);
         execution.setConfiguration(ic);
-        execution.loadFirst();
+        ((DefaultExecution) execution).loadFirst();
     }
 
 }

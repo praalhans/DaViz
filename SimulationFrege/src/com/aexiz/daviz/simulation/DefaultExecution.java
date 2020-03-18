@@ -20,7 +20,6 @@ public class DefaultExecution extends AbstractExecution implements Execution {
     DefaultExecution() {
     }
 
-    @Override
     public void loadFirst() {
         if (simulation == null) throw new Error("Invalid simulation");
         if (!(configuration instanceof InitialConfiguration)) throw new Error("Invalid initial configuration");
@@ -71,21 +70,6 @@ public class DefaultExecution extends AbstractExecution implements Execution {
             successors.add(result);
             succ = succ.asCons().mem2.call();
         }
-    }
-
-    @Override
-    public Event[] getLinkedEvents() {
-        ArrayList<DefaultEvent> events = new ArrayList<>();
-        // Traverse and collect
-        DefaultExecution elem = this;
-        while (elem.hasEvents()) {
-            events.add((DefaultEvent) elem.lastEvent);
-            elem = (DefaultExecution) elem.parent;
-        }
-
-        Collections.reverse(events);
-        DefaultEvent.matchAndLinkEvents(events);
-        return events.toArray(new Event[0]);
     }
 
     @Override

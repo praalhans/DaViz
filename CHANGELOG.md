@@ -1,6 +1,30 @@
 # Changelog
 
-## v2.0.0-rc.0
+## [v0.2.0-rc.3](https://github.com/praalhans/DaViz/releases/tag/v0.2.0-rc.3)
+
+Date: 03 Mar 2020
+
+This pre-release do a fix in Tarry algorithm where it would fail to simulate in some cases.
+
+### Fix 
+
+- [#33](https://github.com/praalhans/DaViz/pull/33) - Fix Tarry skipping some events on non-deterministic choices
+
+## [v0.2.0-rc.2](https://github.com/praalhans/DaViz/releases/tag/v0.2.0-rc.2)
+
+Date: 29 Feb 2020
+
+This pre-release provide a lightwave prototype of DaViz using native Java for the simulation. Tarry algorithm is implemented as starter of the native Java port.
+
+### Features
+
+- [#28](https://github.com/praalhans/DaViz/pull/28) - Add native Java prototype of the simulation
+
+### Fix
+
+- [#26](https://github.com/praalhans/DaViz/pull/26) - Fix UndefinedState label to `Undefined`
+
+## [v0.2.0-rc.1](https://github.com/praalhans/DaViz/releases/tag/v0.2.0-rc.1)
 
 Date: 23 Feb 2020
 
@@ -12,7 +36,7 @@ The Frege simulation can still be used but the Java simulation module is however
 
 - [#16](https://github.com/praalhans/DaViz/pull/16) - Prepare application to receive a java port
 
-## v1.0.1
+## [v0.1.1](https://github.com/praalhans/DaViz/releases/tag/v0.1.1)
 
 Date 8 Jan 2020
 
@@ -28,7 +52,7 @@ This release provides minor fixes and improvements, ensuring that the Tree and E
 
 - [8](https://github.com/praalhans/DaViz/pull/8) - Describe Frege implementation of Tarry and Tree algorithms
 
-## v1.0.0
+## [v0.1.0](https://github.com/praalhans/DaViz/releases/tag/v0.1.0)
 
 Date: 9 Dec 2019
 

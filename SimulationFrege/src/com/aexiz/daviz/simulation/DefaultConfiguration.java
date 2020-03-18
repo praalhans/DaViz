@@ -27,7 +27,7 @@ public class DefaultConfiguration extends AbstractConfiguration implements Confi
         if (simulation == null) throw new Error("Invalid simulation");
         if (hConfiguration == null) throw new Error("Invalid Haskell configuration");
         // Assume network remains unchanged
-        Algorithm alg = simulation.getAlgorithm();
+        FregeAlgorithm alg = (FregeAlgorithm) simulation.getAlgorithm();
         FregeHelper helper = new FregeHelper(simulation);
         // 1. Read out state of each process
         processes = simulation.getNetwork().getNodes();
@@ -41,7 +41,7 @@ public class DefaultConfiguration extends AbstractConfiguration implements Confi
                 processState[i] = null; // TODO unload result space
             } else {
                 processAlive[i] = true;
-                processState[i] = ((FregeAlgorithm) alg).makeAndUnloadState(helper, j.mem1.call());
+                processState[i] = alg.makeAndUnloadState(helper, j.mem1.call());
             }
         }
         // 2. Read out channel state
@@ -62,7 +62,7 @@ public class DefaultConfiguration extends AbstractConfiguration implements Confi
             boolean found = false;
             for (int i = 0; i < channels.length; i++) {
                 if (channels[i].from.ishIdEqual(f) && channels[i].to.ishIdEqual(t)) {
-                    channelState[i].add(((FregeAlgorithm) alg).makeAndUnloadMessage(helper, msg));
+                    channelState[i].add(alg.makeAndUnloadMessage(helper, msg));
                     found = true;
                     break;
                 }
