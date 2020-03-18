@@ -15,7 +15,7 @@ public abstract class AbstractState extends AbstractInformation implements Prope
 
     public AbstractState(String state) {
         super(new HashMap<String, String>() {{
-            put("", "state");
+            put("", state);
         }});
         this.state = state;
     }

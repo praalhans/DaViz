@@ -10,7 +10,7 @@ public class RepliedState extends AbstractViewpointState {
                 channel,
                 "Replied",
                 new HashMap<String, String>() {{
-                    put(":", "Replied");
+                    put("", "Replied");
                     put("To:", channel.to.getLabel());
                 }}
         );

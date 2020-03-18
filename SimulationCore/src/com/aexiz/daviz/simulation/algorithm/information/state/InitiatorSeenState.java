@@ -8,7 +8,7 @@ public class InitiatorSeenState extends AbstractState {
         super(
                 seem ? "InitiatorSeen" : "InitiatorUnseen",
                 new HashMap<String, String>() {{
-                    put(":", "Initiator");
+                    put("", "Initiator");
                     put("Seen token?", seem ? "true" : "false");
                 }}
         );
